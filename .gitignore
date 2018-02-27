@@ -5,7 +5,6 @@ db.json
 node_modules/
 public/
 .deploy*/
-.travis/
 package-lock.json
 wordpress.xml
 public/
