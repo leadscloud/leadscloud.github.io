@@ -1,0 +1,19 @@
+---
+title: google-doodle-纪念李小龙诞辰70周年
+tags:
+  - Google
+id: 201001
+categories:
+  - 个人日志
+date: 2010-11-27 05:48:59
+---
+
+[![](http://www.guao.hk/wp-content/uploads/2010/11/brucelee2010-hp.jpg "brucelee2010-hp")](http://www.google.com.hk/search?q=%E6%9D%8E%E5%B0%8F%E9%BE%99&amp;ct=brucelee2010-hp&amp;oi=ddle&amp;hl=zh-CN)
+
+> <span style="font-weight: normal;">**李小龙**（</span>[<span style="font-weight: normal;">英语</span>](http://zh.wikipedia.org/zh-cn/%E8%8B%B1%E8%AF%AD "英语")<span style="font-weight: normal;">：</span><span lang="en" xml:lang="en"><span style="font-weight: normal;">Bruce Lee</span></span><span style="font-weight: normal;">，</span>[<span style="font-weight: normal;">1940年</span>](http://zh.wikipedia.org/zh-cn/1940%E5%B9%B4 "1940年")<span style="font-weight: normal;">11月27日晨7时12分</span><sup id="_ref-0" class="reference">[<span style="font-weight: normal;">[1]</span>](http://zh.wikipedia.org/zh-cn/%E6%9D%8E%E5%B0%8F%E9%BE%99#_note-0)</sup><span style="font-weight: normal;">－</span>[<span style="font-weight: normal;">1973年</span>](http://zh.wikipedia.org/zh-cn/1973%E5%B9%B4 "1973年")[<span style="font-weight: normal;">7月20日</span>](http://zh.wikipedia.org/zh-cn/7%E6%9C%8820%E6%97%A5 "7月20日")<span style="font-weight: normal;">），原名李振藩，</span>[<span style="font-weight: normal;">乳名</span>](http://zh.wikipedia.org/zh-cn/%E4%B9%B3%E5%90%8D "乳名")<span style="font-weight: normal;">细凤，出生于</span>[<span style="font-weight: normal;">美国</span>](http://zh.wikipedia.org/zh-cn/%E7%BE%8E%E5%9C%8B "美国")[<span style="font-weight: normal;">加州</span>](http://zh.wikipedia.org/zh-cn/%E5%8A%A0%E5%B7%9E "加州")[<span style="font-weight: normal;">旧金山</span>](http://zh.wikipedia.org/zh-cn/%E4%B8%89%E8%97%A9%E5%B8%82 "旧金山")<span style="font-weight: normal;">，幼年及孩童时期于</span>[<span style="font-weight: normal;">香港</span>](http://zh.wikipedia.org/zh-cn/%E9%A6%99%E6%B8%AF "香港")<span style="font-weight: normal;">渡过。李小龙无论是在生时或去世后，他的电影风格及形象均对全世界华人以至世界各地有影响力，他亦被认为是</span>[<span style="font-weight: normal;">武术技击家</span>](http://zh.wikipedia.org/zh-cn/%E6%AD%A6%E8%A1%93%E5%AE%B6 "武术家")<span style="font-weight: normal;">、哲学家、也是</span>[<span style="font-weight: normal;">截拳道</span>](http://zh.wikipedia.org/zh-cn/%E6%88%AA%E6%8B%B3%E9%81%93 "截拳道")<span style="font-weight: normal;">武道哲学的创立者。李小龙的电影生涯主要在</span>[<span style="font-weight: normal;">1970年代</span>](http://zh.wikipedia.org/zh-cn/1970%E5%B9%B4%E4%BB%A3 "1970年代")<span style="font-weight: normal;">的香港，他的名字可算是香港</span>[<span style="font-weight: normal;">武打电影</span>](http://zh.wikipedia.org/w/index.php?title=%E6%AD%A6%E6%89%93%E9%9B%BB%E5%BD%B1&amp;action=edit&amp;redlink=1 "武打电影（尚未撰写）")<span style="font-weight: normal;">，甚至是</span>[<span style="font-weight: normal;">华语电影</span>](http://zh.wikipedia.org/zh-cn/%E4%B8%AD%E5%9C%8B%E9%9B%BB%E5%BD%B1 "中国电影")<span style="font-weight: normal;">的象征之一。</span>
+> 
+> 李小龙表示，[截拳道](http://zh.wikipedia.org/zh-cn/%E6%88%AA%E6%8B%B3%E9%81%93 "截拳道")是[武道](http://zh.wikipedia.org/zh-cn/%E6%AD%A6%E9%81%93 "武道")[哲学](http://zh.wikipedia.org/zh-cn/%E5%93%B2%E5%AD%B8 "哲学")，旨在指引人走上自我解放、思想解放、心灵解放的自由之路。
+> 
+> 李小龙从实战出发，以[中国武术](http://zh.wikipedia.org/zh-cn/%E4%B8%AD%E5%9C%8B%E6%AD%A6%E8%A1%93 "中国武术")[咏春拳](http://zh.wikipedia.org/zh-cn/%E8%A9%A0%E6%98%A5%E6%8B%B3 "咏春拳")之拳法为技术基础，吸收世界各派系搏击术之精华，以武入哲，创立[截拳道](http://zh.wikipedia.org/zh-cn/%E6%88%AA%E6%8B%B3%E9%81%93 "截拳道")武道哲学。这种武术观念，在当时专以套路为主的中国传统武术环境，有极为重要的价值与意义。但就整体而言，李小龙的武术体系虽具备务实的武术思维与实战概念，但并未具体落实，建立出一套具有完整训练体系与专有攻击技术的特殊武术方式，可供后人学习并检视。另方面，借由不断的吹捧与神化，李小龙本身的武术实力也已经被形塑为无所不能的武神象征。目前并没有李小龙公开参加各类世界武术比赛的详实记录，李氏本人亦从未谈及公开参赛的武术经验。种种李氏无敌的说法，绝大多数是旁人转述或闭门试手，是否可信，不无疑问。
+> 
+> Via [维基百科](http://zh.wikipedia.org/zh/%E6%9D%8E%E5%B0%8F%E9%BE%99)

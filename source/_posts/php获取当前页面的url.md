@@ -1,0 +1,31 @@
+---
+title: php获取当前页面的url
+tags:
+  - PHP
+id: 36001
+categories:
+  - PHP学习
+date: 2010-09-11 09:28:55
+---
+
+<span style="font-family: Arial; font-size: 14px; color: rgb(65, 65, 65); line-height: 22px; "></span>
+
+PHP获取当前URL，这是我在网上找到的一段代码。写的很好，自己修改了下。<span id="more-2706"></span>
+<pre style="margin-top: 0px; margin-right: 0px; margin-bottom: 20px; margin-left: 0px; padding-top: 4px; padding-right: 4px; padding-bottom: 4px; padding-left: 4px; background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(237, 243, 222); white-space: pre-wrap; word-wrap: break-word; background-position: initial initial; background-repeat: initial initial; "><span style="color: blue; ">&lt;?php</span><span style="color: gray; ">
+</span><span style="color: green; ">function</span><span style="color: gray; "> </span><span style="color: blue; ">get_current_url</span><span style="color: olive; ">{</span><span style="color: gray; ">
+&nbsp;&nbsp; &nbsp;</span><span style="color: rgb(0, 0, 139); ">$current_page_url</span><span style="color: gray; "> = </span><span style="color: rgb(139, 0, 0); ">'</span><span style="color: red; ">http</span><span style="color: rgb(139, 0, 0); ">'</span><span style="color: gray; ">;
+&nbsp;&nbsp; &nbsp;</span><span style="color: green; ">if</span><span style="color: gray; "> </span><span style="color: olive; ">(</span><span style="color: rgb(0, 0, 139); ">$_SERVER</span><span style="color: olive; ">[</span><span style="color: rgb(139, 0, 0); ">"</span><span style="color: red; ">HTTPS</span><span style="color: rgb(139, 0, 0); ">"</span><span style="color: olive; ">]</span><span style="color: gray; "> == </span><span style="color: rgb(139, 0, 0); ">"</span><span style="color: red; ">on</span><span style="color: rgb(139, 0, 0); ">"</span><span style="color: olive; ">)</span><span style="color: gray; "> </span><span style="color: olive; ">{</span><span style="color: gray; ">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;</span><span style="color: rgb(0, 0, 139); ">$current_page_url</span><span style="color: gray; "> .= </span><span style="color: rgb(139, 0, 0); ">"</span><span style="color: red; ">s</span><span style="color: rgb(139, 0, 0); ">"</span><span style="color: gray; ">;
+&nbsp;&nbsp; &nbsp;</span><span style="color: olive; ">}</span><span style="color: gray; ">
+&nbsp;&nbsp; &nbsp; </span><span style="color: rgb(0, 0, 139); ">$current_page_url</span><span style="color: gray; "> .= </span><span style="color: rgb(139, 0, 0); ">"</span><span style="color: red; ">://</span><span style="color: rgb(139, 0, 0); ">"</span><span style="color: gray; ">;
+&nbsp;&nbsp; &nbsp; </span><span style="color: green; ">if</span><span style="color: gray; "> </span><span style="color: olive; ">(</span><span style="color: rgb(0, 0, 139); ">$_SERVER</span><span style="color: olive; ">[</span><span style="color: rgb(139, 0, 0); ">"</span><span style="color: red; ">SERVER_PORT</span><span style="color: rgb(139, 0, 0); ">"</span><span style="color: olive; ">]</span><span style="color: gray; "> != </span><span style="color: rgb(139, 0, 0); ">"</span><span style="color: red; ">80</span><span style="color: rgb(139, 0, 0); ">"</span><span style="color: olive; ">)</span><span style="color: gray; "> </span><span style="color: olive; ">{</span><span style="color: gray; ">
+&nbsp;&nbsp; &nbsp;</span><span style="color: rgb(0, 0, 139); ">$current_page_url</span><span style="color: gray; "> .= </span><span style="color: rgb(0, 0, 139); ">$_SERVER</span><span style="color: olive; ">[</span><span style="color: rgb(139, 0, 0); ">"</span><span style="color: red; ">SERVER_NAME</span><span style="color: rgb(139, 0, 0); ">"</span><span style="color: olive; ">]</span><span style="color: gray; ">.</span><span style="color: rgb(139, 0, 0); ">"</span><span style="color: red; ">:</span><span style="color: rgb(139, 0, 0); ">"</span><span style="color: gray; ">.</span><span style="color: rgb(0, 0, 139); ">$_SERVER</span><span style="color: olive; ">[</span><span style="color: rgb(139, 0, 0); ">"</span><span style="color: red; ">SERVER_PORT</span><span style="color: rgb(139, 0, 0); ">"</span><span style="color: olive; ">]</span><span style="color: gray; ">.</span><span style="color: rgb(0, 0, 139); ">$_SERVER</span><span style="color: olive; ">[</span><span style="color: rgb(139, 0, 0); ">"</span><span style="color: red; ">REQUEST_URI</span><span style="color: rgb(139, 0, 0); ">"</span><span style="color: olive; ">]</span><span style="color: gray; ">;
+&nbsp;&nbsp; &nbsp;</span><span style="color: olive; ">}</span><span style="color: gray; "> </span><span style="color: green; ">else</span><span style="color: gray; "> </span><span style="color: olive; ">{</span><span style="color: gray; ">
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;</span><span style="color: rgb(0, 0, 139); ">$current_page_url</span><span style="color: gray; "> .= </span><span style="color: rgb(0, 0, 139); ">$_SERVER</span><span style="color: olive; ">[</span><span style="color: rgb(139, 0, 0); ">"</span><span style="color: red; ">SERVER_NAME</span><span style="color: rgb(139, 0, 0); ">"</span><span style="color: olive; ">]</span><span style="color: gray; ">.</span><span style="color: rgb(0, 0, 139); ">$_SERVER</span><span style="color: olive; ">[</span><span style="color: rgb(139, 0, 0); ">"</span><span style="color: red; ">REQUEST_URI</span><span style="color: rgb(139, 0, 0); ">"</span><span style="color: olive; ">]</span><span style="color: gray; ">;
+&nbsp;&nbsp; &nbsp;</span><span style="color: olive; ">}</span><span style="color: gray; ">
+&nbsp;&nbsp; &nbsp;</span><span style="color: green; ">return</span><span style="color: gray; "> </span><span style="color: rgb(0, 0, 139); ">$current_page_url</span><span style="color: gray; ">;
+</span><span style="color: olive; ">}</span><span style="color: gray; ">
+</span><span style="color: blue; ">?&gt;</span>
+</pre>
+
+&nbsp;最后就可以使用<span style="font-family: monospace; color: rgb(0, 0, 255); white-space: pre-wrap; ">get_current_url()</span> 获取当前页面的URL了
