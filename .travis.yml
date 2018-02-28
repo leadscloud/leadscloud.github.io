@@ -36,6 +36,7 @@ script:
 # 生成静态页面
 - node_modules/.bin/hexo clean
 - node_modules/.bin/hexo generate
+- gulp
 
 after_success:
 # 部署到 GitHub Pages 和 VPS

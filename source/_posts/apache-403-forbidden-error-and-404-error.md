@@ -9,7 +9,8 @@ categories:
 date: 2010-09-01 11:43:06
 ---
 
-<pre class="brush: plain">Options +FollowSymLinks
+```
+Options +FollowSymLinks
 RewriteEngine on
 RewriteCond %{HTTP_HOST} ^rockscrusher.com [NC]
 RewriteRule ^(.*)$ http://www.rockscrusher.com/$1 [L,R=301]
@@ -21,13 +22,13 @@ RewriteRule ^(.*)index.php$ http://www.rockscrusher.com/$1 [R=301,L]
 ErrorDocument 404 /404/
 ErrorDocument 403 /403.html
 
-&lt;Limit GET HEAD POST&gt;
+<Limit GET HEAD POST>
 order allow,deny
 deny from 116.236.
 #deny from 114.92.
 allow from all
-&lt;/Limit&gt;
-</pre>
+</Limit>
+```
 
 上面是我的htaccess的文件。可以设置404错误，403错误。以及301重定向。
 
@@ -41,22 +42,22 @@ apache 服务器才可以用.htaccess文件设置。由于windows下不能新建
 
 ### 如何把旧域名转向到新域名
 
-<pre class="brush: plain">
+```
 Options +FollowSymLinks
 RewriteEngine on
 RewriteRule (.*) http://www.newdomain.com/$1 [R=301,L]
-</pre>
+```
 
 另外htaccess有个功能可以让你自己的服务器下新建许多文件来，然后让其它域名解析到这个空间，对应不同的文件夹。
 
-<pre class="brush: plain">
+```
 RewriteCond %{REQUEST_URI} !^/ver1.0/
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ /ver1.0/$1
 RewriteCond %{HTTP_HOST} ^(www.)binqcrusher.net$
 RewriteRule ^(/)?$ ver1.0/ [L]
-</pre>
+```
 
 这样访问binqcrusher.net实际访问是的根目录下的ver1.0文件夹。
 
@@ -64,7 +65,7 @@ RewriteRule ^(/)?$ ver1.0/ [L]
 
 如果你的网站二级目录下有wordpress建的站，它本身的.htaccess文件会和目前设置的301重定向文件(根目录的.htaccess)有冲突，一般情况下为，你输入二级目录时不带"/"会定向到错误的目录。依我的站为例case目录下用wordpress建的。当你输入http://www.rockscrusher.com/case时不会定向到http://www.rockscrusher.com/case/，下面的htaccess文件能解决此问题
 
-<pre class="brush: shell">
+```
 # BEGIN WordPress
 RewriteEngine on
 #
@@ -94,14 +95,14 @@ RewriteRule ^(.*)$ - [S=1]
 # else rewrite the request to WP
 RewriteRule . /case/index.php [L]
 # END wordpress
-</pre>
+```
 
 ### 附：PHP 下的301 重定向
 
-<pre class="brush: plain">
-&lt;?php Header( "HTTP/1.1 301 Moved Permanently" );
-Header( "Location: http://www.rockscrusher.com" );?&gt;
-</pre>
+```
+<?php Header( "HTTP/1.1 301 Moved Permanently" );
+Header( "Location: http://www.rockscrusher.com" );?>
+```
 
 **相关阅读**
 

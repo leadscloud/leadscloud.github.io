@@ -9,7 +9,8 @@ tags:
 
 下面的代码是在你的wordpress评论里，把所有的链接都改变为链接形式为：`http://yourdomain.com/?r=http://www.userdomain.com` 的形式。然后在robots.txt里加上 Disallow: /?r=*
 
-<pre class="lang:php decode:true ">//评论链接跳转
+```
+//评论链接跳转
 add_filter('get_comment_author_link', 'add_redirect_comment_link', 1);
 add_filter('comment_text', 'add_redirect_comment_link', 99);
 function add_redirect_comment_link($text = ''){
@@ -31,5 +32,8 @@ function redirect_comment_link(){
             exit;
         }
     }
-}</pre>
+}
+```
+
+
 当然在网页里的其它代码里也能使用此方法。

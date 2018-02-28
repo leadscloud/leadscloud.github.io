@@ -10,7 +10,9 @@ date: 2011-02-12 21:12:25
 
 如是你在自己的网站或博客上引用我博客上的图片会出现这样的提示![图片盗链后显示的图片](http://www.love4026.org/wp-content/uploads/2011/02/love4026.png)，由于我的博客用的是apache的服务器，所以可以在根目录下.htaccess文件中设置防盗链。以下是我.htaccess文件中的防盗链设置：
 <!--more-->
-<pre class="brush: plain">RewriteCond %{HTTP_REFERER} !^$
+
+```
+RewriteCond %{HTTP_REFERER} !^$
 RewriteCond %{HTTP_REFERER} !^http://(www\.)?love4026.org/.*$ [NC]
 
 RewriteCond %{HTTP_REFERER} !google\.com [NC]
@@ -18,13 +20,19 @@ RewriteCond %{HTTP_REFERER} !baidu\.com [NC]
 RewriteCond %{HTTP_REFERER} !bloglines\.com [NC]
 RewriteCond %{HTTP_REFERER} !feedburner\.com [NC]
 
-RewriteRule \.(gif|jpg|png)$ http://pic.yupoo.com/love4026/AQsyXqNU/2JUSD.png [R,L]</pre>
+RewriteRule \.(gif|jpg|png)$ http://pic.yupoo.com/love4026/AQsyXqNU/2JUSD.png [R,L]
+```
+
 很多网上提供的方法是不能实现防盗链的，比如这个：
-<pre class="brush: plain">#disable hotlinking of images
+
+```
+#disable hotlinking of images
 RewriteEngine on
 RewriteCond %{HTTP_REFERER} !^$
 RewriteCond %{HTTP_REFERER} !^http://(www\.)?yourdomain.com/.*$ [NC]
-#RewriteRule \.(gif|jpg|png)$ http://www.yourdomain.com/stealingisbad.gif [R,L]</pre>
+#RewriteRule \.(gif|jpg|png)$ http://www.yourdomain.com/stealingisbad.gif [R,L]
+```
+
 它替换显示的图片本身就在防盗的目录下，所以这个代码仅仅能防盗链，但不会出现相应的替换图片。
 下面详细说下防盗链的原理和设置方法：
 
@@ -53,6 +61,8 @@ RewriteCond %{HTTP_REFERER} !baidu.com [NC]
 RewriteRule (.*) /allow1/images.gif [R,NC,L]
 将不满足上述条件的访问重定向到images.gif ，你可能已经注意到，images.gif位于允许“盗链”的目录allow1下，这一点很重要，不然，你的警告资讯图片将无法在对方网站上显示。
 其它类型文件的防盗链设定，如果你您的网站上存在其它较大的文件，如flash、mp3被其他网站盗链，可以同样采取上述方法，比如说flash文档，可以类似如下的设置：
+
+```
 RewriteCond %{REQUEST_URI} ^/allow1
 RewriteRule ^.*$ – [L]
 RewriteBase /
@@ -62,6 +72,8 @@ RewriteCond %{HTTP_REFERER} !^$
 RewriteCond %{HTTP_REFERER} !shuai.be [NC]
 (……其它允许访问来源)
 RewriteRule (.*) /allow1/images.swf [R,NC,L]
+```
+
 当然，需要事先先创建一个声明版权资讯的Flash文件“images.swf”，其它防止mp3文件、压缩文件盗链的设置与此类似，不再赘述。
 
 ### 二、在图片目录.htaccess设置防盗链：
@@ -72,7 +84,8 @@ RewriteRule (.*) /allow1/images.swf [R,NC,L]
 使用.htaccess禁止盗链
 
 通过.htaccess来防止网站的图片、压缩文件、或视频等非Html文件被盗链的方法相当简单，通过在该文件中加入几句命令即可保护我们宝贵的带宽。例如：
-<pre class="brush: plain">
+
+```
 RewriteEngine on
 RewriteCond %{HTTP_REFERER} !^$ [NC]
 RewriteCond %{HTTP_REFERER} !love4026.org [NC]
@@ -80,7 +93,8 @@ RewriteCond %{HTTP_REFERER} !google.com [NC]
 RewriteCond %{HTTP_REFERER} !baidu.com [NC]
 
 RewriteRule .*\.(gif|jpg)$ http://nobing.cn/no.png [R,NC,L]
-</pre>
+```
+
 简单的解释一下上述语句：
 
 1、RewriteCond %{HTTP_REFERER} !^$ [NC]

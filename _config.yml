@@ -4,8 +4,8 @@
 
 # Site
 title: Ray's Blog
-subtitle:
-description:
+subtitle: Google SEO|互联网营销|工业矿山机械
+description: Google SEO|互联网营销|工业矿山机械|前端技术
 author: Ray Chang
 language: zh-Hans
 timezone: Asia/Shanghai
@@ -15,7 +15,7 @@ timezone: Asia/Shanghai
 url: http://love4026.org
 root: /
 permalink: :id/:title/
-permalink_defaults:
+permalink_defaults: :title/
 
 # Directory
 source_dir: source
@@ -28,6 +28,7 @@ i18n_dir: :lang
 skip_render:
   - 'livechat/**'
   - 'soft/**'
+  - 'wp-content/**'
 
 # Writing
 new_post_name: :title.md # File name of new posts
@@ -42,7 +43,7 @@ future: true
 highlight:
   enable: true
   line_number: true
-  auto_detect: false
+  auto_detect: true
   tab_replace:
 
 # Category & Tag
@@ -66,6 +67,16 @@ pagination_dir: page
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 theme: next
+
+# RSS订阅支持
+plugin:
+- hexo-generator-feed
+
+# Feed Atom
+feed:
+type: atom
+path: atom.xml
+limit: 20
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html

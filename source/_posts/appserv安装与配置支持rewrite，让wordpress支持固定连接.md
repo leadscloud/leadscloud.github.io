@@ -20,9 +20,9 @@ AppServ\Apache2.2\conf\httpd.conf文件
 
 找到
 
-<pre class="brush: plain">
+```
 #LoadModule rewrite_module modules/mod_rewrite.so
-</pre>
+```
 
 去掉前面的注释就行了
 

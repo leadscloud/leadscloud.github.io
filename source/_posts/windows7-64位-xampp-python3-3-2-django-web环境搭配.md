@@ -29,20 +29,23 @@ LoadModule wsgi_module modules/mod_wsgi.so
 http://windows.php.net/downloads/releases/php-5.5.10-Win32-VC11-x64.zip
 
 还需要修改httpd.conf ，添加以下代码
+
+```
 WSGIScriptAlias /googlescrape "D:/workfiles/wwwroot/googlescrape/"
 <Directory "D:/workfiles/wwwroot/googlescrape">
     Order allow,deny
     Allow from all
 </Directory>
+```
 
 在xampp中，你也可以添加到httpd-vhosts.conf中
 
 也行你会发现新装php后，mysql连接不能用了
 解决办法
 复制一份php.ini-development为php.ini, 在PHP.ini中找到  
-extension_dir = "ext"   （大约852行）
+`extension_dir = "ext"   （大约852行）`
 改为 
-extension_dir = "d:/php/ext"
+`extension_dir = "d:/php/ext"`
 并去掉注释
 
 找到;extension=php_mysql.dll    （大约1005行）
@@ -56,7 +59,8 @@ Django 是 使用 easy_install Django 安装的。
 进入相应目录(例如：D:\workfiles\wwwroot\)使用Django-admin.py startproject googlescrape 生成相应项目
 如果需要数据库使用：
 执行 manage.py syncdb 生成数据库。
-<pre>
+
+```
 D:\workfiles\wwwroot\googlescrape>manage.py syncdb
 Creating tables ...
 Creating table django_admin_log
@@ -80,9 +84,8 @@ Superuser created successfully.
 Installing custom SQL ...
 Installing indexes ...
 Installed 0 object(s) from 0 fixture(s)
-</pre>
+```
 
-D:\workfiles\wwwroot\googlescrape>
 
 注：
 有个相关教程在里：http://enkoding.blogspot.jp/2013/01/setup-python-for-web-in-7-steps-on.html， 可能需要翻墙，我的安装比较麻烦，主要是我的xampp不支持上面的各种mod_wsgi，我最后不得不在http://www.apachelounge.com/download/重新下载apache2.4
