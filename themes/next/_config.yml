@@ -79,8 +79,8 @@ seo: true
 signature: Think Difficulty
 
 # If true, will add site-subtitle to index page, added in main hexo config.
-# subtitle: Subtitle
-index_with_subtitle: false
+subtitle: "Google SEO|互联网营销|工业品营销|矿山机械电子商务|B2B、SEM、社交、EDM邮件营销"
+index_with_subtitle: true
 
 
 # ---------------------------------------------------------------
@@ -572,15 +572,15 @@ busuanzi_count:
   # custom uv span for the whole site
   site_uv: true
   site_uv_header: <i class="fa fa-user"></i> 本站访客数
-  site_uv_footer: 人次
+  site_uv_footer: 人次 
   # custom pv span for the whole site
   site_pv: true
   site_pv_header: <i class="fa fa-eye"></i> 本站总访问量
-  site_pv_footer: 次
+  site_pv_footer: 次 
   # custom pv span for one page only
   page_pv: true
   page_pv_header: <i class="fa fa-file-o"></i> 本文总阅读量
-  page_pv_footer: 次
+  page_pv_footer: 次 
 
 
 # Tencent analytics ID
