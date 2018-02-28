@@ -2,7 +2,10 @@
 title: 使用 TRAVIS 自动部署 HEXO 到 GITHUB 与 自己的VPS服务器
 id: 316000
 date: 2018-02-28 12:15:47
-tags: hexo, github, travis
+tags: 
+  - hexo
+  - github
+  - travis
 ---
 
 使用 TRAVIS 自动部署 HEXO 到 GITHUB 与 自己的服务器
