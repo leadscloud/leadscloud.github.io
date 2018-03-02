@@ -1,5 +1,5 @@
 ---
-title: most-make-people-tangled-equation
+title: '最让人纠结的等式: 0.999 ...= 1'
 tags:
   - 数学
 id: 313136

@@ -1,5 +1,5 @@
 ---
-title: 代码编辑器-sublime-text-2
+title: 代码编辑器 Sublime Text 2
 id: 313169
 categories:
   - PHP学习

@@ -1,5 +1,5 @@
 ---
-title: wordpress-get-current-category-id
+title: Wordpress获取当前目录的ID
 id: 313376
 categories:
   - Wordpress学习

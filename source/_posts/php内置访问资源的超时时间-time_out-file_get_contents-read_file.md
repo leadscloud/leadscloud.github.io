@@ -1,5 +1,5 @@
 ---
-title: php内置访问资源的超时时间-time_out-file_get_contents-read_file
+title: PHP内置访问资源的超时时间 time_out file_get_contents read_file
 id: 313405
 categories:
   - 转载

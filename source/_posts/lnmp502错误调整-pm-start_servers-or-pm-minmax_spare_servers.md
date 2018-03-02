@@ -1,5 +1,5 @@
 ---
-title: lnmp502错误调整-pm-start_servers-or-pm-minmax_spare_servers
+title: lnmp502错误,调整 pm.start_servers, or pm.min/max_spare_servers
 tags:
   - lnmp
 id: 313619

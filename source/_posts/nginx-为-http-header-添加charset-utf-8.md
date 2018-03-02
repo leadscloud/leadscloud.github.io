@@ -1,5 +1,5 @@
 ---
-title: nginx-为-http-header-添加charset-utf-8
+title: Nginx 为 http header 添加Charset utf-8
 id: 313653
 categories:
   - Linux

@@ -1,5 +1,5 @@
 ---
-title: sqlite-expert-usage
+title: SQLite Expert 使用手记
 tags:
   - SQLite
   - SQLite Expert

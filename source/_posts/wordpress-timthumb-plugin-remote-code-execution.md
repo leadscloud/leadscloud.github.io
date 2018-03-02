@@ -1,5 +1,5 @@
 ---
-title: wordpress-timthumb-plugin-remote-code-execution
+title: WordPress第三方主题文件漏洞分析
 tags:
   - timthumb
   - wordpress

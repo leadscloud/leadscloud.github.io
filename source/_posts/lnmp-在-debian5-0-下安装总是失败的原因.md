@@ -1,5 +1,5 @@
 ---
-title: lnmp-在-debian5-0-下安装总是失败的原因
+title: lnmp 在 debian5.0 下安装总是失败的原因
 tags:
   - Debian
   - lnmp

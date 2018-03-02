@@ -1,5 +1,5 @@
 ---
-title: linode-vps-安装-longview
+title: Linode VPS 安装 longview
 tags:
   - linode
   - longview

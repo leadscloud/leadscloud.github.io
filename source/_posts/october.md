@@ -1,5 +1,5 @@
 ---
-title: october
+title: October
 id: 313228
 categories:
   - 微言细语

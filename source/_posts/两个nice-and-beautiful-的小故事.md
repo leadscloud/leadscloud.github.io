@@ -1,5 +1,5 @@
 ---
-title: 两个nice-and-beautiful-的小故事
+title: 两个nice and beautiful 的小故事
 id: 313633
 categories:
   - 转载

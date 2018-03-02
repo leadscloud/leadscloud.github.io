@@ -1,5 +1,5 @@
 ---
-title: stay-hungry-stay-foolish
+title: Stay Hungry, Stay Foolish
 tags:
   - 工作
 id: 313232

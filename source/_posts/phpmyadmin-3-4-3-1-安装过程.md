@@ -1,5 +1,5 @@
 ---
-title: phpmyadmin-3-4-3-1-安装过程
+title: phpMyAdmin 3.4.3.1 安装过程
 tags:
   - phpmyadmin
 id: 313172

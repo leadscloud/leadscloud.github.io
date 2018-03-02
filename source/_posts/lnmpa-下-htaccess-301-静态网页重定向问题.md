@@ -1,5 +1,5 @@
 ---
-title: lnmpa-下-htaccess-301-静态网页重定向问题
+title: LNMPA 下 htaccess 301 静态网页重定向问题
 id: 313650
 categories:
   - Linux

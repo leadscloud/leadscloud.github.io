@@ -1,5 +1,5 @@
 ---
-title: microsoft-creating-ie6-countdow-web-site
+title: 微软新建IE6倒计时网站
 tags:
   - IE6
 id: 313112

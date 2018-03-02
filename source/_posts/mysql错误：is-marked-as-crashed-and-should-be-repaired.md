@@ -1,5 +1,5 @@
 ---
-title: mysql错误：is-marked-as-crashed-and-should-be-repaired
+title: mysql错误：is marked as crashed and should be repaired
 id: 313472
 categories:
   - 转载

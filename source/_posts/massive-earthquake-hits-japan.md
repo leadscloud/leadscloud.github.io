@@ -1,5 +1,5 @@
 ---
-title: massive-earthquake-hits-japan
+title: 地震海啸袭击日本-波士顿大图
 tags:
   - 日本地震
 id: 313117

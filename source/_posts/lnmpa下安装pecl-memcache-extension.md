@@ -1,5 +1,5 @@
 ---
-title: lnmpa下安装pecl-memcache-extension
+title: LNMPA下安装PECL memcache extension
 id: 313490
 categories:
   - Wordpress学习

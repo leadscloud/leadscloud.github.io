@@ -1,5 +1,5 @@
 ---
-title: new-journey
+title: 新的征程
 tags:
   - 工作
   - 随笔

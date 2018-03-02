@@ -1,5 +1,5 @@
 ---
-title: wordpress-view-post-by-user-only
+title: wordpress 设置只有注册用户才能浏览特定的内容
 id: 313348
 categories:
   - Wordpress学习

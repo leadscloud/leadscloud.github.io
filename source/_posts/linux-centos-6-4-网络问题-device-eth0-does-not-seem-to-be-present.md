@@ -1,5 +1,5 @@
 ---
-title: linux-centos-6-4-网络问题-device-eth0-does-not-seem-to-be-present
+title: Linux CentOS 6.4 网络问题 Device eth0 does not seem to be present
 id: 313636
 categories:
   - 个人日志

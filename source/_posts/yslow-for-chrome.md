@@ -1,5 +1,5 @@
 ---
-title: yslow-for-chrome
+title: Chrome插件YSlow
 tags:
   - Chrome 扩展
   - YSlow

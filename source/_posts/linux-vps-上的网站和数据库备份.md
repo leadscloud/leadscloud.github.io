@@ -1,5 +1,5 @@
 ---
-title: linux-vps-上的网站和数据库备份
+title: Linux VPS 上的网站和数据库备份
 tags:
   - VPS
   - VPS备份
@@ -18,7 +18,7 @@ tar zcvf wwwroot-bakup-20111-09-24.tar.gz wwwroot
 
 mysql的备份
 
-mysqldump -u root -p –all-databases | gzip &gt; /home/mysql-backup-2011-09-24.sql.gz
+mysqldump -u root -p –all-databases | gzip > /home/mysql-backup-2011-09-24.sql.gz
 
 使用mysqldump定时自动备份数据库
 

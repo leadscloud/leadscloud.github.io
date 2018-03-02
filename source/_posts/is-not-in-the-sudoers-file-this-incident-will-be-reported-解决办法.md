@@ -1,5 +1,5 @@
 ---
-title: is-not-in-the-sudoers-file-this-incident-will-be-reported-解决办法
+title: is not in the sudoers file. This incident will be reported 解决办法
 id: 313622
 categories:
   - Linux

@@ -1,5 +1,5 @@
 ---
-title: linux-vps添加最低权限的ssh账号
+title: linux VPS添加最低权限的SSH账号
 id: 313586
 categories:
   - 个人日志

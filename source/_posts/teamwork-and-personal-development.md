@@ -1,5 +1,5 @@
 ---
-title: teamwork-and-personal-development
+title: 团体协作与单兵作战
 tags:
   - 工作
 id: 313079

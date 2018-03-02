@@ -1,5 +1,5 @@
 ---
-title: think-of-2012
+title: 写给2012
 tags:
   - 工作
 id: 313545

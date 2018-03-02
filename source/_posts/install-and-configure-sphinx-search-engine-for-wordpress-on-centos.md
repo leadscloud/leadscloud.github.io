@@ -1,5 +1,5 @@
 ---
-title: install-and-configure-sphinx-search-engine-for-wordpress-on-centos
+title: 对wordpress安装和配置 Sphinx 搜索
 tags:
   - sphinx
 id: 313355

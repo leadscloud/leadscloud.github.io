@@ -1,5 +1,5 @@
 ---
-title: lnmpa-502-重启脚本
+title: lnmpa 502 重启脚本
 id: 313316
 categories:
   - 个人日志

@@ -1,5 +1,5 @@
 ---
-title: jquery的-post-和-ajax-的区别
+title: jquery的 $.post 和 $.ajax 的区别
 id: 313569
 categories:
   - 前端设计

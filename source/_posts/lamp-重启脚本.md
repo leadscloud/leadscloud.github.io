@@ -1,5 +1,5 @@
 ---
-title: lamp-重启脚本
+title: LAMP 重启脚本
 id: 313444
 categories:
   - Linux

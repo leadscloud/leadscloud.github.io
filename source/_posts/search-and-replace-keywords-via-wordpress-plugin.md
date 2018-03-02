@@ -1,5 +1,5 @@
 ---
-title: search-and-replace-keywords-via-wordpress-plugin
+title: 通过插件替换wordpress关键词
 id: 313345
 categories:
   - Wordpress学习

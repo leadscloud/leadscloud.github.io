@@ -1,5 +1,5 @@
 ---
-title: puzzled-in-growing-terms
+title: 团队成长中的困惑
 tags:
   - 团队
   - 工作

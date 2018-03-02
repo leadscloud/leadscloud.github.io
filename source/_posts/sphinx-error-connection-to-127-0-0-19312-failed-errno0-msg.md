@@ -1,5 +1,5 @@
 ---
-title: sphinx-error-connection-to-127-0-0-19312-failed-errno0-msg
+title: sphinx error connection to 127.0.0.1:9312 failed (errno=0, msg=)
 tags:
   - sphinx
 id: 313535
