@@ -1,5 +1,5 @@
 ---
-title: former-google-vp-kai-fu-lee-got-a-nickname-start-copy-lee
+title: Former Google VP Kai-Fu Lee Got a Nickname, Start-Copy Lee
 tags:
   - 李开复
 id: 313144

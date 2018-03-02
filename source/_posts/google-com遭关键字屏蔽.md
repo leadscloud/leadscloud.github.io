@@ -1,5 +1,5 @@
 ---
-title: google-com遭关键字屏蔽
+title: google.com遭关键字屏蔽
 id: 266001
 categories:
   - 个人日志

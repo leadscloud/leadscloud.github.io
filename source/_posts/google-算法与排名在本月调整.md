@@ -1,7 +1,8 @@
 ---
-title: google-算法与排名在本月调整
+title: google 算法与排名在本月调整
 tags:
   - Google排名
+  - google
 id: 313803
 categories:
   - Google SEO
@@ -30,9 +31,11 @@ Here are some recent chatter comments from the forums:
 
 > Regardless of the weather anywhere overall my lowest-ever page views at 45.7% of 2014 average with the UK at 37.4% however fortunately not as bad as Friday at 26.5%, what a mess.
 
-> i did a small analysis.. i used two of my sites and ranked purely with GSA and 10 articles scraped and smashed one was used. it got hit.&nbsp;> 
+> i did a small analysis.. i used two of my sites and ranked purely with GSA and 10 articles scraped and smashed one was used. it got hit.&nbsp;
 > 
-> for my one another site i used 5 unique articles, spun with wordai, smashed as 1 articles with GSA.. it got hit but only 4-9 position drops.. not like first one..> 
+> 
+> for my one another site i used 5 unique articles, spun with wordai, smashed as 1 articles with GSA.. it got hit but only 4-9 position drops.. not like first one..
+> 
 > 
 > so its getting clear that its penguin 3.0
 

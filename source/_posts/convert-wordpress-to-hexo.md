@@ -9,6 +9,9 @@ categories:
 date: 2017-06-16 12:28:54
 ---
 
+wordpress转为hexo博客，导出的时候有些小问题，记录一下。
+
+
 ## 下划线转义问题
 
 `hexo-util/lib/slugize.js`

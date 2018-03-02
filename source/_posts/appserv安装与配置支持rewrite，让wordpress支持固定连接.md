@@ -2,6 +2,8 @@
 title: appserv安装与配置支持rewrite，让wordpress支持固定连接
 tags:
   - wordpress
+  - rewrite
+  - appserv
 id: 276001
 categories:
   - PHP学习
@@ -16,7 +18,7 @@ date: 2011-01-04 06:55:09
 
 安装成功后打开
 
-AppServ\Apache2.2\conf\httpd.conf文件
+`AppServ\Apache2.2\conf\httpd.conf`文件
 
 找到
 

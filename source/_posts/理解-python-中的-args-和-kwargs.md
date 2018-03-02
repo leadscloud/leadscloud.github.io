@@ -1,15 +1,17 @@
 ---
-title: 理解-python-中的-args-和-kwargs
+title: 理解python中的args和kwargs
 tags:
   - python
 id: 313999
 categories:
-  - 个人日志
+  - 技术
 date: 2016-04-27 11:35:58
 ---
 
 Python是支持可变参数的，最简单的方法莫过于使用默认参数，例如：
-<pre class="lang:python decode:false  ">def test_defargs(one, two = 2):
+
+```
+def test_defargs(one, two = 2):
    print 'Required argument: ', one
    print 'Optional argument: ', two
 
@@ -21,13 +23,17 @@ test_defargs(1)
 test_defargs(1, 3)
 # result:
 # Required argument: 1
-# Optional argument: 3</pre>
-当然，本文章的主题并不是讲默认参数，而是另外一种达到可变参数 (Variable Argument) 的方法：使用*args和**kwargs语法。其中，*args是可变的positional arguments列表，**kwargs是可变的keyword arguments列表。并且，*args必须位于**kwargs之前，因为positional arguments必须位于keyword arguments之前。
+# Optional argument: 3
+```
+
+当然，本文章的主题并不是讲默认参数，而是另外一种达到可变参数 (Variable Argument) 的方法：使用`*args`和`**kwargs`语法。其中，`*args`是可变的positional arguments列表，`**kwargs`是可变的keyword arguments列表。并且，`*args`必须位于`**kwargs`之前，因为positional arguments必须位于keyword arguments之前。
 
 <span id="more-197"></span>首先介绍两者的基本用法。
 
 下面一个例子使用*args，同时包含一个必须的参数：
-<pre class="lang:python decode:false ">def test_args(first, *args):
+
+```
+def test_args(first, *args):
    print 'Required argument: ', first
    for v in args:
       print 'Optional argument: ', v
@@ -38,9 +44,12 @@ test_args(1, 2, 3, 4)
 # Optional argument:  2
 # Optional argument:  3
 # Optional argument:  4
-</pre>
-下面一个例子使用*kwargs, 同时包含一个必须的参数和*args列表：
-<pre class="lang:python decode:false">def test_kwargs(first, *args, **kwargs):
+```
+
+下面一个例子使用`*kwargs`, 同时包含一个必须的参数和`*args`列表：
+
+```
+def test_kwargs(first, *args, **kwargs):
    print 'Required argument: ', first
    for v in args:
       print 'Optional argument (*args): ', v
@@ -54,9 +63,13 @@ test_kwargs(1, 2, 3, 4, k1=5, k2=6)
 # Optional argument (*args):  3
 # Optional argument (*args):  4
 # Optional argument k2 (*kwargs): 6
-# Optional argument k1 (*kwargs): 5</pre>
-*args和**kwargs语法不仅可以在函数定义中使用，同样可以在函数调用的时候使用。不同的是，如果说在函数定义的位置使用*args和**kwargs是一个将参数pack的过程，那么在函数调用的时候就是一个将参数unpack的过程了。下面使用一个例子来加深理解：
-<pre class="lang:python decode:false ">def test_args(first, second, third, fourth, fifth):
+# Optional argument k1 (*kwargs): 5
+```
+
+`*args`和`**kwargs`语法不仅可以在函数定义中使用，同样可以在函数调用的时候使用。不同的是，如果说在函数定义的位置使用`*args`和`**kwargs`是一个将参数pack的过程，那么在函数调用的时候就是一个将参数unpack的过程了。下面使用一个例子来加深理解：
+
+```
+def test_args(first, second, third, fourth, fifth):
     print 'First argument: ', first
     print 'Second argument: ', second
     print 'Third argument: ', third
@@ -88,9 +101,12 @@ test_args(**kwargs)
 # Second argument:  2
 # Third argument:  3
 # Fourth argument:  4
-# Fifth argument:  5</pre>
-使用*args和**kwargs可以非常方便的定义函数，同时可以加强扩展性，以便日后的代码维护。
+# Fifth argument:  5
+```
 
-http://kodango.com/variable-arguments-in-python
+使用`*args`和`**kwargs`可以非常方便的定义函数，同时可以加强扩展性，以便日后的代码维护。
 
-http://www.wklken.me/posts/2013/12/21/how-to-use-args-and-kwargs-in-python.html
+参考资料：
+
+- http://kodango.com/variable-arguments-in-python
+- http://www.wklken.me/posts/2013/12/21/how-to-use-args-and-kwargs-in-python.html

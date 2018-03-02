@@ -1,5 +1,5 @@
 ---
-title: gappproxy-2-0-支持-https-使用方法
+title: GAppProxy 2.0 支持 https 使用方法
 tags:
   - 代理
   - 翻墙

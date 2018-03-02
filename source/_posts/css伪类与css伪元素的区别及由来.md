@@ -4,7 +4,7 @@ id: 313590
 categories:
   - 转载
 date: 2013-04-15 06:10:56
-tags:
+tags: [css,伪类,伪元素]
 ---
 
 关于两者的区别，其实是很古老的问题。但是时至今日，由于各种网络误传以及一些不负责任的书籍误笔，仍然有相当多的人将伪类与伪元素混为一谈，甚至不乏很多CSS老手。早些年刚入行的时候，我自己也被深深误导，因为论坛里的帖子大多不关心这种概念的细微差别，即使有人出来说一句：“这两个是不同的”，也只是被更多的帖子淹没掉而已。所以觉得有必要写下这些我所知的部分，这里着重写的是**为什么**这两者不同，以及一些平时容易错过的细节。
@@ -25,31 +25,39 @@ tags:
 
 先看一个伪元素 `first-line` 例子。现在有一段HTML，内容是一个段落：
 
-<pre class="lang:xhtml decode:true " >&lt;p&gt;I am the bone of my sword. Steel is my body, and fire is my blood. 
+```
+<p>I am the bone of my sword. Steel is my body, and fire is my blood. 
 I have created over a thoustand blades. 
 Unknown to Death.Nor known to Life. Have withstood pain to create many weapon. 
-Yet, those hands will never hold anything. So as I pray, unlimited blade works.&lt;/p&gt;</pre> 
+Yet, those hands will never hold anything. So as I pray, unlimited blade works.</p>
+``` 
 
 如果我要描述这个段落的第一行，在不用伪元素的情况下，我会怎么做？想来我一定要嵌套一层 `span`，然后加上类名:
 
-<pre class="lang:xhtml decode:true " >&lt;p&gt;&lt;span class="first-line"&gt;I am the bone of my sword. Steel is my body, and fire is my blood. &lt;/span&gt; 
+```
+<p><span class="first-line">I am the bone of my sword. Steel is my body, and fire is my blood. </span> 
 I have created over a thoustand blades.
 Unknown to Death.Nor known to Life. Have withstood pain to create many weapon. 
-Yet, those hands will never hold anything. So as I pray, unlimited blade works.&lt;/p&gt;</pre> 
+Yet, those hands will never hold anything. So as I pray, unlimited blade works.</p>
+``` 
 
 再反观一个伪类 `first-child` 的例子，有一个简单的列表：
 
-<pre class="lang:xhtml decode:true " >&lt;ul&gt;
-	&lt;li&gt;&lt;/li&gt;
-	&lt;li&gt;&lt;/li&gt;
-&lt;/ul&gt;</pre> 
+```
+<ul>
+	<li></li>
+	<li></li>
+</ul>
+``` 
 
 如果我要描述 `ul` 的第一个元素，我无须嵌套新的元素，我只须给第一个已经存在的 `li` 添加一个类名就可以了：
 
-<pre class="lang:xhtml decode:true " >&lt;ul&gt;
-	&lt;li class="first-child"&gt;&lt;/li&gt;
-	&lt;li&gt;&lt;/li&gt;
-&lt;/ul&gt;</pre> 
+```
+<ul>
+	<li class="first-child"></li>
+	<li></li>
+</ul>
+``` 
 
 尽管，**第一行**和**第一个元素**，这两者的语意相似，但最后作用的效果却完全不同。所以，伪类和伪元素的根本区别在于：**它们是否创造了新的元素(抽象)**。从我们模仿其意义的角度来看，如果需要添加新元素加以标识的，就是伪元素，反之，如果只需要在既有元素上添加类别的，就是伪类。而这也是为什么，标准精确地使用 “create” 一词来解释伪元素，而使用 “classify” 一词来解释伪类的原因。一个描述的是新创建出来的“幽灵”元素，另一个则是描述已经存在的符合“幽灵”类别的元素。
 

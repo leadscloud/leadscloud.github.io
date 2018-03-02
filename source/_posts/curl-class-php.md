@@ -1,14 +1,17 @@
 ---
-title: curl-class-php
+title: Curl封闭类Curl.class.php
 id: 313455
 categories:
   - PHP学习
 date: 2012-07-07 06:39:50
-tags:
+tags: php
 ---
 
- 转载的，里面有些内容可以借用。
-<pre class="lang:php decode:true " >&lt;?php
+
+转载的，里面有些内容可以借用。
+
+```php
+<?php
 //curl类
 class Curl
 {
@@ -21,14 +24,14 @@ class Curl
         if(false === $ch){
             return false;
         }
-        if(is_string($url) &amp;&amp; strlen($url)){
+        if(is_string($url) && strlen($url)){
             $ret = curl_setopt($ch, CURLOPT_URL, $url);
         }else{
             return false;
         }
         //是否显示头部信息
         curl_setopt($ch, CURLOPT_HEADER, false);
-        //
+
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         if($username != ''){
             curl_setopt($ch, CURLOPT_USERPWD, $username . ':' . $password);
@@ -38,10 +41,10 @@ class Curl
             curl_setopt($ch, CURLOPT_POST, true);
             if(is_array($fields)){
                 $sets = array();
-                foreach ($fields AS $key =&gt; $val){
+                foreach ($fields AS $key => $val){
                     $sets[] = $key . '=' . urlencode($val);
                 }
-                $fields = implode('&amp;',$sets);
+                $fields = implode('&',$sets);
             }
             curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
         }else if('put' == $method){
@@ -104,16 +107,21 @@ class Curl
         return $ch;
     }
 }
-?&gt;</pre> 
+?>
+```
 
 GET用法：
 
+```
 $curl = new Curl();
-$curl->get(‘http://www.hdj.me/’);
+$curl->get('http://www.hdj.me/');
+```
 
 POST用法
 
+```
 $curl = new Curl();
-$curl->get(‘http://www.hdj.me/’, ‘p=1&time=0′);
+$curl->get('http://www.hdj.me/', 'p=1&time=0');
+```
 
 原文：http://www.hdj.me/curl-class-php

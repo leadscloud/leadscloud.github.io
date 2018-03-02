@@ -1,5 +1,5 @@
 ---
-title: pelican-的入门体验
+title: pelican 的入门体验
 tags:
   - python
 id: 313919

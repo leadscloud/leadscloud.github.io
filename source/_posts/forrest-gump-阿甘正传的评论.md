@@ -1,5 +1,5 @@
 ---
-title: forrest-gump-阿甘正传的评论
+title: Forrest Gump / 阿甘正传的评论
 id: 313483
 categories:
   - 转载

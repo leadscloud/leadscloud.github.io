@@ -1,5 +1,5 @@
 ---
-title: how-to-deal-with-copied-content-problems
+title: 如何应对内容复制与拷贝
 tags:
   - Google SEO
 id: 313205

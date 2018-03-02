@@ -1,5 +1,5 @@
 ---
-title: ie-developer-toolbar
+title: IE Developer Toolbar
 tags:
   - IE Developer Toolbar
   - IE6

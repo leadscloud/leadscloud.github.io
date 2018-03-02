@@ -1,8 +1,9 @@
 ---
-title: find-and-replace-in-wordpress-using-mysql
+title: 通过Mysql批量替换WordPress的关键字
 tags:
   - MySQL
   - replace
+  - wordpress
 id: 313338
 categories:
   - Wordpress学习
@@ -20,7 +21,10 @@ wordpress有时需要批量替换某个关键词。通过插件可以实现，�
 
 ### 示例:
 
-<pre class="lang:pgsql decode:true">update wp_posts set post_content=replace(post_content,'errorkeywords','keywords')</pre>
+```
+update wp_posts set post_content=replace(post_content,'errorkeywords','keywords')
+```
+
 WordPress数据库里面几个重点替换的表和字段:
 
 表wp_posts里面的post_content (文章内容)

@@ -1,5 +1,5 @@
 ---
-title: windows7-64位-xampp-python3-3-2-django-web环境搭配
+title: windows7 64位 xampp python3.3.2 django web环境搭配
 id: 313755
 categories:
   - 个人日志
@@ -56,7 +56,7 @@ extension=php_mysql.dll
 
 Django 是 使用 easy_install Django 安装的。
 
-进入相应目录(例如：D:\workfiles\wwwroot\)使用Django-admin.py startproject googlescrape 生成相应项目
+进入相应目录(例如：`D:\workfiles\wwwroot\`)使用Django-admin.py startproject googlescrape 生成相应项目
 如果需要数据库使用：
 执行 manage.py syncdb 生成数据库。
 

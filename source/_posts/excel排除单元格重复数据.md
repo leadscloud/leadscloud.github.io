@@ -1,5 +1,5 @@
 ---
-title: excel排除单元格重复数据
+title: Excel排除单元格重复数据
 tags:
   - Excel
 id: 313220

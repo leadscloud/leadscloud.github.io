@@ -1,5 +1,5 @@
 ---
-title: i-wanna-be-free
+title: I wanna be free
 id: 27001
 categories:
   - 个人日志

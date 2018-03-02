@@ -1,10 +1,10 @@
 ---
-title: communication-funnel
+title: 沟通漏斗
 id: 313256
 categories:
   - 个人日志
 date: 2012-02-26 08:57:45
-tags:
+tags: 沟通
 ---
 
 ![](http://a3.att.hudong.com/50/17/20300000291746131255178893345.jpg "沟通漏斗")

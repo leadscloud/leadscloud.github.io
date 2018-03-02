@@ -1,5 +1,5 @@
 ---
-title: google-chrome-4支持greasemonkey脚本
+title: Google Chrome 4支持greasemonkey脚本
 tags:
   - greasemonkey
   - JS

@@ -1,5 +1,5 @@
 ---
-title: html-5-的自定义-data-属性和jquery的data方法的使用
+title: HTML 5 的自定义 data-* 属性和jquery的data()方法的使用
 tags:
   - HTML5
 id: 313595

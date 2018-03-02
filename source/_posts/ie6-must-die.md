@@ -1,5 +1,5 @@
 ---
-title: ie6-must-die
+title: IE6 Must Die
 tags:
   - IE
   - IE6

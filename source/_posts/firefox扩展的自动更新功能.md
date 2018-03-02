@@ -2,6 +2,7 @@
 title: firefox扩展的自动更新功能
 tags:
   - firefox扩展
+  - firefox
 id: 313824
 categories:
   - 前端设计

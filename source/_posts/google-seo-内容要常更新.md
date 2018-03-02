@@ -1,5 +1,5 @@
 ---
-title: google-seo-内容要常更新
+title: Google SEO 内容要常更新
 tags:
   - 内容
   - 更新

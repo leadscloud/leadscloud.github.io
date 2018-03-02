@@ -1,5 +1,5 @@
 ---
-title: ie-png-alpha-fix-with-iepngfix-htc
+title: IE6下PNG图片透明服务器端解决办法
 tags:
   - IE6
   - PNG透明

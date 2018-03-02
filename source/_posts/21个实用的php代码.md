@@ -4,7 +4,8 @@ tags:
   - PHP
 id: 313011
 categories:
-  - PHP学习
+  - [PHP学习]
+  - [技术]
 date: 2011-02-12 05:29:32
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: how-to-move-joomla-to-another-directory
+title: How to move Joomla to another directory?
 tags:
   - CMS
   - Joomla

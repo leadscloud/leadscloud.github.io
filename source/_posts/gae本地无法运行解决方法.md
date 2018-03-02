@@ -10,16 +10,19 @@ date: 2010-08-30 11:54:11
 
 今天在本地运行micolog出现错误regex invalid: unbalanced parenthesis上网搜了下，终于在一篇英文里找到解决方法。
 
-Change lines 2369-70 in &lt;installdir&gt;\google\appengine\tools 
-\dev_appserver.py from: 
+Change lines 2369-70 in `<installdir>\google\appengine\tools\dev_appserver.py` from: 
 
-&nbsp; &nbsp; &nbsp; regex = os.path.join(re.escape(regex), '(.*)') 
-&nbsp; &nbsp; &nbsp; path = os.path.join(path, '\\1') 
+```
+ regex = os.path.join(re.escape(regex), '(.*)') 
+ path = os.path.join(path, '\\1') 
+```
 
 to: 
 
-&nbsp; &nbsp; &nbsp; regex = re.escape(regex) + '/(.*)' 
-&nbsp; &nbsp; &nbsp; path = path + '/\\1' 
+```
+ regex = re.escape(regex) + '/(.*)' 
+ path = path + '/\\1' 
+```
 
 这个问题决之后竟然又出现错误
 
@@ -40,7 +43,7 @@ Traceback (most recent call last):
 &nbsp;&nbsp;&nbsp; reset_modules = exec_script(handler_path, cgi_path, hook)
 &nbsp; File "C:\Program Files\Google\google_appengine\google\appengine\tools\dev_appserver.py", line 1555, in ExecuteOrImportScript
 &nbsp;&nbsp;&nbsp; exec module_code in script_module.__dict__
-&nbsp; File "C:\Program Files\Google\google_appengine\micolog0\blog.py", line 720, in &lt;module&gt;
+&nbsp; File "C:\Program Files\Google\google_appengine\micolog0\blog.py", line 720, in <module>
 &nbsp;&nbsp;&nbsp; main()
 &nbsp; File "C:\Program Files\Google\google_appengine\micolog0\blog.py", line 715, in main
 &nbsp;&nbsp;&nbsp; g_blog.application=application

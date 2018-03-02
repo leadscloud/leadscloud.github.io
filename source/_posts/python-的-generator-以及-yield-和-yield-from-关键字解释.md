@@ -1,10 +1,10 @@
 ---
-title: python-的-generator-以及-yield-和-yield-from-关键字解释
+title: Python 的 generator 以及 yield 和 yield from 关键字解释
 tags:
   - python
 id: 314005
 categories:
-  - 个人日志
+  - 技术
 date: 2016-06-01 17:39:17
 ---
 
@@ -29,7 +29,9 @@ yield 关键字可以用来实现协程（coroutine），能够让程序运行�
 ## yield 关键字
 
 首先来看一段代码：
-<pre class="lang:python decode:true ">def get_sequence():
+
+```python
+def get_sequence():
     i = 1
 
     while True:
@@ -52,25 +54,35 @@ def main():
         print('main: generator 已经结束,不能再生成数字了')
 
 if __name__ == '__main__':
-    main()</pre>
-&nbsp;
+    main()
 
+```
 上述代码定义了一个生成器，可以依次生成 1, 2, 3, 4 .... 到 ∞ 的整数序列。每调用一次 `next(get_num)` 就可以得到一个下一个需要生成的值。
 
 运行结果是：
-<div class="yellow-box">
-> get_sequence: 生成 1 之前> 
-> main: 得到了生成器返回的值 1> 
-> get_sequence: 生成 1 之后> 
+
+```
+> get_sequence: 生成 1 之前
 > 
-> get_sequence: 生成 2 之前> 
-> main: 得到了生成器返回的值 2> 
-> get_sequence: 生成 2 之后> 
+> main: 得到了生成器返回的值 1
 > 
-> get_sequence: 生成 3 之前> 
-> main: 得到了生成器返回的值 3> 
+> get_sequence: 生成 1 之后
+> 
+> 
+> get_sequence: 生成 2 之前
+> 
+> main: 得到了生成器返回的值 2
+> 
+> get_sequence: 生成 2 之后
+> 
+> 
+> get_sequence: 生成 3 之前
+> 
+> main: 得到了生成器返回的值 3
+> 
 > main: generator 已经结束,不能再生成数字了
-</div>
+```
+
 在第一次调用 `next(get_num)` 时，也是第一次进入 get_sequence() 函数。然后 i = 1，进入 while 循环，然后打印`get_sequence: 生成 1 之前`。之后遇到了 `yield i` 语句，就返回当前的 i 的值给调用者 main()，生成器在此保存断点。main() 得到了返回值，就传递给 print 语句来输出 `main: 得到了生成器返回的值 1`。
 
 main() 函数接着运行，遇到了下一个 `next(get_num)`，相当于 `next_num.send(None)`，给生成器发送信息会重新切换到 get_sequence() 函数，并接着之前的断点执行。然后就输出了 `get_sequence: 生成 1 之后`，执行 i += 1，i 的值变为 2，然后进入下一轮 while 循环，直到再次遇到 yield 关键字才返回 main 函数。
@@ -78,7 +90,8 @@ main() 函数接着运行，遇到了下一个 `next(get_num)`，相当于 `next
 调用生成器的 close() 方法可以强制关闭它。这样再次给它 send 任何信息，都会抛出 StopIteration 异常，表明没什么可以生成了。
 
 另一个例子：
-<pre class="lang:python decode:true "># 定义一个生成器
+```python
+# 定义一个生成器
 def generator():
     i = 0
     while True:
@@ -98,17 +111,23 @@ def main():
     print("得到返回值: %d" % m.send(4))
 
 if __name__ == '__main__':
-    main()</pre>
-&nbsp;
+    main()
+```
 
 运行结果是：
-<div class="yellow-box">
-> 得到返回值: 1> 
-> &gt;&gt;&gt; Generator: 我收到了 None, 因为 next(m) 与 m.send(None) 效果是一样的> 
-> 得到返回值: 2> 
-> &gt;&gt;&gt; Generator: 我收到了 4> 
+
+```
+> 得到返回值: 1
+> 
+> &gt;&gt;&gt; Generator: 我收到了 None, 因为 next(m) 与 m.send(None) 效果是一样的
+> 
+> 得到返回值: 2
+> 
+> &gt;&gt;&gt; Generator: 我收到了 4
+> 
 > 得到返回值: 3
-</div>
+```
+
 可以通过在 PyCharm 或者 pdb 加断点的方式来追踪程序的运行流程，从而发现『交替执行』的规律。
 
 这段代码定义了一个生成器，其中最难理解的是 `recv = yield i` 这个语句。这句话并不是一句普通的赋值语句，而是分两步完成：
@@ -124,7 +143,9 @@ if __name__ == '__main__':
 `yield from` 可以实现『 generator 嵌套』，也就是一个 generator 嵌套另一个 generator。有没有联想到装饰器的相关知识？可以用 `yield from` 来很方便地实现『生成器的装饰器』。
 
 将上述代码稍作修改，就加上了装饰器功能；
-<pre class="lang:python decode:true ">def generator_decorator(the_generator):
+
+```
+def generator_decorator(the_generator):
     def gen(*args, **kwargs):
         print('我是装饰器。在您使用 generator 前后，我负责做一些处理工作...')
 
@@ -158,24 +179,27 @@ def main():
     print("得到返回值: %d" % m.send(4))
 
 if __name__ == '__main__':
-    main()</pre>
-&nbsp;
+    main()
+```
 
 运行结果如下：
-<div class="yellow-box">
-> 我是装饰器。在您使用 generator 前后，我负责做一些处理工作...> 
-> 得到返回值: 1> 
-> &gt;&gt;&gt; Generator: 我收到了 None, 因为 next(m) 与 m.send(None) 效果是一样的> 
-> 得到返回值: 2> 
-> &gt;&gt;&gt; Generator: 我收到了 4> 
+```
+> 我是装饰器。在您使用 generator 前后，我负责做一些处理工作...
+> 
+> 得到返回值: 1
+> 
+> &gt;&gt;&gt; Generator: 我收到了 None, 因为 next(m) 与 m.send(None) 效果是一样的
+> 
+> 得到返回值: 2
+> 
+> &gt;&gt;&gt; Generator: 我收到了 4
+> 
 > 得到返回值: 3
-</div>
+```
 与之前运行结果作对比，可以看到，除了第一行是 `我是装饰器。在您使用 generator 前后，我负责做一些处理工作...`，与不加装饰器一模一样。说明装饰起作用了，可以先做一些预处理工作，然后完成被装饰对象（generator）的本职功能。
 
 ## 另外...
 
 动态语言之间是越来越像了，JavaScript 的 ES6 支持 yield 关键字来实现生成器，C# 也早就支持了它。知识点总是相通的，不同语言之间也经常相互借鉴，而它们追根溯源，往往都来自于几十年前提出的概念（维基百科上说生成器的概念 1975 年就有了）。
-
-&nbsp;
 
 来源：https://www.hikyle.me/archives/601/

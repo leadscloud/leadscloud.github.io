@@ -1,8 +1,8 @@
 ---
 title: 彻底清除Github上某个文件包括它的历史记录
-date: 2018-02-28 19:07:01
+date: 2017-07-28 19:07:01
 tags: github
-id: 316004
+id: 315005
 categories:
 ---
 

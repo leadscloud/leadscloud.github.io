@@ -1,10 +1,10 @@
 ---
-title: google更新-众多过度优化的词消失
+title: google更新 众多过度优化的词消失
 id: 313916
 categories:
   - Google SEO
 date: 2014-10-19 21:29:39
-tags:
+tags: google
 ---
 
 昨天Google更新了，之前许多排的词都消失了。矿山行业相关的词汇现在越来越多排到第一页的是那些拥有品牌知名度的或者是企业官方网站的网页。

@@ -1,5 +1,5 @@
 ---
-title: google-pr更新，关于那些谣言
+title: Google PR更新，关于那些谣言
 tags:
   - Google
 id: 292002

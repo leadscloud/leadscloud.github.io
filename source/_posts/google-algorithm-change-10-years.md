@@ -1,5 +1,5 @@
 ---
-title: google-algorithm-change-10-years
+title: 谷歌十年对搜索引擎算法做出的改善
 id: 313367
 categories:
   - Google SEO

@@ -1,9 +1,10 @@
 ---
-title: how-to-install-yum-in-centos-5-8
+title: 在Centos5.8中安装yum
 tags:
   - centos
   - VPS
   - yum
+  - linux
 id: 313296
 categories:
   - Linux
@@ -11,7 +12,9 @@ date: 2012-04-20 07:29:57
 ---
 
 IX的空间默认是没有安装yum的，我用的是Centos5.8 ，它的最高版本！
-<pre class="lang:sh decode:true">rpm -Uvh http://mirror.centos.org/centos/5.8/os/x86_64/CentOS/gmp-4.1.4-10.el5.x86_64.rpm
+
+```
+rpm -Uvh http://mirror.centos.org/centos/5.8/os/x86_64/CentOS/gmp-4.1.4-10.el5.x86_64.rpm
 rpm -Uvh http://mirror.centos.org/centos/5.8/os/x86_64/CentOS/readline-5.1-3.el5.x86_64.rpm  
 rpm -Uvh http://mirror.centos.org/centos/5.8/os/x86_64/CentOS/python-2.4.3-46.el5.x86_64.rpm
 rpm -Uvh http://mirror.centos.org/centos/5.8/os/x86_64/CentOS/libxml2-2.6.26-2.1.12.el5_7.2.x86_64.rpm
@@ -30,11 +33,13 @@ rpm -Uvh http://mirror.centos.org/centos/5.8/os/x86_64/CentOS/yum-metadata-parse
 rpm -Uvh http://mirror.centos.org/centos/5.8/os/x86_64/CentOS/python-iniparse-0.2.3-4.el5.noarch.rpm
 rpm --nodeps -Uvh http://mirror.centos.org/centos/5.8/os/x86_64/CentOS/yum-fastestmirror-1.1.16-21.el5.centos.noarch.rpm
 rpm -Uvh http://mirror.centos.org/centos/5.8/os/x86_64/CentOS/yum-3.2.22-39.el5.centos.noarch.rpm
-yum -y update</pre>
+yum -y update
+```
 
 在安装lnmpa 或 lnmpa 时，很多依赖包是没有安装的。 执行
-<pre class="lang:sh decode:true">
+
+```
 yum install gcc
 yum update
 yum upgrade
-</pre>
+```

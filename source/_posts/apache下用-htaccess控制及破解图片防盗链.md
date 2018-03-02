@@ -1,7 +1,9 @@
 ---
-title: apache下用-htaccess控制及破解图片防盗链
+title: apache下用 htaccess控制及破解图片防盗链
 tags:
   - 防盗链
+  - apache
+  - htaccess
 id: 313004
 categories:
   - PHP学习

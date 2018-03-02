@@ -1,8 +1,10 @@
 ---
-title: apache-403-forbidden-error-and-404-error
+title: apache 403 forbidden error and 404 error
 tags:
-  - .htaccess
+  - htaccess
   - 301重定向
+  - 301
+  - apache
 id: 24001
 categories:
   - HTML/CSS

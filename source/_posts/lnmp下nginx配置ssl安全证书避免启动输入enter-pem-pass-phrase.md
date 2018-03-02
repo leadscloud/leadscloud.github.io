@@ -1,8 +1,9 @@
 ---
-title: lnmp下nginx配置ssl安全证书避免启动输入enter-pem-pass-phrase
+title: lnmp下nginx配置ssl安全证书避免启动输入enter pem pass phrase
 tags:
   - Nginx
   - SSL
+  - linux
 id: 313864
 categories:
   - Linux
@@ -13,11 +14,12 @@ date: 2014-06-24 10:28:42
 
 在网上搜索后找到了解决办法。
 
-在key的目录执行：openssl rsa -in server.key -out server.key.unsecure  然后在配置文件里使用unsecure这个文件名就行了
+在key的目录执行：`openssl rsa -in server.key -out server.key.unsecure`  然后在配置文件里使用unsecure这个文件名就行了
 
 修改后的nginx配置如下：
 
-<pre class="lang:sh decode:true " ># 这里是SSL的相关配置
+```
+# 这里是SSL的相关配置
 server {
   listen 443;
   server_name www.example.com; # 你自己的域名
@@ -26,6 +28,7 @@ server {
   ssl_certificate /etc/ssl/certs/server.crt;
   # 修改下面这一行指向我们生成的server.key.unsecure文件
   ssl_certificate_key /etc/ssl/certs/server.key.unsecure;
-}</pre> 
+}
+```
 
-然后使用/etc/init.d/nginx restart重启Nginx.不提示便表示成功了。
+然后使用`/etc/init.d/nginx restart`重启Nginx.不提示便表示成功了。

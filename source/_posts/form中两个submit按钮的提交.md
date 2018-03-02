@@ -8,12 +8,15 @@ tags:
 ---
 
   
-<pre class="lang:xhtml decode:true " >&lt;form method="post"  id="form_1" action="javascript:;"&gt;
-&lt;input type="submit" value="add" name="sub"/&gt;
-&lt;input type="submit" value="envoi" name="sub"/&gt;
-&lt;/form&gt;</pre> 
+```
+<form method="post"  id="form_1" action="javascript:;">
+  <input type="submit" value="add" name="sub"/>
+  <input type="submit" value="envoi" name="sub"/>
+</form>
+```
 
-<pre class="lang:js decode:true " >$(function() {
+```
+$(function() {
   $('input[name=sub]').click(function(){
     var _data= $('#form_1').serialize() + '&amp;sub=' + $(this).val();
     $.ajax({
@@ -26,6 +29,7 @@ tags:
     });
     return false;
   });
-});</pre> 
+});
+```
 
  参考信息： [http://stackoverflow.com/questions/3275640/jquery-submit-ajax-form-with-2-submit-buttons](http://stackoverflow.com/questions/3275640/jquery-submit-ajax-form-with-2-submit-buttons)

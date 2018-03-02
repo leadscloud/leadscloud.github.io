@@ -1,5 +1,5 @@
 ---
-title: bash-shell中命令行选项参数处理
+title: bash shell中命令行选项参数处理
 tags:
   - Bash Shell
 id: 313842
@@ -8,14 +8,18 @@ categories:
 date: 2014-06-10 15:42:17
 ---
 
-## 0.引言
+## 引言
 
 写程序的时候经常要处理命令行参数，本文描述在Bash下的命令行处理方式。
 
 选项与参数：
 
 如下一个命令行：
-<pre class="lang:sh decode:true">./test.sh -f config.conf -v --prefix=/home</pre>
+
+```
+./test.sh -f config.conf -v --prefix=/home
+```
+
 我们称-f为选项，它需要一个参数，即config.conf, -v 也是一个选项，但它不需要参数。
 
 --prefix我们称之为一个长选项，即选项本身多于一个字符，它也需要一个参数，用等号连接，当然等号不是必须的，/home可以直接写在--prefix后面，即--prefix/home,更多的限制后面具体会讲到。
@@ -27,7 +31,7 @@ date: 2014-06-10 15:42:17
 
 下面我们依次讨论这三种处理方式。
 
-## 1\. 手工处理方式
+## 手工处理方式
 
 在手工处理方式中，首先要知道几个变量，还是以上面的命令行为例：
 
@@ -38,7 +42,9 @@ date: 2014-06-10 15:42:17
 * $# 参数的个数，不包括命令本身，上例中$#为4.
 * $@ ：参数本身的列表，也不包括命令本身，如上例为 -f config.conf -v --prefix=/home
 * $* ：和$@相同，但"$*" 和 "$@"(加引号)并不同，"$*"将所有的参数解释成一个字符串，而"$@"是一个参数数组。如下例所示：
-<pre class="lang:sh decode:true">#!/bin/bash
+
+```
+#!/bin/bash
 
 for arg in "$*"
 do
@@ -49,9 +55,11 @@ for arg in "$@"
 do
     echo $arg
 done
-</pre>
-执行./test.sh -f config.conf -n 10 会打印：
+```
 
+执行`./test.sh -f config.conf -n 10` 会打印：
+
+```
 -f config.conf -n 10 #这是"$*"的输出
 
 -f #以下为$@的输出
@@ -61,13 +69,15 @@ config.conf
 -n
 
 10
+```
 
 所以，手工处理的方式即对这些变量的处理。因为手工处理高度依赖于你在命令行上所传参数的位置，所以一般都只用来处理较简单的参数。如
 
-./test.sh 10
+`./test.sh 10`
 
 而很少使用./test -n 10这种带选项的方式。 典型用法为：
-<pre class="lang:sh decode:true">#!/bin/bash
+```
+#!/bin/bash
 
 if [ x$1 != x ]
 then
@@ -76,16 +86,17 @@ else
 then
     #...没有参数
 fi
-</pre>
-为什么要使用 x$1 != x 这种方式来比较呢？想像一下这种方式比较：
+```
 
-if [ -n $1 ] #$1不为空
+为什么要使用 `x$1 != x `这种方式来比较呢？想像一下这种方式比较：
+
+`if [ -n $1 ] #$1` 不为空
 
 但如果用户不传参数的时候，$1为空，这时 就会变成 [ -n ] ,所以需要加一个辅助字符串来进行比较。
 
 手工处理方式能满足大多数的简单需求，配合shift使用也能构造出强大的功能，但在要处理复杂选项的时候建议用下面的两种方法。
 
-## 2\. getopts/getopt
+## getopts/getopt
 
 处理命令行参数是一个相似而又复杂的事情，为此，C提供了getopt/getopt_long等函数，
 C++的boost提供了Options库，在shell中，处理此事的是getopts和getopt.
@@ -105,7 +116,9 @@ getopts和getopt功能相似但又不完全相同，其中getopt是独立的可�
 代码
 
 #test.sh
-<pre class="lang:sh decode:true">#!/bin/bash
+
+```
+#!/bin/bash
 
 while getopts "a:bc" arg #选项后面的冒号表示该选项需要参数
 do
@@ -125,15 +138,18 @@ do
         ;;
         esac
 done
-</pre>
+```
+
 现在就可以使用：
-./test.sh -a arg -b -c
+`./test.sh -a arg -b -c`
 或
-./test.sh -a arg -bc
+`./test.sh -a arg -bc`
 来加载了。
+
 应该说绝大多数脚本使用该函数就可以了，如果需要支持长选项以及可选参数，那么就需要使用getopt.
 下面是getopt自带的一个例子：
-<pre class="lang:sh decode:true">#!/bin/bash
+```
+#!/bin/bash
 
 # A small example program for using the new getopt(1) program.
 # This program will only work with bash(1)
@@ -196,14 +212,17 @@ echo "Remaining arguments:"
 for arg do
    echo '--&gt; '"\`$arg'" ;
 done
-</pre>
+```
+
 比如我们使用
-<pre class="lang:sh decode:true">./test -a  -b arg arg1 -c</pre>
+
+`./test -a  -b arg arg1 -c`
+
 你可以看到,命令行中多了个arg1参数，在经过getopt和set之后，命令行会变为：
--a -b arg -c -- arg1
+`-a -b arg -c -- arg1`
 $1指向-a,$2指向-b,$3指向arg,$4指向-c,$5指向--,而多出的arg1则被放到了最后。
 
-### 3.总结
+## 总结
 
 一般小脚本手工处理也许就够了，getopts能处理绝大多数的情况，getopt较复杂，功能也更强大。
 有问题请指出，不胜感激。
