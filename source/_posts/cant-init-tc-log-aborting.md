@@ -1,5 +1,5 @@
 ---
-title: Can"t init tc log Aborting
+title: Can't init tc log Aborting
 id: 313417
 categories:
   - Linux
@@ -11,7 +11,7 @@ tags:
 
 查看 `tail -n 50 /usr/local/mysql/data/***.err  ` 提示  
 
-    Can"t init tc log Aborting ， Failed to open log，   File './mysql-bin.000023' not found
+    Can't init tc log Aborting ， Failed to open log，   File './mysql-bin.000023' not found
 
 解决办法： 
 
