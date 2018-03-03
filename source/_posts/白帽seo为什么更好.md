@@ -2,8 +2,8 @@
 title: 白帽seo为什么更好
 id: 313218
 categories:
-  - Google SEO
-  - 转载
+  - [Google SEO]
+  - [转载]
 date: 2011-09-24 11:37:49
 tags:
 ---

@@ -5,26 +5,29 @@ tags:
   - JavaScript
 id: 313571
 categories:
-  - HTML/CSS
-  - 转载
+  - [HTML/CSS]
+  - [转载]
 date: 2013-03-07 07:08:03
 ---
 
 jquery在ajax方面是非常强大和方便的，以下是jquery进行ajax请求时方法模板：
-<pre class="lang:js decode:true">$.ajax({
-           type: "get",
-           url: "",
-                   data : {},
-           beforeSend : function(){
 
-           },
-           success : function(data){
+```
+$.ajax({
+    type: "get",
+    url: "",
+            data : {},
+    beforeSend : function(){
 
-           },
-           complete : function(){
+    },
+    success : function(data){
 
-           }
-        });</pre>
+    },
+    complete : function(){
+
+    }
+});
+```
 
 #### jquery的ajax方法的全部全局事件：
 
@@ -34,28 +37,35 @@ jquery在ajax方面是非常强大和方便的，以下是jquery进行ajax请求
 *   ajaxComplete：ajax请求完成时
 *   ajaxError：ajax请求发生错误后
 *   ajaxStop：ajax请求停止后
+
 当你使用jquery的ajax方法,不管是$.ajax()、$.get()、$.load()、$.getJSON()等都会默认触发全局事件，只是通常不绑定全局事件，但实际上这些全局事件非常有用处。
 
 #### ajax方法的全局事件的用处
 
 ajax全局事件，有个典型的应用场合：
 你的页面存在多个甚至为数不少的ajax请求，但是这些ajax请求都有相同的消息机制。ajax请求开始前显示一个提示框，提示“正在读取数据“；ajax请求成功时提示框显示“数据获取成功”；ajax请求结束后隐藏提示框。
-**不使用全局事件的做法是：**
-给$.ajax()加上beforeSend、success、complete回调函数，在回调函数中加上处理提示框。
-**使用全局事件的做法是：**
-<pre class="lang:js decode:true">$(document).ajaxStart(onStart)
-               .ajaxComplete(onComplete)
-               .ajaxSuccess(onSuccess);
 
-    function onStart(event) {
-        //.....
-    }
-    function onComplete(event, xhr, settings) {
-        //.....
-    }
-    function onSuccess(event, xhr, settings) {
-        //.....
-    }</pre>
+**不使用全局事件的做法是：**
+
+给$.ajax()加上beforeSend、success、complete回调函数，在回调函数中加上处理提示框。
+
+**使用全局事件的做法是：**
+
+```
+$(document).ajaxStart(onStart)
+           .ajaxComplete(onComplete)
+           .ajaxSuccess(onSuccess);
+
+function onStart(event) {
+    //.....
+}
+function onComplete(event, xhr, settings) {
+    //.....
+}
+function onSuccess(event, xhr, settings) {
+    //.....
+}
+```
 
 #### ajax方法完整事件流
 

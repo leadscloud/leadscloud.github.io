@@ -2,8 +2,8 @@
 title: 谷歌十年对搜索引擎算法做出的改善
 id: 313367
 categories:
-  - Google SEO
-  - 转载
+  - [Google SEO]
+  - [转载]
 date: 2012-05-17 08:21:53
 tags:
 ---

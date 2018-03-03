@@ -4,7 +4,7 @@ tags:
   - Visual Studio Code
   - python
 id: 314028
-categories: [个人日志,技术]
+categories: [技术]
 date: 2017-02-20 15:38:30
 ---
 

@@ -2,10 +2,11 @@
 title: 对wordpress安装和配置 Sphinx 搜索
 tags:
   - sphinx
+  - wordpress
 id: 313355
 categories:
-  - Linux
-  - Wordpress学习
+  - [Linux]
+  - [Wordpress学习]
 date: 2012-05-07 06:02:31
 ---
 

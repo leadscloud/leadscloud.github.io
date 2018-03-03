@@ -1,9 +1,11 @@
 ---
 title: 外贸数据分析用到的一些网站分享
 date: 2017-11-01 13:08:30
-tags: trade data
+tags: [trade data,数据分析,外贸]
 id: 315040
-categories: [Google SEO, 技术]
+categories: 
+    - [Google SEO]
+    - [技术]
 ---
 
 
