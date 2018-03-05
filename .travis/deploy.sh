@@ -21,3 +21,4 @@ git push origin master:master --force --quiet
 
 # 使用 rsync同步到 VPS
 rsync -rv --delete -e 'ssh -o stricthostkeychecking=no -p 22' public/ root@182.92.100.67:/home/wwwroot/love4026.org
+rsync -rv --delete -e 'ssh -o stricthostkeychecking=no -p 22' public/ root@45.55.78.23:/home/wwwroot/love4026.org
