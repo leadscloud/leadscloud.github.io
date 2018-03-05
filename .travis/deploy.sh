@@ -2,6 +2,10 @@
 set -ev
 export TZ='Asia/Shanghai'
 
+# 使用 rsync同步到 VPS
+rsync -rv --delete -e 'ssh -o stricthostkeychecking=no -p 22' public/ root@182.92.100.67:/home/wwwroot/love4026.org
+rsync -rv --delete -e 'ssh -o stricthostkeychecking=no -p 22' public/ root@45.55.78.23:/home/wwwroot/love4026.org
+
 # 先 clone 再 commit，避免直接 force commit
 git clone -b master git@github.com:sbmzhcn/sbmzhcn.github.io.git .deploy_git
 
@@ -18,7 +22,3 @@ git commit -m "Site updated: `date +"%Y-%m-%d %H:%M:%S"`"
 
 #git push vps master:master --force --quiet
 git push origin master:master --force --quiet
-
-# 使用 rsync同步到 VPS
-rsync -rv -e 'ssh -o stricthostkeychecking=no -p 22' public/ root@182.92.100.67:/home/wwwroot/love4026.org
-rsync -rv --delete -e 'ssh -o stricthostkeychecking=no -p 22' public/ root@45.55.78.23:/home/wwwroot/love4026.org
