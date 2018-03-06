@@ -2,7 +2,8 @@
 title: LNMPA 下 htaccess 301 静态网页重定向问题
 id: 313650
 categories:
-  - [Linux,技术]
+  - [Linux]
+  - [技术]
 date: 2013-10-22 03:03:11
 tags: [lnmpa,htaccess,301]
 ---
@@ -41,3 +42,5 @@ server
   }
 }
 ```
+
+

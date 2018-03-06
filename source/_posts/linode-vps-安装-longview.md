@@ -6,7 +6,8 @@ tags:
   - vps
 id: 313697
 categories:
-  - [Linux,技术]
+  - [Linux]
+  - [技术]
 date: 2014-01-13 05:08:04
 ---
 
@@ -178,3 +179,4 @@ service httpd restart
 把里面的`nginx_status`，改为 `status`即可。
 
 然后重启你的longview.
+
