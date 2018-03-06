@@ -27,23 +27,23 @@ date: 2011-02-12 12:06:00
 
 有了上面代码的设置后，就可心在主题文件中定义一下究竟那些文字需要支持语言的本地化。即多语言支持，我这里以侧栏中的一句标题代码为例。在还没有支持语言本地化时候，代码是这样的：
 
-`&lt;h2&gt;Most Popular&lt;/h2&gt;`
+`<h2>Most Popular</h2>`
 
 因为我希望对上面红色字段Most Popular修改到支持本地化，即当主题选择不同的语言时出现对应的语言，只要把代码修改成如下：
 
-`&lt;h2&gt;&lt;?php _e('Most Popular', 'love4026'); ?&gt;&lt;/h2&gt;`
+`<h2><?php _e('Most Popular', 'love4026'); ?></h2>`
 
 或
 
-`&lt;h2&gt;&lt;?php echo __('Most Popular', 'love4026'); ?&gt;&lt;/h2&gt;`
+`<h2><?php echo __('Most Popular', 'love4026'); ?></h2>`
 
 大家能看到修改的内容了吧，再举一例，比如我在footer信息中的一段代码：
 
-`&lt;span&gt;<span style="color: #ff0000;">Copyright</span> 2011&lt;/span&gt;`
+`<span><span style="color: #ff0000;">Copyright</span> 2011</span>`
 
 我要把红色的字段copyright修改到支持本地化，修改代码如下：
 
-`&lt;span&gt;&lt;?php _e('Copyright', 'love4026'); ?&gt; 2011&lt;/span&gt;`
+`<span><?php _e('Copyright', 'love4026'); ?> 2011</span>`
 
 相信到此大家就很了解是如何修改主题中显示字符段的代码了，注意的上面两句代码中都带有的标识字段：
 
@@ -103,6 +103,9 @@ define ('WPLANG', ‘<span style="color: #ff0000;">zh_CN</span>’);
 
 下面是我的主题文件里多语言支持的写法，大家可以参考下写法
 
-<pre class="lang:php decode:true ">&lt;h2&gt;&lt;?php _e('Error 404 - Not Found', 'love4026')?&gt;&lt;/h2&gt;</pre>
-<pre class="lang:php decode:true ">&lt;?php the_content(__('Continue reading &amp;raquo;', 'love4026')); ?&gt;</pre>
-<pre class="lang:php decode:true ">&lt;?php if ($req) echo __('(required)', 'love4026'); ?&gt;</pre>
+
+```
+<h2><?php _e('Error 404 - Not Found', 'love4026')?></h2>
+<?php the_content(__('Continue reading &amp;raquo;', 'love4026')); ?>
+<?php if ($req) echo __('(required)', 'love4026'); ?>
+```

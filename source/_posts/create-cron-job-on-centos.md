@@ -1,5 +1,5 @@
 ---
-title: create cron job on centos
+title: 在CentOS上创建定时任务命令
 tags:
   - crontab
 id: 313914

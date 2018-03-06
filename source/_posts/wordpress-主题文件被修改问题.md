@@ -1,5 +1,5 @@
 ---
-title: wordpress-主题文件被修改问题
+title: Wordpress主题文件被修改问题
 tags:
   - wordpress注入
 id: 313243

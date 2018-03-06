@@ -4,14 +4,14 @@ id: 313953
 categories:
   - 个人日志
 date: 2015-08-13 19:05:22
-tags:
+tags: sentry
 ---
 
 sentry 安装成功后使用127.0.0.1:9000可以访问，但局域网之外的ip都无法访问，查询文档发现是因为ALLOWED_HOSTS没有设置。
 
 在sentry.conf.py里设置下
 
-<pre class="lang:default decode:true " >ALLOWED_HOSTS = ['*']</pre> 
+`ALLOWED_HOSTS = ['*']`
 
 即可。
 

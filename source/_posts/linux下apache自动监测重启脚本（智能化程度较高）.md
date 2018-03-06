@@ -4,12 +4,15 @@ id: 313461
 categories:
   - Linux
 date: 2012-07-09 07:00:52
-tags:
+tags: [centos,apache,vps,linux]
 ---
 
 说明下：我的主机为 Centos 系统
- vi apachemonitor.sh
-<pre class="lang:sh decode:true " >#!/bin/bash
+
+ `vi apachemonitor.sh`
+
+```
+#!/bin/bash
 
 URL=”http://127.0.0.1/”
 curlit()
@@ -50,20 +53,25 @@ while true; do
 # 主循环体
 doit &gt; /dev/null
 sleep 10
-done</pre> 
+done
+```
 
-然后执行： chmod +x apachemonitor.sh
+然后执行： `chmod +x apachemonitor.sh`
 
 添加开机启动项：
-vi /etc/rc.d/rc.local
+
+`vi /etc/rc.d/rc.local`
 
 我的rc.local脚本内容为：
 
-<pre class="lang:sh decode:true " >#!/bin/sh
+```
+
+#!/bin/sh
 #
 # This script will be executed *after* all the other init scripts.
 # You can put your own initialization stuff in here if you don't
 # want to do the full Sys V style init stuff.
 
 touch /var/lock/subsys/local
-/root/lampmonitor.sh</pre> 
+/root/lampmonitor.sh
+```

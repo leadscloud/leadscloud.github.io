@@ -16,10 +16,10 @@ Internet Explorer 6 是曾经浏览器的霸主, 击垮 Netscape 并最终占据
 
 为了推动 IE6 的灭亡, 以下代码放到网站上会显示提示信息，提示信息会显示在页面的右下方, 每星期一次. 效果如右图所示.
 
-<pre class="brush: js">
+```html
 <!--[if IE 6]>
 	<script type=&quot;text/javascript&quot; src=&quot;http://letskillie6.googlecode.com/svn/trunk/letskillie6.pack.js&quot;></script>
 <![endif]-->
-</pre>
+```
 
 详细介绍：[http://www.neoease.com/ie6-must-die/](http://www.neoease.com/ie6-must-die/)

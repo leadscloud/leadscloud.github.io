@@ -13,18 +13,23 @@ date: 2011-01-05 05:51:56
 
 首先要加载一个js
 
-<pre class="brush: js">&lt;script type="text/javascript" src="external.js"&gt;&lt;/script&gt;</pre>
+```
+<script type="text/javascript" src="external.js"></script>
+```
 
 a 标签要这样写
 
-<pre class="brush: plain"><a rel="external">external link</a></pre>
+```
+<a rel="external">external link</a>
+```
 
 下面是JS代码
 
-<pre class="brush: js" dir="ltr">function externalLinks() {
+```
+function externalLinks() {
  if (!document.getElementsByTagName) return;
  var anchors = document.getElementsByTagName("a");
- for (var i=0; i&lt;anchors.length; i++) {
+ for (var i=0; i<anchors.length; i++) {
    var anchor = anchors[i];
    if (anchor.getAttribute("href") &amp;&amp;
 
@@ -32,7 +37,8 @@ a 标签要这样写
      anchor.target = "_blank";
  }
 }
-window.onload = externalLinks;</pre>
+window.onload = externalLinks;
+```
 
 不过我在网上也看到另外一个版本的在新窗口找开链接的JS，JS比较长，你可以作为参考。
 

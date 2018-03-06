@@ -1,5 +1,5 @@
 ---
-title: 使用-htaccess替换网站页面中的关键词
+title: 使用.htaccess替换网站页面中的关键词
 tags:
   - .htaccess
 id: 313493
@@ -9,14 +9,22 @@ date: 2012-08-27 09:21:22
 ---
 
 替换网站页面中的(似乎只有VPS可以。虚拟空间是不行的。)。  VPS只要在 httpd.conf中修改就可以保证些服务器下的所有页面都如此。
-<pre class="lang:apache decode:true">&lt;IfModule mod_substitute.c&gt;
-&lt;Location /&gt;
-AddOutputFilterByType SUBSTITUTE text/html
-Substitute s/foo/bar/ni
-&lt;/Location&gt;
-&lt;/IfModule&gt;</pre>
+
+```
+<IfModule mod_substitute.c>
+  <Location />
+    AddOutputFilterByType SUBSTITUTE text/html
+    Substitute s/foo/bar/ni
+  </Location>
+</IfModule>
+```
+
 如果是替换域名中的关键词：
-<pre class="lang:apache decode:true">RewriteRule ^oldword/(.*)   /newword/$1   [R=301,L]</pre>
+
+```
+RewriteRule ^oldword/(.*)   /newword/$1   [R=301,L]
+```
+
 参考文章：
 
 [http://corpocrat.com/2008/09/19/install-apache-mod_substitute/](http://corpocrat.com/2008/09/19/install-apache-mod_substitute/)
@@ -28,8 +36,10 @@ Substitute s/foo/bar/ni
 补充：
 
 最近我的wordpress需要替换搜索中的一些关键词，主要是url也不能出现。修改代码比较麻烦。直接用.htaccess比较简单。这是我的写法
-<pre class="lang:apache decode:true"># BEGIN WordPress
-&lt;IfModule mod_rewrite.c&gt;
+
+```
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
 RewriteEngine On
 RewriteBase /
 RewriteRule ^search/(.*)symons(.*)   search/$1simons$2   [R=301,L]
@@ -37,7 +47,15 @@ RewriteRule ^index\.php$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . /index.php [L]
-&lt;/IfModule&gt;
+</IfModule>
 
-# END WordPress</pre>
-这样之后，http://youdomain.com/search/used-symons-cone-crusher/会自动跳转到 http://youdomain.com/search/used-simons-cone-crusher/
+# END WordPress
+```
+
+这样之后
+
+`http://youdomain.com/search/used-symons-cone-crusher/` 
+
+会自动跳转到 
+
+`http://youdomain.com/search/used-simons-cone-crusher/`

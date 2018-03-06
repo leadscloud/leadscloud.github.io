@@ -1,6 +1,7 @@
 ---
-title: 在google-chrome浏览器里使用page-speed
+title: 在Google Chrome浏览器里使用Page Speed
 tags:
+  - chrome
   - page speed
 id: 313254
 categories:

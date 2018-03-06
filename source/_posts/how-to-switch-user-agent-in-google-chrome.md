@@ -30,7 +30,9 @@ date: 2011-02-19 12:15:15
 
 诺基亚N97：
 
-<pre>chrome.exe --user-agent="Mozilla/5.0 (SymbianOS/9.4; Series60/5.0 NokiaN97-1/20.0.019; Profile/MIDP-2.1 Configuration/CLDC-1.1) AppleWebKit/525 (KHTML, like Gecko) BrowserNG/7.1.18124"</pre>
+
+    chrome.exe --user-agent="Mozilla/5.0 (SymbianOS/9.4; Series60/5.0 NokiaN97-1/20.0.019; Profile/MIDP-2.1 Configuration/CLDC-1.1) AppleWebKit/525 (KHTML, like Gecko) BrowserNG/7.1.18124"
+
 
 试一试，分别用Android、iPhone、诺基亚访问[http://www.google.com.hk/](http://www.google.com.hk/)、[http://3g.qq.com](http://3g.qq.com)、[http://t.sina.cn](http://t.sina.cn)这些3G手机网页，看看有什么不同。 
 

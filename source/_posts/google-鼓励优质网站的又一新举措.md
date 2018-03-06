@@ -1,5 +1,5 @@
 ---
-title: google-鼓励优质网站的又一新举措
+title: Google鼓励优质网站的又一新举措
 tags:
   - Google
   - Google SEO

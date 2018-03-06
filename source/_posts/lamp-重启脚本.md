@@ -4,12 +4,13 @@ id: 313444
 categories:
   - Linux
 date: 2012-06-30 02:00:29
-tags:
+tags: lamp
 ---
 
- 自己手工安装的lamp，所以需要有个脚本来控制服务器的停止与启动。
+自己手工安装的lamp，所以需要有个脚本来控制服务器的停止与启动。
 
-<pre class="lang:sh decode:false " >#!/bin/bash
+```
+#!/bin/bash
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 export PATH
 
@@ -99,4 +100,5 @@ case "$1" in
 	*)
 		printf "Usage: /root/lamp {start|stop|reload|restart|kill|status}\n"
 esac
-exit</pre> 
+exit
+```

@@ -70,11 +70,12 @@ date: 2011-01-11 14:01:20
 <div>
 
 </div>
-<pre class="brush: php">
+
+```
 function sqlencode(str)
 str=replace(str,"[","[[]") '此句一定要在最前
 str=replace(str,"_","[_]")
 str=replace(str,"%","[%]")
 sqlencode=str
 end function
-</pre>
+```

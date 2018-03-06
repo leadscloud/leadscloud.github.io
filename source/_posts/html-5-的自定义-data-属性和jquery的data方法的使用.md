@@ -2,6 +2,7 @@
 title: HTML 5 的自定义 data-* 属性和jquery的data()方法的使用
 tags:
   - HTML5
+  - jquery
 id: 313595
 categories:
   - 前端设计
@@ -14,23 +15,31 @@ date: 2013-05-11 05:34:07
 
 下面的一个代码片段是一个有效的HTML5标记：
 
-<pre class="lang:xhtml decode:true " > &lt;div id="awesome" data-myid="3e4ae6c4e"&gt;Some awesome data&lt;/div&gt;</pre> 
+```
+ <div id="awesome" data-myid="3e4ae6c4e">Some awesome data</div>
+```
 
 可是，怎么来读取这些数据呢？你当然可以遍历页面元素来读取你想要的属性，但jquery已经内置了方法来操作这些属性。使用jQuery的.data()方法来访问这些"data-*" 属性。其中一个方法就是 .data(obj)，这个方法是在 jQuery1.4.3版本后出现的，它能返回相应的data属性。
 
 举个例子，你可以用下面的写法读取 data-myid属性值：
 
-<pre class="lang:js decode:true " > var myid= jQuery("#awesome").data('myid');
-console.log(myid);</pre> 
+```
+var myid= jQuery("#awesome").data('myid');
+console.log(myid);
+```
 
 你还可以在"data-*" 属性里使用json语法，例如，如果你写出下面的html：
 
-<pre class="lang:xhtml decode:true " >&lt;div id="awesome-json" data-awesome='{"game":"on"}'&gt;&lt;/div&gt;</pre> 
+```
+<div id="awesome-json" data-awesome='{"game":"on"}'></div>
+```
 
 你可以通过js直接访问这个数据，通过json的key值，你能得到相应的value：
 
-<pre class="lang:js decode:true " >var gameStatus= jQuery("#awesome-json").data('awesome').game;
-console.log(gameStatus);</pre> 
+```
+var gameStatus= jQuery("#awesome-json").data('awesome').game;
+console.log(gameStatus);
+```
 
 你也可以通过.data(key,value)方法直接给"data-*" 属性赋值。一个重要的你要注意的事情是，这些"data-*" 属性应该和它所在的元素有一定的关联，不要把它当成存放任意东西的存储工具。
 

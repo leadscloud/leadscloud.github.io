@@ -1,5 +1,5 @@
 ---
-title: 集中、弹性：gmail-新界面理念
+title: 集中、弹性：Gmail 新界面理念
 id: 313170
 categories:
   - 转载

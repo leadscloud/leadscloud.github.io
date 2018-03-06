@@ -1,5 +1,5 @@
 ---
-title: javascript中绑定事件监听函数的通用方法-addevent
+title: javascript中绑定事件监听函数的通用方法 addEvent
 tags:
   - JavaScript
 id: 313120
@@ -23,21 +23,24 @@ d、监听函数的执行顺序应当是按照绑定的顺序执行；
 e、在函数体内不用使用 event = event || window.event; 来标准化Event对象；
 
 一、John Resig 所写的 addEvent() 函数：[http://ejohn.org/projects/flexible-javascript-events/](http://ejohn.org/projects/flexible-javascript-events/)
-  <pre class="brush: js">function addEvent( obj, type, fn ) { 
+  
+```
+function addEvent( obj, type, fn ) { 
 if ( obj.attachEvent ) { 
-            obj['e'+type+fn] = fn; 
-            obj[type+fn] = function(){obj['e'+type+fn]( window.event );} 
-            obj.attachEvent( 'on'+type, obj[type+fn] ); 
-        } else 
-            obj.addEventListener( type, fn, false ); 
-    } 
+        obj['e'+type+fn] = fn; 
+        obj[type+fn] = function(){obj['e'+type+fn]( window.event );} 
+        obj.attachEvent( 'on'+type, obj[type+fn] ); 
+    } else 
+        obj.addEventListener( type, fn, false ); 
+} 
 function removeEvent( obj, type, fn ) { 
 if ( obj.detachEvent ) { 
-            obj.detachEvent( 'on'+type, obj[type+fn] ); 
-            obj[type+fn] = null; 
-        } else 
-            obj.removeEventListener( type, fn, false ); 
-    }</pre>
+        obj.detachEvent( 'on'+type, obj[type+fn] ); 
+        obj[type+fn] = null; 
+    } else 
+        obj.removeEventListener( type, fn, false ); 
+}
+```
 
 这个函数如此简单易懂，的确非常令人惊讶。那么我们还是要看看上面的五点要求：
 
@@ -53,7 +56,9 @@ if ( obj.detachEvent ) {
 
 二、Dean Edward 所写的 addEvent() 函数 ：[http://dean.edwards.name/weblog/2005/10/add-event2/](http://dean.edwards.name/weblog/2005/10/add-event2/)
 
-<pre class="brush: js">function addEvent(element, type, handler) {
+
+```
+function addEvent(element, type, handler) {
     if (!handler.$$guid) handler.$$guid = addEvent.guid++;
     if (!element.events) element.events = {};
         var handlers = element.events[type];
@@ -97,7 +102,8 @@ fixEvent.preventDefault = function() {
 };
 fixEvent.stopPropagation = function() {
     this.cancelBubble = true;
-};</pre>
+};
+```
 
 该函数使用了传统的绑定方法，所以它可以在所有的浏览器中工作，也不会造成内存泄露。
 
@@ -105,7 +111,9 @@ fixEvent.stopPropagation = function() {
 
 三、Dean Edward 的 addEvent() 函数的改进
 
-<pre class="brush: js">Array.prototype.indexOf = function( obj ){
+
+```
+Array.prototype.indexOf = function( obj ){
     var result = -1 , length = this.length , i=length - 1;
     for ( ; i&gt;=0 ; i-- ) {
         if ( this[i] == obj ) {
@@ -166,7 +174,8 @@ fixEvent.preventDefault = function() {
 };
 fixEvent.stopPropagation = function() {
     this.cancelBubble = true;
-};</pre>
+};
+```
 
 该函数是本人对Dean Edward 的 addEvent() 函数的改进，完全满足了最初提出的5点要求。如果大家有更好的方法，期待分享！
 

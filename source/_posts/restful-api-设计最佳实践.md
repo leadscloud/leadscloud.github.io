@@ -163,7 +163,7 @@ PUT、POST、PATCH 操作在对资源进行操作的时候常常有一些副作�
 
 ```
 $ curl https://API.github.com/users/veesahni > with-whitespace.txt
-$ ruby -r json -e 'puts JSON JSON.parse(STDIN.read)' &lt; with-whitespace.txt > without-whitespace.txt
+$ ruby -r json -e 'puts JSON JSON.parse(STDIN.read)' < with-whitespace.txt > without-whitespace.txt
 $ gzip -c with-whitespace.txt > with-whitespace.txt.gz
 $ gzip -c without-whitespace.txt > without-whitespace.txt.gz
 ```
@@ -227,10 +227,10 @@ callback_function({
 
 使用link header的API应该返回一系列组合好了的url而不是让用户自己再去拼。这点在基于游标的分页中尤为重要。例如下面，来自github的文档
 
-<pre class="brush: text; gutter: true">
-Link: &lt;https://api.github.com/user/repos?page=3&amp;per_page=100>; rel="next", 
-&lt;https://api.github.com/user/repos?page=50&amp;per_page=100>; rel="last"
-</pre>
+```
+Link: <https://api.github.com/user/repos?page=3&amp;per_page=100>; rel="next", 
+<https://api.github.com/user/repos?page=50&amp;per_page=100>; rel="last"
+```
 
 ## 自动加载相关的资源
 

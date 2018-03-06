@@ -1,5 +1,5 @@
 ---
-title: google-更新
+title: Google 更新
 id: 313289
 categories:
   - Google SEO

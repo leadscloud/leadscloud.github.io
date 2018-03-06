@@ -4,11 +4,11 @@ id: 313516
 categories:
   - Linux
 date: 2012-11-24 01:02:06
-tags:
+tags: [linux,vps]
 ---
 
- 
-<pre class="lang:sh decode:true " ># 时间截转时间
+```
+# 时间截转时间
 date -d@1234567890
 
 # 创建一个空文件，比touch短
@@ -53,4 +53,5 @@ du -sbh *
 ls -lh
 
 # 自动刷新指令
-watch -n 1 “(echo status; sleep 0.1) | nc 127.0.0.1 4730″</pre> 
+watch -n 1 “(echo status; sleep 0.1) | nc 127.0.0.1 4730″
+```

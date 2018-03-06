@@ -1,5 +1,5 @@
 ---
-title: shadowsocks-安装笔记
+title: shadowsocks 安装笔记
 id: 313675
 categories:
   - 个人日志
@@ -10,17 +10,25 @@ tags:
 一些记录，不是很详细
 
 安装git
-<pre class="lang:sh decode:true " >yum -y install git</pre> 
+
+```
+yum -y install git
+```
+
 查看git安装成功没
-<pre class="lang:sh decode:true " >git --version</pre> 
 
-<pre class="lang:sh decode:true " >git clone https://github.com/clowwindy/shadowsocks.git</pre> 
+```
+git --version
+```
 
-<pre class="lang:sh decode:true " >cd shadowsocks</pre> 
+```
+git clone https://github.com/clowwindy/shadowsocks.git
 
-<pre class="lang:sh decode:true " >vi config.json</pre> 
+cd shadowsocks
+vi config.json
+```
 
-<pre class="lang:sh decode:true " >
+```
 {
     "server":"<your_ip>",
     "server_port":8388,
@@ -29,20 +37,21 @@ tags:
     "timeout":600,
     "method":"table"
 }
-</pre> 
+```
 
-<pre class="lang:sh decode:true " >python setup.py install</pre> 
+
+`python setup.py install`
 
 进入 shadowsocks下的shadowsocks文件夹
 
-<pre class="lang:sh decode:true " >nohup python server.py > log &</pre> 
+`nohup python server.py > log & `
 
 或者进入到config.json文件所在目录 
 
-<pre class="lang:sh decode:true " >nohup ssserver > log &</pre> 
+`nohup ssserver > log &`
 
 Centos 开机启动设置
 
-<pre class="lang:sh decode:true " >echo "nohup ssserver -c /root/shadowsocks/config.json > log &" >> /etc/rc.d/rc.local</pre> 
+`echo "nohup ssserver -c /root/shadowsocks/config.json > log &" >> /etc/rc.d/rc.local`
 
- lsof -i :8388  可以查看此端口的连接
+`lsof -i :8388`  可以查看此端口的连接

@@ -11,7 +11,8 @@ tags:
 
 详见如下：
 
-<pre class="lang:js decode:true " >post: function( url, data, callback, type ) {
+```javascript
+post: function( url, data, callback, type ) {
 		if ( jQuery.isFunction( data ) ) {
 			callback = data;
 			data = {};
@@ -25,4 +26,4 @@ tags:
 			dataType: type
 		});
 	},
-</pre> 
+```

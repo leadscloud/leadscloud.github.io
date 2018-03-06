@@ -1,5 +1,5 @@
 ---
-title: google-翻译的妙用
+title: Google 翻译的妙用
 tags:
   - Google翻译
 id: 234001

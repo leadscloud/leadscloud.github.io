@@ -1,5 +1,5 @@
 ---
-title: 来自wordpress-iphone-应用
+title: 来自Wordpress iPhone 应用
 tags:
   - iphone
   - wordpress

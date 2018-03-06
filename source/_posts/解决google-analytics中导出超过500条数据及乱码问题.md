@@ -1,5 +1,5 @@
 ---
-title: 解决google-analytics中导出超过500条数据及乱码问题
+title: 解决Google Analytics中导出超过500条数据及乱码问题
 tags:
   - Google Analytics
 id: 313115

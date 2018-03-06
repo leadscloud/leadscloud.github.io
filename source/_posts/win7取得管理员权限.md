@@ -7,9 +7,11 @@ date: 2012-06-08 13:11:27
 tags:
 ---
 
- 把下面文件保存为文本文件，然后把扩展名txt改为reg . 双击文件导入即可，如果装了360会提示你，允许就行了。
 
-<pre class="lang:default decode:true " >Windows Registry Editor Version 5.00
+把下面文件保存为文本文件，然后把扩展名txt改为reg . 双击文件导入即可，如果装了360会提示你，允许就行了。
+
+```
+Windows Registry Editor Version 5.00
 
 [HKEY_CLASSES_ROOT\*\shell\runas]
 @="管理员取得所有权"
@@ -33,4 +35,5 @@ tags:
 
 [HKEY_CLASSES_ROOT\Directory\shell\runas\command]
 @="cmd.exe /c takeown /f \"%1\" /r /d y &amp;&amp; icacls \"%1\" /grant administrators:F /t"
-"IsolatedCommand"="cmd.exe /c takeown /f \"%1\" /r /d y &amp;&amp; icacls \"%1\" /grant administrators:F /t"</pre> 
+"IsolatedCommand"="cmd.exe /c takeown /f \"%1\" /r /d y &amp;&amp; icacls \"%1\" /grant administrators:F /t"
+```

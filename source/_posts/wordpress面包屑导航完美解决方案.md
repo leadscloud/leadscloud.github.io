@@ -11,13 +11,14 @@ date: 2011-03-31 06:38:10
 ##### 方法一：直接在相关页面添加代码
 
 把以下代码直接添加到你想出现面包屑导航的位置，比如 header.php 里面，也可以放在 single.php 页面的导航标题上面，你有可能需要添加的页面可能有：archive.php、archives.php、links.php、page.php。
-  <pre class="brush: php"><div class="mbx-dh">
-当前位置：[&lt;?php bloginfo('name'); ?&gt;](&lt;?php bloginfo() »
-&lt;?php
+
+```
+当前位置：[<?php bloginfo('name'); ?>](<?php bloginfo() »
+<?php
 if( is_single() ){
 $categorys = get_the_category();
 $category = $categorys[0];
-echo( get_category_parents($category-&gt;term_id,true,' » ') );
+echo( get_category_parents($category->term_id,true,' » ') );
 the_title();
 } elseif ( is_page() ){
 the_title();
@@ -34,14 +35,15 @@ the_time('Y年');
 } elseif ( is_search() ){
 echo $s.' 的搜索结果';
 }
-?&gt;
-</div></pre>
+?>
+```
 
 ##### 方法二：通过 functions.php 调用
 
 首先把以下代码添加到主题的 functions.php 文件中
 
-<pre class="brush: php">function dimox_breadcrumbs() {
+```
+function dimox_breadcrumbs() {
 
   $delimiter = '»';
   $name = 'Home'; //text for the 'Home' link
@@ -58,11 +60,11 @@ echo $s.' 的搜索结果';
 
     if ( is_category() ) {
       global $wp_query;
-      $cat_obj = $wp_query-&gt;get_queried_object();
-      $thisCat = $cat_obj-&gt;term_id;
+      $cat_obj = $wp_query->get_queried_object();
+      $thisCat = $cat_obj->term_id;
       $thisCat = get_category($thisCat);
-      $parentCat = get_category($thisCat-&gt;parent);
-      if ($thisCat-&gt;parent != 0) echo(get_category_parents($parentCat, TRUE, ' ' . $delimiter . ' '));
+      $parentCat = get_category($thisCat->parent);
+      if ($thisCat->parent != 0) echo(get_category_parents($parentCat, TRUE, ' ' . $delimiter . ' '));
       echo $currentBefore . 'Archive by category '';
       single_cat_title();
       echo ''' . $currentAfter;
@@ -86,18 +88,18 @@ echo $s.' 的搜索结果';
       the_title();
       echo $currentAfter;
 
-    } elseif ( is_page() &amp;&amp; !$post-&gt;post_parent ) {
+    } elseif ( is_page() &amp;&amp; !$post->post_parent ) {
       echo $currentBefore;
       the_title();
       echo $currentAfter;
 
-    } elseif ( is_page() &amp;&amp; $post-&gt;post_parent ) {
-      $parent_id  = $post-&gt;post_parent;
+    } elseif ( is_page() &amp;&amp; $post->post_parent ) {
+      $parent_id  = $post->post_parent;
       $breadcrumbs = array();
       while ($parent_id) {
         $page = get_page($parent_id);
-        $breadcrumbs[] = '' . get_the_title($page-&gt;ID) . '';
-        $parent_id  = $page-&gt;post_parent;
+        $breadcrumbs[] = '' . get_the_title($page->ID) . '';
+        $parent_id  = $page->post_parent;
       }
       $breadcrumbs = array_reverse($breadcrumbs);
       foreach ($breadcrumbs as $crumb) echo $crumb . ' ' . $delimiter . ' ';
@@ -116,7 +118,7 @@ echo $s.' 的搜索结果';
     } elseif ( is_author() ) {
        global $author;
       $userdata = get_userdata($author);
-      echo $currentBefore . 'Articles posted by ' . $userdata-&gt;display_name . $currentAfter;
+      echo $currentBefore . 'Articles posted by ' . $userdata->display_name . $currentAfter;
 
     } elseif ( is_404() ) {
       echo $currentBefore . 'Error 404' . $currentAfter;
@@ -131,10 +133,12 @@ echo $s.' 的搜索结果';
     echo '</div>';
 
   }
-}</pre>
+}
+```
 
 最后在适当的地方（如方法一中提到的几个文件）添加以下代码调用
 
-<pre class="brush: php"><div class="mbx-dh">
-&lt;?php if (function_exists('dimox_breadcrumbs')) dimox_breadcrumbs(); ?&gt; 
-</div></pre>
+
+```
+<?php if (function_exists('dimox_breadcrumbs')) dimox_breadcrumbs(); ?> 
+```

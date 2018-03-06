@@ -1,5 +1,5 @@
 ---
-title: vps-lnmpa备份脚本
+title: VPS LNMPA备份脚本
 tags:
   - lnmpa
   - VPS备份
@@ -11,12 +11,16 @@ date: 2012-09-07 08:07:56
 
 以下脚本可以实现对lnmpa的备份。
 
+```
 cd ~
 vi backup.sh
 chmod +x backup.sh
+```
 
 你也可以加入定时任务让它每天自动执行。
-<pre class="lang:default decode:true">#!/bin/bash
+
+```
+#!/bin/bash
 
 #Funciont: Backup website and mysql database
 #Author: licess
@@ -55,9 +59,13 @@ cd $FTP_BackupDir
 mrm $OldBackup
 mput $TodayBackup
 bye
-EOF</pre>
+EOF
+```
+
 以前脚本会在远程ftp下，留下三个日期的记录，这是修改后的脚本，可以保证不出上面的问题。
-<pre class="lang:sh decode:true">#!/bin/bash
+
+```
+#!/bin/bash
 
 #Funciont: Backup website and mysql database
 #Author: Ray.
@@ -98,5 +106,5 @@ cd $FTP_BackupDir
 mrm $OldBackup
 mput $TodayBackup
 bye
-EOF</pre>
-&nbsp;
+EOF
+```

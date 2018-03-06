@@ -24,6 +24,7 @@ date: 2011-03-05 12:41:20
 微软该网站的标语是：“让世界摆脱IE6。”Moving the world off Internet Explorer 6 。
 
 微软该网站也给出了用户升级的理由，企业用户向高版本IE迁移所需的文档，以及一个供网站管理员嵌入到网页中的横幅，该横幅用于提示用户升级浏览器。
-  <pre>&lt;!--[if lt IE 7]&gt; &lt;div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;'&gt; &lt;a href=&quot;http://www.microsoft.com/windows/internet-explorer/default.aspx?ocid=ie6_countdown_bannercode&quot;&gt;&lt;img src=&quot;http://www.theie6countdown.com/images/upgrade.jpg&quot; border=&quot;0&quot; height=&quot;42&quot; width=&quot;820&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;&lt;/div&gt; &lt;![endif]--&gt; </pre>
+
+    <!--[if lt IE 7]> <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;'> <a href=&quot;http://www.microsoft.com/windows/internet-explorer/default.aspx?ocid=ie6_countdown_bannercode&quot;><img src=&quot;http://www.theie6countdown.com/images/upgrade.jpg&quot; border=&quot;0&quot; height=&quot;42&quot; width=&quot;820&quot; alt=&quot;&quot; /></a></div> <![endif]--> 
 
 ![](http://www.ie6countdown.com/images/upgrade.jpg)

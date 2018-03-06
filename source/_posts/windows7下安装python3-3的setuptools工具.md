@@ -1,5 +1,5 @@
 ---
-title: windows7下安装python3-3的setuptools工具
+title: windows7下安装python3.3的setuptools工具
 tags:
   - python
 id: 313752
@@ -12,8 +12,9 @@ date: 2014-03-12 06:08:14
 
 安装过程：
 
-<pre class="lang:default decode:true " >copying setuptools.egg-info\top_level.txt -&gt; build\bdist.win-amd64\egg\EGG-INFO
-copying setuptools.egg-info\zip-safe -&gt; build\bdist.win-amd64\egg\EGG-INFO
+```
+copying setuptools.egg-info\top_level.txt -> build\bdist.win-amd64\egg\EGG-INFO
+copying setuptools.egg-info\zip-safe -> build\bdist.win-amd64\egg\EGG-INFO
 creating dist
 creating 'dist\setuptools-3.1-py3.3.egg' and adding 'build\bdist.win-amd64\egg'
 to it
@@ -28,16 +29,20 @@ Installing easy_install-3.3.exe script to C:\Python33\Scripts
 
 Installed c:\python33\lib\site-packages\setuptools-3.1-py3.3.egg
 Processing dependencies for setuptools==3.1
-Finished processing dependencies for setuptools==3.1</pre> 
+Finished processing dependencies for setuptools==3.1
+```
 
 运行python程序时出现 
 
-<pre class="lang:default decode:true " >No module named 'requests'
-You can install missing modules with `pip3 install [modulename]`</pre> 
 
-安装好setuptools后，使用以下命令即可安装 requests
+    No module named 'requests'
+    You can install missing modules with `pip3 install [modulename]`
 
-<pre class="lang:default decode:true " >C:\Python33\Scripts&gt;easy_install.exe requests
+
+安装好setuptools后，使用以下命令即可安装 `requests`
+
+```
+C:\Python33\Scripts>easy_install.exe requests
 Searching for requests
 Reading https://pypi.python.org/simple/requests/
 Best match: requests 2.2.1
@@ -52,4 +57,5 @@ Adding requests 2.2.1 to easy-install.pth file
 
 Installed c:\python33\lib\site-packages\requests-2.2.1-py3.3.egg
 Processing dependencies for requests
-Finished processing dependencies for requests</pre> 
+Finished processing dependencies for requests
+```

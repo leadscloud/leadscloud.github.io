@@ -9,7 +9,8 @@ date: 2011-01-24 06:57:00
 ---
 
 google 自定义搜索结果底部会出现很高的一部分空白，今天找到两个方法来解决此问题：
- <pre class="brush: xml">
+
+```
 <form action="search-result.html">
   <fieldset>
     <input type="hidden" name="cx" value="012093381724872904271:tu4gwgmzymc" />
@@ -32,17 +33,24 @@ google 自定义搜索结果底部会出现很高的一部分空白，今天找�
 <script type="text/javascript">
 	try{document.getElementsByName('googleSearchFrame')[0].height=910;}catch(e){}
 </script>
-</pre>
-<pre class="brush: xml">
+```
+
+```
 <script type="text/javascript">
-        try{document.getElementsByName('googleSearchFrame')[0].height=910;}catch(e){}
-      </script>
-</pre>
+  try{document.getElementsByName('googleSearchFrame')[0].height=910;}catch(e){}
+</script>
+```
+
 
 上面的代码可以设置iframe的高度。一般情况下930左右就行了，可自己根据实际调节。
 
-另外一种办法是把http://www.google.com/afsonline/show_afs_search.js下载到本地。CTR+F找到<pre class="brush: js">{name:"googleSearchFrame",src:b,frameBorder:a.googleSearchFrameborder,width:c,height:d,</pre>
-把height:d,改为height:930 你可以自己设置数值。
+另外一种办法是把http://www.google.com/afsonline/show_afs_search.js下载到本地。CTR+F找到
+
+```
+{name:"googleSearchFrame",src:b,frameBorder:a.googleSearchFrameborder,width:c,height:d,
+```
+
+把`height:d`,改为`height:930` 你可以自己设置数值。
 
 这是一个例子
 

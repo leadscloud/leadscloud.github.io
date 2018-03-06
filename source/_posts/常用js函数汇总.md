@@ -9,12 +9,14 @@ categories:
 date: 2011-02-28 13:27:41
 ---
 
-<pre class="brush: js">//http://www.robertnyman.com/2005/11/07/the-ultimate-getelementsbyclassname/
+
+```javascript
+//http://www.robertnyman.com/2005/11/07/the-ultimate-getelementsbyclassname/
 function getElementsByClassName(oElm, strTagName, strClassName){
-	var arrElements = (strTagName == &quot;*&quot; &amp;&amp; oElm.all)? oElm.all : oElm.getElementsByTagName(strTagName);
+	var arrElements = (strTagName == "*" && oElm.all)? oElm.all : oElm.getElementsByTagName(strTagName);
 	var arrReturnElements = new Array();
-	strClassName = strClassName.replace(/\-/g, &quot;\\-&quot;);
-	var oRegExp = new RegExp(&quot;(^|\\s)&quot; + strClassName + &quot;(\\s|$)&quot;);
+	strClassName = strClassName.replace(/\-/g, "\\-");
+	var oRegExp = new RegExp("(^|\\s)" + strClassName + "(\\s|$)");
 	var oElement;
 	for(var i=0; i&lt;arrElements.length; i++){
 		oElement = arrElements[i];		
@@ -64,9 +66,9 @@ function removeClassName(objElement, strClass){
 //http://ejohn.org/projects/flexible-javascript-events/
 function addEvent( obj, type, fn ) {
   if ( obj.attachEvent ) {
-    obj[&quot;e&quot;+type+fn] = fn;
-    obj[type+fn] = function() { obj[&quot;e&quot;+type+fn]( window.event ) };
-    obj.attachEvent( &quot;on&quot;+type, obj[type+fn] );
+    obj["e"+type+fn] = fn;
+    obj[type+fn] = function() { obj["e"+type+fn]( window.event ) };
+    obj.attachEvent( "on"+type, obj[type+fn] );
   } 
   else{
     obj.addEventListener( type, fn, false );	
@@ -84,6 +86,7 @@ function getStyle(el,styleProp)
 }
 
 //判断浏览器
-var isFF=(navigator.userAgent.toLowerCase().indexOf(&quot;firefox&quot;)!=-1);
-var isIE=(navigator.userAgent.toLowerCase().indexOf(&quot;msie&quot;)!=-1);
-var isIE8=(navigator.userAgent.toLowerCase().indexOf(&quot;msie 8&quot;)!=-1);</pre>
+var isFF=(navigator.userAgent.toLowerCase().indexOf("firefox")!=-1);
+var isIE=(navigator.userAgent.toLowerCase().indexOf("msie")!=-1);
+var isIE8=(navigator.userAgent.toLowerCase().indexOf("msie 8")!=-1);
+```

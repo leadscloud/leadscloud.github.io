@@ -4,18 +4,18 @@ id: 313472
 categories:
   - 转载
 date: 2012-07-16 07:48:26
-tags:
+tags: [mysql]
 ---
 
 我的wordpress网站出问题了，访问一看，果然全屏报错，检查mysql日志，错误信息为：
 
-Table '.\wp_posts' is marked as crashed and should be repaired
+    Table '.\wp_posts' is marked as crashed and should be repaired
 
 提示说cms的文章表dede_archives被标记有问题，需要修复。于是赶快恢复历史数据，上网查找原因。最终将问题解决。解决方法如下：
 
 找到mysql的安装目录的bin/myisamchk工具，在命令行中输入：
 
-<pre class="lang:sh decode:true " >./myisamchk -c -r /usr/local/mysql/data/wp\@002dsouthafricacrusher\@002dcom/wp_posts.MYI</pre> 
+`./myisamchk -c -r /usr/local/mysql/data/wp\@002dsouthafricacrusher\@002dcom/wp_posts.MYI`
 
 然后myisamchk 工具会帮助你恢复数据表的索引。重新启动mysql，问题解决。
 

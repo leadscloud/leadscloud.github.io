@@ -1,5 +1,5 @@
 ---
-title: use-ssh-to-over-gfw
+title: SSH代理翻墙图文教程
 tags:
   - SSH
   - 代理

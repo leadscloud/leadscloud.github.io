@@ -1,8 +1,9 @@
 ---
-title: ubuntu11-04下安装lnmp0-7一键安装包502错误
+title: ubuntu11-04下安装lnmp0.7一键安装包502错误
 tags:
   - ubuntu
   - VPS
+  - lnmp
 id: 313153
 categories:
   - Linux
@@ -11,17 +12,18 @@ date: 2011-05-22 11:31:42
 
 内核： Linux ubuntu 2.6.38-8-generic #42-Ubuntu SMP Mon Apr 11 03:31:50 UTC 2011 i686 i686 i386 GNU/Linux
 
-系统版本： Ubuntu 11.04&nbsp;&nbsp; 32位
+系统版本： Ubuntu 11.04   32位
 
-打开http://127.0.0.1&nbsp; 显示成功，但打开 http://127.0.0.1/p.php 出现502错误
+打开 http://127.0.0.1  显示成功，但打开 http://127.0.0.1/p.php 出现502错误
 
-`/root/lnmp restart `错误信息：
+`/root/lnmp restart ` 错误信息：
 
-`root@ubuntu:~/lnmp0.7-full/php-5.2.17# /root/lnmp restart
+```
+root@ubuntu:~/lnmp0.7-full/php-5.2.17# /root/lnmp restart
 
 =========================================================================
 
-Manager for LNMP V0.7&nbsp;&nbsp;,&nbsp;&nbsp;Written by Licess 
+Manager for LNMP V0.7  ,  Written by Licess 
 
 =========================================================================
 
@@ -59,19 +61,20 @@ Starting MySQL
 
 . * 
 
-MySQL start successfully!`
+MySQL start successfully!
+```
 
-&nbsp;
+ 
+**解决办法：**
 
-`解决办法：`
+（打开 `/root/lnmp0.7-full/ubuntu.sh`  找到 `echo "========================= php + php extensions install ==================="`  按里面的代码执行的。从 `tar zxvf php-5.2.17.tar.gz` 开始执行的，下面有具体的）
 
-（打开 /root/lnmp0.7-full/ubuntu.sh&nbsp;&nbsp;找到 echo &quot;========================= php + php extensions install ===================&quot;&nbsp;&nbsp;按里面的代码执行的。从 tar zxvf php-5.2.17.tar.gz 开始执行的，下面有具体的）
-
-apt-get install libjpeg62 libjpeg62-dev libjpeg-dev&nbsp; 
+```
+apt-get install libjpeg62 libjpeg62-dev libjpeg-dev  
 
 ln -s /usr/lib/i386-linux-gnu/libpng* /usr/lib/
 
-ln -s /usr/lib/i386-linux-gnu/libjpeg* /usr/lib/&nbsp;&nbsp; 
+ln -s /usr/lib/i386-linux-gnu/libjpeg* /usr/lib/   
 
 cd /root/lnmp0.7-full/ 或者 cd cd /root/lnmp0.7/ 
 
@@ -88,6 +91,7 @@ cd php-5.2.17/
 make ZEND_EXTRA_LIBS=&#39;-liconv&#39;
 
 make install
+```
 
 这个问题我在vpse论坛上问过了，上面有关于我如何解决的：
 
@@ -95,6 +99,5 @@ make install
 
 附：
 
-<font face="Verdana, Arial, sans-serif "><font style="font-size: 13px;">LNMP安装教程：[http://lnmp.org/install.html](http://lnmp.org/install.html)
-
-LNMPA安装教程：[http://lnmp.org/lnmpa.html](http://lnmp.org/lnmpa.html)</font></font>
+[LNMP安装教程](http://lnmp.org/install.html)
+[LNMPA安装教程](http://lnmp.org/lnmpa.html)

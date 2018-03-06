@@ -8,7 +8,8 @@ tags:
 ---
 
  
-<pre class="lang:php decode:true " >
+
+```
 <?php
 if($_GET['s']!=''){ 
 $change = array('+',' '); 
@@ -18,4 +19,5 @@ $searchredirect = get_settings('home') . '/search/' . str_replace($change, '-' ,
 header("HTTP/1.1 301 Moved Permanently");
 header( "Location: $searchredirect" );
 }
-?></pre> 
+?>
+```

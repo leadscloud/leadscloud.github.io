@@ -1,5 +1,5 @@
 ---
-title: apache 403 forbidden error and 404 error
+title: Apache 403 Forbidden Error and 404 Error
 tags:
   - htaccess
   - 301重定向

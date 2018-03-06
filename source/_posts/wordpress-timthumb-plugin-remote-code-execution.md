@@ -27,16 +27,22 @@ date: 2012-04-23 05:29:46
 作者在这里标明了已经修复了这个漏洞，那么我们就对比下r143和r142两个版本的区别。
 
 对比分析这两个版本，发现结果如下：
-<pre class="lang:php decode:true">foreach ($allowedSites as $site) {
+
+```
+foreach ($allowedSites as $site) {
     if (strpos (strtolower ($url_info['host']), $site) !== false) {
         $isAllowedSite = true;
 }
 foreach ($allowedSites as $site) {
     if (strpos (strtolower ($url_info['host'] . ‘/’), $site) !== false) {
         $isAllowedSite = true;
-}</pre>
+}
+```
+
 多了一个’/'，在匹配的时候限制了白名单域名只能在地址的最后面，这样就限制了可以在任意的域名前面加上白名单的域名，举个例子来说，我们假如有域名xyz.com，那么我们可以随便添加二、三级域名。先看看timthumb限制了哪些域名。
-<pre class="lang:php mark:1 decode:true">// external domains that are allowed to be displayed on your website
+
+```
+// external domains that are allowed to be displayed on your website
 $allowedSites = array (
         ‘flickr.com’,
         ‘picasa.com’,
@@ -44,7 +50,9 @@ $allowedSites = array (
         ‘wordpress.com’,
         ‘img.youtube.com’,
         ‘upload.wikimedia.org’,
-);</pre>
+);
+```
+
 这样的话我们就可以添加blogger.com.xyz.com，成功绕过白名单的检测。看到这里我不禁想到我上次分析的百度贴吧flash过滤机制研究，也存在一定的问题，因此在匹配或者是搜索的时候需要特别注意。
 
 ## 利用
@@ -52,13 +60,19 @@ $allowedSites = array (
 如果大家看了原文的留言，别人给出了利用方法（不过我没域名测试），这里我们还是对源码进行一下分析。
 
 首先是引入url的地方：
-<pre class="lang:php mark:1 decode:true">// sort out image source
+
+```
+// sort out image source
 $src = get_request (‘src’, ”);
 if ($src == ” || strlen ($src) &lt;= 3) {
     display_error (‘no image specified’);
-}</pre>
+}
+```
+
 get_request函数：
-<pre class="lang:php mark:1 decode:true">/**
+
+```
+/**
  *
  * @param [HTML_REMOVED] $property
  * @param [HTML_REMOVED] $default
@@ -70,9 +84,13 @@ function get_request ($property, $default = 0) {
     } else {
         return $default;
     }
-}</pre>
+}
+```
+
 然后是文件检查：
-<pre class="lang:php mark:1 decode:true">// clean params before use
+
+```
+// clean params before use
 $src = clean_source ($src);
 // get mime type of src
 $mime_type = mime_type ($src);
@@ -82,9 +100,13 @@ $external_data_string = ”;
 $fh = ”;
 // check to see if this image is in the cache already
 // if already cached then display the image and die
-check_cache ($mime_type);</pre>
+check_cache ($mime_type);
+```
+
 其中cleansource函数中调用checkexternal函数实现了写文件操作。
-<pre class="lang:php decode:true">**
+
+```
+**
  *
  * @global array $allowedSites
  * @param string $src
@@ -165,7 +187,8 @@ function check_external ($src) {
                 $src = $local_filepath;
         }
     return $src;
-}</pre>
+}
+```
 
 ## 修复
 
