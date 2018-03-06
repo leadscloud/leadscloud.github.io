@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var minifycss = require('gulp-minify-css');
 var htmlmin = require('gulp-htmlmin');
 var htmlclean = require('gulp-htmlclean');
+var uglify = require('gulp-uglify');
 var imagemin = require('gulp-imagemin');
 
 // 压缩 css
@@ -24,6 +25,13 @@ gulp.task('minify-html', function() {
     .pipe(gulp.dest('./public'))
 });
 
+// 压缩js
+gulp.task('minify-js', function() {
+    return gulp.src('./public/**/*.js')
+        .pipe(uglify())
+        .pipe(gulp.dest('./public'));
+});
+
 // 压缩图片
 gulp.task('minify-images', function() {
     return gulp.src('./public/wp-content/uploads/**/*.*')
@@ -37,4 +45,4 @@ gulp.task('minify-images', function() {
 });
 
 // 执行 gulp 命令时执行的任务
-gulp.task('default', ['minify-html', 'minify-css', 'minify-images']);
+gulp.task('default', ['minify-html', 'minify-css', 'minify-js', 'minify-images']);

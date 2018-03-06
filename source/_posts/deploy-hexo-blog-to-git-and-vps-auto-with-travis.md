@@ -229,4 +229,5 @@ git push origin source:source
 
 [使用 Travis CI 自动部署 Hexo 博客](https://blessing.studio/deploy-hexo-blog-automatically-with-travis-ci/)  
 [使用 Travis 自动部署 Hexo 到 Github 与 自己的服务器](https://segmentfault.com/a/1190000009054888)  
+[优化Hexo博客 - 压缩 HTML、CSS、JS、IMG 等](https://www.karlzhou.com/articles/compress-minify-hexo/)
 
