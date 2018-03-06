@@ -46,3 +46,13 @@ addons:
   ssh_know_hosts:
   - github.com
   - love4026.org
+
+# configure notifications (email, IRC, campfire etc)
+# please update this section to your needs!
+# https://docs.travis-ci.com/user/notifications/
+notifications:
+  email:
+    - ${qq}@qq.com
+    - love4026@gmail.com
+  on_success: change
+  on_failure: always

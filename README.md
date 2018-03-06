@@ -3,4 +3,8 @@
 
 这是我博客的源码，基于 Hexo 构建，使用 Travis CI 自动部署至 GitHub Pages 以及我自己的服务器上。
 
-你可以通过 [sbmzhcn.github.io](https://sbmzhcn.github.io) 访问我的博客 ;)
+你可以通过 [sbmzhcn.github.io](https://sbmzhcn.github.io) 或者 [www.love4026.org](http://www.love4026.org) 访问我的博客 ;)
+
+## gitmoji
+
+[An emoji guide for your commit messages](https://gitmoji.carloscuesta.me/)
