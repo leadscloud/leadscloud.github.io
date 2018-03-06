@@ -1,5 +1,5 @@
 ---
-title: Python_序列与映射的解包操作
+title: Python序列与映射的解包操作
 date: 2016-05-16 18:02:56
 tags: [python]
 id: 314002
