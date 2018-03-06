@@ -30,6 +30,8 @@ skip_render:
   - 'livechat/**'
   - 'soft/**'
   - 'wp-content/**'
+  - 'baidu_verify_*****.html'
+  - 'google*.html'
 
 # Writing
 new_post_name: :title.md # File name of new posts
@@ -82,6 +84,8 @@ limit: 20
 sitemap:
   path: sitemap.xml
   # template: ./sitemap_template.xml
+baidusitemap:
+  path: baidusitemap.xml
 
 baidu_url_submit:
   count: 10 ## 比如3，代表提交最新的三个链接
