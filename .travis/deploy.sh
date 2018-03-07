@@ -24,4 +24,6 @@ git commit -m "Site updated: `date +"%Y-%m-%d %H:%M:%S"`"
 git push origin master:master --force --quiet
 
 # 主动提交到baidu
-curl -H 'Content-Type:text/plain' --data-binary @baidu_urls.txt "http://data.zz.baidu.com/urls?site=www.love4026.org&token=${baidu_submit_token}"
+curl -H 'Content-Type:text/plain' --data-binary @baidu_urls.txt "http://data.zz.baidu.com/urls?site=www.love4026.org&token=${baidu_submit_token}" -v
+
+wget --quiet --post-file='baidu_urls.txt' --output-document - 'http://data.zz.baidu.com/urls?site=www.love4026.org&token=${baidu_submit_token}'

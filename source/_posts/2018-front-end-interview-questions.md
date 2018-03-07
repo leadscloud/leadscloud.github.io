@@ -8,8 +8,8 @@ categories: 技术
 
 ## CSS 有哪些样式可以给子元素继承!
 
-可继承的:font-size,font-weight,line-height,color,cursor等
-不可继承的一般是会改变盒子模型的:display,margin、border、padding、height等
+可继承的:`font-size`,`font-weight`,`line-height`,`color`,`cursor`等
+不可继承的一般是会改变盒子模型的:`display`,`margin`、`border`、`padding`、`height`等
 
 ##  box-sizing常用的属性有哪些? 分别有啥作用?
 
@@ -42,7 +42,7 @@ content(80px) + padding(5*2px) + border(5*2px) = 100px
 
 ## 清除浮动的方式有哪些?比较好的是哪一种?
 
-常用的一般为三种`.clearfix`, `clear:both`,overflow:hidden;
+常用的一般为三种`.clearfix`, `clear:both`,`overflow:hidden`;
 
 ## CSS 中transition和animate有何区别? animate 如何停留在最后一帧!
 
