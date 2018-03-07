@@ -180,6 +180,8 @@ Function.prototype.emulateBind =  function (context) {
 }
 ```
 
+<!-- more -->
+
 ## 怎么解决跨域问题,有哪些方法
 
 我一般用这三种, cors, nginx反向代理, jsonp
