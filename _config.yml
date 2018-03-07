@@ -13,7 +13,7 @@ timezone: Asia/Shanghai
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://www.love4026.org
+url: https://www.love4026.org
 root: /
 permalink: :id/:title/
 permalink_defaults: :title/
