@@ -329,7 +329,9 @@ similar_text($string1, $string2, $percent);
 */
 function show_gravatar($email, $size, $default, $rating)
 {
-    echo '![](http://www.gravatar.com/avatar.php?gravatar_id=)';
+    echo '<img src="http://www.gravatar.com/avatar.php?gravatar_id='.md5($email). 
+'&default='.$default.'&size='.$size.'&rating='.$rating.'" width="'.$size.'px" 
+height="'.$size.'px" />'; 
 }
 
 ```
