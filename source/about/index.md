@@ -30,4 +30,8 @@ date: 2010-08-17 07:09:01
 
 #### 我的邮箱
 
-![我的邮箱](http://pic.yupoo.com/sbmzhcn/AQ1269O5/YK4PC.png "我的邮箱")
+![我的邮箱](//pic.yupoo.com/sbmzhcn/AQ1269O5/YK4PC.png "我的邮箱")
+
+#### 我的微信
+
+![我的微信](/wp-content/uploads/2018/03/weixin-qr.png)

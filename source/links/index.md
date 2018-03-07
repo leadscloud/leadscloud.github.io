@@ -14,5 +14,5 @@ layout: links
 ## 前同事
 
 - [SEM分享](http://www.semshare.net/)
-- [gf&zjの盗梦空间](https://www.gfzj.us)
-- [工业品营销](www.jiadingqiang.com)
+- [gf&zjの盗梦空间](https://www.gfzj.us/)
+- [工业品营销](http://www.jiadingqiang.com/)
