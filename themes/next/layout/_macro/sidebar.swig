@@ -92,6 +92,13 @@
             </div>
           {% endif %}
 
+          {% if theme.aplayer.enable %}
+            <div class="aplayer-wrap motion-element">
+              <div id="aplayer" class="aplayer"></div>
+            </div>
+          {% endif %}
+          
+
           {% if theme.social %}
             <div class="links-of-author motion-element">
                 {% for name, link in theme.social %}

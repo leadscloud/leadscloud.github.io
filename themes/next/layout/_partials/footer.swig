@@ -5,7 +5,7 @@
   <span class="with-love" id="heart">
     <i class="fa fa-{{ theme.footer.icon }}"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">{{ theme.footer.copyright || config.author }}. Allrights reserved.</span>
+  <span class="author" itemprop="copyrightHolder">{{ theme.footer.copyright || config.author }}</span>
 
   {% if theme.post_wordcount.totalcount %}
     <span class="post-meta-divider">|</span>

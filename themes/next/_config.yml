@@ -51,7 +51,7 @@ footer:
   icon: heart
 
   # If not defined, will be used `author` from Hexo main config.
-  copyright:
+  copyright: Ray. All rights reserved.
   # -------------------------------------------------------------
   # Hexo link (Powered by Hexo).
   powered: true
@@ -630,6 +630,33 @@ local_search:
   trigger: auto
   # show top n results per article, show all results by setting to -1
   top_n_per_article: 1
+
+aplayer:
+  enable: true
+  autoplay: false
+  mode: "random"
+  sources: [{
+      title: '小城故事',
+      author: '纯音乐',
+      url: 'http://blog-music.test.upcdn.net/xiaochenggushi.mp3',
+      pic: '',
+      lrc: ''
+  },
+  {
+      title: 'Should it matter',
+      author: 'Sissel Kyrkjeb',
+      url: 'http://blog-music.test.upcdn.net/should-it-matter.mp3',
+      pic: '',
+      lrc: ''
+  },
+  {
+      title: '爱在西元前',
+      author: '周杰伦',
+      url: 'http://blog-music.test.upcdn.net/aizaixiyuanqian.mp3',
+      pic: '',
+      lrc: ''
+  }]
+
 
 
 # ---------------------------------------------------------------
