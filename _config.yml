@@ -93,6 +93,11 @@ baidu_url_submit:
   token: NO_NEED ## 请注意这是您的秘钥， 所以请不要把博客源代码发布在公众仓库里! 我用了travis 所以用curl发送即可
   path: baidu_urls.txt ## 文本文档的地址， 新链接会保存在此文本文档里
 
+algolia:
+  applicationID: 'ICJR9PAGXV'
+  indexName: 'love4026.org'
+  apiKey: 'bc2584b59e34f42a84707067e8cef8a5' # 仅用来搜索
+  chunkSize: 5000
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
