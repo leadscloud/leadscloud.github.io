@@ -55,7 +55,7 @@ addons:
 # https://docs.travis-ci.com/user/notifications/
 notifications:
   email:
-    - ${qq}@qq.com
+    - ${qq}@qq.com  # not support ${qq} can use travis encrypt - secure: ""
     - love4026@gmail.com
   on_success: change
   on_failure: always

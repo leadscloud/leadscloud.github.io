@@ -635,6 +635,7 @@ aplayer:
   enable: true
   autoplay: false
   mode: "random"
+  preload: "none"
   sources: [{
       title: '小城故事',
       author: '纯音乐',

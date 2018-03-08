@@ -11,7 +11,7 @@
         element: document.getElementById('aplayer'),
         autoplay: {{ theme.aplayer.autoplay }},
         mode: "{{theme.aplayer.mode}}",
-        
+        preload: "{{theme.aplayer.preload}}",
         music: playlist
     });
   </script>
