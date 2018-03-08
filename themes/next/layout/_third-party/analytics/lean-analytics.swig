@@ -45,8 +45,9 @@
         });
     }
 
-    function addCount(Counter) {
-      var $visitors = $(".leancloud_visitors");
+    function addCount(Counter, selector) {
+      // var $visitors = $(".leancloud_visitors");
+      var $visitors = $(selector);
       var url = $visitors.attr('id').trim();
       var title = $visitors.attr('data-flag-title').trim();
       var query = new AV.Query(Counter);
@@ -97,8 +98,11 @@
 
     $(function() {
       var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_site_visitors').length == 1) {
+        addCount(Counter, ".leancloud_site_visitors");
+      }
       if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
+        addCount(Counter, '.leancloud_visitors');
       } else if ($('.post-title-link').length > 1) {
         showTime(Counter);
       }

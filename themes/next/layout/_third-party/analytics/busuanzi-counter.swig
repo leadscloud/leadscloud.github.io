@@ -18,4 +18,13 @@
     </span>
   {% endif %}
 </div>
+{% elseif theme.leancloud_visitors.enable %}
+
+<div class="leancloud-count">
+  <span id="{{ url_for(post.path) }}" class="leancloud_site_visitors" data-flag-title="{{config.title}}">
+    {{ theme.busuanzi_count.site_pv_header }}
+    <span class="leancloud-visitors-count"></span>
+    {{ theme.busuanzi_count.site_pv_footer }}
+  </span>
+</div>
 {% endif %}
