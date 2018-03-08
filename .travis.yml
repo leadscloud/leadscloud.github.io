@@ -55,7 +55,8 @@ addons:
 # https://docs.travis-ci.com/user/notifications/
 notifications:
   email:
-    - ${qq}@qq.com  # not support ${qq} can use travis encrypt - secure: ""
+    # not support ${qq} can use travis encrypt - secure: ""
+    - secure: "N1eZ8JMOijc09xG2rHT9MirXIIFZEs6RCqcvFEPw4MWuc7Lhk/PEcezaZGXZezm8Hs1OCRg+K6ldUU//EPBNIY25Afi+JdvHPsDODkQ6XnCfYADxthaNP5ZRo9Fqbp1XW2gUlCrvB63/McoLJ9wyA/l7Vh/JIIzQXZhKNwN0pkrLnS/f1Jh7jd3eg8Tq7N5SWx+WwC/tgHhHIDG1XHEBq8pLjulvxhMEkx1jlhvJhojEJTI2BvBM7RXxZi1zEAbRG4N/5JmhO5tY63wlRIr5gRjqwSTnOrQPW7+qKPz/0iEbsJ+/2lxNC6rjeRzB/+DWURRXF+HokxZ0Wj0KFRwqJzW3aQ/nG0GHx976cYG05/mX5Zjz4ftYz0VpggMqiDySPW7h2yPBDAlE4oE+8ZTuTafHwNrXVC4s55gJGNJzZ5RejeBCAy2FHTWtXoatfP3DyjjIFgJYsHGKBVEzd7FZEWkkLzQFAdAivD/O4YOfun5cTa1G85+T3DwFjfP9fPp0bxXT2+B6MGLBHe97SYJtrwcxDCD9Ug94Cxby9UwQxHzCbPPv0gMjsyKR9BLFIp/LasruskXEEDOV7qLLyFev18/dSSFlu9OLUX6aBq5TxpVjYMTKJfkvx/QeNXL2Y0PogKJm9DsyvYqfmrQFPqU4Cepbbs2aJoE7ymMl+70ARvo="
     - love4026@gmail.com
   on_success: change
   on_failure: always
