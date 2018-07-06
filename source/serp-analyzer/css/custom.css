@@ -1,0 +1,91 @@
+
+input,
+textarea {
+    -webkit-user-select: text !important;
+    -khtml-user-select: text !important;
+    -moz-user-select: text !important;
+    -ms-user-select: text !important;
+    user-select: text !important;
+}
+.input-kw {
+    font-size: 20px;
+    line-height: 1.33;
+    border-radius: 6px;
+}
+
+h1.hero-title {
+    font-family: 'Open Sans', 'Trebuchet MS', arial, sans-serif;
+    font-weight: 600;
+    letter-spacing: -1px;
+    font-size: 50px;
+    padding-bottom: 5px;
+}
+h2.hero-title {
+    font-family: 'Open Sans', 'Trebuchet MS', arial, sans-serif;
+    font-weight: 600;
+    letter-spacing: -1px;
+    font-size: 22px;
+    padding-bottom: 20px;
+}
+
+span.hero-button {
+    font-size: 26px;
+}
+
+@media (max-width: 1201px) {
+    h1.hero-title {
+        font-size: 50px;
+    }
+    h2.hero-title {
+        font-size: 22px;
+    }
+    span.hero-button {
+        font-size: 22px;
+    }
+
+}
+@media (max-width: 991px) {
+    h1.hero-title {
+        font-size: 40px;
+    }
+    h2.hero-title {
+        font-size: 20px;
+    }
+    span.hero-button {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 721px) {
+    h1.hero-title {
+        font-size: 30px;
+    }
+    h2.hero-title {
+        font-size: 16px;
+    }
+    span.hero-button {
+        font-size: 16px;
+    }
+}
+@media (max-width: 401px) {
+    h1.hero-title {
+        font-size: 24px;
+    }
+    h2.hero-title {
+        font-size: 14px;
+    }
+    span.hero-button {
+        font-size: 14px;
+    }
+}
+
+.svg-inline--fa {
+    display: inline-block;
+    font-size: inherit;
+    height: 1em;
+    overflow: visible;
+    vertical-align: -.125em;
+}
+.svg-inline--fa.fa-w-16 {
+    width: 1em;
+}
