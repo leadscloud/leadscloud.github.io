@@ -168,10 +168,11 @@ links_title: Links
 # links_layout: block
 links_layout: inline
 links:
-  蓝悉: http://www.lanthy.com/
-  世邦中文: http://www.shibang-china.com/
-  世邦英文: http://www.sbmchina.com/
+  Discount Code: https://www.promopro.co.uk
   科煤机电: http://www.kamychina.com/
+  # 蓝悉: http://www.lanthy.com/
+  # 世邦中文: http://www.shibang-china.com/
+  # 世邦英文: http://www.sbmchina.com/
 
 # Sidebar Avatar
 # in theme directory(source/images): /images/avatar.gif
