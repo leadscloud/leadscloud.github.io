@@ -1,5 +1,5 @@
 ---
-title: [转载]再见JQuery，我的老朋友
+title: '[转载]再见JQuery，我的老朋友'
 date: 2018-08-30 11:56:30
 tags: jQuery
 id: 20180830
