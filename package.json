@@ -3,9 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "hexo": {
-    "version": "3.6.0"
+    "version": "3.7.1"
   },
   "dependencies": {
+    "dtrace-provider": "^0.8.7",
     "gulp-uglify": "^3.0.0",
     "hexo": "^3.6.0",
     "hexo-algolia": "^1.2.4",
