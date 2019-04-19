@@ -1,8 +1,8 @@
 ---
 title: MacOS 下解压文件遇到文件夹乱码解决办法
-date: 2019-04-02 19:40:41
+date: 2019-03-29 19:40:41
 tags: MacOS
-id: 20190402
+id: 20190329
 categories: 技术
 ---
 
@@ -23,3 +23,5 @@ ditto -V -x -k --sequesterRsrc --rsrc FILENAME.ZIP DESTINATIONDIRECTORY
 BetterZip 也无法解决上面的问题，以上方法实测有效
 
 solution: https://github.com/CocoaPods/CocoaPods/issues/7711
+
+

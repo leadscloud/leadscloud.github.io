@@ -51,7 +51,7 @@ footer:
   icon: heart
 
   # If not defined, will be used `author` from Hexo main config.
-  copyright: Ray. All rights reserved.
+  copyright: sbmzhcn. All rights reserved.
   # -------------------------------------------------------------
   # Hexo link (Powered by Hexo).
   powered: true
@@ -168,11 +168,9 @@ links_title: Links
 # links_layout: block
 links_layout: inline
 links:
-  Discount Code: https://www.promopro.co.uk
-  科煤机电: http://www.kamychina.com/
-  # 蓝悉: http://www.lanthy.com/
-  # 世邦中文: http://www.shibang-china.com/
-  # 世邦英文: http://www.sbmchina.com/
+  RLiveChat: https://cdn.livechatinc.xyz/
+  Roadheader: https://www.kamychina.com/
+  TinyCMS: https://tinycms.xyz/
 
 # Sidebar Avatar
 # in theme directory(source/images): /images/avatar.gif
@@ -576,15 +574,15 @@ busuanzi_count:
   # custom uv span for the whole site
   site_uv: true
   site_uv_header: <i class="fa fa-user"></i> 本站访客数
-  site_uv_footer: 人次 
+  site_uv_footer: 人次
   # custom pv span for the whole site
   site_pv: true
   site_pv_header: <i class="fa fa-eye"></i> 本站总访问量
-  site_pv_footer: 次 
+  site_pv_footer: 次
   # custom pv span for one page only
   page_pv: true
   page_pv_header: <i class="fa fa-file-o"></i> 本文总阅读量
-  page_pv_footer: 次 
+  page_pv_footer: 次
 
 
 # Tencent analytics ID
