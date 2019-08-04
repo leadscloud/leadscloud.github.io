@@ -35,7 +35,7 @@ favicon:
   #ms_browserconfig: /images/browserconfig.xml
 
 # Set default keywords (Use a comma to separate)
-keywords: "Google SEO, 互联网营销, 工业品营销, 矿山机械"
+keywords: "Google SEO, 互联网营销"
 
 # Set rss to false to disable feed link.
 # Leave rss as empty to use site's feed link.
@@ -51,7 +51,7 @@ footer:
   icon: heart
 
   # If not defined, will be used `author` from Hexo main config.
-  copyright: sbmzhcn. All rights reserved.
+  copyright: leadscloud. All rights reserved.
   # -------------------------------------------------------------
   # Hexo link (Powered by Hexo).
   powered: true
@@ -79,7 +79,7 @@ seo: true
 signature: Think Difficulty
 
 # If true, will add site-subtitle to index page, added in main hexo config.
-subtitle: "Google SEO|互联网营销|工业品营销|矿山机械电子商务|B2B、SEM、社交、EDM邮件营销"
+subtitle: "Google SEO|互联网营销|外贸推广营销"
 index_with_subtitle: true
 
 
@@ -139,10 +139,7 @@ scheme: Pisces
 # Value before `||` delimeter is the target permalink.
 # Value after `||` delimeter is the name of FontAwesome icon. If icon (with or without delimeter) is not specified, globe icon will be loaded.
 social:
-  GitHub: https://github.com/sbmzhcn || github
-  Twitter: https://twitter.com/love4026/ || twitter
-  Google Plus: https://plus.google.com/u/0/106618658391372851068 || google
-  Facebook: https://www.facebook.com/love4026 || facebook
+  GitHub: https://github.com/leadscloud || github
   V2EX: https://www.v2ex.com/member/sbmzhcn
   E-Mail: mailto:love4026@gmail.com || envelope
 #social:
@@ -428,7 +425,7 @@ gitment:
   lazy: false # Comments lazy loading with a button
   cleanly: false # Hide 'Powered by ...' on footer, and more
   language: # Force language, or auto switch by theme
-  github_user: sbmzhcn # MUST HAVE, Your Github ID
+  github_user: leadscloud # MUST HAVE, Your Github ID
   github_repo: blog-gitment-comments # MUST HAVE, The repo you use to store Gitment comments
   client_id: 2d1225fa3ba16d0ae497 # MUST HAVE, Github client id for the Gitment
   client_secret: 2ee4399f43650c5e6eb642d977476e7e79c80319 # EITHER this or proxy_gateway, Github access secret token for the Gitment

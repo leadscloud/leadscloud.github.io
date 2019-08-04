@@ -10,7 +10,7 @@ categories: [外贸推广]
 
 Github 地址：
 
-https://github.com/sbmzhcn/inquiry
+https://github.com/leadscloud/inquiry
 
 -------
 
@@ -71,11 +71,11 @@ define('BLOG_ROOT',dirname(__FILE__));
 
 ## 软件截图
 
-![](https://github.com/sbmzhcn/inquiry/blob/master/docs/inquiry-screen01.png?raw=true)
+![](https://github.com/leadscloud/inquiry/blob/master/docs/inquiry-screen01.png?raw=true)
 
-![](https://github.com/sbmzhcn/inquiry/blob/master/docs/inquiry-screen02.png?raw=true)
+![](https://github.com/leadscloud/inquiry/blob/master/docs/inquiry-screen02.png?raw=true)
 
-![](https://github.com/sbmzhcn/inquiry/blob/master/docs/inquiry-screen03.png?raw=true)
+![](https://github.com/leadscloud/inquiry/blob/master/docs/inquiry-screen03.png?raw=true)
 
 ## 联系我
 

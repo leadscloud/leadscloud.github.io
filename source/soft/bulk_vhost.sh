@@ -11,11 +11,11 @@
 #
 # FTP Service must be pureftpd.
 #
-# wget -O bulk_vhost.sh https://raw.githubusercontent.com/sbmzhcn/Tools/master/bulk_vhost.sh --no-check-certificate && chmod u+x bulk_vhost.sh
+# wget -O bulk_vhost.sh https://raw.githubusercontent.com/leadscloud/Tools/master/bulk_vhost.sh --no-check-certificate && chmod u+x bulk_vhost.sh
 # 
 #
 # For more information please visit http://www.love4026.org/
-# Code url: https://raw.githubusercontent.com/sbmzhcn/Tools/master/bulk_vhost.sh
+# Code url: https://raw.githubusercontent.com/leadscloud/Tools/master/bulk_vhost.sh
 # 
 # Install:
 #     wget -O bulk_vhost.sh http://leadscloud.github.io/soft/bulk_vhost.sh && chmod u+x bulk_vhost.sh
@@ -543,10 +543,10 @@ for example, when add domain love4026.org with ftp and mysql option, script will
     1. /home/wwwlogs/love4026.org.ftp.txt
     2. /home/wwwlogs/love4026.org.mysql.txt
 Author: Ray.
-Website: <http://www.love4026.org>.
+Website: <https://leadscloud.github.io>.
 Email: <sbmzhcn@gmail.com>.
 If you have any questions, please contact me!
-More information at: <https://github.com/sbmzhcn/Tools>.
+More information at: <https://github.com/leadscloud/Tools>.
 END
     exit 1
 }

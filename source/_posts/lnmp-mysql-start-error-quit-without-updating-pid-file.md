@@ -1,5 +1,5 @@
 ---
-title: LNMP MYSQL Error: The server quit without updating PID file
+title: LNMP MYSQL Error:The server quit without updating PID file
 date: 2019-04-02 19:40:41
 tags: lnmp
 id: 20190407

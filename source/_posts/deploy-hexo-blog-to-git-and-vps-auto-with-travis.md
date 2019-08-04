@@ -121,7 +121,7 @@ before_install:
 - chmod 600 ~/.ssh/id_rsa
 # 修改本机 ssh 配置，防止秘钥认证过程影响自动部署
 #- mv -fv .travis/ssh-config ~/.ssh/config #这一步不需要，如果添加了ssh_know_hosts
-- git config --global user.name "sbmzhcn"
+- git config --global user.name "leadscloud"
 - git config --global user.email "sbmzhcn@gmail.com"
 # 赋予自动部署脚本可执行权限
 - chmod +x .travis/deploy.sh
@@ -130,7 +130,7 @@ install:
 # 安装 Hexo 及其依赖
 - yarn
 # 当 Travis 文件缓存不存在时，从 Gitee 私有仓库 clone 主题
-#- if [ ! -d "themes/next" ]; then git clone git@github.com:sbmzhcn/hexo-theme-next.git themes/next; fi
+#- if [ ! -d "themes/next" ]; then git clone git@github.com:leadscloud/hexo-theme-next.git themes/next; fi
 
 script:
 # 生成静态页面
@@ -158,7 +158,7 @@ export TZ='Asia/Shanghai'
 rsync -rv --delete -e 'ssh -o stricthostkeychecking=no -p 22' public/ root@182.92.100.67:/home/wwwroot/love4026.org
 
 # 先 clone 再 commit，避免直接 force commit
-git clone -b master git@github.com:sbmzhcn/leadscloud.github.io.git .deploy_git
+git clone -b master git@github.com:leadscloud/leadscloud.github.io.git .deploy_git
 
 cd .deploy_git
 git checkout master
@@ -187,7 +187,7 @@ rm travis.key.pub
 
 ```
 git init
-git remote add origin git@github.com:sbmzhcn/leadscloud.github.io.git
+git remote add origin git@github.com:leadscloud/leadscloud.github.io.git
 git fetch origin master:temp
 git merge temp
 ```
@@ -222,7 +222,7 @@ git push origin source:source
  
 ## 我的博客项目配置文件
 
-    https://github.com/sbmzhcn/leadscloud.github.io/tree/source
+    https://github.com/leadscloud/leadscloud.github.io/tree/source
 
 
 ## 参考链接
