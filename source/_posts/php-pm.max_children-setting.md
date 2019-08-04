@@ -1,5 +1,5 @@
 ---
-title: php-fpm错误: WARNING: [pool www] server reached pm.max_children setting (5), consider raising it
+title: "php-fpm错误: WARNING: [pool www] server reached pm.max_children setting (5), consider raising it"
 id: 20190428
 categories:
   - 技术
