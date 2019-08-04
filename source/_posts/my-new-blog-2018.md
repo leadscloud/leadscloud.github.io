@@ -13,7 +13,7 @@ categories:
 
 此博客重新上线，放到了github.com上面一份，VPS上面一份，使用了travis自动发布，由于国内域名需要备案，要在国内畅通打开还需要一段时间。
 
-博客涉及到诸多技术问题，有想了解的，可以到[我的github页面](https://github.com/sbmzhcn/sbmzhcn.github.io/tree/source)去查看源码，不是特别难，但第一次部署比较麻烦。
+博客涉及到诸多技术问题，有想了解的，可以到[我的github页面](https://github.com/sbmzhcn/leadscloud.github.io/tree/source)去查看源码，不是特别难，但第一次部署比较麻烦。
 
 ## 博客添加RSS功能
 

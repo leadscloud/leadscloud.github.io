@@ -55,7 +55,7 @@ a:hover {
     </tr>
 	<tr>
       <td>或在线文件: </td>
-      <td><input name="customfile" type="text" id="customfile" value="http://sbmzhcn.github.io/soft/typecho.zip" size="45"> </td>
+      <td><input name="customfile" type="text" id="customfile" value="http://leadscloud.github.io/soft/typecho.zip" size="45"> </td>
     </tr>
 	<tr>
       <td>解压到目录: </td>

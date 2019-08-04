@@ -8,10 +8,10 @@ categories: 技术
 
 
 ```
-echo "# sbmzhcn.github.io" >> README.md
+echo "# leadscloud.github.io" >> README.md
 git init
 git add README.md
 git commit -m "first commit"
-git remote add origin git@github.com:sbmzhcn/sbmzhcn.github.io.git
+git remote add origin git@github.com:sbmzhcn/leadscloud.github.io.git
 git push -u origin master
 ```

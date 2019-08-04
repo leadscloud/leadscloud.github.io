@@ -158,7 +158,7 @@ export TZ='Asia/Shanghai'
 rsync -rv --delete -e 'ssh -o stricthostkeychecking=no -p 22' public/ root@182.92.100.67:/home/wwwroot/love4026.org
 
 # 先 clone 再 commit，避免直接 force commit
-git clone -b master git@github.com:sbmzhcn/sbmzhcn.github.io.git .deploy_git
+git clone -b master git@github.com:sbmzhcn/leadscloud.github.io.git .deploy_git
 
 cd .deploy_git
 git checkout master
@@ -187,7 +187,7 @@ rm travis.key.pub
 
 ```
 git init
-git remote add origin git@github.com:sbmzhcn/sbmzhcn.github.io.git
+git remote add origin git@github.com:sbmzhcn/leadscloud.github.io.git
 git fetch origin master:temp
 git merge temp
 ```
@@ -222,7 +222,7 @@ git push origin source:source
  
 ## 我的博客项目配置文件
 
-    https://github.com/sbmzhcn/sbmzhcn.github.io/tree/source
+    https://github.com/sbmzhcn/leadscloud.github.io/tree/source
 
 
 ## 参考链接

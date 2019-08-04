@@ -3,7 +3,7 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: sbmzhcn
+title: leadscloud
 subtitle: Google SEO|外贸营销推广
 hometitle: Google SEO|外贸营销推广|技术博客
 description: 熟悉 Google SEO，外贸营销推广，这是我的个人博客，主要分享工作中的技术。
@@ -13,7 +13,7 @@ timezone: Asia/Shanghai
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: https://sbmzhcn.github.io/
+url: https://leadscloud.github.io/
 root: /
 permalink: :id/:title/
 permalink_defaults: :title/

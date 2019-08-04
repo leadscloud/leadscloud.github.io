@@ -7,7 +7,7 @@ rsync -rv --delete -e 'ssh -o stricthostkeychecking=no -p 22' public/ root@182.9
 rsync -rv --delete -e 'ssh -o stricthostkeychecking=no -p 22' public/ root@45.55.78.23:/home/wwwroot/love4026.org
 
 # 先 clone 再 commit，避免直接 force commit
-git clone -b master git@github.com:sbmzhcn/sbmzhcn.github.io.git .deploy_git
+git clone -b master git@github.com:leadscloud/leadscloud.github.io.git .deploy_git
 
 cd .deploy_git
 git checkout master

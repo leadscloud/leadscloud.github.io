@@ -18,7 +18,7 @@
 # Code url: https://raw.githubusercontent.com/sbmzhcn/Tools/master/bulk_vhost.sh
 # 
 # Install:
-#     wget -O bulk_vhost.sh http://sbmzhcn.github.io/soft/bulk_vhost.sh && chmod u+x bulk_vhost.sh
+#     wget -O bulk_vhost.sh http://leadscloud.github.io/soft/bulk_vhost.sh && chmod u+x bulk_vhost.sh
 # 
 # Last Updated: 2017-05-12
 #
@@ -476,7 +476,7 @@ function install_typecho {
     if [ ! -d "/tmp/typecho.$$" ]; then
         # Downloading typecho build version
         mkdir /tmp/typecho.$$
-        wget -O - "http://sbmzhcn.github.io/soft/typecho.tar.gz" | \
+        wget -O - "http://leadscloud.github.io/soft/typecho.tar.gz" | \
             tar zxf - -C /tmp/typecho.$$
     fi
     cp -r /tmp/typecho.$$/build/* "/home/wwwroot/$1"
@@ -490,7 +490,7 @@ function install_empirecms {
     if [ ! -d "/tmp/empirecms.$$" ]; then
         # Downloading the EmpireCMS
         mkdir /tmp/empirecms.$$
-        wget -O - http://sbmzhcn.github.io/soft/empirecms-7.0-utf8.tar.gz | \
+        wget -O - http://leadscloud.github.io/soft/empirecms-7.0-utf8.tar.gz | \
             tar zxf - -C /tmp/empirecms.$$
     fi
     cp -r /tmp/empirecms.$$/* "/home/wwwroot/$1"

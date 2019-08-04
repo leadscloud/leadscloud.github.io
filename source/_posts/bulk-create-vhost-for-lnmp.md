@@ -8,12 +8,12 @@ categories: 技术
 
 写了一个shell脚本，可以快速的添加域名并同时创建好ftp账号和mysql账号，如果需要安装 wordpress在参数中选择即可。
 
-脚本地址： https://github.com/sbmzhcn/sbmzhcn.github.io/blob/master/soft/bulk_vhost.sh
+脚本地址： https://github.com/sbmzhcn/leadscloud.github.io/blob/master/soft/bulk_vhost.sh
 
 ## **安装方式**
 
 ```
-wget -O bulk_vhost.sh http://sbmzhcn.github.io/soft/bulk_vhost.sh && chmod u+x bulk_vhost.sh
+wget -O bulk_vhost.sh http://leadscloud.github.io/soft/bulk_vhost.sh && chmod u+x bulk_vhost.sh
 ```
 
 
