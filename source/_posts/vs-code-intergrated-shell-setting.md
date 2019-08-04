@@ -8,12 +8,12 @@ categories: 技术
 
 macos下面的终端设置成了 iterm2.app 
 
-![](../wp-content/media/15552120055438.jpg)
+![](/wp-content/media/15552120055438.jpg)
 
 
 但 Visual Studio Code 的内置终端还是原来的，导致一些字体图标显示为乱码，如果想让它与 iterm2设置的一样，需要进行以下操作：
 
-![](../wp-content/media/15552118638003.jpg)
+![](/wp-content/media/15552118638003.jpg)
 
 
 
