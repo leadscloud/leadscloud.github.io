@@ -3,7 +3,7 @@ title: wordpress被注入的PHP恶意脚本
 date: 2018-03-05 10:10:37
 tags: [php,wordpress]
 id: 316012
-categories:
+categories: 技术
 ---
 
 今天整理博客的图片资源，发现之前的Wordpress被人hacked。wp-content/ 图片文件夹下有两个php文件，应该是之前通过timthumb脚本漏洞注入的，一直没有发现。

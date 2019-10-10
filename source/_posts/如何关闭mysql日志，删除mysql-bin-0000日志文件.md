@@ -36,3 +36,22 @@ binlog_format=mixed
 本文以[LNMP一件安装包](http://lnmp.org/)安装的环境为例除MySQL重启命令和配置文件路径可能略有不同，其他一样。
 
 原文：**[http://www.vpser.net/manage/delete-mysql-mysql-bin-0000-logs.html](http://www.vpser.net/manage/delete-mysql-mysql-bin-0000-logs.html "如何关闭MySQL日志，删除mysql-bin.0000*日志文件")**
+
+
+## 其它关闭方法
+
+编辑 `/etc/my.cnf`
+
+在 `[mysqld]` 最下面添加：`skip-log-bin`
+
+**重启mysql**
+
+```
+[root@localhost ~]# /etc/init.d/mysqld restart
+```
+
+**查看是否成功**
+
+```
+show variables like 'log_bin';
+```
