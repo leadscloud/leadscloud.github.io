@@ -24,13 +24,13 @@ Godaddy中有一个Good As Gold付款方式。在 账户设定，付款方式中
 
 https://account.godaddy.com/payment-methods 
 
-![image-20191028141636275](../wp-content/uploads/2019/image-20191028141636275.png)
+![image-20191028141636275](/wp-content/uploads/2019/image-20191028141636275.png)
 
 你可以参考以下链接阅读Godaddy的帮助，通过向godaddy的银行账号转账，以达到预存款目的。这个账号，在下面的支付宝中会使用。
 
   https://sg.godaddy.com/zh/help/good-as-gold-727 
 
-![image-20191028140809338](../wp-content/uploads/2019/image-20191028140809338.png)
+![image-20191028140809338](/wp-content/uploads/2019/image-20191028140809338.png)
 
 **收款银行名称**：JPMorganChase Bank
 **银行地址：**270 Park Avenue, New York, NY 10017
@@ -43,7 +43,7 @@ https://account.godaddy.com/payment-methods
 
 
 
-##支付宝付款流程图
+## 支付宝付款流程图
 
 先在支付宝里搜索**上银汇款**，打开上银汇款，如下界面，最低100美元起步。
 
@@ -51,17 +51,17 @@ https://account.godaddy.com/payment-methods
 
 > 支付宝美元汇款，不支持信用卡，只能是银行卡或余额宝。
 
-![image-20191028135048071](../wp-content/uploads/2019/image-20191028135048071.png)
+![image-20191028135048071](/wp-content/uploads/2019/image-20191028135048071.png)
 
 我已经添加了联系人，如果你是第一次汇款，需要按godaddy的帮助说明，添加godaddy的银行账号
 
 https://sg.godaddy.com/zh/help/good-as-gold-727 
 
-![image-20191028135201586](../wp-content/uploads/2019/image-20191028135201586.png)
+![image-20191028135201586](/wp-content/uploads/2019/image-20191028135201586.png)
 
 选择**计算机网络服务费**
 
-![image-20191028135210797](../wp-content/uploads/2019/image-20191028135210797.png)
+![image-20191028135210797](/wp-content/uploads/2019/image-20191028135210797.png)
 
 下面这一项，需要手动填写，并且要注意不要弄错，否则会失败。
 
@@ -75,19 +75,19 @@ https://sg.godaddy.com/zh/help/good-as-gold-727
 
 附言，只需要填写customer id，不要有其它的任何字符，否则会失败。
 
-![image-20191028135836822](../wp-content/uploads/2019/image-20191028135836822.png)
+![image-20191028135836822](/wp-content/uploads/2019/image-20191028135836822.png)
 
-![image-20191028135219882](../wp-content/uploads/2019/image-20191028135219882.png)
+![image-20191028135219882](/wp-content/uploads/2019/image-20191028135219882.png)
 
-![image-20191028135227517](../wp-content/uploads/2019/image-20191028135227517.png)
+![image-20191028135227517](/wp-content/uploads/2019/image-20191028135227517.png)
 
-![image-20191028135236330](../wp-content/uploads/2019/image-20191028135236330.png)
+![image-20191028135236330](/wp-content/uploads/2019/image-20191028135236330.png)
 
-![image-20191028135245963](../wp-content/uploads/2019/image-20191028135245963.png)
+![image-20191028135245963](/wp-content/uploads/2019/image-20191028135245963.png)
 
-![image-20191028135254666](../wp-content/uploads/2019/image-20191028135254666.png)
+![image-20191028135254666](/wp-content/uploads/2019/image-20191028135254666.png)
 
-![image-20191028135302802](../wp-content/uploads/2019/image-20191028135302802.png)
+![image-20191028135302802](/wp-content/uploads/2019/image-20191028135302802.png)
 
 第一次充值后，需要5-7个工作日，但也可能2-3天就可以。
 
