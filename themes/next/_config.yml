@@ -98,8 +98,10 @@ menu:
   tags: /tags/ || tags
   categories: /categories/ || th
   archives: /archives/ || archive
+  我的简历: https://leadscloud.github.io/resume/resume.pdf || link
   友情链接: /links/ || link
   Chrome扩展（域名所属人）: /serp-analyzer/ || link
+  询盘管理系统: https://github.com/leadscloud/infomaster || link
   外贸留言板系统: /20180615/google-seo-inquiry-messageboard/ || link
   #schedule: /schedule/ || calendar
   #sitemap: /sitemap.xml || sitemap
