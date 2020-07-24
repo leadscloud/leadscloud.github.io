@@ -151,6 +151,8 @@ Web Interface                 127.0.0.1:4040
 Avg Conn Time                 0.00ms
 ```
 
+这样你就就可以通过http://sub.test.lanthy.com:8081 访问内网 127.0.0.1:8080 
+
 SSH 22端口映射
 
 ```
@@ -171,7 +173,46 @@ HTTP 80端口映射
 /root/ngrok/bin/ngrok -config=/root/ngrok/.ngrok -subdomain=sub --proto=tcp -log=stdout 22 > /dev/null &
 ```
 
+
+## 使用固定端口配置
+
+如果想一次性转发多个端口或者想指定远程的对应端口，需要完善`ngrok.cfg`
+
+```
+server_addr: ngrok.lanthy.com:4443
+trust_host_root_certs: false
+tunnels:
+ ssh:
+  remote_port: 1122
+  proto:
+   tcp: 22
+ ss:
+  emote_port: 8388
+  proto:
+   tcp: 8388
+ ftp:
+  remote_port: 20
+  proto:
+   tcp: 20
+ ftp2:
+  remote_port: 21
+  proto:
+   tcp: 21
+ http:
+  subdomain: www
+  proto:
+   http: 80
+   https: 192.168.1.22:443
+```
+
+使用方法：
+
+```
+/root/ngrok/bin/ngrok -config=/root/ngrok/.ngrok start http
+```
+
 ## 参考链接：
 
 https://juejin.im/entry/58adb743b123db006730e691
 https://yii.im/posts/pretty-self-hosted-ngrokd/
+http://ngrok.cn/docs.html
