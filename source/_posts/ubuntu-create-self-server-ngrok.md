@@ -211,6 +211,16 @@ tunnels:
 /root/ngrok/bin/ngrok -config=/root/ngrok/.ngrok start http
 ```
 
+启动全部的是 `start-all` , 不过我这个版本没有这个功能。
+
+#### 后台运行
+
+必须加上`-log=stdout`参数,否则是不行的
+
+```
+nohup /home/nflg/ngrok/ngrok -config=/home/nflg/ngrok/ngrok.cfg -log=stdout start ssh > /dev/null &
+```
+
 ## 参考链接：
 
 https://juejin.im/entry/58adb743b123db006730e691
