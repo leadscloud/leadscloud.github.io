@@ -66,3 +66,16 @@ mysql的远程连接被禁用了
 下次重启规则还是会生效的，使用下面命令永久保存规则 
 
 `sudo iptables-save`
+
+上面的保存还是不行，使用下面的命令永久保存。
+
+如果没有安装`iptables-persistent`，先安装它
+
+`sudo apt-get install iptables-persistent`
+
+保存命令：
+
+```
+sudo netfilter-persistent save
+sudo netfilter-persistent reload
+```
