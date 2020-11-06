@@ -18,6 +18,16 @@ XAMPP添加虚拟主机如果不在默认的目录下（`/xampp/htdocs`只能在
 <Directory "E:/phpsite">
   Options Indexes FollowSymLinks Includes ExecCGI
   AllowOverride All
-  Order allow,deny    Allow from all
+  Order allow,deny    
+  Allow from all
+</Directory>
+```
+
+上面不行的话，使用下面的配置，xampp下测试没问题
+
+```
+<Directory "/var/www">
+    AllowOverride None
+    Require all granted
 </Directory>
 ```
