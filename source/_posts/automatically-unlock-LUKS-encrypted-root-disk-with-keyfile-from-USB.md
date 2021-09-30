@@ -4,8 +4,10 @@ id: 20210930
 categories:
   - Linux
 date: 2021-09-30 14:06:00
-tags: [centos, linux]
---
+tags: 
+  - centos
+  - linux
+---
 
 安装centos7时，有一个提示，是否加密磁盘，选择此选项后，每次启动系统都会要求你输入密码，这样可以保证磁盘如果没有密码，放到其它电脑上也无法使用。对数据会更加安全。
 
@@ -40,7 +42,7 @@ sdb                                             8:16   1  954M  0 disk
 sr0                                            11:0    1 1024M  0 rom
 ```
 
-``
+```
 [root@localhost ~]# blkid
 /dev/sda1: SEC_TYPE="msdos" UUID="FC4C-1E93" TYPE="vfat" PARTLABEL="EFI System Partition" PARTUUID="dbf79d09-cbbf-4a09-8ac5-b997ae1c6dfd"
 /dev/sda2: UUID="d4857a61-09d5-4768-b564-e3a12c2ca7d0" TYPE="xfs" PARTUUID="aa583022-7407-40dc-8f9e-1cb147dccd8b"
@@ -89,6 +91,7 @@ sed -i 's|rd.lvm.lv=centos/swap|rd.luks.key=cryptboot/boot.key:UUID=A06A-C2D3 rd
 即是在 `/etc/default/grub` 中GRUB_CMDLINE_LINUX这一行添加 `rd.luks.key=cryptboot/boot.key:UUID=A06A-C2D3`
 
 下面是修改后的
+
 ```
 GRUB_CMDLINE_LINUX="crashkernel=auto rd.lvm.lv=centos/root rd.luks.uuid=luks-535d89c0-9b67-4138-a0f3-0879ef2a6cc6 rd.luks.key=cryptboot/boot.key:UUID=A06A-C2D3 rd.lvm.lv=centos/swap rhgb quiet"
 ```
