@@ -61,3 +61,54 @@ PATH=$PATH:$HOME/bin:/usr/local/python34/bin
 ```
  . ~/.bash_profile
 ```
+
+## yum不可用的其它问题
+
+```
+[root@leadscloud]# yum install tmux
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: mirror.atlanticmetro.net
+ * centos-sclo-rh: centos.mirror.constant.com
+ * centos-sclo-sclo: mirror.datto.com
+ * extras: mirror.wdc1.us.leaseweb.net
+ * updates: mirror.cogentco.com
+http://people.centos.org/tru/devtools-2/7/x86_64/RPMS/repodata/repomd.xml: [Errno 14] HTTPS Error 404 - Not Found
+Trying other mirror.
+To address this issue please refer to the below wiki article 
+
+https://wiki.centos.org/yum-errors
+
+If above article doesn't help to resolve this issue please use https://bugs.centos.org/.
+
+  File "/usr/libexec/urlgrabber-ext-down", line 28
+    except OSError, e:
+                  ^
+SyntaxError: invalid syntax
+  File "/usr/libexec/urlgrabber-ext-down", line 28
+    except OSError, e:
+                  ^
+SyntaxError: invalid syntax
+  File "/usr/libexec/urlgrabber-ext-down", line 28
+    except OSError, e:
+                  ^
+SyntaxError: invalid syntax
+  File "/usr/libexec/urlgrabber-ext-down", line 28
+    except OSError, e:
+                  ^
+SyntaxError: invalid syntax
+
+
+Exiting on user cancel
+```
+
+修改 `/usr/libexec/urlgrabber-ext-down`, 同样把 `/usr/bin/python` 和前面一样改为python2 `/usr/bin/python2`
+
+升级后 还有一个问题，gnome-tweak-tool 也就是优化工具打不开
+
+```
+[root@leadscloud]# whereis yum-config-manager
+yum-config-manager: /usr/bin/yum-config-manager /usr/share/man/man1/yum-config-manager.1.gz
+```
+
+`vim /usr/bin/yum-config-manager` , 解决方法同上，修改为python2即可。
