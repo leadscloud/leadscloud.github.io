@@ -11,12 +11,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: 'Hexo Deploy GitHub Pages Action'
-      runs:
-        using: 'docker'
-        image: 'Dockerfile'
-      branding:
-        icon: 'git-commit'
-        color: 'blue'
+      uses: ./.github/actions/my-action@v1
       env:
         PERSONAL_TOKEN: ${{ secrets.HEXO_DEPLOY }} # secret 名
         PUBLISH_REPOSITORY: leadscloud/leadscloud.github.io # 公共仓库，格式：GitHub 用户名/仓库名
