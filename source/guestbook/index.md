@@ -4,7 +4,7 @@ id: 313055
 date: 2011-02-15 07:30:18
 ---
 
-<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.1&services=true"></script>
+<script type="text/javascript" src="https://api.map.baidu.com/api?v=1.1&services=true"></script>
 
 如果你有什么事，请给我留言，我会认真回复的。
 <script type="text/javascript">
