@@ -4,7 +4,9 @@ id: 313055
 date: 2011-02-15 07:30:18
 ---
 
-<script type="text/javascript" src="https://api.map.baidu.com/api?v=1.1&services=true"></script>
+<script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=6c33805af40a3d4301b724a6f17db455"></script>
+
+<div id="dituContent" style="width:100%; height:600px"></div>
 
 如果你有什么事，请给我留言，我会认真回复的。
 <script type="text/javascript">
@@ -102,7 +104,7 @@ date: 2011-02-15 07:30:18
     }
     //创建一个Icon
     function createIcon(json){
-        var icon = new BMap.Icon("http://openapi.baidu.com/map/images/us_mk_icon.png", new BMap.Size(json.w,json.h),{imageOffset: new BMap.Size(-json.l,-json.t),infoWindowOffset:new BMap.Size(json.lb+5,1),offset:new BMap.Size(json.x,json.h)})
+        var icon = new BMap.Icon("https://api.map.baidu.com/images/marker_red_sprite.png", new BMap.Size(json.w,json.h),{imageOffset: new BMap.Size(-json.l,-json.t),infoWindowOffset:new BMap.Size(json.lb+5,1),offset:new BMap.Size(json.x,json.h)})
         return icon;
     }
 
