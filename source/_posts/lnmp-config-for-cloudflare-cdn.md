@@ -74,7 +74,7 @@ echo "#real_ip_header X-Forwarded-For;" >> /usr/local/nginx/conf/cloudflare_ip.c
 ```
 map $HTTP_CF_CONNECTING_IP  $clientRealIp {
     ""    $remote_addr;
-    ~^(?P<firstAddr>[0-9.]+),?.*$    $firstAddr;
+    ~^(?P<firstAddr>[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+|[0-9A-Fa-f]+:[0-9A-Fa-f]+:[0-9A-Fa-f]+:[0-9A-Fa-f]+:[0-9A-Fa-f]+:[0-9A-Fa-f]+:[0-9A-Fa-f]+:[0-9A-Fa-f]+),?.*$ $firstAddr;
 }
 log_format  main  '$clientRealIp [$time_local] "$request" '
                   '$status $body_bytes_sent "$http_referer" '

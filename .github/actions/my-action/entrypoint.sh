@@ -44,6 +44,10 @@ cd "${GITHUB_WORKSPACE}"
 echo ">>> Install NPM dependencies ..."
 npm install
 
+echo ">>> Update algolia indexing ..."
+export HEXO_ALGOLIA_INDEXING_KEY="${HEXO_ALGOLIA_INDEXING_KEY}"
+npx hexo algolia
+
 echo ">>> Clean folder ..."
 npx hexo clean
 
