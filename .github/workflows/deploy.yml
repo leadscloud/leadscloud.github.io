@@ -14,6 +14,7 @@ jobs:
       uses: ./.github/actions/my-action
       env:
         PERSONAL_TOKEN: ${{ secrets.HEXO_DEPLOY }} # secret 名
+        HEXO_ALGOLIA_INDEXING_KEY: ${{ secrets.HEXO_ALGOLIA_INDEXING_KEY }}
         PUBLISH_REPOSITORY: leadscloud/leadscloud.github.io # 公共仓库，格式：GitHub 用户名/仓库名
         BRANCH: master # 分支，填 gh-pages 就行
         PUBLISH_DIR: ./public # 部署 public 目录下的文件
