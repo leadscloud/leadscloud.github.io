@@ -34,8 +34,10 @@ socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, "127.0.0.1", 1080)
 可以用requests代替上面的操作，一般如下
 
 ```
+http = httplib2.Http(proxy_info=httplib2.ProxyInfo(httplib2.socks.PROXY_TYPE_SOCKS5, '127.0.0.1', 1080))
+
 credentials = ServiceAccountCredentials.from_json_keyfile_name(JSON_KEY_FILE, scopes=SCOPES)
-access_token_info = credentials.get_access_token()
+access_token_info = credentials.get_access_token(http)
 
 requests.get(url, params={
     "url": "http://foo.com"
