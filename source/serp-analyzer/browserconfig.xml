@@ -2,10 +2,10 @@
 <browserconfig>
   <msapplication>
     <tile>
-      <square70x70logo src="/serp-analyzer/apple-touch-icon-180x180.png"/>
-      <square150x150logo src="/serp-analyzer/apple-touch-icon-180x180.png"/>
-      <square310x310logo src="/serp-analyzer/apple-touch-icon-180x180.png"/>
-      <wide310x150logo src="/serp-analyzer/apple-touch-icon-180x180.png"/>
+      <square70x70logo src="/serp-analyzer/icon_256.png"/>
+      <square150x150logo src="/serp-analyzer/icon_256.png"/>
+      <square310x310logo src="/serp-analyzer/icon_256.png"/>
+      <wide310x150logo src="/serp-analyzer/icon_256.png"/>
       <TileColor>#da532c</TileColor>
     </tile>
   </msapplication>
