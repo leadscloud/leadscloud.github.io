@@ -143,3 +143,46 @@ span.hero-button {
     height: 2px;
     background-color: #11006b;
 }
+
+.header.page .container {
+    padding-top: 90px;
+    padding-bottom: 90px;
+}
+.b-b {
+    border-bottom: 1px solid #edf4f8;
+}
+.pb-3, .py-3 {
+    padding-bottom: 1rem!important;
+}
+.pt-5, .py-5 {
+    padding-top: 3rem!important;
+}
+
+.news-wrapper {
+    font-size: 1.6rem;
+    color: #41494f;
+    font-weight: 300;
+    min-height: calc(100vh - 185px - 68px);
+}
+.news-wrapper p {
+    margin: 1.6rem 0;
+}
+.news-wrapper h3 {
+    font-size: 2.8rem;
+    font-weight: 400;
+    margin-bottom: 0.8rem;
+}
+.news-wrapper h4 {
+    font-size: 2.5rem;
+}
+
+.news-wrapper ul {
+    margin-bottom: 1.6rem;
+}
+
+.news-wrapper .container {
+    position: relative;
+    padding-top: 45px;
+    padding-bottom: 45px;
+}
+
