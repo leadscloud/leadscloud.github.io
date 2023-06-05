@@ -72,6 +72,8 @@ echo "#real_ip_header X-Forwarded-For;" >> /usr/local/nginx/conf/cloudflare_ip.c
 还是修改 `/usr/local/nginx/conf/nginx.conf` 这个文件，在 `http {}` 中间加入下面几行：
 
 ```
+# 这是网上大部分的教程这样写的，不对，正确的请看下面的追加
+
 map $HTTP_CF_CONNECTING_IP  $clientRealIp {
     ""    $remote_addr;
     ~^(?P<firstAddr>[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+|[0-9A-Fa-f]+:[0-9A-Fa-f]+:[0-9A-Fa-f]+:[0-9A-Fa-f]+:[0-9A-Fa-f]+:[0-9A-Fa-f]+:[0-9A-Fa-f]+:[0-9A-Fa-f]+),?.*$ $firstAddr;
@@ -84,6 +86,26 @@ log_format  main  '$clientRealIp [$time_local] "$request" '
 *注意*： 如果`include cloudflare_ip.conf;` 放在 `http {}`中，$remote_addr会替换为真实的ip地址，不需要上面的修改了。
 
 然后在网站记录的日志定义使用main这个日志格式
+
+**2023-6-5修改：**
+
+上面的代码是有问题的，网上大部分的教程也是如此，这用特地说明下
+
+`$HTTP_CF_CONNECTING_IP`是使用cloudflare后，cf传给服务器的用户真实ip, 为了防止有人伪造headers，使用了 `set_real_ip_from`, 这样可以保证只能cloudflare的ip地址传过来的 `headders["CF-Connecting-IP"]` 我们才相信。
+
+所以通常情况下，你不需要安装`--with-http_realip_module`这个组件，大部分情况下直接相信cloudflare即可。
+
+上面的map应该修改为
+
+```
+map $http_cf_connecting_ip $clientRealIp {
+  "" $remote_addr; #如果为空，使用remote_addr
+  default $http_cf_connecting_ip; # 默认http_cf_connecting_ip headers传过来的值
+}
+```
+
+上面那个匹配ip的正则是错误的，比如这个ipv6地址就无法匹配 `2001:41d0:303:363::1`, 这是ipv6的一种缩写形式，所以网上大部分的教程是错误的。
+
 
 ```
 access_log /home/wwwlogs/abc.com.log main;
