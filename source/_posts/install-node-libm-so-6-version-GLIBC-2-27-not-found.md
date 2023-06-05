@@ -138,6 +138,23 @@ strings /usr/lib64/libstdc++.so.6 | grep GLIBCXX
 
 ```
 
+升级导致的语言包问题，中文有乱码
+
+特别是`crontab -e`编辑时里面的中文有些正常，有些乱码
+
+```
+-bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
+```
+
+可以通过如下解决
+
+```
+cd /root/glibc-2.28/build
+make localedata/install-locales
+```
+
+这样每次登录ssh就不会提示 `LC_ALL: cannot change locale` 了。
+
 
 参考链接：
 
