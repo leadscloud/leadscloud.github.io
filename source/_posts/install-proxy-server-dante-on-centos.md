@@ -27,15 +27,18 @@ internal: 0.0.0.0 port=1080
 external: eth0
 
 clientmethod: none
-socksmethod: none
+socksmethod: username # 使用系统用户名密码方式验证
+
+#user.privileged: root
+user.notprivileged: socks  # 创建的用户名
 
 client pass {
-    from: 127.0.0.1 to: 0.0.0.0/0
+    from: 0/0  to: 0/0
     #log: connect disconnect error
 }
 
 socks pass {
-    from: 127.0.0.1 to: 0.0.0.0/0
+    from: 0/0  to: 0/0
     #log: connect disconnect error
 }
 ```
@@ -43,6 +46,14 @@ socks pass {
 127.0.0.1 替换成 x.x.x.x/8 即可。
 
 配置说明： https://www.inet.no/dante/doc/1.4.x/config/server.html
+
+### 添加用户
+
+```
+adduser --no-create-home --shell /usr/sbin/nologin socks # 添加一个本地用户，不创建默认目录和登录Shell
+
+passwd socks # 设置一个密码
+```
 
 ### 运行
 
