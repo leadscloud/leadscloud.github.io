@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/logo.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/logo.png?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="PHP,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="leadscloud" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="1. PHP可阅读随机字符串 此代码将创建一个可阅读的字符串，使其更接近词典中的单词，实用且具有密码验证功能。">
+<meta name="keywords" content="PHP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="21个实用的php代码">
+<meta property="og:url" content="https://leadscloud.github.io/313011/21个实用的php代码/index.html">
+<meta property="og:site_name" content="leadscloud">
+<meta property="og:description" content="1. PHP可阅读随机字符串 此代码将创建一个可阅读的字符串，使其更接近词典中的单词，实用且具有密码验证功能。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2024-03-26T15:51:14.975Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="21个实用的php代码">
+<meta name="twitter:description" content="1. PHP可阅读随机字符串 此代码将创建一个可阅读的字符串，使其更接近词典中的单词，实用且具有密码验证功能。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'F96493CKR7',
+      apiKey: '52cfc4f849dbe10556d886de6046f5c3',
+      indexName: 'blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://leadscloud.github.io/313011/21个实用的php代码/">
+
+
+
+
+
+  <title>21个实用的php代码 | leadscloud</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">leadscloud</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">Google SEO|外贸营销推广</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-免费chatgpt">
+          <a href="https://chat.tinycms.xyz:3002?refer=serp-analyzer-side" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br>
+            
+            免费ChatGPT
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-我的简历">
+          <a href="https://leadscloud.github.io/resume/resume.pdf" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br>
+            
+            我的简历
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-友情链接">
+          <a href="/links/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br>
+            
+            友情链接
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-chrome扩展（域名所属人）">
+          <a href="/serp-analyzer/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br>
+            
+            Chrome扩展（域名所属人）
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-询盘管理系统">
+          <a href="https://github.com/leadscloud/infomaster" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br>
+            
+            询盘管理系统
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-外贸留言板系统">
+          <a href="/20180615/google-seo-inquiry-messageboard/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br>
+            
+            外贸留言板系统
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leadscloud.github.io/313011/21个实用的php代码/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ray">
+      <meta itemprop="description" content="Think Difficulty">
+      <meta itemprop="image" content="/logo.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="leadscloud">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">21个实用的php代码</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2011-02-11T21:29:32+00:00">
+                2011-02-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PHP学习/" itemprop="url" rel="index">
+                    <span itemprop="name">PHP学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/313011/21个实用的php代码/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/313011/21个实用的php代码/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/313011/21个实用的php代码/" class="leancloud_visitors" data-flag-title="21个实用的php代码">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,408
+                </span>
+              
+
+              
+
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>1. PHP可阅读随机字符串</p>
+<p>此代码将创建一个可阅读的字符串，使其更接近词典中的单词，实用且具有密码验证功能。<br> <a id="more"></a> </p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/************** </span></span><br><span class="line"><span class="comment">*@length - length of random string (must be a multiple of 2) </span></span><br><span class="line"><span class="comment">**************/</span> </span><br><span class="line">function readable_random_string($length = <span class="number">6</span>)&#123; </span><br><span class="line">    $conso=array(<span class="variable">&amp;quot</span>;b<span class="variable">&amp;quot</span>;,<span class="variable">&amp;quot</span>;c<span class="variable">&amp;quot</span>;,<span class="variable">&amp;quot</span>;d<span class="variable">&amp;quot</span>;,<span class="variable">&amp;quot</span>;f<span class="variable">&amp;quot</span>;,<span class="variable">&amp;quot</span>;g<span class="variable">&amp;quot</span>;,<span class="variable">&amp;quot</span>;h<span class="variable">&amp;quot</span>;,<span class="variable">&amp;quot</span>;j<span class="variable">&amp;quot</span>;,<span class="variable">&amp;quot</span>;k<span class="variable">&amp;quot</span>;,<span class="variable">&amp;quot</span>;l<span class="variable">&amp;quot</span>;, </span><br><span class="line">    <span class="variable">&amp;quot</span>;m<span class="variable">&amp;quot</span>;,<span class="variable">&amp;quot</span>;n<span class="variable">&amp;quot</span>;,<span class="variable">&amp;quot</span>;p<span class="variable">&amp;quot</span>;,<span class="variable">&amp;quot</span>;r<span class="variable">&amp;quot</span>;,<span class="variable">&amp;quot</span>;s<span class="variable">&amp;quot</span>;,<span class="variable">&amp;quot</span>;t<span class="variable">&amp;quot</span>;,<span class="variable">&amp;quot</span>;v<span class="variable">&amp;quot</span>;,<span class="variable">&amp;quot</span>;w<span class="variable">&amp;quot</span>;,<span class="variable">&amp;quot</span>;x<span class="variable">&amp;quot</span>;,<span class="variable">&amp;quot</span>;y<span class="variable">&amp;quot</span>;,<span class="variable">&amp;quot</span>;z<span class="variable">&amp;quot</span>;); </span><br><span class="line">    $vocal=array(<span class="variable">&amp;quot</span>;a<span class="variable">&amp;quot</span>;,<span class="variable">&amp;quot</span>;e<span class="variable">&amp;quot</span>;,<span class="variable">&amp;quot</span>;i<span class="variable">&amp;quot</span>;,<span class="variable">&amp;quot</span>;o<span class="variable">&amp;quot</span>;,<span class="variable">&amp;quot</span>;u<span class="variable">&amp;quot</span>;); </span><br><span class="line">    $password=<span class="variable">&amp;quot</span>;<span class="variable">&amp;quot</span>;; </span><br><span class="line">    srand ((double)microtime()*<span class="number">1000000</span>); </span><br><span class="line">    $max = $length/<span class="number">2</span>; </span><br><span class="line">    for($i=<span class="number">1</span>; $i<span class="variable">&amp;lt</span>;=$max; $i++) </span><br><span class="line">    &#123; </span><br><span class="line">    $password.=$conso[rand(<span class="number">0</span>,<span class="number">19</span>)]; </span><br><span class="line">    $password.=$vocal[rand(<span class="number">0</span>,<span class="number">4</span>)]; </span><br><span class="line">    &#125; </span><br><span class="line">    return $password; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2. PHP生成一个随机字符串</p>
+<p>如果不需要可阅读的字符串，使用此函数替代，即可创建一个随机字符串，作为用户的随机密码等。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/************* </span></span><br><span class="line"><span class="comment">*<span class="doctag">@l</span> - length of random string </span></span><br><span class="line"><span class="comment">*/</span> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">generate_rand</span><span class="params">($l)</span></span>&#123; </span><br><span class="line">  $c= &amp;quot;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789&amp;quot;; </span><br><span class="line">  srand((double)microtime()*<span class="number">1000000</span>); </span><br><span class="line">  <span class="keyword">for</span>($i=<span class="number">0</span>; $i&amp;lt;$l; $i++) &#123; </span><br><span class="line">      $rand.= $c[rand()%strlen($c)]; </span><br><span class="line">  &#125; </span><br><span class="line">  <span class="keyword">return</span> $rand; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>3. PHP编码电子邮件地址</p>
+<p>使用此代码，可以将任何电子邮件地址编码为 html 字符实体，以防止被垃圾邮件程序收集。</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">function encode_email($email=<span class="string">'info@domain.com'</span>, $linkText=<span class="string">'Contact Us'</span>, $attrs =<span class="string">'class=&amp;quot;emailencoder&amp;quot;'</span> )</span><br><span class="line">&#123;</span><br><span class="line">    // remplazar aroba <span class="keyword">y</span> puntos</span><br><span class="line">    $email = str_replace(<span class="string">'@'</span>, <span class="string">'@'</span>, $email);</span><br><span class="line">    $email = str_replace(<span class="string">'.'</span>, <span class="string">'.'</span>, $email);</span><br><span class="line">    $email = str_split($email, <span class="number">5</span>); </span><br><span class="line"></span><br><span class="line">    $linkText = str_replace(<span class="string">'@'</span>, <span class="string">'@'</span>, $linkText);</span><br><span class="line">    $linkText = str_replace(<span class="string">'.'</span>, <span class="string">'.'</span>, $linkText);</span><br><span class="line">    $linkText = str_split($linkText, <span class="number">5</span>); </span><br><span class="line"></span><br><span class="line">    $part1 = <span class="string">'['</span>;</span><br><span class="line">    $part4 = <span class="string">'](ma)'</span>; </span><br><span class="line"></span><br><span class="line">    $encoded = <span class="string">'&lt;script type="text/javascript"&gt;'</span>;</span><br><span class="line">    $encoded .= <span class="string">"document.write('$part1');"</span>;</span><br><span class="line">    $encoded .= <span class="string">"document.write('$part2');"</span>;</span><br><span class="line">    <span class="keyword">foreach</span>($email as $e)</span><br><span class="line">    &#123;</span><br><span class="line">            $encoded .= <span class="string">"document.write('$e');"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    $encoded .= <span class="string">"document.write('$part3');"</span>;</span><br><span class="line">    <span class="keyword">foreach</span>($linkText as $l)</span><br><span class="line">    &#123;</span><br><span class="line">            $encoded .= <span class="string">"document.write('$l');"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    $encoded .= <span class="string">"document.write('$part4');"</span>;</span><br><span class="line">    $encoded .= <span class="string">'&lt;/script&gt;'</span>; </span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> $encoded;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4. PHP验证邮件地址</p>
+<p>电子邮件验证也许是中最常用的网页表单验证，此代码除了验证电子邮件地址，也可以选择检查邮件域所属 DNS 中的 MX 记录，使邮件验证功能更加强大。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">is_valid_email</span><span class="params">($email, $test_mx = false)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(eregi(&amp;quot;^([_a-z0<span class="number">-9</span>-]+)(.[_a-z0<span class="number">-9</span>-]+)*@([a-z0<span class="number">-9</span>-]+)(.[a-z0<span class="number">-9</span>-]+)*(.[a-z]&#123;<span class="number">2</span>,<span class="number">4</span>&#125;)$&amp;quot;, $email))</span><br><span class="line">        <span class="keyword">if</span>($test_mx)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">list</span>($username, $domain) = split(&amp;quot;@&amp;quot;, $email);</span><br><span class="line">            <span class="keyword">return</span> getmxrr($domain, $mxrecords);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>5. PHP列出目录内容</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">list_files</span><span class="params">($dir)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(is_dir($dir))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>($handle = opendir($dir))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">while</span>(($file = readdir($handle)) !== <span class="keyword">false</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>($file != &amp;quot;.&amp;quot; &amp;amp;&amp;amp; $file != &amp;quot;..&amp;quot; &amp;amp;&amp;amp; $file != &amp;quot;Thumbs.db&amp;quot;)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">echo</span> <span class="string">'['</span>.$file.<span class="string">']()</span></span><br><span class="line"><span class="string">'</span>.&amp;quot;n&amp;quot;;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            closedir($handle);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>6. PHP销毁目录</p>
+<p>删除一个目录，包括它的内容。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*****</span></span><br><span class="line"><span class="comment">*<span class="doctag">@dir</span> - Directory to destroy</span></span><br><span class="line"><span class="comment">*<span class="doctag">@virtual</span>[optional]- whether a virtual directory</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">destroyDir</span><span class="params">($dir, $virtual = false)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    $ds = DIRECTORY_SEPARATOR;</span><br><span class="line">    $dir = $virtual ? realpath($dir) : $dir;</span><br><span class="line">    $dir = substr($dir, <span class="number">-1</span>) == $ds ? substr($dir, <span class="number">0</span>, <span class="number">-1</span>) : $dir;</span><br><span class="line">    <span class="keyword">if</span> (is_dir($dir) &amp;amp;&amp;amp; $handle = opendir($dir))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span> ($file = readdir($handle))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> ($file == <span class="string">'.'</span> || $file == <span class="string">'..'</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">elseif</span> (is_dir($dir.$ds.$file))</span><br><span class="line">            &#123;</span><br><span class="line">                destroyDir($dir.$ds.$file);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                unlink($dir.$ds.$file);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        closedir($handle);</span><br><span class="line">        rmdir($dir);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>7. PHP解析 JSON 数据</p>
+<p>与大多数流行的 Web 服务如 twitter 通过开放 API 来提供数据一样，它总是能够知道如何解析 API 数据的各种传送格式，包括 JSON，XML 等等。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$json_string='&#123;<span class="symbol">&amp;quot;</span>id<span class="symbol">&amp;quot;</span>:1,<span class="symbol">&amp;quot;</span>name<span class="symbol">&amp;quot;</span>:<span class="symbol">&amp;quot;</span>foo<span class="symbol">&amp;quot;</span>,<span class="symbol">&amp;quot;</span>email<span class="symbol">&amp;quot;</span>:<span class="symbol">&amp;quot;</span>foo@foobar.com<span class="symbol">&amp;quot;</span>,<span class="symbol">&amp;quot;</span>interest<span class="symbol">&amp;quot;</span>:[<span class="symbol">&amp;quot;</span>wordpress<span class="symbol">&amp;quot;</span>,<span class="symbol">&amp;quot;</span>php<span class="symbol">&amp;quot;</span>]&#125; ';</span><br><span class="line">$obj=json_decode($json_string);</span><br><span class="line">echo $obj-<span class="symbol">&amp;gt;</span>name; //prints foo</span><br><span class="line">echo $obj-<span class="symbol">&amp;gt;</span>interest[1]; //prints php</span><br></pre></td></tr></table></figure>
+<p>8. PHP解析 XML 数据</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">//xml<span class="built_in"> string</span></span><br><span class="line"><span class="variable">$xml_string</span>=&amp;quot;&amp;<span class="literal">lt</span>;?xml version=<span class="string">'1.0'</span>?&amp;<span class="literal">gt</span>;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">users</span>&gt;</span></span></span><br><span class="line"><span class="xml">   </span><span class="xml"><span class="tag">&lt;<span class="name">user</span> <span class="attr">id</span>=<span class="string">"398"</span>&gt;</span></span></span><br><span class="line"><span class="xml">      </span><span class="xml"><span class="tag">&lt;<span class="name">name</span>&gt;</span>Foo<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span></span><br><span class="line"><span class="xml">      </span><span class="xml"><span class="tag">&lt;<span class="name">email</span>&gt;</span>foo@bar.com<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span></span><br><span class="line"><span class="xml">   <span class="tag">&lt;/<span class="name">user</span>&gt;</span></span></span><br><span class="line"><span class="xml">   </span><span class="xml"><span class="tag">&lt;<span class="name">user</span> <span class="attr">id</span>=<span class="string">"867"</span>&gt;</span></span></span><br><span class="line"><span class="xml">      </span><span class="xml"><span class="tag">&lt;<span class="name">name</span>&gt;</span>Foobar<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span></span><br><span class="line"><span class="xml">      </span><span class="xml"><span class="tag">&lt;<span class="name">email</span>&gt;</span>foobar@foo.com<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span></span><br><span class="line"><span class="xml">   <span class="tag">&lt;/<span class="name">user</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">users</span>&gt;</span></span>&amp;quot;; </span><br><span class="line"></span><br><span class="line">//load the xml<span class="built_in"> string</span> using simplexml</span><br><span class="line"><span class="variable">$xml</span> = simplexml_load_string(<span class="variable">$xml_string</span>); </span><br><span class="line"></span><br><span class="line">//loop through the each <span class="type">node</span> <span class="keyword">of</span> user</span><br><span class="line">foreach (<span class="variable">$xml-</span>&amp;<span class="literal">gt</span>;user <span class="keyword">as</span> <span class="variable">$user</span>)</span><br><span class="line">&#123;</span><br><span class="line">   //access <span class="keyword">attribute</span></span><br><span class="line">   echo $user['id'], '  ';</span><br><span class="line">   //subnodes are accessed by -&amp;gt; operator</span><br><span class="line">   echo $user-&amp;gt;name, '  ';</span><br><span class="line">   echo $user-&amp;gt;email, '</span><br><span class="line">';</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>9. PHP创建日志缩略名</p>
+<p>创建用户友好的日志缩略名。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">create_slug</span><span class="params">($string)</span></span>&#123;</span><br><span class="line">    $slug=preg_replace(<span class="string">'/[^A-Za-z0-9-]+/'</span>, <span class="string">'-'</span>, $string);</span><br><span class="line">    <span class="keyword">return</span> $slug;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>10. PHP获取客户端真实 IP 地址</p>
+<p>该函数将获取用户的真实 IP 地址，即便他使用代理服务器。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getRealIpAddr</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!emptyempty($_SERVER[<span class="string">'HTTP_CLIENT_IP'</span>]))</span><br><span class="line">    &#123;</span><br><span class="line">        $ip=$_SERVER[<span class="string">'HTTP_CLIENT_IP'</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">elseif</span> (!emptyempty($_SERVER[<span class="string">'HTTP_X_FORWARDED_FOR'</span>]))</span><br><span class="line">    <span class="comment">//to check ip is pass from proxy</span></span><br><span class="line">    &#123;</span><br><span class="line">        $ip=$_SERVER[<span class="string">'HTTP_X_FORWARDED_FOR'</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        $ip=$_SERVER[<span class="string">'REMOTE_ADDR'</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> $ip;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>11. PHP强制性文件下载</p>
+<p>为用户提供强制性的文件下载功能。</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/********************</span></span><br><span class="line"><span class="comment">*@file - path to file</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">function force_download(<span class="symbol">$</span><span class="keyword">file</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> ((isset(<span class="symbol">$</span><span class="keyword">file</span>))&amp;amp;&amp;amp;(file_exists(<span class="symbol">$</span><span class="keyword">file</span>))) &#123;</span><br><span class="line">       header(&amp;quot;Content-length: &amp;quot;.filesize(<span class="symbol">$</span><span class="keyword">file</span>));</span><br><span class="line">       header(<span class="string">'Content-Type: application/octet-stream'</span>);</span><br><span class="line">       header(<span class="string">'Content-Disposition: attachment; filename=&amp;quot;'</span> . <span class="symbol">$</span><span class="keyword">file</span> . <span class="string">'&amp;quot;'</span>);</span><br><span class="line">       readfile(&amp;quot;<span class="symbol">$</span><span class="keyword">file</span>&amp;quot;);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">       echo &amp;quot;<span class="keyword">No</span> <span class="keyword">file</span> selected&amp;quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>12. PHP创建标签云</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> getCloud( <span class="variable">$data</span> = <span class="keyword">array</span>(), <span class="variable">$minFontSize</span> = <span class="number">12</span>, <span class="variable">$maxFontSize</span> = <span class="number">30</span> )</span><br><span class="line">&#123;</span><br><span class="line">    <span class="variable">$minimumCount</span> =<span class="built_in"> min</span>( array_values( <span class="variable">$data</span> ) );</span><br><span class="line">    <span class="variable">$maximumCount</span> =<span class="built_in"> max</span>( array_values( <span class="variable">$data</span> ) );</span><br><span class="line">    <span class="variable">$spread</span>       = <span class="variable">$maximumCount</span> - <span class="variable">$minimumCount</span>;</span><br><span class="line">    <span class="variable">$cloudHTML</span>    = <span class="string">''</span>;</span><br><span class="line">    <span class="variable">$cloudTags</span>    = <span class="keyword">array</span>(); </span><br><span class="line"></span><br><span class="line">    <span class="variable">$spread</span> == <span class="number">0</span> &amp;amp;&amp;amp; <span class="variable">$spread</span> = <span class="number">1</span>; </span><br><span class="line"></span><br><span class="line">    foreach( <span class="variable">$data</span> <span class="keyword">as</span> <span class="variable">$tag</span> =&amp;<span class="literal">gt</span>; <span class="variable">$count</span> )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="variable">$size</span> = <span class="variable">$minFontSize</span> + ( <span class="variable">$count</span> - <span class="variable">$minimumCount</span> )</span><br><span class="line">            * ( <span class="variable">$maxFontSize</span> - <span class="variable">$minFontSize</span> ) / <span class="variable">$spread</span>;</span><br><span class="line">        <span class="variable">$cloudTags</span>[] = <span class="string">'['</span></span><br><span class="line">        . htmlspecialchars( stripslashes( <span class="variable">$tag</span> ) ) . <span class="string">'](# "&amp;#39;&amp;#39; . $tag  .&amp;#13;&amp;#10;        &amp;#39;&amp;#39; returned a count of &amp;#39; . $count . &amp;#39;")'</span>;</span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> join( &amp;quot;n&amp;quot;, <span class="variable">$cloudTags</span> ) . &amp;quot;n&amp;quot;;</span><br><span class="line">&#125;</span><br><span class="line">/**************************</span><br><span class="line">****   Sample usage    ***/</span><br><span class="line"><span class="variable">$arr</span> = Array(<span class="string">'Actionscript'</span> =&amp;<span class="literal">gt</span>; <span class="number">35</span>, <span class="string">'Adobe'</span> =&amp;<span class="literal">gt</span>; <span class="number">22</span>, <span class="string">'Array'</span> =&amp;<span class="literal">gt</span>; <span class="number">44</span>, <span class="string">'Background'</span> =&amp;<span class="literal">gt</span>; <span class="number">43</span>,</span><br><span class="line">    <span class="string">'Blur'</span> =&amp;<span class="literal">gt</span>; <span class="number">18</span>, <span class="string">'Canvas'</span> =&amp;<span class="literal">gt</span>; <span class="number">33</span>, <span class="string">'Class'</span> =&amp;<span class="literal">gt</span>; <span class="number">15</span>, <span class="string">'Color Palette'</span> =&amp;<span class="literal">gt</span>; <span class="number">11</span>, <span class="string">'Crop'</span> =&amp;<span class="literal">gt</span>; <span class="number">42</span>,</span><br><span class="line">    <span class="string">'Delimiter'</span> =&amp;<span class="literal">gt</span>; <span class="number">13</span>, <span class="string">'Depth'</span> =&amp;<span class="literal">gt</span>; <span class="number">34</span>, <span class="string">'Design'</span> =&amp;<span class="literal">gt</span>; <span class="number">8</span>, <span class="string">'Encode'</span> =&amp;<span class="literal">gt</span>; <span class="number">12</span>, <span class="string">'Encryption'</span> =&amp;<span class="literal">gt</span>; <span class="number">30</span>,</span><br><span class="line">    <span class="string">'Extract'</span> =&amp;<span class="literal">gt</span>; <span class="number">28</span>, <span class="string">'Filters'</span> =&amp;<span class="literal">gt</span>; <span class="number">42</span>);</span><br><span class="line">echo getCloud(<span class="variable">$arr</span>, <span class="number">12</span>, <span class="number">36</span>);</span><br></pre></td></tr></table></figure>
+<p>13. PHP寻找两个字符串的相似性</p>
+<p>PHP 提供了一个极少使用的 similar_text 函数，但此函数非常有用，用于比较两个字符串并返回相似程度的百分比。</p>
+<figure class="highlight cos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">similar_text(<span class="built_in">$string</span>1, <span class="built_in">$string</span>2, <span class="built_in">$percent</span>)<span class="comment">;</span></span><br><span class="line"><span class="comment">//$percent will have the percentage of similarity</span></span><br></pre></td></tr></table></figure>
+<p>14. PHP在应用程序中使用 Gravatar 通用头像</p>
+<p>随着 WordPress 越来越普及，Gravatar 也随之流行。由于 Gravatar 提供了易于使用的 API，将其纳入应用程序也变得十分方便。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/******************</span></span><br><span class="line"><span class="comment">*<span class="doctag">@email</span> - Email address to show gravatar for</span></span><br><span class="line"><span class="comment">*<span class="doctag">@size</span> - size of gravatar</span></span><br><span class="line"><span class="comment">*<span class="doctag">@default</span> - URL of default gravatar to use</span></span><br><span class="line"><span class="comment">*<span class="doctag">@rating</span> - rating of Gravatar(G, PG, R, X)</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">show_gravatar</span><span class="params">($email, $size, $default, $rating)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">'&lt;img src="http://www.gravatar.com/avatar.php?gravatar_id='</span>.md5($email). </span><br><span class="line"><span class="string">'&amp;default='</span>.$default.<span class="string">'&amp;size='</span>.$size.<span class="string">'&amp;rating='</span>.$rating.<span class="string">'" width="'</span>.$size.<span class="string">'px" </span></span><br><span class="line"><span class="string">height="'</span>.$size.<span class="string">'px" /&gt;'</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>15. PHP在字符断点处截断文字</p>
+<p>所谓断字 (word break)，即一个单词可在转行时断开的地方。这一函数将在断字处截断字符串。</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// Original PHP code <span class="keyword">by</span> Chirp Internet: www.chirp.com.au</span><br><span class="line">// Please acknowledge use <span class="keyword">of</span> this code <span class="keyword">by</span> including this header.</span><br><span class="line"><span class="keyword">function</span> myTruncate(<span class="variable">$string</span>, <span class="variable">$limit</span>, <span class="variable">$break</span>=&amp;quot;.&amp;quot;, <span class="variable">$pad</span>=&amp;quot;...&amp;quot;) &#123;</span><br><span class="line">    // <span class="keyword">return</span> with no change <span class="keyword">if</span><span class="built_in"> string</span> <span class="literal">is</span> shorter than <span class="variable">$limit</span></span><br><span class="line">    <span class="keyword">if</span>(strlen(<span class="variable">$string</span>) &amp;<span class="literal">lt</span>;= <span class="variable">$limit</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="variable">$string</span>;  </span><br><span class="line"></span><br><span class="line">    // <span class="literal">is</span> <span class="variable">$break</span> present between <span class="variable">$limit</span> <span class="keyword">and</span> the <span class="keyword">end</span> <span class="keyword">of</span> the<span class="built_in"> string</span>?</span><br><span class="line">    <span class="keyword">if</span><span class="built_in">(false</span> !== (<span class="variable">$breakpoint</span> = strpos(<span class="variable">$string</span>, <span class="variable">$break</span>, <span class="variable">$limit</span>))) &#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="variable">$breakpoint</span> &amp;<span class="literal">lt</span>; strlen(<span class="variable">$string</span>) - <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="variable">$string</span> = substr(<span class="variable">$string</span>, <span class="number">0</span>, <span class="variable">$breakpoint</span>) . <span class="variable">$pad</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable">$string</span>;</span><br><span class="line">&#125;</span><br><span class="line">/***** Example ****/</span><br><span class="line"><span class="variable">$short_string</span>=myTruncate(<span class="variable">$long_string</span>, <span class="number">100</span>, <span class="string">' '</span>);</span><br></pre></td></tr></table></figure>
+<p>16. PHP文件 Zip 压缩</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* creates a compressed zip file */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">create_zip</span><span class="params">($files = array<span class="params">()</span>,$destination = <span class="string">''</span>,$overwrite = false)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//if the zip file already exists and overwrite is false, return false</span></span><br><span class="line">    <span class="keyword">if</span>(file_exists($destination) &amp;amp;&amp;amp; !$overwrite) &#123; <span class="keyword">return</span> <span class="keyword">false</span>; &#125;</span><br><span class="line">    <span class="comment">//vars</span></span><br><span class="line">    $valid_files = <span class="keyword">array</span>();</span><br><span class="line">    <span class="comment">//if files were passed in...</span></span><br><span class="line">    <span class="keyword">if</span>(is_array($files)) &#123;</span><br><span class="line">        <span class="comment">//cycle through each file</span></span><br><span class="line">        <span class="keyword">foreach</span>($files <span class="keyword">as</span> $file) &#123;</span><br><span class="line">            <span class="comment">//make sure the file exists</span></span><br><span class="line">            <span class="keyword">if</span>(file_exists($file)) &#123;</span><br><span class="line">                $valid_files[] = $file;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//if we have good files...</span></span><br><span class="line">    <span class="keyword">if</span>(count($valid_files)) &#123;</span><br><span class="line">        <span class="comment">//create the archive</span></span><br><span class="line">        $zip = <span class="keyword">new</span> ZipArchive();</span><br><span class="line">        <span class="keyword">if</span>($zip-&amp;gt;open($destination,$overwrite ? ZIPARCHIVE::OVERWRITE : ZIPARCHIVE::CREATE) !== <span class="keyword">true</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//add the files</span></span><br><span class="line">        <span class="keyword">foreach</span>($valid_files <span class="keyword">as</span> $file) &#123;</span><br><span class="line">            $zip-&amp;gt;addFile($file,$file);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//debug</span></span><br><span class="line">        <span class="comment">//echo 'The zip archive contains ',$zip-&amp;gt;numFiles,' files with a status of ',$zip-&amp;gt;status; </span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//close the zip -- done!</span></span><br><span class="line">        $zip-&amp;gt;close(); </span><br><span class="line"></span><br><span class="line">        <span class="comment">//check to make sure the file exists</span></span><br><span class="line">        <span class="keyword">return</span> file_exists($destination);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/***** Example Usage ***/</span></span><br><span class="line">$files=<span class="keyword">array</span>(<span class="string">'file1.jpg'</span>, <span class="string">'file2.jpg'</span>, <span class="string">'file3.gif'</span>);</span><br><span class="line">create_zip($files, <span class="string">'myzipfile.zip'</span>, <span class="keyword">true</span>);</span><br></pre></td></tr></table></figure>
+<p>17. PHP解压缩 Zip 文件</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**********************</span></span><br><span class="line"><span class="comment">*<span class="doctag">@file</span> - path to zip file</span></span><br><span class="line"><span class="comment">*<span class="doctag">@destination</span> - destination directory for unzipped files</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">unzip_file</span><span class="params">($file, $destination)</span></span>&#123;</span><br><span class="line">    <span class="comment">// create object</span></span><br><span class="line">    $zip = <span class="keyword">new</span> ZipArchive() ;</span><br><span class="line">    <span class="comment">// open archive</span></span><br><span class="line">    <span class="keyword">if</span> ($zip-&amp;gt;open($file) !== <span class="keyword">TRUE</span>) &#123;</span><br><span class="line">        <span class="keyword">die</span> (’Could not open archive’);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// extract contents to destination directory</span></span><br><span class="line">    $zip-&amp;gt;extractTo($destination);</span><br><span class="line">    <span class="comment">// close archive</span></span><br><span class="line">    $zip-&amp;gt;close();</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">'Archive extracted to directory'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>18. PHP为 URL 地址预设 http 字符串</p>
+<p>有时需要接受一些表单中的网址输入，但用户很少添加 http:// 字段，此代码将为网址添加该字段。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!preg_match(&amp;quot;<span class="regexp">/^(http|ftp):/</span>&amp;quot;, <span class="variable">$_POST</span>[<span class="string">'url'</span>])) &#123;</span><br><span class="line">   <span class="variable">$_POST</span>[<span class="string">'url'</span>] = <span class="string">'http://'</span>.<span class="variable">$_POST</span>[<span class="string">'url'</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>19. PHP将网址字符串转换成超级链接</p>
+<p>该函数将 URL 和 E-mail 地址字符串转换为可点击的超级链接。</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function makeClickableLinks($text) &#123;</span><br><span class="line"> $text = eregi<span class="emphasis">_replace('(((f|ht)&#123;1&#125;tp://)[-a-zA-Z0-9@:%_</span>+.~#?&amp;amp;//=]+)',</span><br><span class="line"> '[<span class="string">1</span>](<span class="link">1</span>)', $text);</span><br><span class="line"> $text = eregi<span class="emphasis">_replace('([[:space:]()[&#123;&#125;])(www.[-a-zA-Z0-9@:%_</span>+.~#?&amp;amp;//=]+)',</span><br><span class="line"> '1[<span class="string">2</span>](<span class="link">http://2</span>)', $text);</span><br><span class="line"> $text = eregi<span class="emphasis">_replace('([_</span>.0-9a-z-]+@([<span class="string">0-9a-z</span>][<span class="symbol">0-9a-z-</span>]+.)+[a-z]&#123;2,3&#125;)',</span><br><span class="line"> '[<span class="string">1</span>](<span class="link">mailto:1</span>)', $text); </span><br><span class="line"></span><br><span class="line">return $text;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>20. PHP调整图像尺寸</p>
+<p>创建图像缩略图需要许多时间，此代码将有助于了解缩略图的逻辑。</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">/**********************</span><br><span class="line">*@filename -<span class="built_in"> path</span> <span class="keyword">to</span> the image</span><br><span class="line">*@tmpname - temporary<span class="built_in"> path</span> <span class="keyword">to</span> thumbnail</span><br><span class="line">*@xmax -<span class="built_in"> max</span> width</span><br><span class="line">*@ymax -<span class="built_in"> max</span> height</span><br><span class="line">*/</span><br><span class="line"><span class="keyword">function</span> resize_image(<span class="variable">$filename</span>, <span class="variable">$tmpname</span>, <span class="variable">$xmax</span>, <span class="variable">$ymax</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="variable">$ext</span> = explode(&amp;quot;.&amp;quot;, <span class="variable">$filename</span>);</span><br><span class="line">    <span class="variable">$ext</span> = <span class="variable">$ext</span><span class="built_in">[count</span>(<span class="variable">$ext</span>)-<span class="number">1</span>]; </span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(<span class="variable">$ext</span> == &amp;quot;jpg&amp;quot; || <span class="variable">$ext</span> == &amp;quot;jpeg&amp;quot;)</span><br><span class="line">        <span class="variable">$im</span> = imagecreatefromjpeg(<span class="variable">$tmpname</span>);</span><br><span class="line">    elseif(<span class="variable">$ext</span> == &amp;quot;png&amp;quot;)</span><br><span class="line">        <span class="variable">$im</span> = imagecreatefrompng(<span class="variable">$tmpname</span>);</span><br><span class="line">    elseif(<span class="variable">$ext</span> == &amp;quot;gif&amp;quot;)</span><br><span class="line">        <span class="variable">$im</span> = imagecreatefromgif(<span class="variable">$tmpname</span>); </span><br><span class="line"></span><br><span class="line">    <span class="variable">$x</span> = imagesx(<span class="variable">$im</span>);</span><br><span class="line">    <span class="variable">$y</span> = imagesy(<span class="variable">$im</span>); </span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(<span class="variable">$x</span> &amp;<span class="literal">lt</span>;= <span class="variable">$xmax</span> &amp;amp;&amp;amp; <span class="variable">$y</span> &amp;<span class="literal">lt</span>;= <span class="variable">$ymax</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="variable">$im</span>; </span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(<span class="variable">$x</span> &amp;<span class="literal">gt</span>;= <span class="variable">$y</span>) &#123;</span><br><span class="line">        <span class="variable">$newx</span> = <span class="variable">$xmax</span>;</span><br><span class="line">        <span class="variable">$newy</span> = <span class="variable">$newx</span> * <span class="variable">$y</span> / <span class="variable">$x</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="variable">$newy</span> = <span class="variable">$ymax</span>;</span><br><span class="line">        <span class="variable">$newx</span> = <span class="variable">$x</span> / <span class="variable">$y</span> * <span class="variable">$newy</span>;</span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    <span class="variable">$im2</span> = imagecreatetruecolor(<span class="variable">$newx</span>, <span class="variable">$newy</span>);</span><br><span class="line">    imagecopyresized(<span class="variable">$im2</span>, <span class="variable">$im</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>,<span class="built_in"> floor</span>(<span class="variable">$newx</span>),<span class="built_in"> floor</span>(<span class="variable">$newy</span>), <span class="variable">$x</span>, <span class="variable">$y</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="variable">$im2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>21. PHP检测 ajax 请求</p>
+<p>大多数的 JavaScript 框架如 jquery，Mootools 等，在发出 Ajax 请求时，都会发送额外的 HTTP_X_REQUESTED_WITH 头部信息，头当他们一个ajax请求，因此你可以在服务器端侦测到 Ajax 请求。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(!emptyempty(<span class="variable">$_SERVER</span>[<span class="string">'HTTP_X_REQUESTED_WITH'</span>]) &amp;amp;&amp;amp; strtolower(<span class="variable">$_SERVER</span>[<span class="string">'HTTP_X_REQUESTED_WITH'</span>]) == <span class="string">'xmlhttprequest'</span>)&#123;</span><br><span class="line">    <span class="regexp">//</span>If AJAX Request Then</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line"><span class="regexp">//</span>something <span class="keyword">else</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>英文原稿：<a href="http://webdeveloperplus.com/php/21-really-useful-handy-php-code-snippets/" target="_blank" rel="noopener">21 Really Useful &amp; Handy PHP Code Snippets | Web Developer Plus</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/PHP/" rel="tag"># PHP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/313010/有关抄袭与模仿的思考/" rel="next" title="有关抄袭与模仿的思考">
+                <i class="fa fa-chevron-left"></i> 有关抄袭与模仿的思考
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/313038/wordpress主题多语言支持/" rel="prev" title="wordpress主题多语言支持">
+                wordpress主题多语言支持 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/logo.png" alt="Ray">
+            
+              <p class="site-author-name" itemprop="name">Ray</p>
+              <p class="site-description motion-element" itemprop="description">Think Difficulty</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">457</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">263</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="aplayer-wrap motion-element">
+              <div id="aplayer" class="aplayer"></div>
+            </div>
+          
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/leadscloud" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:love4026@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-nd.svg" alt="Creative Commons">
+              </a>
+            </div>
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://cdn.livechatinc.xyz/" title="RLiveChat" target="_blank">RLiveChat</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.kamychina.com/" title="Roadheader" target="_blank">Roadheader</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://tinycms.xyz/" title="TinyCMS" target="_blank">TinyCMS</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">Copyright &copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">leadscloud. All rights reserved.</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4, modified by Ray.</div>
+
+
+
+
+<!--
+<div class="weixin-box">
+  <div class="weixin-menu">
+    <div class="weixin-hover">
+      <div class="weixin-description">微信扫一扫，订阅本博客</div>
+    </div>
+  </div>
+</div>
+-->
+
+        
+
+<div class="leancloud-count">
+  <span id="/" class="leancloud_site_visitors" data-flag-title="leadscloud">
+    <i class="fa fa-eye"></i> 本站总访问量
+    <span class="leancloud-visitors-count"></span>
+    次
+  </span>
+</div>
+
+
+
+<script>
+  	var _mtac = {};
+  	(function() {
+  		var mta = document.createElement("script");
+  		mta.src = "https://pingjs.qq.com/h5/stats.js?v2.0.4";
+  		mta.setAttribute("name", "MTAH5");
+  		mta.setAttribute("sid", "500595572");
+
+  		var s = document.getElementsByTagName("script")[0];
+  		s.parentNode.insertBefore(mta, s);
+  	})();
+</script>
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script id="ribbon" type="text/javascript" size="200" alpha="0.6" zindex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'ePPAQV9hFzcbhOaQvvtyjTnw-gzGzoHsz',
+        appKey: 'GLniGVXsSMGBjTmaiI4wleaF',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+  <script src="https://unpkg.com/leancloud-storage@3.15.0/dist/av-min.js"></script>
+  <script>AV.initialize({
+    appId: "ePPAQV9hFzcbhOaQvvtyjTnw-gzGzoHsz",
+    appKey: "GLniGVXsSMGBjTmaiI4wleaF",
+    serverURL: "https://eppaqv9h.lc-cn-n1-shared.com"
+  });</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .then( (results) => {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        }, (error) => {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter, selector) {
+      // var $visitors = $(".leancloud_visitors");
+      var $visitors = $(selector);
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_site_visitors').length == 1) {
+        addCount(Counter, ".leancloud_site_visitors");
+      }
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter, '.leancloud_visitors');
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  <script src="/js/src/APlayer.min.js?v=5.1.4"></script>
+
+  <script type="text/javascript">
+    var playlist = [];
+    
+    playlist.push({title:'小城故事', author:'纯音乐', url:'http://blog-music.test.upcdn.net/xiaochenggushi.mp3', pic:'', lrc: ''})
+    
+    playlist.push({title:'Should it matter', author:'Sissel Kyrkjeb', url:'http://blog-music.test.upcdn.net/should-it-matter.mp3', pic:'', lrc: ''})
+    
+    playlist.push({title:'爱在西元前', author:'周杰伦', url:'http://blog-music.test.upcdn.net/aizaixiyuanqian.mp3', pic:'', lrc: ''})
+    
+    var ap = new APlayer({
+        element: document.getElementById('aplayer'),
+        autoplay: false,
+        mode: "random",
+        preload: "none",
+        music: playlist
+    });
+  </script>
+
+
+</body>
+</html>

@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/logo.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/logo.png?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="ubuntu,ngrok,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="leadscloud" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="今天来郑州公司迁移 Google AdWords API 系统，想在上海访问这边的内网，这边是没有固定 IP的，这边就用到了内网穿透利器ngrok 了，这个东西微信开发也会用到。 ngrok官网的服务因为服务器在国外，所以不是很稳定，我们可以通过开源的代码自己搭建一个ngrok服务器。 下面是主要的操作步骤： 准备环境安装golang及相关依赖 1sudo apt-get install buil">
+<meta name="keywords" content="ubuntu,ngrok">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ubuntu下搭建ngrok 服务实现内网穿透">
+<meta property="og:url" content="https://leadscloud.github.io/316026/ubuntu-create-self-server-ngrok/index.html">
+<meta property="og:site_name" content="leadscloud">
+<meta property="og:description" content="今天来郑州公司迁移 Google AdWords API 系统，想在上海访问这边的内网，这边是没有固定 IP的，这边就用到了内网穿透利器ngrok 了，这个东西微信开发也会用到。 ngrok官网的服务因为服务器在国外，所以不是很稳定，我们可以通过开源的代码自己搭建一个ngrok服务器。 下面是主要的操作步骤： 准备环境安装golang及相关依赖 1sudo apt-get install buil">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2024-03-26T15:51:14.987Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ubuntu下搭建ngrok 服务实现内网穿透">
+<meta name="twitter:description" content="今天来郑州公司迁移 Google AdWords API 系统，想在上海访问这边的内网，这边是没有固定 IP的，这边就用到了内网穿透利器ngrok 了，这个东西微信开发也会用到。 ngrok官网的服务因为服务器在国外，所以不是很稳定，我们可以通过开源的代码自己搭建一个ngrok服务器。 下面是主要的操作步骤： 准备环境安装golang及相关依赖 1sudo apt-get install buil">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'F96493CKR7',
+      apiKey: '52cfc4f849dbe10556d886de6046f5c3',
+      indexName: 'blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://leadscloud.github.io/316026/ubuntu-create-self-server-ngrok/">
+
+
+
+
+
+  <title>Ubuntu下搭建ngrok 服务实现内网穿透 | leadscloud</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">leadscloud</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">Google SEO|外贸营销推广</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-免费chatgpt">
+          <a href="https://chat.tinycms.xyz:3002?refer=serp-analyzer-side" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br>
+            
+            免费ChatGPT
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-我的简历">
+          <a href="https://leadscloud.github.io/resume/resume.pdf" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br>
+            
+            我的简历
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-友情链接">
+          <a href="/links/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br>
+            
+            友情链接
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-chrome扩展（域名所属人）">
+          <a href="/serp-analyzer/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br>
+            
+            Chrome扩展（域名所属人）
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-询盘管理系统">
+          <a href="https://github.com/leadscloud/infomaster" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br>
+            
+            询盘管理系统
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-外贸留言板系统">
+          <a href="/20180615/google-seo-inquiry-messageboard/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br>
+            
+            外贸留言板系统
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leadscloud.github.io/316026/ubuntu-create-self-server-ngrok/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ray">
+      <meta itemprop="description" content="Think Difficulty">
+      <meta itemprop="image" content="/logo.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="leadscloud">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Ubuntu下搭建ngrok 服务实现内网穿透</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-15T13:05:55+00:00">
+                2018-03-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/316026/ubuntu-create-self-server-ngrok/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/316026/ubuntu-create-self-server-ngrok/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/316026/ubuntu-create-self-server-ngrok/" class="leancloud_visitors" data-flag-title="Ubuntu下搭建ngrok 服务实现内网穿透">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,197
+                </span>
+              
+
+              
+
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>今天来郑州公司迁移 Google AdWords API 系统，想在上海访问这边的内网，这边是没有固定 IP的，这边就用到了内网穿透利器ngrok 了，这个东西微信开发也会用到。</p>
+<p>ngrok官网的服务因为服务器在国外，所以不是很稳定，我们可以通过开源的代码自己搭建一个ngrok服务器。 下面是主要的操作步骤：</p>
+<h2 id="准备环境"><a href="#准备环境" class="headerlink" title="准备环境"></a>准备环境</h2><p>安装golang及相关依赖</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">sudo</span> apt-<span class="meta">get</span> install <span class="keyword">build-essential </span>golang mercurial git</span><br></pre></td></tr></table></figure>
+<p>先进入到自己想安装的目录，并从github clone ngrok的项目</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git <span class="keyword">clone</span> <span class="title">https</span>://github.com/tutumcloud/ngrok.git ngrok</span><br><span class="line">cd ngrok/</span><br></pre></td></tr></table></figure>
+<p>通过以下命令生成并替换源码里默认的证书，注意域名xxxx.com修改为你自己的。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">NGROK_DOMAIN=<span class="string">"test.lanthy.com"</span></span><br><span class="line">openssl genrsa -<span class="keyword">out</span> <span class="keyword">base</span>.key <span class="number">2048</span></span><br><span class="line">openssl req -<span class="keyword">new</span> -x509 -nodes -key <span class="keyword">base</span>.key -days <span class="number">10000</span> -subj <span class="string">"/CN=$NGROK_DOMAIN"</span> -<span class="keyword">out</span> <span class="keyword">base</span>.pem</span><br><span class="line">openssl genrsa -<span class="keyword">out</span> server.key <span class="number">2048</span></span><br><span class="line">openssl req -<span class="keyword">new</span> -key server.key -subj <span class="string">"/CN=$NGROK_DOMAIN"</span> -<span class="keyword">out</span> server.csr</span><br><span class="line">openssl x509 -req -<span class="keyword">in</span> server.csr -CA <span class="keyword">base</span>.pem -CAkey <span class="keyword">base</span>.key -CAcreateserial -days <span class="number">10000</span> -<span class="keyword">out</span> server.crt</span><br><span class="line">cp <span class="keyword">base</span>.pem assets/client/tls/ngrokroot.crt</span><br></pre></td></tr></table></figure>
+<h2 id="编译服务端"><a href="#编译服务端" class="headerlink" title="编译服务端"></a>编译服务端</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo make <span class="keyword">release</span>-<span class="keyword">server</span></span><br></pre></td></tr></table></figure>
+<p>如果一切正常，<code>ngrok/bin</code> 目录下应该有 ngrokd 文件</p>
+<p>通过以下命令启动服务：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd ngrok/</span><br><span class="line">sudo ./bin/ngrokd <span class="attribute">-tlsKey</span>=server.key <span class="attribute">-tlsCrt</span>=server.crt <span class="attribute">-domain</span>=<span class="string">"sub.lanthy.com"</span> <span class="attribute">-httpAddr</span>=<span class="string">":8081"</span> <span class="attribute">-httpsAddr</span>=<span class="string">":8082"</span></span><br></pre></td></tr></table></figure>
+<p>其中httpAddr、httpsAddr 分别是 ngrok 用来转发 http、https 服务的端口，可以随意指定。同时ngrokd 还会开一个 4443 端口用来跟客户端通讯（可通过 -tunnelAddr=”:xxx” 指定）。</p>
+<p>这里如果你的服务器配置了iptables规则，需要对外开放使用到的端口，可以本地telnet相应的端口看是否可用，不可用可以通过以下的命令开启：</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">/sbin/iptables</span> -I INPUT -p tcp <span class="params">--dport</span> 8081 -j ACCEPT</span><br><span class="line"><span class="string">/sbin/iptables</span> -I INPUT -p tcp <span class="params">--dport</span> 8082 -j ACCEPT</span><br><span class="line"><span class="string">/sbin/iptables</span> -I INPUT -p tcp <span class="params">--dport</span> 4443 -j ACCEPT</span><br><span class="line"><span class="string">/etc/rc.d/init.d/iptables</span> save</span><br><span class="line"><span class="string">/etc/rc.d/init.d/iptables</span> restart</span><br><span class="line"><span class="string">/etc/init.d/iptables</span> status</span><br></pre></td></tr></table></figure>
+<p>接下来就是需要在自己的域名提供商那里做域名映射了，这里最好把域名泛解析到相应的服务器：</p>
+<p>*.lanthy.com</p>
+<p>然后启动后，通过浏览器访问 test.lanthy.com:8081 如果页面显示</p>
+<pre><code>Tunnel test.lanthy.com:8081 not found
+</code></pre><p>表示启动成功，可以用客户端连接了。</p>
+<h2 id="编译客户端"><a href="#编译客户端" class="headerlink" title="编译客户端"></a>编译客户端</h2><h3 id="编译linux客户端"><a href="#编译linux客户端" class="headerlink" title="编译linux客户端"></a>编译linux客户端</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make <span class="keyword">release</span>-<span class="keyword">client</span></span><br></pre></td></tr></table></figure>
+<p>编译后会在<code>ngrok/bin</code> 目录下有 ngrok 文件。</p>
+<h3 id="编译Mac客户端"><a href="#编译Mac客户端" class="headerlink" title="编译Mac客户端"></a>编译Mac客户端</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="attribute">GOOS</span>=darwin <span class="attribute">GOARCH</span>=amd64 make release-client</span><br></pre></td></tr></table></figure>
+<p>编译后会在<code>ngrok/bin/darwin_amd64</code> 目录下有 ngrok 文件。</p>
+<h3 id="编译windows客户端"><a href="#编译windows客户端" class="headerlink" title="编译windows客户端"></a>编译windows客户端</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="attribute">GOOS</span>=windows <span class="attribute">GOARCH</span>=amd64 make release-client</span><br></pre></td></tr></table></figure>
+<p>编译后会在<code>ngrok/bin/windows_amd64</code> 目录下有 ngrok.exe 文件。</p>
+<h2 id="运行测试客户端"><a href="#运行测试客户端" class="headerlink" title="运行测试客户端"></a>运行测试客户端</h2><p>将以上的不同系统版本的客户端下载到相应系统后，同一目录新增配置文件ngrok.cfg：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">server_addr:</span> test.lanthy.<span class="string">com:</span><span class="number">4443</span></span><br><span class="line"><span class="string">trust_host_root_certs:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<p>Mac上执行客户端</p>
+<p>映射本地8080端口，自定义子域名test，通过终端执行以下命令：</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./ngrok -<span class="keyword">subdomain </span><span class="keyword">sub </span>-config<span class="symbol">=ngrok</span>.cfg <span class="number">8080</span></span><br></pre></td></tr></table></figure>
+<p>Windows上执行客户端：</p>
+<p>映射本地8090端口，自定义子域名test，通过DOS界面进入grok客户端的相应目录:</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ngrok <span class="attribute">-config</span>=ngrok.cfg <span class="attribute">-subdomain</span>=sub 8080</span><br></pre></td></tr></table></figure>
+<p>如果连接成功，会出现大概以下内容：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">ngrok</span>                                           <span class="string">(Ctrl+C</span> <span class="string">to</span> <span class="string">quit)</span></span><br><span class="line">                     </span><br><span class="line"><span class="string">Tunnel</span> <span class="string">Status</span>                 <span class="string">online</span>                                            </span><br><span class="line"><span class="string">Version</span>                       <span class="number">1.7</span><span class="string">/1.7</span>                                           </span><br><span class="line"><span class="string">Forwarding</span>                    <span class="string">http://sub.test.lanthy.com:8081</span> <span class="string">-&gt;</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:8080</span>      </span><br><span class="line"><span class="string">Forwarding</span>                    <span class="string">https://sub.test.lanthy.com:8082</span> <span class="string">-&gt;</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:8080</span>     </span><br><span class="line"><span class="string">Web</span> <span class="string">Interface</span>                 <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:4040</span>              </span><br><span class="line">            </span><br><span class="line">  <span class="comment"># Conn                        0                                                 </span></span><br><span class="line"><span class="string">Avg</span> <span class="string">Conn</span> <span class="string">Time</span>                 <span class="number">0.</span><span class="string">00ms</span></span><br></pre></td></tr></table></figure>
+<p>这样你就就可以通过<a href="http://sub.test.lanthy.com:8081" target="_blank" rel="noopener">http://sub.test.lanthy.com:8081</a> 访问内网 127.0.0.1:8080 </p>
+<p>SSH 22端口映射</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/root/ngrok/bin/ngrok <span class="attribute">-config</span>=/root/ngrok/.ngrok <span class="attribute">-subdomain</span>=test <span class="attribute">--proto</span>=tcp 22</span><br></pre></td></tr></table></figure>
+<pre><code>使用tcp协议穿透，就不会分配2级域名，改为监控一个随机端口,如 test.lanthy.com:12389
+</code></pre><p>HTTP 80端口映射</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta-keyword">/root/</span>ngrok<span class="meta-keyword">/bin/</span>ngrok -config=<span class="meta-keyword">/root/</span>ngrok/.ngrok -subdomain=<span class="string">"sub"</span> <span class="number">80</span></span><br></pre></td></tr></table></figure>
+<p>后台运行</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/root/ngrok/bin/ngrok <span class="attribute">-config</span>=/root/ngrok/.ngrok <span class="attribute">-subdomain</span>=sub <span class="attribute">--proto</span>=tcp <span class="attribute">-log</span>=stdout 22 &gt; /dev/<span class="literal">null</span> &amp;</span><br></pre></td></tr></table></figure>
+<h2 id="使用固定端口配置"><a href="#使用固定端口配置" class="headerlink" title="使用固定端口配置"></a>使用固定端口配置</h2><p>如果想一次性转发多个端口或者想指定远程的对应端口，需要完善<code>ngrok.cfg</code></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server_addr:</span> <span class="string">ngrok.lanthy.com:4443</span></span><br><span class="line"><span class="attr">trust_host_root_certs:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">tunnels:</span></span><br><span class="line"> <span class="attr">ssh:</span></span><br><span class="line">  <span class="attr">remote_port:</span> <span class="number">1122</span></span><br><span class="line">  <span class="attr">proto:</span></span><br><span class="line">   <span class="attr">tcp:</span> <span class="number">22</span></span><br><span class="line"> <span class="attr">ss:</span></span><br><span class="line">  <span class="attr">emote_port:</span> <span class="number">8388</span></span><br><span class="line">  <span class="attr">proto:</span></span><br><span class="line">   <span class="attr">tcp:</span> <span class="number">8388</span></span><br><span class="line"> <span class="attr">ftp:</span></span><br><span class="line">  <span class="attr">remote_port:</span> <span class="number">20</span></span><br><span class="line">  <span class="attr">proto:</span></span><br><span class="line">   <span class="attr">tcp:</span> <span class="number">20</span></span><br><span class="line"> <span class="attr">ftp2:</span></span><br><span class="line">  <span class="attr">remote_port:</span> <span class="number">21</span></span><br><span class="line">  <span class="attr">proto:</span></span><br><span class="line">   <span class="attr">tcp:</span> <span class="number">21</span></span><br><span class="line"> <span class="attr">http:</span></span><br><span class="line">  <span class="attr">subdomain:</span> <span class="string">www</span></span><br><span class="line">  <span class="attr">proto:</span></span><br><span class="line">   <span class="attr">http:</span> <span class="number">80</span></span><br><span class="line">   <span class="attr">https:</span> <span class="number">192.168</span><span class="number">.1</span><span class="number">.22</span><span class="string">:443</span></span><br></pre></td></tr></table></figure>
+<p>使用方法：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/root/</span>ngrok<span class="regexp">/bin/</span>ngrok -config=<span class="regexp">/root/</span>ngrok<span class="regexp">/.ngrok start http</span></span><br></pre></td></tr></table></figure>
+<p>启动全部的是 <code>start-all</code> , 不过我这个版本没有这个功能。</p>
+<h4 id="后台运行"><a href="#后台运行" class="headerlink" title="后台运行"></a>后台运行</h4><p>必须加上<code>-log=stdout</code>参数,否则是不行的</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup <span class="regexp">/home/</span>nflg<span class="regexp">/ngrok/</span>ngrok -config=<span class="regexp">/home/</span>nflg<span class="regexp">/ngrok/</span>ngrok.cfg -log=stdout start ssh &gt; <span class="regexp">/dev/</span><span class="keyword">null</span> &amp;</span><br></pre></td></tr></table></figure>
+<h2 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h2><p><a href="https://juejin.im/entry/58adb743b123db006730e691" target="_blank" rel="noopener">https://juejin.im/entry/58adb743b123db006730e691</a><br><a href="https://yii.im/posts/pretty-self-hosted-ngrokd/" target="_blank" rel="noopener">https://yii.im/posts/pretty-self-hosted-ngrokd/</a><br><a href="http://ngrok.cn/docs.html" target="_blank" rel="noopener">http://ngrok.cn/docs.html</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ubuntu/" rel="tag"># ubuntu</a>
+          
+            <a href="/tags/ngrok/" rel="tag"># ngrok</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/316022/what-is-bitcoin/" rel="next" title="看完你就知道什么是比特币了">
+                <i class="fa fa-chevron-left"></i> 看完你就知道什么是比特币了
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/20180419/search-engine-elasticsearch-vs-solr/" rel="prev" title="搜索引擎介绍Elasticsearch和Solr">
+                搜索引擎介绍Elasticsearch和Solr <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/logo.png" alt="Ray">
+            
+              <p class="site-author-name" itemprop="name">Ray</p>
+              <p class="site-description motion-element" itemprop="description">Think Difficulty</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">457</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">263</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="aplayer-wrap motion-element">
+              <div id="aplayer" class="aplayer"></div>
+            </div>
+          
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/leadscloud" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:love4026@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-nd.svg" alt="Creative Commons">
+              </a>
+            </div>
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://cdn.livechatinc.xyz/" title="RLiveChat" target="_blank">RLiveChat</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.kamychina.com/" title="Roadheader" target="_blank">Roadheader</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://tinycms.xyz/" title="TinyCMS" target="_blank">TinyCMS</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备环境"><span class="nav-number">1.</span> <span class="nav-text">准备环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译服务端"><span class="nav-number">2.</span> <span class="nav-text">编译服务端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译客户端"><span class="nav-number">3.</span> <span class="nav-text">编译客户端</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#编译linux客户端"><span class="nav-number">3.1.</span> <span class="nav-text">编译linux客户端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译Mac客户端"><span class="nav-number">3.2.</span> <span class="nav-text">编译Mac客户端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译windows客户端"><span class="nav-number">3.3.</span> <span class="nav-text">编译windows客户端</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行测试客户端"><span class="nav-number">4.</span> <span class="nav-text">运行测试客户端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用固定端口配置"><span class="nav-number">5.</span> <span class="nav-text">使用固定端口配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#后台运行"><span class="nav-number">5.0.1.</span> <span class="nav-text">后台运行</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#参考链接："><span class="nav-number">6.</span> <span class="nav-text">参考链接：</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">Copyright &copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">leadscloud. All rights reserved.</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4, modified by Ray.</div>
+
+
+
+
+<!--
+<div class="weixin-box">
+  <div class="weixin-menu">
+    <div class="weixin-hover">
+      <div class="weixin-description">微信扫一扫，订阅本博客</div>
+    </div>
+  </div>
+</div>
+-->
+
+        
+
+<div class="leancloud-count">
+  <span id="/" class="leancloud_site_visitors" data-flag-title="leadscloud">
+    <i class="fa fa-eye"></i> 本站总访问量
+    <span class="leancloud-visitors-count"></span>
+    次
+  </span>
+</div>
+
+
+
+<script>
+  	var _mtac = {};
+  	(function() {
+  		var mta = document.createElement("script");
+  		mta.src = "https://pingjs.qq.com/h5/stats.js?v2.0.4";
+  		mta.setAttribute("name", "MTAH5");
+  		mta.setAttribute("sid", "500595572");
+
+  		var s = document.getElementsByTagName("script")[0];
+  		s.parentNode.insertBefore(mta, s);
+  	})();
+</script>
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script id="ribbon" type="text/javascript" size="200" alpha="0.6" zindex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'ePPAQV9hFzcbhOaQvvtyjTnw-gzGzoHsz',
+        appKey: 'GLniGVXsSMGBjTmaiI4wleaF',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+  <script src="https://unpkg.com/leancloud-storage@3.15.0/dist/av-min.js"></script>
+  <script>AV.initialize({
+    appId: "ePPAQV9hFzcbhOaQvvtyjTnw-gzGzoHsz",
+    appKey: "GLniGVXsSMGBjTmaiI4wleaF",
+    serverURL: "https://eppaqv9h.lc-cn-n1-shared.com"
+  });</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .then( (results) => {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        }, (error) => {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter, selector) {
+      // var $visitors = $(".leancloud_visitors");
+      var $visitors = $(selector);
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_site_visitors').length == 1) {
+        addCount(Counter, ".leancloud_site_visitors");
+      }
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter, '.leancloud_visitors');
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  <script src="/js/src/APlayer.min.js?v=5.1.4"></script>
+
+  <script type="text/javascript">
+    var playlist = [];
+    
+    playlist.push({title:'小城故事', author:'纯音乐', url:'http://blog-music.test.upcdn.net/xiaochenggushi.mp3', pic:'', lrc: ''})
+    
+    playlist.push({title:'Should it matter', author:'Sissel Kyrkjeb', url:'http://blog-music.test.upcdn.net/should-it-matter.mp3', pic:'', lrc: ''})
+    
+    playlist.push({title:'爱在西元前', author:'周杰伦', url:'http://blog-music.test.upcdn.net/aizaixiyuanqian.mp3', pic:'', lrc: ''})
+    
+    var ap = new APlayer({
+        element: document.getElementById('aplayer'),
+        autoplay: false,
+        mode: "random",
+        preload: "none",
+        music: playlist
+    });
+  </script>
+
+
+</body>
+</html>
