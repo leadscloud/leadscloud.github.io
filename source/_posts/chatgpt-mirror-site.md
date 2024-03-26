@@ -9,7 +9,7 @@ categories: 技术
 ChatGPT国内镜像站，国内使用ChatGPT中文版本
 
 
-http://chat.tinycms.xyz:3001/
+http://chat.tinycms.xyz:3002/
 
 欢迎体验：
 

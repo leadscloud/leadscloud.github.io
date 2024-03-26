@@ -98,6 +98,7 @@ menu:
   tags: /tags/ || tags
   categories: /categories/ || th
   archives: /archives/ || archive
+  免费ChatGPT: https://chat.tinycms.xyz:3002?refer=serp-analyzer-side || link
   我的简历: https://leadscloud.github.io/resume/resume.pdf || link
   友情链接: /links/ || link
   Chrome扩展（域名所属人）: /serp-analyzer/ || link
