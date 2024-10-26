@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/logo.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/logo.png?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="iptables,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="leadscloud" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="屏蔽IP1234567891011#屏蔽单个IP的命令是iptables -I INPUT -s 123.45.6.7 -j DROP#封整个段即从123.0.0.1到123.255.255.254的命令iptables -I INPUT -s 123.0.0.0/8 -j DROP#封IP段即从123.45.0.1到123.45.255.254的命令iptables -I INPUT -s 12">
+<meta name="keywords" content="iptables">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iptables禁止某些IP或者URL">
+<meta property="og:url" content="https://leadscloud.github.io/20190926/how-to-use-iptables-forbidden-ip-or-url/index.html">
+<meta property="og:site_name" content="leadscloud">
+<meta property="og:description" content="屏蔽IP1234567891011#屏蔽单个IP的命令是iptables -I INPUT -s 123.45.6.7 -j DROP#封整个段即从123.0.0.1到123.255.255.254的命令iptables -I INPUT -s 123.0.0.0/8 -j DROP#封IP段即从123.45.0.1到123.45.255.254的命令iptables -I INPUT -s 12">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2024-10-26T18:59:13.804Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iptables禁止某些IP或者URL">
+<meta name="twitter:description" content="屏蔽IP1234567891011#屏蔽单个IP的命令是iptables -I INPUT -s 123.45.6.7 -j DROP#封整个段即从123.0.0.1到123.255.255.254的命令iptables -I INPUT -s 123.0.0.0/8 -j DROP#封IP段即从123.45.0.1到123.45.255.254的命令iptables -I INPUT -s 12">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'F96493CKR7',
+      apiKey: '52cfc4f849dbe10556d886de6046f5c3',
+      indexName: 'blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://leadscloud.github.io/20190926/how-to-use-iptables-forbidden-ip-or-url/">
+
+
+
+
+
+  <title>iptables禁止某些IP或者URL | leadscloud</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">leadscloud</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">Google SEO|外贸营销推广</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-免费chatgpt">
+          <a href="https://freegpt.tech/?refer=blog-side" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br>
+            
+            免费ChatGPT
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-我的简历">
+          <a href="https://leadscloud.github.io/resume/resume.pdf" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br>
+            
+            我的简历
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-友情链接">
+          <a href="/links/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br>
+            
+            友情链接
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-chrome扩展（域名所属人）">
+          <a href="/serp-analyzer/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br>
+            
+            Chrome扩展（域名所属人）
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-询盘管理系统">
+          <a href="https://github.com/leadscloud/infomaster" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br>
+            
+            询盘管理系统
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-外贸留言板系统">
+          <a href="/20180615/google-seo-inquiry-messageboard/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br>
+            
+            外贸留言板系统
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leadscloud.github.io/20190926/how-to-use-iptables-forbidden-ip-or-url/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ray">
+      <meta itemprop="description" content="Think Difficulty">
+      <meta itemprop="image" content="/logo.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="leadscloud">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">iptables禁止某些IP或者URL</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-26T02:21:00+00:00">
+                2019-09-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/20190926/how-to-use-iptables-forbidden-ip-or-url/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/20190926/how-to-use-iptables-forbidden-ip-or-url/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/20190926/how-to-use-iptables-forbidden-ip-or-url/" class="leancloud_visitors" data-flag-title="iptables禁止某些IP或者URL">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  933
+                </span>
+              
+
+              
+
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="屏蔽IP"><a href="#屏蔽IP" class="headerlink" title="屏蔽IP"></a>屏蔽IP</h2><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#屏蔽单个IP的命令是</span><br><span class="line">iptables -I INPUT -s <span class="number">123.45</span><span class="number">.6</span><span class="number">.7</span> -j DROP</span><br><span class="line"></span><br><span class="line">#封整个段即从<span class="number">123.0</span><span class="number">.0</span><span class="number">.1</span>到<span class="number">123.255</span><span class="number">.255</span><span class="number">.254</span>的命令</span><br><span class="line">iptables -I INPUT -s <span class="number">123.0</span><span class="number">.0</span><span class="number">.0</span>/<span class="number">8</span> -j DROP</span><br><span class="line"></span><br><span class="line">#封IP段即从<span class="number">123.45</span><span class="number">.0</span><span class="number">.1</span>到<span class="number">123.45</span><span class="number">.255</span><span class="number">.254</span>的命令</span><br><span class="line">iptables -I INPUT -s <span class="number">124.45</span><span class="number">.0</span><span class="number">.0</span>/<span class="number">16</span> -j DROP</span><br><span class="line"></span><br><span class="line">#封IP段即从<span class="number">123.45</span><span class="number">.6</span><span class="number">.1</span>到<span class="number">123.45</span><span class="number">.6</span><span class="number">.254</span>的命令是</span><br><span class="line">iptables -I INPUT -s <span class="number">123.45</span><span class="number">.6</span><span class="number">.0</span>/<span class="number">24</span> -j DROP</span><br></pre></td></tr></table></figure>
+<h2 id="屏蔽URL"><a href="#屏蔽URL" class="headerlink" title="屏蔽URL"></a>屏蔽URL</h2><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -I <span class="literal">INPUT</span> -m <span class="built_in">string</span> --<span class="built_in">string</span> <span class="string">"bidder?sid="</span> --algo bm -j DROP</span><br></pre></td></tr></table></figure>
+<h2 id="保存规则"><a href="#保存规则" class="headerlink" title="保存规则"></a>保存规则</h2><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">service iptables save</span></span><br></pre></td></tr></table></figure>
+<h2 id="iptables-选项"><a href="#iptables-选项" class="headerlink" title="iptables 选项"></a>iptables 选项</h2><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">-t, <span class="params">--table</span> table 对指定的表 table 进行操作， table 必须是 raw， nat，filter，mangle 中的一个。如果不指定此选项，默认的是 filter 表。</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通用匹配：源地址目标地址的匹配</span></span><br><span class="line">-p：指定要匹配的数据包协议类型；</span><br><span class="line">-s, <span class="params">--source</span> [!] address[<span class="string">/mask</span>] ：把指定的一个／一组地址作为源地址，按此规则进行过滤。当后面没有 mask 时，address 是一个地址，比如：192.168.1.1；当 mask 指定时，可以表示一组范围内的地址，比如：192.168.1.0/255.255.255.0。</span><br><span class="line">-d, <span class="params">--destination</span> [!] address[<span class="string">/mask</span>] ：地址格式同上，但这里是指定地址为目的地址，按此进行过滤。</span><br><span class="line">-i, <span class="params">--in-interface</span> [!] &lt;网络接口name&gt; ：指定数据包的来自来自网络接口，比如最常见的 eth0 。注意：它只对 INPUT，FORWARD，PREROUTING 这三个链起作用。如果没有指定此选项， 说明可以来自任何一个网络接口。同前面类似，<span class="string">"!"</span> 表示取反。</span><br><span class="line">-o, <span class="params">--out-interface</span> [!] &lt;网络接口name&gt; ：指定数据包出去的网络接口。只对 OUTPUT，FORWARD，POSTROUTING 三个链起作用。</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看管理命令</span></span><br><span class="line">-L, <span class="params">--list</span> [chain] 列出链 chain 上面的所有规则，如果没有指定链，列出表上所有链的所有规则。</span><br><span class="line"></span><br><span class="line"><span class="comment"># 规则管理命令</span></span><br><span class="line">-A, <span class="params">--append</span> chain rule-specification 在指定链 chain 的末尾插入指定的规则，也就是说，这条规则会被放到最后，最后才会被执行。规则是由后面的匹配来指定。</span><br><span class="line">-I, <span class="params">--insert</span> chain [rulenum] rule-specification 在链 chain 中的指定位置插入一条或多条规则。如果指定的规则号是1，则在链的头部插入。这也是默认的情况，如果没有指定规则号。</span><br><span class="line">-D, <span class="params">--delete</span> chain rule-specification -D, <span class="params">--delete</span> chain rulenum 在指定的链 chain 中删除一个或多个指定规则。</span><br><span class="line">-R num：Replays替换/修改第几条规则</span><br><span class="line"></span><br><span class="line"><span class="comment"># 链管理命令（这都是立即生效的）</span></span><br><span class="line">-P, <span class="params">--policy</span> chain target ：为指定的链 chain 设置策略 target。注意，只有内置的链才允许有策略，用户自定义的是不允许的。</span><br><span class="line">-F, <span class="params">--flush</span> [chain] 清空指定链 chain 上面的所有规则。如果没有指定链，清空该表上所有链的所有规则。</span><br><span class="line">-N, <span class="params">--new-chain</span> chain 用指定的名字创建一个新的链。</span><br><span class="line">-X, <span class="params">--delete-chain</span> [chain] ：删除指定的链，这个链必须没有被其它任何规则引用，而且这条上必须没有任何规则。如果没有指定链名，则会删除该表中所有非内置的链。</span><br><span class="line">-E, <span class="params">--rename-chain</span> old-chain new-chain ：用指定的新名字去重命名指定的链。这并不会对链内部照成任何影响。</span><br><span class="line">-Z, <span class="params">--zero</span> [chain] ：把指定链，或者表中的所有链上的所有计数器清零。</span><br><span class="line"></span><br><span class="line">-j, <span class="params">--jump</span> target &lt;指定目标&gt; ：即满足某条件时该执行什么样的动作。target 可以是内置的目标，比如 ACCEPT，也可以是用户自定义的链。</span><br><span class="line">-h：显示帮助信息；</span><br></pre></td></tr></table></figure>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a href="https://wangchujiang.com/linux-command/c/iptables.html" target="_blank" rel="noopener">https://wangchujiang.com/linux-command/c/iptables.html</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iptables/" rel="tag"># iptables</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/20190919/sqlite3-large-database-to-mysql/" rel="next" title="sqlite3数据库转换为mysql数据库">
+                <i class="fa fa-chevron-left"></i> sqlite3数据库转换为mysql数据库
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/20190927/lanthy-offers-and-profile/" rel="prev" title="上海蓝悉网络科技有限公司 所有职位申请">
+                上海蓝悉网络科技有限公司 所有职位申请 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/logo.png" alt="Ray">
+            
+              <p class="site-author-name" itemprop="name">Ray</p>
+              <p class="site-description motion-element" itemprop="description">Think Difficulty</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">458</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">266</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="aplayer-wrap motion-element">
+              <div id="aplayer" class="aplayer"></div>
+            </div>
+          
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/leadscloud" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:love4026@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-nd.svg" alt="Creative Commons">
+              </a>
+            </div>
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://cdn.livechatinc.xyz/" title="RLiveChat" target="_blank">RLiveChat</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.kamychina.com/" title="Roadheader" target="_blank">Roadheader</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://tinycms.xyz/" title="TinyCMS" target="_blank">TinyCMS</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#屏蔽IP"><span class="nav-number">1.</span> <span class="nav-text">屏蔽IP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#屏蔽URL"><span class="nav-number">2.</span> <span class="nav-text">屏蔽URL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#保存规则"><span class="nav-number">3.</span> <span class="nav-text">保存规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#iptables-选项"><span class="nav-number">4.</span> <span class="nav-text">iptables 选项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考链接"><span class="nav-number">5.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">Copyright &copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">leadscloud. All rights reserved.</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4, modified by Ray.</div>
+
+
+
+
+<!--
+<div class="weixin-box">
+  <div class="weixin-menu">
+    <div class="weixin-hover">
+      <div class="weixin-description">微信扫一扫，订阅本博客</div>
+    </div>
+  </div>
+</div>
+-->
+
+        
+
+<div class="leancloud-count">
+  <span id="/" class="leancloud_site_visitors" data-flag-title="leadscloud">
+    <i class="fa fa-eye"></i> 本站总访问量
+    <span class="leancloud-visitors-count"></span>
+    次
+  </span>
+</div>
+
+
+
+<script>
+  	var _mtac = {};
+  	(function() {
+  		var mta = document.createElement("script");
+  		mta.src = "https://pingjs.qq.com/h5/stats.js?v2.0.4";
+  		mta.setAttribute("name", "MTAH5");
+  		mta.setAttribute("sid", "500595572");
+
+  		var s = document.getElementsByTagName("script")[0];
+  		s.parentNode.insertBefore(mta, s);
+  	})();
+</script>
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script id="ribbon" type="text/javascript" size="200" alpha="0.6" zindex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'ePPAQV9hFzcbhOaQvvtyjTnw-gzGzoHsz',
+        appKey: 'GLniGVXsSMGBjTmaiI4wleaF',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+  <script src="https://unpkg.com/leancloud-storage@3.15.0/dist/av-min.js"></script>
+  <script>AV.initialize({
+    appId: "ePPAQV9hFzcbhOaQvvtyjTnw-gzGzoHsz",
+    appKey: "GLniGVXsSMGBjTmaiI4wleaF",
+    serverURL: "https://eppaqv9h.lc-cn-n1-shared.com"
+  });</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .then( (results) => {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        }, (error) => {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter, selector) {
+      // var $visitors = $(".leancloud_visitors");
+      var $visitors = $(selector);
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_site_visitors').length == 1) {
+        addCount(Counter, ".leancloud_site_visitors");
+      }
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter, '.leancloud_visitors');
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  <script src="/js/src/APlayer.min.js?v=5.1.4"></script>
+
+  <script type="text/javascript">
+    var playlist = [];
+    
+    playlist.push({title:'小城故事', author:'纯音乐', url:'http://blog-music.test.upcdn.net/xiaochenggushi.mp3', pic:'', lrc: ''})
+    
+    playlist.push({title:'Should it matter', author:'Sissel Kyrkjeb', url:'http://blog-music.test.upcdn.net/should-it-matter.mp3', pic:'', lrc: ''})
+    
+    playlist.push({title:'爱在西元前', author:'周杰伦', url:'http://blog-music.test.upcdn.net/aizaixiyuanqian.mp3', pic:'', lrc: ''})
+    
+    var ap = new APlayer({
+        element: document.getElementById('aplayer'),
+        autoplay: false,
+        mode: "random",
+        preload: "none",
+        music: playlist
+    });
+  </script>
+
+
+</body>
+</html>

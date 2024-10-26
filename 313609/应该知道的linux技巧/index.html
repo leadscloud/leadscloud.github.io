@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/logo.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/logo.png?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Google SEO, 互联网营销">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="leadscloud" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="这篇文章来源于Quroa的一个问答《What are some time-saving tips that every Linux user should know?》—— Linux用户有哪些应该知道的提高效率的技巧。我觉得挺好的，总结得比较好，把其转过来，并加了一些自己的理解。 首先，我想告诉大家，在Unix/Linux下，最有效率技巧的不是操作图形界面，而是命令行操作，因为命令行意味着自动化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="应该知道的linux技巧">
+<meta property="og:url" content="https://leadscloud.github.io/313609/应该知道的linux技巧/index.html">
+<meta property="og:site_name" content="leadscloud">
+<meta property="og:description" content="这篇文章来源于Quroa的一个问答《What are some time-saving tips that every Linux user should know?》—— Linux用户有哪些应该知道的提高效率的技巧。我觉得挺好的，总结得比较好，把其转过来，并加了一些自己的理解。 首先，我想告诉大家，在Unix/Linux下，最有效率技巧的不是操作图形界面，而是命令行操作，因为命令行意味着自动化">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2024-10-26T18:59:13.820Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="应该知道的linux技巧">
+<meta name="twitter:description" content="这篇文章来源于Quroa的一个问答《What are some time-saving tips that every Linux user should know?》—— Linux用户有哪些应该知道的提高效率的技巧。我觉得挺好的，总结得比较好，把其转过来，并加了一些自己的理解。 首先，我想告诉大家，在Unix/Linux下，最有效率技巧的不是操作图形界面，而是命令行操作，因为命令行意味着自动化">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'F96493CKR7',
+      apiKey: '52cfc4f849dbe10556d886de6046f5c3',
+      indexName: 'blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://leadscloud.github.io/313609/应该知道的linux技巧/">
+
+
+
+
+
+  <title>应该知道的linux技巧 | leadscloud</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">leadscloud</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">Google SEO|外贸营销推广</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-免费chatgpt">
+          <a href="https://freegpt.tech/?refer=blog-side" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br>
+            
+            免费ChatGPT
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-我的简历">
+          <a href="https://leadscloud.github.io/resume/resume.pdf" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br>
+            
+            我的简历
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-友情链接">
+          <a href="/links/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br>
+            
+            友情链接
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-chrome扩展（域名所属人）">
+          <a href="/serp-analyzer/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br>
+            
+            Chrome扩展（域名所属人）
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-询盘管理系统">
+          <a href="https://github.com/leadscloud/infomaster" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br>
+            
+            询盘管理系统
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-外贸留言板系统">
+          <a href="/20180615/google-seo-inquiry-messageboard/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br>
+            
+            外贸留言板系统
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leadscloud.github.io/313609/应该知道的linux技巧/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ray">
+      <meta itemprop="description" content="Think Difficulty">
+      <meta itemprop="image" content="/logo.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="leadscloud">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">应该知道的linux技巧</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-06-16T19:29:54+00:00">
+                2013-06-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/转载/" itemprop="url" rel="index">
+                    <span itemprop="name">转载</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/313609/应该知道的linux技巧/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/313609/应该知道的linux技巧/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/313609/应该知道的linux技巧/" class="leancloud_visitors" data-flag-title="应该知道的linux技巧">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3,163
+                </span>
+              
+
+              
+
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这篇文章来源于Quroa的一个问答《<a href="http://www.quora.com/Linux/What-are-some-time-saving-tips-that-every-Linux-user-should-know#" target="_blank" rel="noopener">What are some time-saving tips that every Linux user should know?</a>》—— Linux用户有哪些应该知道的提高效率的技巧。我觉得挺好的，总结得比较好，把其转过来，并加了一些自己的理解。 首先，我想告诉大家，<strong>在Unix/Linux下，最有效率技巧的不是操作图形界面，而是命令行操作，因为命令行意味着自动化</strong>。如果你看过《<a href="http://coolshell.cn/articles/8619.html" title="你可能不知道的Shell" target="_blank" rel="noopener">你可能不知道的Shell</a>》以及《<a href="http://coolshell.cn/articles/7829.html" title="28个Unix/Linux的命令行神器" target="_blank" rel="noopener">28个Unix/Linux的命令行神器</a>》你就会知道Linux有多强大，这个强大完全来自于命令行，于是，就算你不知道怎么去<a href="http://coolshell.cn/articles/7186.html" title="做个环保主义的程序员" target="_blank" rel="noopener">做一个环保主义的程序员</a>，至少他们可以让你少熬点夜，从而有利于你的身体健康和性生活。下面是一个有点长的列表，正如作者所说，你并不需要知道所有的这些东西，但是如果你还在很沉重地在使用Linux的话，这些东西都值得你看一看。 （注：如果你想知道下面涉及到的命令的更多的用法，你一定要man一点。对于一些命令，你可以需要先yum或apt-get来安装一下，如果有什么问题，别忘了Google。如果你要Baidu的话，我仅代表这个地球上所有的生物包括微生物甚至细菌病毒和小强BS你到宇宙毁灭）</p>
+<h4 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h4><ul>
+<li><p><strong>学习 <a href="http://www.quora.com/Bash-shell" target="_blank" rel="noopener">Bash</a> </strong>。你可以man bash来看看bash的东西，并不复杂也并不长。你用别的shell也行，但是bash是很强大的并且也是系统默认的。（学习zsh或tsch只会让你在很多情况下受到限制）</p>
+</li>
+<li><p><strong>学习 vim</strong> 。在Linux下，基本没有什么可与之竞争的编<del>译</del>辑器（就算你是一个Emacs或Eclipse的重度用户）。你可以看看《<a href="http://coolshell.cn/articles/5426.html" title="简明 Vim 练级攻略" target="_blank" rel="noopener">简明vim攻略</a>》和 《<a href="http://coolshell.cn/articles/7166.html" title="游戏：VIM大冒险" target="_blank" rel="noopener">Vim的冒险游戏</a>》以及《<a href="http://coolshell.cn/articles/5479.html" title="给程序员的VIM速查卡" target="_blank" rel="noopener">给程序员的Vim速查卡</a>》还有《<a href="http://coolshell.cn/articles/894.html" title="将vim变得简单:如何在vim中得到你最喜爱的IDE特性" target="_blank" rel="noopener">把Vim变成一个编程的IDE</a>》等等。</p>
+</li>
+<li><p><strong>了解 ssh</strong>。明白不需要口令的用户认证（通过ssh-agent, ssh-add），学会用ssh翻墙，用scp而不是ftp传文件，等等。你知道吗？scp 远端的时候，你可以按tab键来查看远端的目录和文件（当然，需要无口令的用户认证），这都是bash的功劳。<br>&nbsp;</p>
+</li>
+<li><p><strong>熟悉bash的作业管理</strong>，如： &amp;, Ctrl-Z, Ctrl-C, jobs, fg, bg, kill, 等等。当然，你也要知道Ctrl+\（SIGQUIT）和Ctrl+C （SIGINT）的区别。</p>
+</li>
+<li><p><strong>简单的文件管理</strong> ： ls 和 ls -l (你最好知道 “ls -l” 的每一列的意思), less, head, tail 和 tail -f, ln 和 ln -s (你知道明白hard link和soft link的不同和优缺点), chown, chmod, du (如果你想看看磁盘的大小 du -sk *), df, mount。当然，原作者忘了find命令。</p>
+</li>
+<li><p><strong>基础的网络管理</strong>： ip 或 ifconfig, dig。当然，原作者还忘了如netstat, ping, traceroute, 等</p>
+</li>
+<li><p><strong>理解正则表达式</strong>，还有grep/egrep的各种选项。比如： -o, -A, 和 -B 这些选项是很值得了解的。</p>
+</li>
+<li><p><strong>学习使用 apt-get 和 yum 来查找和安装软件</strong>（前者的经典分发包是Ubuntu，后者的经典分发包是Redhat），我还建议你试着从源码编译安装软件。<br><strong>日常</strong></p>
+</li>
+<li><p>在 bash 里，使用 Ctrl-R 而不是上下光标键来查找历史命令。</p>
+</li>
+<li><p>在 bash里，使用 Ctrl-W 来删除最后一个单词，使用 Ctrl-U 来删除一行。请man bash后查找Readline Key Bindings一节来看看bash的默认热键，比如：Alt-. 把上一次命令的最后一个参数打出来，而Alt-* 则列出你可以输入的命令。</p>
+</li>
+<li><p>回到上一次的工作目录： cd –  （回到home是 cd ~）</p>
+</li>
+<li><p>使用 xargs。这是一个很强大的命令。你可以使用-L来限定有多少个命令，也可以用-P来指定并行的进程数。如果你不知道你的命令会变成什么样，你可以使用xargs echo来看看会是什么样。当然， -I{} 也很好用。示例：</p>
+<blockquote>
+<div><br><br><div id="highlighter_680398"><br><br><table border="0" cellspacing="0" cellpadding="0"><br><br><tbody><br><br><tr><br><br><td><br><br><div>1</div>
+
+<div>2</div>
+
+<div>3</div></td><br><br><td><br><br><div><br><br><div><code>find</code> <code>. -name \*.py | `</code>xargs<code></code>grep<code></code>some_function`</div>
+
+<div></div>
+
+<div><code>cat</code> <code>hosts | `</code>xargs<code></code>-I{} <code>ssh` `root@{}</code>hostname`</div>
+
+<p></p></div></td><p></p>
+<p></p></tr><p></p>
+<p></p></tbody><p></p>
+<p></p></table><p></p>
+<p></p></div><p></p>
+<p></p></div><p></p>
+</blockquote>
+</li>
+<li><p>pstree -p 可以帮你显示进程树。（读过我的那篇《<a href="http://coolshell.cn/articles/7965.html" title="一个fork的面试题" target="_blank" rel="noopener">一个fork的面试题</a>》的人应该都不陌生）</p>
+</li>
+<li><p>使用 pgrep 和 pkill 来找到或是kill 某个名字的进程。 (-f 选项很有用).</p>
+</li>
+<li><p>了解可以发给进程的信号。例如：要挂起一个进程，使用 kill -STOP [pid]. 使用 man 7 signal 来查看各种信号，使用kill -l 来查看数字和信号的对应表</p>
+</li>
+<li><p>使用 nohup 或  disown 如果你要让某个进程运行在后台。</p>
+</li>
+<li><p>使用netstat -lntp来看看有侦听在网络某端口的进程。当然，也可以使用 lsof。</p>
+</li>
+<li><p>在bash的脚本中，你可以使用 set -x 来debug输出。使用 set -e 来当有错误发生的时候abort执行。考虑使用 set -o pipefail 来限制错误。还可以使用trap来截获信号（如截获ctrl+c）。</p>
+</li>
+<li><p>在bash 脚本中，subshells (写在圆括号里的) 是一个很方便的方式来组合一些命令。一个常用的例子是临时地到另一个目录中，例如：</p>
+<blockquote>
+<div><br><br><div id="highlighter_713913"><br><br><table border="0" cellspacing="0" cellpadding="0"><br><br><tbody><br><br><tr><br><br><td><br><br><div>1</div>
+
+<div>2</div>
+
+<div>3</div></td><br><br><td><br><br><div><br><br><div><code># do something in current dir</code></div>
+
+<div><code>(`</code>cd<code></code>/some/other/dir<code>; other-</code>command<code></code>)`</div>
+
+<div><code># continue in original dir</code></div>
+
+<p></p></div></td><p></p>
+<p></p></tr><p></p>
+<p></p></tbody><p></p>
+<p></p></table><p></p>
+<p></p></div><p></p>
+<p></p></div><p></p>
+</blockquote>
+</li>
+<li><p>在 bash 中，注意那里有很多的变量展开。如：检查一个变量是否存在: ${name:?error message}。如果一个bash的脚本需要一个参数，也许就是这样一个表达式 input_file=${1:?usage: $0 input_file}。一个计算表达式： i=$(( (i + 1) % 5 ))。一个序列： {1..10}。 截断一个字符串： ${var%suffix} 和 ${var#prefix}。 示例： if var=foo.pdf, then echo ${var%.pdf}.txt prints “foo.txt”.</p>
+</li>
+<li><p>通过 &lt;(some command) 可以把某命令当成一个文件。示例：比较一个本地文件和远程文件 /etc/hosts： diff /etc/hosts &lt;(ssh somehost cat /etc/hosts)</p>
+</li>
+<li><p>了解什么叫 “<a href="http://zh.wikipedia.org/wiki/Here%E6%96%87%E6%A1%A3" target="_blank" rel="noopener">here documents</a>” ，就是诸如 cat &lt;&lt;EOF 这样的东西。</p>
+</li>
+<li><p>在 bash中，使用重定向到标准输出和标准错误。如： some-command &gt;logfile 2&gt;&amp;1。另外，要确认某命令没有把某个打开了的文件句柄重定向给标准输入，最佳实践是加上 “&lt;/dev/null”，把/dev/null重定向到标准输入。</p>
+</li>
+<li><p>使用 man ascii 来查看 ASCII 表。</p>
+</li>
+<li><p>在远端的 ssh 会话里，使用 screen 或 dtach 来保存你的会话。（参看《<a href="http://coolshell.cn/articles/7829.html" title="28个Unix/Linux的命令行神器" target="_blank" rel="noopener">28个Unix/Linux的命令行神器</a>》）</p>
+</li>
+<li><p>要来debug Web，试试curl 和 curl -I 或是 wget 。我觉得debug Web的利器是firebug，curl和wget是用来抓网页的，呵呵。</p>
+</li>
+<li><p>把 HTML 转成文本： lynx -dump -stdin</p>
+</li>
+<li><p>如果你要处理XML，使用 xmlstarlet</p>
+</li>
+<li><p>对于 Amazon S3， s3cmd 是一个很方便的命令（还有点不成熟）</p>
+</li>
+<li><p>在 ssh中，知道怎么来使用ssh隧道。通过 -L or -D (还有-R) ，翻墙神器。</p>
+</li>
+<li><p>你还可以对你的ssh 做点优化。比如，.ssh/config 包含着一些配置：避免链接被丢弃，链接新的host时不需要确认，转发认证，以前使用压缩（如果你要使用scp传文件）：</p>
+<blockquote>
+<div><br><br><div id="highlighter_742521"><br><br><table border="0" cellspacing="0" cellpadding="0"><br><br><tbody><br><br><tr><br><br><td><br><br><div>1</div>
+
+<div>2</div>
+
+<div>3</div>
+
+<div>4</div>
+
+<div>5</div>
+
+<div>6</div></td><br><br><td><br><br><div><br><br><div><code>TCPKeepAlive=`</code>yes`</div>
+
+<div><code>ServerAliveInterval=15</code></div>
+
+<div><code>ServerAliveCountMax=6</code></div>
+
+<div><code>StrictHostKeyChecking=no</code></div>
+
+<div><code>Compression=`</code>yes`</div>
+
+<div><code>ForwardAgent=`</code>yes`</div>
+
+<p></p></div></td><p></p>
+<p></p></tr><p></p>
+<p></p></tbody><p></p>
+<p></p></table><p></p>
+<p></p></div><p></p>
+<p></p></div><p></p>
+</blockquote>
+</li>
+<li><p>如果你有输了个命令行，但是你改变注意了，但你又不想删除它，因为你要在历史命令中找到它，但你也不想执行它。那么，你可以按下 Alt-# ，于是这个命令关就被加了一个#字符，于是就被注释掉了。<br><strong>数据处理 </strong></p>
+</li>
+<li><p>了解 sort 和 uniq 命令 (包括 uniq 的 -u 和 -d 选项).</p>
+</li>
+<li><p>了解用 cut, paste, 和 join 命令来操作文本文件。很多人忘了在cut前使用join。</p>
+</li>
+<li><p>如果你知道怎么用sort/uniq来做集合交集、并集、差集能很大地促进你的工作效率。假设有两个文本文件a和b已解被 uniq了，那么，用sort/uniq会是最快的方式，无论这两个文件有多大（sort不会被内存所限，你甚至可以使用-T选项，如果你的/tmp目录很小）</p>
+<blockquote>
+<div><br><br><div id="highlighter_570665"><br><br><table border="0" cellspacing="0" cellpadding="0"><br><br><tbody><br><br><tr><br><br><td><br><br><div>1</div>
+
+<div>2</div>
+
+<div>3</div>
+
+<div>4</div>
+
+<div>5</div></td><br><br><td><br><br><div><br><br><div><code>cat</code> <code>a b | `</code>sort<code></code>| <code>uniq` `&amp;gt; c</code># c is a union b 并集`</div>
+
+<div></div>
+
+<div><code>cat</code> <code>a b | `</code>sort<code></code>| <code>uniq` `-d &amp;gt; c</code># c is a intersect b 交集`</div>
+
+<div></div>
+
+<div><code>cat</code> <code>a b b | `</code>sort<code></code>| <code>uniq` `-u &amp;gt; c</code># c is set difference a - b 差集`</div>
+
+<p></p></div></td><p></p>
+<p></p></tr><p></p>
+<p></p></tbody><p></p>
+<p></p></table><p></p>
+<p></p></div><p></p>
+<p></p></div><p></p>
+</blockquote>
+</li>
+<li><p>了解和字符集相关的命令行工具，包括排序和性能。很多的Linux安装程序都会设置LANG 或是其它和字符集相关的环境变量。这些东西可能会让一些命令（如：sort）的执行性能慢N多倍（注：就算是你用UTF-8编码文本文件，你也可以很安全地使用ASCII来对其排序）。如果你想Disable那个i18n 并使用传统的基于byte的排序方法，那就设置export LC_ALL=C （实际上，你可以把其放在 .bashrc）。如果这设置这个变量，你的sort命令很有可能会是错的。</p>
+</li>
+<li><p>了解 awk 和 sed，并用他们来做一些简单的数据修改操作。例如：求第三列的数字之和： awk ‘{ x += $3 } END { print x }’。这可能会比Python快3倍，并比Python的代码少三倍。</p>
+</li>
+<li><p>使用 shuf 来打乱一个文件中的行或是选择文件中一个随机的行。</p>
+</li>
+<li><p>了解sort命令的选项。了解key是什么（-t和-k）。具体说来，你可以使用-k1,1来对第一列排序，-k1来对全行排序。</p>
+</li>
+<li><p>Stable sort (sort -s) 会很有用。例如：如果你要想对两例排序，先是以第二列，然后再以第一列，那么你可以这样： sort -k1,1 | sort -s -k2,2</p>
+</li>
+<li><p>我们知道，在bash命令行下，Tab键是用来做目录文件自动完成的事的。但是如果你想输入一个Tab字符（比如：你想在sort -t选项后输入&lt;tab&gt;字符），你可以先按Ctrl-V，然后再按Tab键，就可以输入&lt;tab&gt;字符了。当然，你也可以使用$’\t’。</p>
+</li>
+<li><p>如果你想查看二进制文件，你可以使用hd命令（在CentOS下是hexdump命令），如果你想编译二进制文件，你可以使用bvi命令（<a href="http://bvi.sourceforge.net/" target="_blank" rel="noopener">http://bvi.sourceforge.net/</a> 墙）</p>
+</li>
+<li><p>另外，对于二进制文件，你可以使用strings（配合grep等）来查看二进制中的文本。</p>
+</li>
+<li><p>对于文本文件转码，你可以试一下 iconv。或是试试更强的 uconv 命令（这个命令支持更高级的Unicode编码）</p>
+</li>
+<li><p>如果你要分隔一个大文件，你可以使用split命令（split by size）和csplit命令（split by a pattern）。<br><strong>系统调试</strong></p>
+</li>
+<li><p>如果你想知道磁盘、CPU、或网络状态，你可以使用 iostat, netstat, top (或更好的 htop), 还有 dstat 命令。你可以很快地知道你的系统发生了什么事。关于这方面的命令，还有iftop, iotop等（参看《<a href="http://coolshell.cn/articles/7829.html" title="28个Unix/Linux的命令行神器" target="_blank" rel="noopener">28个Unix/Linux的命令行神器</a>》）</p>
+</li>
+<li><p>要了解内存的状态，你可以使用free和vmstat命令。具体来说，你需要注意 “cached” 的值，这个值是Linux内核占用的内存。还有free的值。</p>
+</li>
+<li><p>Java 系统监控有一个小的技巧是，你可以使用kill -3 &lt;pid&gt; 发一个SIGQUIT的信号给JVM，可以把堆栈信息（包括垃圾回收的信息）dump到stderr/logs。</p>
+</li>
+<li><p>使用 mtr 会比使用 traceroute 要更容易定位一个网络问题。</p>
+</li>
+<li><p>如果你要找到哪个socket或进程在使用网络带宽，你可以使用 iftop 或 nethogs。</p>
+</li>
+<li><p>Apache的一个叫 ab 的工具是一个很有用的，用quick-and-dirty的方式来测试网站服务器的性能负载的工作。如果你需要更为复杂的测试，你可以试试 siege。</p>
+</li>
+<li><p>如果你要抓网络包的话，试试 wireshark 或 tshark。</p>
+</li>
+<li><p>了解 strace 和 ltrace。这两个命令可以让你查看进程的系统调用，这有助于你分析进程的hang在哪了，怎么crash和failed的。你还可以用其来做性能profile，使用 -c 选项，你可以使用-p选项来attach上任意一个进程。</p>
+</li>
+<li><p>了解用ldd命令来检查相关的动态链接库。注意：<a href="http://coolshell.cn/articles/1626.html" title="ldd 的一个安全问题" target="_blank" rel="noopener">ldd的安全问题</a></p>
+</li>
+<li><p>使用gdb来调试一个正在运行的进程或分析core dump文件。参看我写的《<a href="http://coolshell.cn/articles/3643.html" title="GDB中应该知道的几个调试方法" target="_blank" rel="noopener">GDB中应该知道的几个调试方法</a>》</p>
+</li>
+<li><p>学会到 /proc 目录中查看信息。这是一个Linux内核运行时记录的整个操作系统的运行统计和信息，比如： /proc/cpuinfo, /proc/xxx/cwd, /proc/xxx/exe, /proc/xxx/fd/, /proc/xxx/smaps.</p>
+</li>
+<li><p>如果你调试某个东西为什么出错时，sar命令会有用。它可以让你看看 CPU, 内存, 网络, 等的统计信息。</p>
+</li>
+<li><p>使用 dmesg 来查看一些硬件或驱动程序的信息或问题。<br>作者最后加了一个免责声明：Disclaimer: Just because you <em>can</em> do something in bash, doesn’t necessarily mean you should. ;) （全文完）</p>
+</li>
+</ul>
+<p><a href="http://coolshell.cn/articles/8883.html" target="_blank" rel="noopener">http://coolshell.cn/articles/8883.html</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/313606/28个unixlinux的命令行神器/" rel="next" title="28个unixlinux的命令行神器">
+                <i class="fa fa-chevron-left"></i> 28个unixlinux的命令行神器
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/313613/使用php将大文件导入到数据库中/" rel="prev" title="使用php将大文件导入到数据库中">
+                使用php将大文件导入到数据库中 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/logo.png" alt="Ray">
+            
+              <p class="site-author-name" itemprop="name">Ray</p>
+              <p class="site-description motion-element" itemprop="description">Think Difficulty</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">458</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">266</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="aplayer-wrap motion-element">
+              <div id="aplayer" class="aplayer"></div>
+            </div>
+          
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/leadscloud" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:love4026@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-nd.svg" alt="Creative Commons">
+              </a>
+            </div>
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://cdn.livechatinc.xyz/" title="RLiveChat" target="_blank">RLiveChat</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.kamychina.com/" title="Roadheader" target="_blank">Roadheader</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://tinycms.xyz/" title="TinyCMS" target="_blank">TinyCMS</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#基础"><span class="nav-number">1.</span> <span class="nav-text">基础</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">Copyright &copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">leadscloud. All rights reserved.</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4, modified by Ray.</div>
+
+
+
+
+<!--
+<div class="weixin-box">
+  <div class="weixin-menu">
+    <div class="weixin-hover">
+      <div class="weixin-description">微信扫一扫，订阅本博客</div>
+    </div>
+  </div>
+</div>
+-->
+
+        
+
+<div class="leancloud-count">
+  <span id="/" class="leancloud_site_visitors" data-flag-title="leadscloud">
+    <i class="fa fa-eye"></i> 本站总访问量
+    <span class="leancloud-visitors-count"></span>
+    次
+  </span>
+</div>
+
+
+
+<script>
+  	var _mtac = {};
+  	(function() {
+  		var mta = document.createElement("script");
+  		mta.src = "https://pingjs.qq.com/h5/stats.js?v2.0.4";
+  		mta.setAttribute("name", "MTAH5");
+  		mta.setAttribute("sid", "500595572");
+
+  		var s = document.getElementsByTagName("script")[0];
+  		s.parentNode.insertBefore(mta, s);
+  	})();
+</script>
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script id="ribbon" type="text/javascript" size="200" alpha="0.6" zindex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'ePPAQV9hFzcbhOaQvvtyjTnw-gzGzoHsz',
+        appKey: 'GLniGVXsSMGBjTmaiI4wleaF',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+  <script src="https://unpkg.com/leancloud-storage@3.15.0/dist/av-min.js"></script>
+  <script>AV.initialize({
+    appId: "ePPAQV9hFzcbhOaQvvtyjTnw-gzGzoHsz",
+    appKey: "GLniGVXsSMGBjTmaiI4wleaF",
+    serverURL: "https://eppaqv9h.lc-cn-n1-shared.com"
+  });</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .then( (results) => {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        }, (error) => {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter, selector) {
+      // var $visitors = $(".leancloud_visitors");
+      var $visitors = $(selector);
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_site_visitors').length == 1) {
+        addCount(Counter, ".leancloud_site_visitors");
+      }
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter, '.leancloud_visitors');
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  <script src="/js/src/APlayer.min.js?v=5.1.4"></script>
+
+  <script type="text/javascript">
+    var playlist = [];
+    
+    playlist.push({title:'小城故事', author:'纯音乐', url:'http://blog-music.test.upcdn.net/xiaochenggushi.mp3', pic:'', lrc: ''})
+    
+    playlist.push({title:'Should it matter', author:'Sissel Kyrkjeb', url:'http://blog-music.test.upcdn.net/should-it-matter.mp3', pic:'', lrc: ''})
+    
+    playlist.push({title:'爱在西元前', author:'周杰伦', url:'http://blog-music.test.upcdn.net/aizaixiyuanqian.mp3', pic:'', lrc: ''})
+    
+    var ap = new APlayer({
+        element: document.getElementById('aplayer'),
+        autoplay: false,
+        mode: "random",
+        preload: "none",
+        music: playlist
+    });
+  </script>
+
+
+</body>
+</html>

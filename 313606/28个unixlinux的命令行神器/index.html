@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/logo.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/logo.png?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="linux,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="leadscloud" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="下面是Kristóf Kovács收集的28个Unix/Linux下的28个命令行下的工具（原文链接），有一些是大家熟悉的，有一些是非常有用的，有一些是不为人知的。这些工具都非常不错，希望每个人都知道。本篇文章还在Hacker News上被讨论，你可以过去看看。我以作者的原文中加入了官网链接和一些说明。   dstat &amp;amp; sariostat, vmstat, ifstat 三合一的工具，">
+<meta name="keywords" content="linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="28个unixlinux的命令行神器">
+<meta property="og:url" content="https://leadscloud.github.io/313606/28个unixlinux的命令行神器/index.html">
+<meta property="og:site_name" content="leadscloud">
+<meta property="og:description" content="下面是Kristóf Kovács收集的28个Unix/Linux下的28个命令行下的工具（原文链接），有一些是大家熟悉的，有一些是非常有用的，有一些是不为人知的。这些工具都非常不错，希望每个人都知道。本篇文章还在Hacker News上被讨论，你可以过去看看。我以作者的原文中加入了官网链接和一些说明。   dstat &amp;amp; sariostat, vmstat, ifstat 三合一的工具，">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://coolshell.cn//wp-content/uploads/2012/07/dstat_screenshot.png">
+<meta property="og:image" content="http://coolshell.cn//wp-content/uploads/2012/07/slurm_screenshot.png">
+<meta property="og:image" content="http://coolshell.cn//wp-content/uploads/2012/07/vim_screenshot.png">
+<meta property="og:image" content="http://coolshell.cn//wp-content/uploads/2012/07/gnu_screen_screenshot.png">
+<meta property="og:image" content="http://coolshell.cn//wp-content/uploads/2012/07/dtach+dvtm.png">
+<meta property="og:image" content="http://coolshell.cn//wp-content/uploads/2012/07/tmux3.png">
+<meta property="og:image" content="http://coolshell.cn//wp-content/uploads/2012/07/byobu-tmux.jpg">
+<meta property="og:image" content="http://coolshell.cn//wp-content/uploads/2012/07/multitail_screenshot.png">
+<meta property="og:image" content="http://coolshell.cn//wp-content/uploads/2012/07/tpp_screenshot.png">
+<meta property="og:image" content="http://coolshell.cn//wp-content/uploads/2012/07/xargs_screenshot.png">
+<meta property="og:image" content="http://coolshell.cn//wp-content/uploads/2012/07/duplicity_screenshot.png">
+<meta property="og:image" content="http://coolshell.cn//wp-content/uploads/2012/07/nethack_screenshot.png">
+<meta property="og:image" content="http://coolshell.cn//wp-content/uploads/2012/07/lftp_screenshot.png">
+<meta property="og:image" content="http://coolshell.cn//wp-content/uploads/2012/07/ack_screenshot.png">
+<meta property="og:image" content="http://coolshell.cn//wp-content/uploads/2012/07/calcurse_screenshot.png">
+<meta property="og:image" content="http://coolshell.cn//wp-content/uploads/2012/07/newsbeuter_screenshot.png">
+<meta property="og:image" content="http://coolshell.cn//wp-content/uploads/2012/07/powertop_screenshot.png">
+<meta property="og:image" content="http://coolshell.cn//wp-content/uploads/2012/07/htop_screenshot.png">
+<meta property="og:image" content="http://coolshell.cn//wp-content/uploads/2012/07/ipbt_screenshot.png">
+<meta property="og:image" content="http://coolshell.cn//wp-content/uploads/2012/07/rsync_screenshot.png">
+<meta property="og:image" content="http://coolshell.cn//wp-content/uploads/2012/07/mtr_screenshot.png">
+<meta property="og:image" content="http://coolshell.cn//wp-content/uploads/2012/07/socat_screenshot.png">
+<meta property="og:image" content="http://coolshell.cn//wp-content/uploads/2012/07/iftop_screenshot.png">
+<meta property="og:image" content="http://coolshell.cn//wp-content/uploads/2012/07/iptraf-tcpudp.gif">
+<meta property="og:image" content="http://coolshell.cn//wp-content/uploads/2012/07/siege_screenshot.png">
+<meta property="og:image" content="http://coolshell.cn//wp-content/uploads/2012/07/ledger_screenshot.png">
+<meta property="og:image" content="http://coolshell.cn//wp-content/uploads/2012/07/taskwarrior_screenshot.png">
+<meta property="og:image" content="http://coolshell.cn//wp-content/uploads/2012/07/TaskWarrior2.0.png">
+<meta property="og:image" content="http://coolshell.cn//wp-content/uploads/2012/07/curl_screenshot.png">
+<meta property="og:image" content="http://coolshell.cn//wp-content/uploads/2012/07/rtorrent_screenshot.png">
+<meta property="og:image" content="http://coolshell.cn//wp-content/uploads/2012/07/ttytter_screenshot.png">
+<meta property="og:image" content="http://coolshell.cn//wp-content/uploads/2012/07/earthquake.jpg">
+<meta property="og:image" content="http://coolshell.cn//wp-content/uploads/2012/07/vifm_screenshot.png">
+<meta property="og:image" content="http://coolshell.cn//wp-content/uploads/2012/07/ranger.png">
+<meta property="og:image" content="http://coolshell.cn//wp-content/uploads/2012/07/cowsay_screenshot.png">
+<meta property="og:image" content="http://coolshell.cn//wp-content/uploads/2012/07/sl.jpg">
+<meta property="og:image" content="http://coolshell.cn//wp-content/uploads/2012/07/linuxlogo.jpg">
+<meta property="og:updated_time" content="2024-10-26T18:59:13.796Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="28个unixlinux的命令行神器">
+<meta name="twitter:description" content="下面是Kristóf Kovács收集的28个Unix/Linux下的28个命令行下的工具（原文链接），有一些是大家熟悉的，有一些是非常有用的，有一些是不为人知的。这些工具都非常不错，希望每个人都知道。本篇文章还在Hacker News上被讨论，你可以过去看看。我以作者的原文中加入了官网链接和一些说明。   dstat &amp;amp; sariostat, vmstat, ifstat 三合一的工具，">
+<meta name="twitter:image" content="http://coolshell.cn//wp-content/uploads/2012/07/dstat_screenshot.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'F96493CKR7',
+      apiKey: '52cfc4f849dbe10556d886de6046f5c3',
+      indexName: 'blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://leadscloud.github.io/313606/28个unixlinux的命令行神器/">
+
+
+
+
+
+  <title>28个unixlinux的命令行神器 | leadscloud</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">leadscloud</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">Google SEO|外贸营销推广</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-免费chatgpt">
+          <a href="https://freegpt.tech/?refer=blog-side" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br>
+            
+            免费ChatGPT
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-我的简历">
+          <a href="https://leadscloud.github.io/resume/resume.pdf" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br>
+            
+            我的简历
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-友情链接">
+          <a href="/links/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br>
+            
+            友情链接
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-chrome扩展（域名所属人）">
+          <a href="/serp-analyzer/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br>
+            
+            Chrome扩展（域名所属人）
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-询盘管理系统">
+          <a href="https://github.com/leadscloud/infomaster" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br>
+            
+            询盘管理系统
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-外贸留言板系统">
+          <a href="/20180615/google-seo-inquiry-messageboard/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br>
+            
+            外贸留言板系统
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leadscloud.github.io/313606/28个unixlinux的命令行神器/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ray">
+      <meta itemprop="description" content="Think Difficulty">
+      <meta itemprop="image" content="/logo.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="leadscloud">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">28个unixlinux的命令行神器</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-06-16T19:25:35+00:00">
+                2013-06-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/转载/" itemprop="url" rel="index">
+                    <span itemprop="name">转载</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/313606/28个unixlinux的命令行神器/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/313606/28个unixlinux的命令行神器/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/313606/28个unixlinux的命令行神器/" class="leancloud_visitors" data-flag-title="28个unixlinux的命令行神器">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,809
+                </span>
+              
+
+              
+
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>下面是<a href="http://kkovacs.eu/" target="_blank" rel="noopener">Kristóf Kovács</a>收集的28个Unix/Linux下的28个命令行下的工具（<a href="http://kkovacs.eu/cool-but-obscure-unix-tools" target="_blank" rel="noopener">原文链接</a>），有一些是大家熟悉的，有一些是非常有用的，有一些是不为人知的。这些工具都非常不错，希望每个人都知道。本篇文章还在<a href="http://news.ycombinator.com/item?id=2567186" target="_blank" rel="noopener">Hacker News上被讨论</a>，你可以过去看看。我以作者的原文中加入了官网链接和一些说明。</p>
+<div>
+
+<h4 id="dstat-amp-sar"><a href="#dstat-amp-sar" class="headerlink" title="dstat &amp; sar"></a>dstat &amp; sar</h4><p>iostat, vmstat, ifstat 三合一的工具，用来查看系统性能（我在《<a href="http://coolshell.cn/articles/7490.html" title="性能调优攻略" target="_blank" rel="noopener">性能调优攻略</a>》中提到过那三个xxstat工具）。</p>
+<p>官方网站：<a href="http://dag.wieers.com/rpm/packages/dstat/" target="_blank" rel="noopener">http://dag.wieers.com/rpm/packages/dstat/</a></p>
+<p>你可以这样使用：</p>
+<p><code>alias</code> <code>dstat=`</code>‘dstat -cdlmnpsy’`</p>
+<p><img src="http://coolshell.cn//wp-content/uploads/2012/07/dstat_screenshot.png" alt="dstat screenshot"></p>
+<h4 id="slurm"><a href="#slurm" class="headerlink" title="slurm"></a>slurm</h4><p>查看网络流量的一个工具</p>
+<p>官方网站：_  <a href="https://computing.llnl.gov/linux/slurm/" target="_blank" rel="noopener">Simple Linux Utility for Resource Management</a>_</p>
+<p><img src="http://coolshell.cn//wp-content/uploads/2012/07/slurm_screenshot.png" alt="slurm screenshot"></p>
+<h4 id="vim-amp-emacs"><a href="#vim-amp-emacs" class="headerlink" title="vim &amp; emacs"></a>vim &amp; emacs</h4><p>真正程序员的代码编辑器。</p>
+<p><img src="http://coolshell.cn//wp-content/uploads/2012/07/vim_screenshot.png" alt="vim screenshot"></p>
+<h4 id="screen-dtach-tmux-byobu"><a href="#screen-dtach-tmux-byobu" class="headerlink" title="screen, dtach, tmux, byobu"></a>screen, dtach, tmux, byobu</h4><p>你是不是经常需要 SSH 或者 telent 远程登录到 Linux 服务器？你是不是经常为一些长时间运行的任务而头疼，比如系统备份、ftp 传输等等。通常情况下我们都是为每一个这样的任务开一个远程终端窗口，因为他们执行的时间太长了。必须等待它执行完毕，在此期间可不能关掉窗口或者断开连接，否则这个任务就会被杀掉，一切半途而废了。</p>
+<p><a href="http://www.gnu.org/software/screen/" target="_blank" rel="noopener"><strong>Screen</strong></a>是一个可以在多个进程之间多路复用一个物理终端的窗口管理器。Screen中有会话的概念，用户可以在一个screen会话中创建多个screen窗口，在每一个screen窗口中就像操作一个真实的telnet/SSH连接窗口那样。请参看IBM DeveloperWorks的这篇文章《<a href="http://www.ibm.com/developerworks/cn/linux/l-cn-screen/" target="_blank" rel="noopener">使用 screen 管理你的远程会话</a>》</p>
+<p><img src="http://coolshell.cn//wp-content/uploads/2012/07/gnu_screen_screenshot.png" alt="gnu screen screenshot"></p>
+<p><a href="http://dtach.sourceforge.net/" target="_blank" rel="noopener"><strong>dtach</strong> </a>是用来模拟screen的detach的功能的小工具，其可以让你随意地attach到各种会话上 。下图为dtach+dvtm的样子。</p>
+<p><img src="http://coolshell.cn//wp-content/uploads/2012/07/dtach+dvtm.png" alt title="dtach+dvtm"></p>
+<p><strong><a href="http://tmux.sourceforge.net/" title="http://tmux.sourceforge.net/" target="_blank" rel="noopener">tmux</a></strong>是一个优秀的终端复用软件，类似<a href="http://www.gnu.org/software/screen/" title="http://www.gnu.org/software/screen/" target="_blank" rel="noopener">GNU Screen</a>，但来自于OpenBSD，采用BSD授权。使用它最直观的好处就是，通过一个终端登录远程主机并运行tmux后，在其中可以开启多个控制台而无需再“浪费”多余的终端来连接这台远程主机；当然其功能远不止于此。与screen相比的优点：可以横向和纵向分割窗口，且窗格可以自由移动和调整大小。可在多个缓冲区进行复制和粘贴，支持跨窗口搜索；非正常断线后不需重新detach；……  有人说——<strong>与tmux相比，screen简直弱爆了</strong>。</p>
+<p><img src="http://coolshell.cn//wp-content/uploads/2012/07/tmux3.png" alt title="tmux"></p>
+<p><a href="https://launchpad.net/byobu/" target="_blank" rel="noopener"><strong>byobu</strong></a>是Ubuntu开发的，在Screen的基础上进行包装，使其更加易用的一个工具。最新的Byobu，已经是基于Tmux作为后端了。可通过“byobu-tmux”这个命令行前端来接受各种与tmux一模一样的参数来控制它。Byobu的细节做的非常好，效果图如下：<img src="http://coolshell.cn//wp-content/uploads/2012/07/byobu-tmux.jpg" alt title="byobu-tmux"></p>
+<h4 id="multitail"><a href="#multitail" class="headerlink" title="multitail"></a>multitail</h4><p>MultiTail是个用来实现同时监控多个文档、类似tail命令的功能的软件。他和tail的区别就是他会在控制台中打开多个窗口，这样使同时监控多个日志文档成为可能。他还可以看log文件的统计，合并log文件，过滤log文件，分屏，……。</p>
+<p>官网：<a href="http://www.vanheusden.com/multitail/" target="_blank" rel="noopener">http://www.vanheusden.com/multitail/</a></p>
+<p><img src="http://coolshell.cn//wp-content/uploads/2012/07/multitail_screenshot.png" alt="multitail screenshot"></p>
+<h4 id="tpp"><a href="#tpp" class="headerlink" title="tpp"></a>tpp</h4><p>终端下的PPT，要是在某某大会上用这个演示PPT，就太TMD的Geek了。</p>
+<p>官网：<a href="http://www.ngolde.de/tpp.html" target="_blank" rel="noopener">http://www.ngolde.de/tpp.html</a></p>
+<p><img src="http://coolshell.cn//wp-content/uploads/2012/07/tpp_screenshot.png" alt="tpp screenshot"></p>
+<h4 id="xargs-amp-parallel"><a href="#xargs-amp-parallel" class="headerlink" title="xargs &amp; parallel"></a>xargs &amp; parallel</h4><p>Executes tasks from input (even multithread).</p>
+<p>xargs 是一个比较古老的命令，有简单的并行功能，这个不说了。对于<a href="http://www.gnu.org/software/parallel/" target="_blank" rel="noopener">GNU parallel</a> ( <a href="http://savannah.gnu.org/projects/parallel" target="_blank" rel="noopener">online manpage</a> )来说，它不仅能够处理本机上多执行绪，还能分散至远端电脑协助处理。而使用GNU parallel前，要先确定本机有安装GNU parallel / ssh / rsync，远端电脑也要安装ssh。</p>
+<p><img src="http://coolshell.cn//wp-content/uploads/2012/07/xargs_screenshot.png" alt="xargs screenshot"></p>
+<h4 id="duplicity-amp-rsyncrypto"><a href="#duplicity-amp-rsyncrypto" class="headerlink" title="duplicity &amp; rsyncrypto"></a>duplicity &amp; rsyncrypto</h4><p><a href="http://duplicity.nongnu.org/" target="_blank" rel="noopener">Duplicity</a>是使用rsync算法加密的高效率备份软件，Duplicity支持目录加密生产和格式上传到远程或本地文件服务器。</p>
+<p><a href="http://rsyncrypto.lingnu.com/index.php/Home_Page" target="_blank" rel="noopener">rsyncrypto</a> 就是 rsync + encryption。对于rsync的算法可参看酷壳的<a href="http://coolshell.cn/articles/7425.html" title="rsync 的核心算法" target="_blank" rel="noopener">rsync核心算法</a>。</p>
+<p>Encrypting backup tools.</p>
+<p><img src="http://coolshell.cn//wp-content/uploads/2012/07/duplicity_screenshot.png" alt="duplicity screenshot"></p>
+<h4 id="nethack-amp-slash’em"><a href="#nethack-amp-slash’em" class="headerlink" title="nethack &amp; slash’em"></a>nethack &amp; slash’em</h4><p><a href="http://www.nethack.org/" target="_blank" rel="noopener">NetHack</a>（<a href="http://zh.wikipedia.org/zh/NetHack" target="_blank" rel="noopener">Wiki</a>），20年历史的古老电脑游戏。没有声音，没有漂亮的界面，不过这个游戏真的很有意思。网上有个家伙说：<strong>如果你一生只做一件事情，那么玩NetHack</strong>。这句话很惹眼，但也让人觉得这个游戏很复杂不容易上手。其实，这个游戏很虽然很复杂，却容易上手。虽然玩通关很难，但上手很容易。NetHack上有许多复杂的规则，”the DevTeam thinks of everything”（开发团队想到了所有的事情)。各种各样的怪物，各种各样的武器….，有许多spoilers文件来说明其规则。除了每次开始随机生成的地图，每次玩游戏，你也都会碰到奇怪的事情: 因为喝了一种药水，变成了机器人;因为踢坏了商店的门被要求高价赔偿;你的狗为你偷来了商店的东西….. 这有点象人生，你不能完全了解这个世界，但你仍然可以选择自己的面对方式。</p>
+<p>网上有许多文章所这是最好的电脑游戏或最好的电脑游戏之一。也许是因为它开放的源代码让人赞赏，古老的历史让人宽容，复杂的规则让人敬畏。虽然它不是当前流行的游戏，但它比任何一个当前流行的游戏都更有可能再经受20年的考验。</p>
+<p><a href="http://www.slashem.org/" target="_blank" rel="noopener">Slash’EM</a> 也是一个基于NetHack的经典游戏。</p>
+<p><img src="http://coolshell.cn//wp-content/uploads/2012/07/nethack_screenshot.png" alt="nethack screenshot"></p>
+<h4 id="lftp"><a href="#lftp" class="headerlink" title="lftp"></a>lftp</h4><p>利用<a href="http://lftp.yar.ru/" target="_blank" rel="noopener">lftp</a>命令行ftp工具进行网站数据的增量备份，镜像，就像使用rsync一样。</p>
+<p><img src="http://coolshell.cn//wp-content/uploads/2012/07/lftp_screenshot.png" alt="lftp screenshot"></p>
+<h4 id="ack"><a href="#ack" class="headerlink" title="ack"></a>ack</h4><p><a href="http://betterthangrep.com/" target="_blank" rel="noopener">ack</a>是一个perl脚本，是grep的一个可选替换品。其可以对匹配字符有高亮显示。是为程序员专门设计的，默认递归搜索，省提供多种文件类型供选。</p>
+<p><img src="http://coolshell.cn//wp-content/uploads/2012/07/ack_screenshot.png" alt="ack screenshot"></p>
+<h4 id="calcurse-amp-remind-wyrd"><a href="#calcurse-amp-remind-wyrd" class="headerlink" title="calcurse &amp; remind + wyrd"></a>calcurse &amp; remind + wyrd</h4><p><a href="http://calcurse.org/" target="_blank" rel="noopener">calcurse</a>是一个命令行下的日历和日程软件。<a href="http://www.roaringpenguin.com/products/remind" target="_blank" rel="noopener">remind</a> + <a href="http://pessimization.com/software/wyrd/" target="_blank" rel="noopener">wyrd</a>也很类似。关于日历，我不得不提一个<a href="http://coolshell.cn/articles/3489.html" title="Linux的cycle日历（你懂的）" target="_blank" rel="noopener">Linux的Cycle日历</a>，也是一个神器，呵呵。</p>
+<p><img src="http://coolshell.cn//wp-content/uploads/2012/07/calcurse_screenshot.png" alt="calcurse screenshot"></p>
+<h4 id="newsbeuter-amp-rsstail"><a href="#newsbeuter-amp-rsstail" class="headerlink" title="newsbeuter &amp; rsstail"></a>newsbeuter &amp; rsstail</h4><p><a href="http://newsbeuter.org/" target="_blank" rel="noopener">newsbeuter </a>和 <a href="http://www.vanheusden.com/rsstail/" target="_blank" rel="noopener">rsstail</a> 是命令行下RSS的阅读工具。</p>
+<p><img src="http://coolshell.cn//wp-content/uploads/2012/07/newsbeuter_screenshot.png" alt="newsbeuter screenshot"></p>
+<h4 id="powertop"><a href="#powertop" class="headerlink" title="powertop"></a>powertop</h4><p><a href="http://coolshell.cn/articles/7186.html" title="做个环保主义的程序员" target="_blank" rel="noopener">做个环保的程序员</a>，看看自己的电脑里哪些程序费电。<a href="https://01.org/powertop/" target="_blank" rel="noopener">PowerTOP</a> 是一个让 Intel 平台的笔记本电脑节省电源的 Linux 工具。此工具由 Intel 公司发布。它可以帮助用户找出那些耗电量大的程序，通过修复或者关闭那些应用程序或进程，从而为用户节省电源。</p>
+<p><img src="http://coolshell.cn//wp-content/uploads/2012/07/powertop_screenshot.png" alt="powertop screenshot"></p>
+<h4 id="htop-amp-iotop"><a href="#htop-amp-iotop" class="headerlink" title="htop &amp; iotop"></a>htop &amp; iotop</h4><p><a href="http://htop.sourceforge.net/" target="_blank" rel="noopener">htop</a> 和 <a href="http://guichaz.free.fr/iotop/" target="_blank" rel="noopener">iotop</a>  用来查看进程，内存和IO负载。</p>
+<p><img src="http://coolshell.cn//wp-content/uploads/2012/07/htop_screenshot.png" alt="htop screenshot"></p>
+<h4 id="ttyrec-amp-ipbt"><a href="#ttyrec-amp-ipbt" class="headerlink" title="ttyrec &amp; ipbt"></a>ttyrec &amp; ipbt</h4><p><a href="http://0xcc.net/ttyrec/index.html.en" target="_blank" rel="noopener">ttyrec</a> 是一个 tty 控制台录制程序，其所录制的数据文件可以使用与之配套的 ttyplay 播放。不管是你在 tty 中的各种操作，还是在 tty 中耳熟能详的软件，都可进行录制。</p>
+<p><a href="http://www.chiark.greenend.org.uk/~sgtatham/ipbt/" target="_blank" rel="noopener">ipbt</a> 是一个用来回放 ttyrec 所录制的控制台输入过程的工具。</p>
+<p>与此类似的还有<a href="http://shelr.tv/" target="_blank" rel="noopener">Shelr</a> 和 <a href="http://sourceforge.net/projects/termrec/" target="_blank" rel="noopener">termrec </a></p>
+<p><img src="http://coolshell.cn//wp-content/uploads/2012/07/ipbt_screenshot.png" alt="ipbt screenshot"></p>
+<h4 id="rsync"><a href="#rsync" class="headerlink" title="rsync"></a>rsync</h4><p>通过SSH进行文件同步的经典工具（<a href="http://coolshell.cn/articles/7425.html" title="rsync 的核心算法" target="_blank" rel="noopener">核心算法</a>）</p>
+<p><img src="http://coolshell.cn//wp-content/uploads/2012/07/rsync_screenshot.png" alt="rsync screenshot"></p>
+<h4 id="mtr"><a href="#mtr" class="headerlink" title="mtr"></a>mtr</h4><p><a href="http://www.bitwizard.nl/mtr/" target="_blank" rel="noopener">MTR</a> – traceroute 2.0，其是把 traceroute 和 ping 集成在一块的一个小工具 用于诊断网络。</p>
+<p><img src="http://coolshell.cn//wp-content/uploads/2012/07/mtr_screenshot.png" alt="mtr screenshot"></p>
+<h4 id="socat-amp-netpipes"><a href="#socat-amp-netpipes" class="headerlink" title="socat &amp; netpipes"></a>socat &amp; netpipes</h4><p><a href="http://www.dest-unreach.org/socat/" target="_blank" rel="noopener">socat</a>是一个多功能的网络工具，名字来由是” Socket CAT”，可以看作是netcat的N倍加强版。</p>
+<p><a href="http://web.purplefrog.com/~thoth/netpipes/" target="_blank" rel="noopener">netpipes</a> 和socat一样，主要是用来在命令行来进行socket操作的命令，这样你就可以在Shell脚本下行进socket网络通讯了。</p>
+<p><img src="http://coolshell.cn//wp-content/uploads/2012/07/socat_screenshot.png" alt="socat screenshot"></p>
+<h4 id="iftop-amp-iptraf"><a href="#iftop-amp-iptraf" class="headerlink" title="iftop &amp; iptraf"></a>iftop &amp; iptraf</h4><p><a href="http://www.ex-parrot.com/~pdw/iftop/" target="_blank" rel="noopener">iftop</a>和<a href="http://iptraf.seul.org/" target="_blank" rel="noopener">iptraf</a>可以用来查看当前网络链接的一些流量情况。</p>
+<p><img src="http://coolshell.cn//wp-content/uploads/2012/07/iftop_screenshot.png" alt="iftop screenshot"></p>
+<p><img src="http://coolshell.cn//wp-content/uploads/2012/07/iptraf-tcpudp.gif" alt title="iptraf-tcpudp"></p>
+<h4 id="siege-amp-tsung"><a href="#siege-amp-tsung" class="headerlink" title="siege &amp; tsung"></a>siege &amp; tsung</h4><p><a href="http://www.joedog.org/siege-home/" target="_blank" rel="noopener">Siege</a>是一个压力测试和评测工具，设计用于WEB开发这评估应用在压力下的承受能力：可以根据配置对一个WEB站点进行多用户的并发访问，记录每个用户所有请求过程的相应时间，并在一定数量的并发访问下重复进行。</p>
+<p><a href="http://tsung.erlang-projects.org/" target="_blank" rel="noopener">Tsung</a> 是一个压力测试工具，可以测试包括HTTP, WebDAV, PostgreSQL, MySQL, LDAP, and XMPP/Jabber等服务器。针对 HTTP 测试，Tsung 支持 HTTP 1.0/1.1 ，包含一个代理模式的会话记录、支持 GET、POST 和 PUT 以及 DELETE 方法，支持 Cookie 和基本的 WWW 认证，同时还支持 SSL。</p>
+<p>参看：<a href="http://coolshell.cn/articles/2589.html" title="十个免费的Web压力测试工具" target="_blank" rel="noopener">十个免费的Web压力测试工具</a></p>
+<p><img src="http://coolshell.cn//wp-content/uploads/2012/07/siege_screenshot.png" alt="siege screenshot"></p>
+<h4 id="ledger"><a href="#ledger" class="headerlink" title="ledger"></a>ledger</h4><p><a href="http://ledger-cli.org/" target="_blank" rel="noopener">ledger</a> 一个命令行下记帐的小工具。</p>
+<p><img src="http://coolshell.cn//wp-content/uploads/2012/07/ledger_screenshot.png" alt="ledger screenshot"></p>
+<h4 id="taskwarrior"><a href="#taskwarrior" class="headerlink" title="taskwarrior"></a>taskwarrior</h4><p><a href="http://taskwarrior.org/projects/show/taskwarrior" target="_blank" rel="noopener">TaskWarrior</a> 是一个基于命令行的 TODO 列表管理工具。主要功能包括：标签、彩色表格输出、报表和图形、大量的命令、底层API、多用户文件锁等功能。</p>
+<p><img src="http://coolshell.cn//wp-content/uploads/2012/07/taskwarrior_screenshot.png" alt="taskwarrior screenshot"></p>
+<p>下图是TaskWarrior 2.0的界面：</p>
+<p><img src="http://coolshell.cn//wp-content/uploads/2012/07/TaskWarrior2.0.png" alt title="TaskWarrior2.0"></p>
+<h4 id="curl"><a href="#curl" class="headerlink" title="curl"></a>curl</h4><p><a href="http://curl.haxx.se/" target="_blank" rel="noopener">cURL</a>是一个利用URL语法在命令行下工作的文件传输工具，1997年首次发行。它支持文件上传和下载，所以是综合传输工具，但按传统，习惯称cURL为下载工具。cURL还包含了用于程序开发的libcurl。cURL支援的通訊協定有FTP、FTPS、HTTP、HTTPS、TFTP、SFTP、Gopher、SCP、Telnet、DICT、FILE、LDAP、LDAPS、IMAP、POP3、SMTP和RTSP。</p>
+<p><img src="http://coolshell.cn//wp-content/uploads/2012/07/curl_screenshot.png" alt="curl screenshot"></p>
+<h4 id="rtorrent-amp-aria2"><a href="#rtorrent-amp-aria2" class="headerlink" title="rtorrent &amp; aria2"></a>rtorrent &amp; aria2</h4><p><a href="http://libtorrent.rakshasa.no/" target="_blank" rel="noopener">rTorrent</a> 是一个非常简洁、优秀、非常轻量的BT客户端. 它使用了 ncurses 库以 C++ 编写, 因此它完全基于文本并在终端中运行. 将 rTorrent 用在安装有 GNU Screen 和 Secure Shell 的低端系统上作为远程的 BT 客户端是非常理想的。</p>
+<p><a href="http://aria2.sourceforge.net/" target="_blank" rel="noopener">aria2</a> 是 Linux 下一个不错的高速下载工具。由于它具有分段下载引擎，所以支持从多个地址或者从一个地址的多个连接来下载同一个文件。这样自然就大大加快了文件的下载速度。aria2 也具有断点续传功能，这使你随时能够恢复已经中断的文件下载。除了支持一般的 http(s) 和 ftp 协议外，aria2 还支持 BitTorrent 协议。这意味着，你也可以使用 aria2 来下载 torrent 文件。</p>
+<p> <img src="http://coolshell.cn//wp-content/uploads/2012/07/rtorrent_screenshot.png" alt="rtorrent screenshot"></p>
+<h4 id="ttytter-amp-earthquake"><a href="#ttytter-amp-earthquake" class="headerlink" title="ttytter &amp; earthquake"></a>ttytter &amp; earthquake</h4><p><a href="http://www.floodgap.com/software/ttytter" target="_blank" rel="noopener">TTYtter</a> 是一个Perl写的命令行上发Twitter的工具，可以进行所有其他平台客户端能进行的事情，当然，支持中文。脚本控、CLI控、终端控、Perl控的最愛。</p>
+<p><a href="https://github.com/jugyo/earthquake" target="_blank" rel="noopener">Earthquake</a>也是一个命令行上的Twitter客户端。</p>
+<p><img src="http://coolshell.cn//wp-content/uploads/2012/07/ttytter_screenshot.png" alt="ttytter screenshot"></p>
+<p><img src="http://coolshell.cn//wp-content/uploads/2012/07/earthquake.jpg" alt title="earthquake"></p>
+<h4 id="vifm-amp-ranger"><a href="#vifm-amp-ranger" class="headerlink" title="vifm &amp; ranger"></a>vifm &amp; ranger</h4><p><a href="http://vifm.sourceforge.net/" target="_blank" rel="noopener">Vifm</a> 基于ncurses的文件管理器，DOS风格，用键盘操作。</p>
+<p><img src="http://coolshell.cn//wp-content/uploads/2012/07/vifm_screenshot.png" alt="vifm screenshot"></p>
+<p><a href="http://savannah.nongnu.org/projects/ranger" target="_blank" rel="noopener">Ranger</a>用 Python 完成，默认为使用 Vim 风格的按键绑定，比如 hjkl（上下左右），dd（剪切），yy（复制）等等。功能很全，扩展/可配置性也非常不错。类似MacOS X下Finder（文件管理器）的多列文件管理方式。支持多标签页。实时预览文本文件和目录。</p>
+<p><img src="http://coolshell.cn//wp-content/uploads/2012/07/ranger.png" alt title="ranger"></p>
+<h4 id="cowsay-amp-sl"><a href="#cowsay-amp-sl" class="headerlink" title="cowsay &amp; sl"></a>cowsay &amp; sl</h4><p><a href="http://www.nog.net/~tony/warez/cowsay.shtml" target="_blank" rel="noopener">cowsay </a> 不说了，如下所示，哈哈哈。还有xcowsay，你可以自己搜一搜。</p>
+<p><img src="http://coolshell.cn//wp-content/uploads/2012/07/cowsay_screenshot.png" alt="cowsay screenshot"></p>
+<p>sl是什么？ls？，呵呵，你会经常把ls 打成sl吗？如果是的话，这个东西可以让你娱乐一下，你会看到一辆火车呼啸而过~~，相当拉风。你可以使用sudo apt-get install sl 安装。</p>
+<p><img src="http://coolshell.cn//wp-content/uploads/2012/07/sl.jpg" alt title="sl"></p>
+<p>最后，再介绍一个命令中linuxlogo，你可以使用 sudo apt-get install linuxlogo来安装，然后，就可以使用linuxlogo -L<br>来看一下各种Linux的logo了</p>
+<p><img src="http://coolshell.cn//wp-content/uploads/2012/07/linuxlogo.jpg" alt title="linuxlogo"></p>
+<p>（全文完）</p>
+<p><a href="http://coolshell.cn/articles/7829.html" target="_blank" rel="noopener">http://coolshell.cn/articles/7829.html</a></p>
+</div>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag"># linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/313603/浏览器的渲染原理简介/" rel="next" title="浏览器的渲染原理简介">
+                <i class="fa fa-chevron-left"></i> 浏览器的渲染原理简介
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/313609/应该知道的linux技巧/" rel="prev" title="应该知道的linux技巧">
+                应该知道的linux技巧 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/logo.png" alt="Ray">
+            
+              <p class="site-author-name" itemprop="name">Ray</p>
+              <p class="site-description motion-element" itemprop="description">Think Difficulty</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">458</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">266</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="aplayer-wrap motion-element">
+              <div id="aplayer" class="aplayer"></div>
+            </div>
+          
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/leadscloud" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:love4026@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-nd.svg" alt="Creative Commons">
+              </a>
+            </div>
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://cdn.livechatinc.xyz/" title="RLiveChat" target="_blank">RLiveChat</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.kamychina.com/" title="Roadheader" target="_blank">Roadheader</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://tinycms.xyz/" title="TinyCMS" target="_blank">TinyCMS</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#dstat-amp-sar"><span class="nav-number">1.</span> <span class="nav-text">dstat &amp; sar</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#slurm"><span class="nav-number">2.</span> <span class="nav-text">slurm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vim-amp-emacs"><span class="nav-number">3.</span> <span class="nav-text">vim &amp; emacs</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#screen-dtach-tmux-byobu"><span class="nav-number">4.</span> <span class="nav-text">screen, dtach, tmux, byobu</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#multitail"><span class="nav-number">5.</span> <span class="nav-text">multitail</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tpp"><span class="nav-number">6.</span> <span class="nav-text">tpp</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#xargs-amp-parallel"><span class="nav-number">7.</span> <span class="nav-text">xargs &amp; parallel</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#duplicity-amp-rsyncrypto"><span class="nav-number">8.</span> <span class="nav-text">duplicity &amp; rsyncrypto</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nethack-amp-slash’em"><span class="nav-number">9.</span> <span class="nav-text">nethack &amp; slash’em</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lftp"><span class="nav-number">10.</span> <span class="nav-text">lftp</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ack"><span class="nav-number">11.</span> <span class="nav-text">ack</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#calcurse-amp-remind-wyrd"><span class="nav-number">12.</span> <span class="nav-text">calcurse &amp; remind + wyrd</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#newsbeuter-amp-rsstail"><span class="nav-number">13.</span> <span class="nav-text">newsbeuter &amp; rsstail</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#powertop"><span class="nav-number">14.</span> <span class="nav-text">powertop</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#htop-amp-iotop"><span class="nav-number">15.</span> <span class="nav-text">htop &amp; iotop</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ttyrec-amp-ipbt"><span class="nav-number">16.</span> <span class="nav-text">ttyrec &amp; ipbt</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rsync"><span class="nav-number">17.</span> <span class="nav-text">rsync</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mtr"><span class="nav-number">18.</span> <span class="nav-text">mtr</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#socat-amp-netpipes"><span class="nav-number">19.</span> <span class="nav-text">socat &amp; netpipes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#iftop-amp-iptraf"><span class="nav-number">20.</span> <span class="nav-text">iftop &amp; iptraf</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#siege-amp-tsung"><span class="nav-number">21.</span> <span class="nav-text">siege &amp; tsung</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ledger"><span class="nav-number">22.</span> <span class="nav-text">ledger</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#taskwarrior"><span class="nav-number">23.</span> <span class="nav-text">taskwarrior</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#curl"><span class="nav-number">24.</span> <span class="nav-text">curl</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rtorrent-amp-aria2"><span class="nav-number">25.</span> <span class="nav-text">rtorrent &amp; aria2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ttytter-amp-earthquake"><span class="nav-number">26.</span> <span class="nav-text">ttytter &amp; earthquake</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vifm-amp-ranger"><span class="nav-number">27.</span> <span class="nav-text">vifm &amp; ranger</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cowsay-amp-sl"><span class="nav-number">28.</span> <span class="nav-text">cowsay &amp; sl</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">Copyright &copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">leadscloud. All rights reserved.</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4, modified by Ray.</div>
+
+
+
+
+<!--
+<div class="weixin-box">
+  <div class="weixin-menu">
+    <div class="weixin-hover">
+      <div class="weixin-description">微信扫一扫，订阅本博客</div>
+    </div>
+  </div>
+</div>
+-->
+
+        
+
+<div class="leancloud-count">
+  <span id="/" class="leancloud_site_visitors" data-flag-title="leadscloud">
+    <i class="fa fa-eye"></i> 本站总访问量
+    <span class="leancloud-visitors-count"></span>
+    次
+  </span>
+</div>
+
+
+
+<script>
+  	var _mtac = {};
+  	(function() {
+  		var mta = document.createElement("script");
+  		mta.src = "https://pingjs.qq.com/h5/stats.js?v2.0.4";
+  		mta.setAttribute("name", "MTAH5");
+  		mta.setAttribute("sid", "500595572");
+
+  		var s = document.getElementsByTagName("script")[0];
+  		s.parentNode.insertBefore(mta, s);
+  	})();
+</script>
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script id="ribbon" type="text/javascript" size="200" alpha="0.6" zindex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'ePPAQV9hFzcbhOaQvvtyjTnw-gzGzoHsz',
+        appKey: 'GLniGVXsSMGBjTmaiI4wleaF',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+  <script src="https://unpkg.com/leancloud-storage@3.15.0/dist/av-min.js"></script>
+  <script>AV.initialize({
+    appId: "ePPAQV9hFzcbhOaQvvtyjTnw-gzGzoHsz",
+    appKey: "GLniGVXsSMGBjTmaiI4wleaF",
+    serverURL: "https://eppaqv9h.lc-cn-n1-shared.com"
+  });</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .then( (results) => {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        }, (error) => {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter, selector) {
+      // var $visitors = $(".leancloud_visitors");
+      var $visitors = $(selector);
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_site_visitors').length == 1) {
+        addCount(Counter, ".leancloud_site_visitors");
+      }
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter, '.leancloud_visitors');
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  <script src="/js/src/APlayer.min.js?v=5.1.4"></script>
+
+  <script type="text/javascript">
+    var playlist = [];
+    
+    playlist.push({title:'小城故事', author:'纯音乐', url:'http://blog-music.test.upcdn.net/xiaochenggushi.mp3', pic:'', lrc: ''})
+    
+    playlist.push({title:'Should it matter', author:'Sissel Kyrkjeb', url:'http://blog-music.test.upcdn.net/should-it-matter.mp3', pic:'', lrc: ''})
+    
+    playlist.push({title:'爱在西元前', author:'周杰伦', url:'http://blog-music.test.upcdn.net/aizaixiyuanqian.mp3', pic:'', lrc: ''})
+    
+    var ap = new APlayer({
+        element: document.getElementById('aplayer'),
+        autoplay: false,
+        mode: "random",
+        preload: "none",
+        music: playlist
+    });
+  </script>
+
+
+</body>
+</html>

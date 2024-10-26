@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/logo.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/logo.png?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Nginx,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="leadscloud" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="用Nginx的反向代理可以轻松山寨对方的网站,但是反向代理后的网站还是有对方的绝对链接时，怎么办？所以要用替换链接方法。 1 使用官方的的模块 编译参数–with-http_sub_moduleub_filter 源网站链接 替换自己的链接;sub_filter_once off;只能匹配1行 http://wiki.nginx.org/HttpSubModule 2 使用第三方模块svn che">
+<meta name="keywords" content="Nginx">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用nginx反向代理做小偷站">
+<meta property="og:url" content="https://leadscloud.github.io/313248/使用nginx反向代理做小偷站/index.html">
+<meta property="og:site_name" content="leadscloud">
+<meta property="og:description" content="用Nginx的反向代理可以轻松山寨对方的网站,但是反向代理后的网站还是有对方的绝对链接时，怎么办？所以要用替换链接方法。 1 使用官方的的模块 编译参数–with-http_sub_moduleub_filter 源网站链接 替换自己的链接;sub_filter_once off;只能匹配1行 http://wiki.nginx.org/HttpSubModule 2 使用第三方模块svn che">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2024-10-26T18:59:13.816Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用nginx反向代理做小偷站">
+<meta name="twitter:description" content="用Nginx的反向代理可以轻松山寨对方的网站,但是反向代理后的网站还是有对方的绝对链接时，怎么办？所以要用替换链接方法。 1 使用官方的的模块 编译参数–with-http_sub_moduleub_filter 源网站链接 替换自己的链接;sub_filter_once off;只能匹配1行 http://wiki.nginx.org/HttpSubModule 2 使用第三方模块svn che">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'F96493CKR7',
+      apiKey: '52cfc4f849dbe10556d886de6046f5c3',
+      indexName: 'blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://leadscloud.github.io/313248/使用nginx反向代理做小偷站/">
+
+
+
+
+
+  <title>使用nginx反向代理做小偷站 | leadscloud</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">leadscloud</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">Google SEO|外贸营销推广</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-免费chatgpt">
+          <a href="https://freegpt.tech/?refer=blog-side" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br>
+            
+            免费ChatGPT
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-我的简历">
+          <a href="https://leadscloud.github.io/resume/resume.pdf" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br>
+            
+            我的简历
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-友情链接">
+          <a href="/links/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br>
+            
+            友情链接
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-chrome扩展（域名所属人）">
+          <a href="/serp-analyzer/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br>
+            
+            Chrome扩展（域名所属人）
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-询盘管理系统">
+          <a href="https://github.com/leadscloud/infomaster" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br>
+            
+            询盘管理系统
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-外贸留言板系统">
+          <a href="/20180615/google-seo-inquiry-messageboard/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br>
+            
+            外贸留言板系统
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leadscloud.github.io/313248/使用nginx反向代理做小偷站/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ray">
+      <meta itemprop="description" content="Think Difficulty">
+      <meta itemprop="image" content="/logo.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="leadscloud">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">使用nginx反向代理做小偷站</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2012-01-08T18:48:42+00:00">
+                2012-01-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/个人日志/" itemprop="url" rel="index">
+                    <span itemprop="name">个人日志</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/313248/使用nginx反向代理做小偷站/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/313248/使用nginx反向代理做小偷站/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/313248/使用nginx反向代理做小偷站/" class="leancloud_visitors" data-flag-title="使用nginx反向代理做小偷站">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  709
+                </span>
+              
+
+              
+
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>用Nginx的反向代理可以轻松山寨对方的网站,但是反向代理后的网站还是有对方的绝对链接时，怎么办？所以要用替换链接方法。</p>
+<p>1 使用官方的的模块 编译参数–with-http_sub_module<br>ub_filter 源网站链接 替换自己的链接;<br>sub_filter_once off;<br>只能匹配1行</p>
+<p><a href="http://wiki.nginx.org/HttpSubModule" target="_blank" rel="noopener">http://wiki.nginx.org/HttpSubModule</a></p>
+<p>2 使用第三方模块<br>svn checkout <a href="http://substitutions4nginx.googlecode.com/svn/trunk/substitutions4nginx-read-only" target="_blank" rel="noopener">http://substitutions4nginx.googlecode.com/svn/trunk/substitutions4nginx-read-only</a><br>编译参数–add-module=模块地址</p>
+<p><a href="http://wiki.nginx.org/HttpSubsModule#Installation" target="_blank" rel="noopener">http://wiki.nginx.org/HttpSubsModule#Installation</a></p>
+<p>3 自己加广告等等代码可以<br>sub_filter ” ‘你的XXX代码’;<br>sub_filter_once on;</p>
+<p>更为详细</p>
+<p>相信大家都已经很熟悉 Apache 和 Nginx, 其实它们本身都有关键词替换功能，也就是说，你根本不需要安装任何额外的软件，甚至连 php/mysql 都省了，只要用 Apache 或者 nginx 就可以实现网站克隆/伪原创。</p>
+<p>要点只有2个:</p>
+<p>1. 反向代理</p>
+<p>2. 关键词替换</p>
+<p>下面就讲讲过程 (centos-32bit)</p>
+<p>1. nginx + substitutions 安装</p>
+<p>nginx 自带一个Substitution模块，但该模块只能写一行，所以我们改用 substitutions</p>
+<p>下面是安装一些预备软件</p>
+<p>复制内容到剪贴板</p>
+<p>代码:</p>
+<p>yum -y –noplugins install wget zip</p>
+<p>yum -y –noplugins install unzip</p>
+<p>yum -y –noplugins install gcc</p>
+<p>yum -y –noplugins install make</p>
+<p>yum -y –noplugins install pcre-devel</p>
+<p>yum -y –noplugins install openssl-devel</p>
+<p>下载软件</p>
+<p>复制内容到剪贴板</p>
+<p>代码:</p>
+<p>wget -c <a href="http://www.nginx.org/download/nginx-1.0.8.tar.gz" target="_blank" rel="noopener">http://www.nginx.org/download/nginx-1.0.8.tar.gz</a> //下载nginx</p>
+<p>svn checkout <a href="http://substitutions4nginx.googlecode.com/svn/trunk/" target="_blank" rel="noopener">http://substitutions4nginx.googlecode.com/svn/trunk/</a> substitutions4nginx-read-only //下载substitutions</p>
+<p>编译软件</p>
+<p>复制内容到剪贴板</p>
+<p>代码:</p>
+<p>tar zxf nginx-1.0.8.tar.gz</p>
+<p>cd nginx-1.0.8.tar.gz</p>
+<p>./configure ./configure –add-module=path/substitutions4nginx-read-only //注意这里的path是相对应的真实路径</p>
+<p>make</p>
+<p>make install</p>
+<p>此时，nginx应该安装在于 /usr/local/nginx 下面</p>
+<p>配置 nginx.conf</p>
+<p>复制内容到剪贴板</p>
+<p>代码:</p>
+<p>server_name <a href="http://www.urdomain.com" target="_blank" rel="noopener">www.urdomain.com</a>;</p>
+<p>location / {</p>
+<p>subs_filter ca-pub-9805743306566114 ca-pub-98057433063434; //把google ad 的用户号 ca-pub-9805743306566114 改成你自己的，比如 ca-pub-98057433063434</p>
+<p>subs_filter 6121088089 612108343455; //把google ad 的广告号 6121088089 改成你自己的，比如 612108343455 ，你懂的！：D</p>
+<p>proxy_pass <a href="http://www.urdomain.com" target="_blank" rel="noopener">www.urdomain.com</a>; //反向代理美国主机村。 最好找一些带有google 广告的网站，主机村在 google 收录 34万条，百度收录几乎没有，这或许是.info 的失败，也是为什么我们选择这样的网站来反代的原因。</p>
+<p>index index.html index.htm;</p>
+<p>}</p>
+<p>记住subs_filter 命令的格式，你想替换设么就随你了。比如我把网站的网址 <a href="http://www.urdomain.com替换成了" target="_blank" rel="noopener">www.urdomain.com替换成了</a> <a href="http://www.urdomain-2.com" target="_blank" rel="noopener">www.urdomain-2.com</a></p>
+<p>另外， 反向代理的个数是不限制的。只要你掌握了规则，一个网站下可以包含n多个网站的镜像。 一个nginx 上也可以跑 n多个网站。就看你自己怎么运用了。</p>
+<p>别忘了吧logo地址替换成自己的.</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Nginx/" rel="tag"># Nginx</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/313247/lnmp环境后续处理/" rel="next" title="lnmp环境后续处理">
+                <i class="fa fa-chevron-left"></i> lnmp环境后续处理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/313250/mysql中修改密码及访问权限设置/" rel="prev" title="mysql中修改密码及访问权限设置">
+                mysql中修改密码及访问权限设置 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/logo.png" alt="Ray">
+            
+              <p class="site-author-name" itemprop="name">Ray</p>
+              <p class="site-description motion-element" itemprop="description">Think Difficulty</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">458</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">266</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="aplayer-wrap motion-element">
+              <div id="aplayer" class="aplayer"></div>
+            </div>
+          
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/leadscloud" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:love4026@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-nd.svg" alt="Creative Commons">
+              </a>
+            </div>
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://cdn.livechatinc.xyz/" title="RLiveChat" target="_blank">RLiveChat</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.kamychina.com/" title="Roadheader" target="_blank">Roadheader</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://tinycms.xyz/" title="TinyCMS" target="_blank">TinyCMS</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">Copyright &copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">leadscloud. All rights reserved.</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4, modified by Ray.</div>
+
+
+
+
+<!--
+<div class="weixin-box">
+  <div class="weixin-menu">
+    <div class="weixin-hover">
+      <div class="weixin-description">微信扫一扫，订阅本博客</div>
+    </div>
+  </div>
+</div>
+-->
+
+        
+
+<div class="leancloud-count">
+  <span id="/" class="leancloud_site_visitors" data-flag-title="leadscloud">
+    <i class="fa fa-eye"></i> 本站总访问量
+    <span class="leancloud-visitors-count"></span>
+    次
+  </span>
+</div>
+
+
+
+<script>
+  	var _mtac = {};
+  	(function() {
+  		var mta = document.createElement("script");
+  		mta.src = "https://pingjs.qq.com/h5/stats.js?v2.0.4";
+  		mta.setAttribute("name", "MTAH5");
+  		mta.setAttribute("sid", "500595572");
+
+  		var s = document.getElementsByTagName("script")[0];
+  		s.parentNode.insertBefore(mta, s);
+  	})();
+</script>
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script id="ribbon" type="text/javascript" size="200" alpha="0.6" zindex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'ePPAQV9hFzcbhOaQvvtyjTnw-gzGzoHsz',
+        appKey: 'GLniGVXsSMGBjTmaiI4wleaF',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+  <script src="https://unpkg.com/leancloud-storage@3.15.0/dist/av-min.js"></script>
+  <script>AV.initialize({
+    appId: "ePPAQV9hFzcbhOaQvvtyjTnw-gzGzoHsz",
+    appKey: "GLniGVXsSMGBjTmaiI4wleaF",
+    serverURL: "https://eppaqv9h.lc-cn-n1-shared.com"
+  });</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .then( (results) => {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        }, (error) => {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter, selector) {
+      // var $visitors = $(".leancloud_visitors");
+      var $visitors = $(selector);
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_site_visitors').length == 1) {
+        addCount(Counter, ".leancloud_site_visitors");
+      }
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter, '.leancloud_visitors');
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  <script src="/js/src/APlayer.min.js?v=5.1.4"></script>
+
+  <script type="text/javascript">
+    var playlist = [];
+    
+    playlist.push({title:'小城故事', author:'纯音乐', url:'http://blog-music.test.upcdn.net/xiaochenggushi.mp3', pic:'', lrc: ''})
+    
+    playlist.push({title:'Should it matter', author:'Sissel Kyrkjeb', url:'http://blog-music.test.upcdn.net/should-it-matter.mp3', pic:'', lrc: ''})
+    
+    playlist.push({title:'爱在西元前', author:'周杰伦', url:'http://blog-music.test.upcdn.net/aizaixiyuanqian.mp3', pic:'', lrc: ''})
+    
+    var ap = new APlayer({
+        element: document.getElementById('aplayer'),
+        autoplay: false,
+        mode: "random",
+        preload: "none",
+        music: playlist
+    });
+  </script>
+
+
+</body>
+</html>
