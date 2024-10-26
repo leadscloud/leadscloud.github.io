@@ -1,0 +1,16 @@
+language:
+  - zh-CN
+article:
+  auto_cover: false
+  auto_excerpt: 200
+logo:
+  sub_title: '外贸推广|互联网营销|营销咨询'
+# 侧边栏主功能导航菜单
+menubar:
+  columns: 4 # 一行多少个
+  items: # 可按照自己需求增加，符合以下格式即可
+    - id: social
+      theme: '#F44336'
+      icon: solar:chat-square-like-bold-duotone
+      title: 社交
+      url: /about/

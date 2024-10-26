@@ -13,6 +13,10 @@ ChatGPT国内镜像站，国内使用ChatGPT中文版本
 
 http://chat.tinycms.xyz:3002/
 
+域名更改为
+
+https://freegpt.tech/
+
 欢迎体验：
 
 **支持**
