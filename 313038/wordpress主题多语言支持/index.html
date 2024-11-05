@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/logo.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/logo.png?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="wordpress,wordpress中文,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="leadscloud" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="我们制作wordpress主题，对于中文用户来说最主要的还是主题对多语言的支持，这篇文章讲一下怎样让wodpress主题支持多语言，比如中文支持，而不必在主题里直接写上中文这种笨方法。 以为我的这篇博客的主题(love4026)为例">
+<meta name="keywords" content="wordpress,wordpress中文">
+<meta property="og:type" content="article">
+<meta property="og:title" content="wordpress主题多语言支持">
+<meta property="og:url" content="https://leadscloud.github.io/313038/wordpress主题多语言支持/index.html">
+<meta property="og:site_name" content="leadscloud">
+<meta property="og:description" content="我们制作wordpress主题，对于中文用户来说最主要的还是主题对多语言的支持，这篇文章讲一下怎样让wodpress主题支持多语言，比如中文支持，而不必在主题里直接写上中文这种笨方法。 以为我的这篇博客的主题(love4026)为例">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://www.love4026.org/wp-content/uploads/2011/02/image_thumb.png">
+<meta property="og:image" content="http://www.love4026.org/wp-content/uploads/2011/02/image_thumb1.png">
+<meta property="og:image" content="http://www.love4026.org/wp-content/uploads/2011/02/image_thumb2.png">
+<meta property="og:image" content="http://www.love4026.org/wp-content/uploads/2011/02/image_thumb3.png">
+<meta property="og:image" content="http://www.love4026.org/wp-content/uploads/2011/02/image_thumb4.png">
+<meta property="og:image" content="http://www.love4026.org/wp-content/uploads/2011/02/image_thumb5.png">
+<meta property="og:image" content="http://www.love4026.org/wp-content/uploads/2011/02/image_thumb6.png">
+<meta property="og:image" content="http://www.love4026.org/wp-content/uploads/2011/02/image_thumb7.png">
+<meta property="og:updated_time" content="2024-11-05T05:54:24.897Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="wordpress主题多语言支持">
+<meta name="twitter:description" content="我们制作wordpress主题，对于中文用户来说最主要的还是主题对多语言的支持，这篇文章讲一下怎样让wodpress主题支持多语言，比如中文支持，而不必在主题里直接写上中文这种笨方法。 以为我的这篇博客的主题(love4026)为例">
+<meta name="twitter:image" content="http://www.love4026.org/wp-content/uploads/2011/02/image_thumb.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'F96493CKR7',
+      apiKey: '52cfc4f849dbe10556d886de6046f5c3',
+      indexName: 'blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://leadscloud.github.io/313038/wordpress主题多语言支持/">
+
+
+
+
+
+  <title>wordpress主题多语言支持 | leadscloud</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">leadscloud</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">Google SEO|外贸营销推广</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-免费chatgpt">
+          <a href="https://freegpt.tech/?refer=blog-side" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br>
+            
+            免费ChatGPT
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-我的简历">
+          <a href="https://leadscloud.github.io/resume/resume.pdf" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br>
+            
+            我的简历
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-友情链接">
+          <a href="/links/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br>
+            
+            友情链接
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-chrome扩展（域名所属人）">
+          <a href="/serp-analyzer/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br>
+            
+            Chrome扩展（域名所属人）
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-询盘管理系统">
+          <a href="https://github.com/leadscloud/infomaster" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br>
+            
+            询盘管理系统
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-外贸留言板系统">
+          <a href="/20180615/google-seo-inquiry-messageboard/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br>
+            
+            外贸留言板系统
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-linuxdo论坛(新的理想型社区)">
+          <a href="https://linux.do/?source=leadscloud_github_io" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br>
+            
+            Linuxdo论坛(新的理想型社区)
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://leadscloud.github.io/313038/wordpress主题多语言支持/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ray">
+      <meta itemprop="description" content="Think Difficulty">
+      <meta itemprop="image" content="/logo.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="leadscloud">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">wordpress主题多语言支持</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2011-02-12T04:06:00+00:00">
+                2011-02-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Wordpress学习/" itemprop="url" rel="index">
+                    <span itemprop="name">Wordpress学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/313038/wordpress主题多语言支持/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/313038/wordpress主题多语言支持/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/313038/wordpress主题多语言支持/" class="leancloud_visitors" data-flag-title="wordpress主题多语言支持">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,593
+                </span>
+              
+
+              
+
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>我们制作wordpress主题，对于中文用户来说最主要的还是主题对多语言的支持，这篇文章讲一下怎样让wodpress主题支持多语言，比如中文支持，而不必在主题里直接写上中文这种笨方法。</p>
+<p>以为我的这篇博客的主题(<span style="color: #0080ff;">love4026)</span>为例</p>
+<a id="more"></a>
+<p>首先你需要在主题文件中添加本地化支持语句，把下面的代码添加到你主题根目录中的functions.php文件中去：</p>
+<pre><code>// Localization
+function theme_init(){
+    load_theme_textdomain(&apos;love4026&apos;, get_template_directory() . &apos;/languages&apos;);
+}
+add_action (&apos;init&apos;, &apos;theme_init&apos;);
+</code></pre><p>上面的代码中love4026可以随便设（一般填上主题名字），它是用来告诉WordPress如何选择那些能本地化语言的代码，下面还会出现。’/languages’ 字段是告诉WordPress本地化语言文件的调用路径（主题根目录下的languages文件夹），一般主题默认就是这样，很多主题中是没有这个文件夹的。</p>
+<p>有了上面代码的设置后，就可心在主题文件中定义一下究竟那些文字需要支持语言的本地化。即多语言支持，我这里以侧栏中的一句标题代码为例。在还没有支持语言本地化时候，代码是这样的：</p>
+<p><code>&lt;h2&gt;Most Popular&lt;/h2&gt;</code></p>
+<p>因为我希望对上面红色字段Most Popular修改到支持本地化，即当主题选择不同的语言时出现对应的语言，只要把代码修改成如下：</p>
+<p><code>&lt;h2&gt;&lt;?php _e(&#39;Most Popular&#39;, &#39;love4026&#39;); ?&gt;&lt;/h2&gt;</code></p>
+<p>或</p>
+<p><code>&lt;h2&gt;&lt;?php echo __(&#39;Most Popular&#39;, &#39;love4026&#39;); ?&gt;&lt;/h2&gt;</code></p>
+<p>大家能看到修改的内容了吧，再举一例，比如我在footer信息中的一段代码：</p>
+<p><code>&lt;span&gt;&lt;span style=&quot;color: #ff0000;&quot;&gt;Copyright&lt;/span&gt; 2011&lt;/span&gt;</code></p>
+<p>我要把红色的字段copyright修改到支持本地化，修改代码如下：</p>
+<p><code>&lt;span&gt;&lt;?php _e(&#39;Copyright&#39;, &#39;love4026&#39;); ?&gt; 2011&lt;/span&gt;</code></p>
+<p>相信到此大家就很了解是如何修改主题中显示字符段的代码了，注意的上面两句代码中都带有的标识字段：</p>
+<p><code>love4026</code></p>
+<p>它就是用来对应在文章最开头那段代码中的<strong>love4026</strong>那部分，它们之间必须要对应。一般情况下主题你也可以这样写_e(‘Copyright’); ，这样就会自动调用wordpress默认的语言文件（如果你用的是wordpress的中文版，在wp-content下会有languages目录），然后就用使用languages下的zh_CN.mo文件，翻译Copyright这个字段。</p>
+<p>不过通常wordporess默认的不可能带所有英文的翻译，这时就要我们自己在主题里设置自己的zh_CN.mo文件，这就需要一个软件的支持<a href="http://www.poedit.net/download.php" target="_blank" rel="noopener">Poedit</a>。</p>
+<p>去<a href="http://downloads.sourceforge.net/project/poedit/poedit/1.4.6/poedit-1.4.6-setup.exe?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fpoedit%2Ffiles%2F&amp;ts=1297508108&amp;use_mirror=nchc" target="_blank" rel="noopener">这儿</a>下载一个<a href="http://www.poedit.net/download.php" target="_blank" rel="noopener">Poedit</a>编辑工具。然后我们需要在主题的目录中新建一个文件夹(<strong>languages</strong>)，因为我们需要在这个文件夹中放置翻译好供系统读取的文件，它对应文章开头那段代码 load_theme_textdomain(‘love4026’, get_template_directory() . ‘/<span style="color: #ff0000;">languages</span>‘);  中的红色部分。</p>
+<p>软件安装之后可以选择语言的，它支持中文。</p>
+<p>下一步利用<a href="http://www.poedit.net/download.php" target="_blank" rel="noopener">Poedit</a>新建一个“消息目录文档”，如下图：</p>
+<p><a href="http://www.love4026.org/wp-content/uploads/2011/02/image.png" target="_blank" rel="noopener"><img src="http://www.love4026.org/wp-content/uploads/2011/02/image_thumb.png" alt="image" title="image"></a></p>
+<p>然后它需要我们对这个文档初始设置一下。</p>
+<p><a href="http://www.love4026.org/wp-content/uploads/2011/02/image1.png" target="_blank" rel="noopener"><img src="http://www.love4026.org/wp-content/uploads/2011/02/image_thumb1.png" alt="image" title="image"></a></p>
+<p>（上图）本例我需要把上面的英文字段翻译成中文的，所以在设置的“工程信息”一栏中我是这样填写的，这些填写都不是很重要，就是一些记录信息之类的，不影响翻译操作。</p>
+<p><a href="http://www.love4026.org/wp-content/uploads/2011/02/image2.png" target="_blank" rel="noopener"><img src="http://www.love4026.org/wp-content/uploads/2011/02/image_thumb2.png" alt="image" title="image"></a></p>
+<p>（上图）接着要填写的是第二个标签页“路径”。<span style="color: #ff0000;">这一步很重要，请按图中的填写</span>。因为它将会告诉这个软件从何处获取需要翻译的字段。</p>
+<p><a href="http://www.love4026.org/wp-content/uploads/2011/02/image3.png" target="_blank" rel="noopener"><img src="http://www.love4026.org/wp-content/uploads/2011/02/image_thumb3.png" alt="image" title="image"></a></p>
+<p>（上图）第三个标签页是用来决定自动获取需要翻译字段的关键字。就是告诉软件，当代码中出现什么的字时候，确定它为要翻译的字段而选择出来。大家按上图填写就好了，是不是发现上面的“_e”在较早我所说的例子代码里都存在啊，大家明白了吧。</p>
+<p>当大家按上面的设置好之后，<strong>记得把文件存放在较早前新建的目录<strong>languages</strong>内（我的为wp-contentthemeslove4026languages），因为这是简体中文的翻译，所以文件名是zh_CN，后缀名是.po（完成之后为wp-contentthemeslove4026languageszh_CN.po）</strong>。</p>
+<p>接下来点击一下软件中的第三个图标（如下图红色标记处）。软件就把我们主题文件中（zh_CN.po的上级目录）所有的php文件扫描一遍，合符要求的需要翻译的字段列举出来了。</p>
+<p><a href="http://www.love4026.org/wp-content/uploads/2011/02/image4.png" target="_blank" rel="noopener"><img src="http://www.love4026.org/wp-content/uploads/2011/02/image_thumb4.png" alt="image" title="image"></a></p>
+<p>如下图，工具显示两栏，左侧为需要翻译的字段，右侧是译文。当还没有翻译的字段的右侧是留空的。<a href="http://www.love4026.org/wp-content/uploads/2011/02/image5.png" target="_blank" rel="noopener"><img src="http://www.love4026.org/wp-content/uploads/2011/02/image_thumb5.png" alt="image" title="image"></a></p>
+<p>我们点击下需要翻译的字段，然后在最下面一栏填写翻译的内容就行了。大家就这样把需要翻译的字段一个一个翻译完吧，耐心点。</p>
+<p>当所有需要翻译的字段都完成后，点击<strong>如下图</strong>的红色按钮。<strong>软件会把当前的编译文件zh_CN.po进行保存并且同时在该文件的的有目录中生成一个文件名相同但后缀名是.mo的文件。</strong></p>
+<p><a href="http://www.love4026.org/wp-content/uploads/2011/02/image6.png" target="_blank" rel="noopener"><img src="http://www.love4026.org/wp-content/uploads/2011/02/image_thumb6.png" alt="image" title="image"></a></p>
+<p>因为后缀名是.po的文件我们是可以进行编译操作的，文件名是.mo的则是不能进行编译，但它却是系统需要读取的文件。<strong>所以请务必日后在每次更改了.po文件后，都重复一下上面的这个步骤（就是保存一遍），更新一下对应的.mo文件。</strong></p>
+<p><a href="http://www.love4026.org/wp-content/uploads/2011/02/image7.png" target="_blank" rel="noopener"><img src="http://www.love4026.org/wp-content/uploads/2011/02/image_thumb7.png" alt="image" title="image"></a></p>
+<p>基本的操作就是这样的了，大家翻译好简体中文的，就翻译其它语言的吧。所有的步骤都与上面所说的相同，只是翻译的内容不同罢了。相信大家会举一反三的。</p>
+<p>附：WordPress是怎样知道该读取哪个语言文件呢？其实就是在它的wp-config.php文件中，不是有下面的这样一句？</p>
+<p>define (‘WPLANG’, ‘<span style="color: #ff0000;">zh_CN</span>’);</p>
+<p>注意红色部分，为空默认为英语，zh_CN为中文。</p>
+<p>下面是我的主题文件里多语言支持的写法，大家可以参考下写法</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span><span class="php"><span class="meta">&lt;?php</span> _e(<span class="string">'Error 404 - Not Found'</span>, <span class="string">'love4026'</span>)<span class="meta">?&gt;</span></span><span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="php"><span class="meta">&lt;?php</span> the_content(__(<span class="string">'Continue reading &amp;amp;raquo;'</span>, <span class="string">'love4026'</span>)); <span class="meta">?&gt;</span></span></span><br><span class="line"><span class="php"><span class="meta">&lt;?php</span> <span class="keyword">if</span> ($req) <span class="keyword">echo</span> __(<span class="string">'(required)'</span>, <span class="string">'love4026'</span>); <span class="meta">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/wordpress/" rel="tag"># wordpress</a>
+          
+            <a href="/tags/wordpress中文/" rel="tag"># wordpress中文</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/313011/21个实用的php代码/" rel="next" title="21个实用的php代码">
+                <i class="fa fa-chevron-left"></i> 21个实用的php代码
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/313004/apache下用-htaccess控制及破解图片防盗链/" rel="prev" title="apache下用 htaccess控制及破解图片防盗链">
+                apache下用 htaccess控制及破解图片防盗链 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/logo.png" alt="Ray">
+            
+              <p class="site-author-name" itemprop="name">Ray</p>
+              <p class="site-description motion-element" itemprop="description">Think Difficulty</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">458</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">266</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="aplayer-wrap motion-element">
+              <div id="aplayer" class="aplayer"></div>
+            </div>
+          
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/leadscloud" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:love4026@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-nd.svg" alt="Creative Commons">
+              </a>
+            </div>
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://cdn.livechatinc.xyz/" title="RLiveChat" target="_blank">RLiveChat</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.kamychina.com/" title="Roadheader" target="_blank">Roadheader</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://tinycms.xyz/" title="TinyCMS" target="_blank">TinyCMS</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">Copyright &copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">leadscloud. All rights reserved.</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4, modified by Ray.</div>
+
+
+
+
+<!--
+<div class="weixin-box">
+  <div class="weixin-menu">
+    <div class="weixin-hover">
+      <div class="weixin-description">微信扫一扫，订阅本博客</div>
+    </div>
+  </div>
+</div>
+-->
+
+        
+
+<div class="leancloud-count">
+  <span id="/" class="leancloud_site_visitors" data-flag-title="leadscloud">
+    <i class="fa fa-eye"></i> 本站总访问量
+    <span class="leancloud-visitors-count"></span>
+    次
+  </span>
+</div>
+
+
+
+<script>
+  	var _mtac = {};
+  	(function() {
+  		var mta = document.createElement("script");
+  		mta.src = "https://pingjs.qq.com/h5/stats.js?v2.0.4";
+  		mta.setAttribute("name", "MTAH5");
+  		mta.setAttribute("sid", "500595572");
+
+  		var s = document.getElementsByTagName("script")[0];
+  		s.parentNode.insertBefore(mta, s);
+  	})();
+</script>
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script id="ribbon" type="text/javascript" size="200" alpha="0.6" zindex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'ePPAQV9hFzcbhOaQvvtyjTnw-gzGzoHsz',
+        appKey: 'GLniGVXsSMGBjTmaiI4wleaF',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+  <script src="https://unpkg.com/leancloud-storage@3.15.0/dist/av-min.js"></script>
+  <script>AV.initialize({
+    appId: "ePPAQV9hFzcbhOaQvvtyjTnw-gzGzoHsz",
+    appKey: "GLniGVXsSMGBjTmaiI4wleaF",
+    serverURL: "https://eppaqv9h.lc-cn-n1-shared.com"
+  });</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .then( (results) => {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        }, (error) => {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter, selector) {
+      // var $visitors = $(".leancloud_visitors");
+      var $visitors = $(selector);
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_site_visitors').length == 1) {
+        addCount(Counter, ".leancloud_site_visitors");
+      }
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter, '.leancloud_visitors');
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  <script src="/js/src/APlayer.min.js?v=5.1.4"></script>
+
+  <script type="text/javascript">
+    var playlist = [];
+    
+    playlist.push({title:'小城故事', author:'纯音乐', url:'http://blog-music.test.upcdn.net/xiaochenggushi.mp3', pic:'', lrc: ''})
+    
+    playlist.push({title:'Should it matter', author:'Sissel Kyrkjeb', url:'http://blog-music.test.upcdn.net/should-it-matter.mp3', pic:'', lrc: ''})
+    
+    playlist.push({title:'爱在西元前', author:'周杰伦', url:'http://blog-music.test.upcdn.net/aizaixiyuanqian.mp3', pic:'', lrc: ''})
+    
+    var ap = new APlayer({
+        element: document.getElementById('aplayer'),
+        autoplay: false,
+        mode: "random",
+        preload: "none",
+        music: playlist
+    });
+  </script>
+
+
+</body>
+</html>
