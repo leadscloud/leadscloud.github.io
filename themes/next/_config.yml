@@ -107,6 +107,7 @@ menu:
   #schedule: /schedule/ || calendar
   #sitemap: /sitemap.xml || sitemap
   #commonweal: /404/ || heartbeat
+  Linuxdo论坛: https://linux.do/?utm_source=leadscloud || link
 
 # Enable/Disable menu icons.
 menu_icons:
