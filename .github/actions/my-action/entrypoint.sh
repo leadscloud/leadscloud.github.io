@@ -41,8 +41,8 @@ apt-get install -y git && \
 # Directs the action to the the Github workspace.
 cd "${GITHUB_WORKSPACE}"
 
-echo ">>> Install yarn ..."
-npm install --global yarn
+# echo ">>> Install yarn ..."
+# npm install --global yarn
 
 echo ">>> Install NPM dependencies ..."
 # npm install
