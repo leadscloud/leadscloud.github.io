@@ -7,5 +7,4 @@ public/
 .deploy*/
 package-lock.json
 wordpress.xml
-scripts/
 .vscode/

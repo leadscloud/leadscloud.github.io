@@ -52,7 +52,12 @@ npx hexo --version
 
 yarn global add hexo-cli
 
+echo ">>> Check global hexo version ..."
 hexo --version
+
+ls -al
+
+ls -al themes/next
 
 echo ">>> Update algolia indexing ..."
 hexo algolia
