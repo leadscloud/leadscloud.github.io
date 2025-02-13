@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/logo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="mask-icon" href="/logo.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"leadscloud.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"algolia":{"appID":"F1YESSIUKA","apiKey":"fba180e0d225a86fe382bf021a9f0ae3","indexName":"blog","hits":{"per_page":10}}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="wordpress默认的文章修订版本功能帮助博主保留文章修订时的记录，包括修改作者和修改时间，也可以在任何时候恢复以前的版本。然而过多的修订版本会影响博客的加载与打开速度。这意味着浏览者要等待更长的时间才能看到博客的内容。另外，太多的修订版本也会引起服务器上CPU的超载。 修订功能将每个修改版在 post 数据表里插入一条记录，如果经常修改内容的话，post 表会增大N倍，大大的降低博客速度和性能">
+<meta property="og:type" content="article">
+<meta property="og:title" content="禁用或移除 wordpress文章修订版本(Revision Post Features)">
+<meta property="og:url" content="https://leadscloud.github.io/255001/%E7%A6%81%E7%94%A8%E6%88%96%E7%A7%BB%E9%99%A4-wordpress%E6%96%87%E7%AB%A0%E4%BF%AE%E8%AE%A2%E7%89%88%E6%9C%AC-revision-post-features/index.html">
+<meta property="og:site_name" content="leadscloud">
+<meta property="og:description" content="wordpress默认的文章修订版本功能帮助博主保留文章修订时的记录，包括修改作者和修改时间，也可以在任何时候恢复以前的版本。然而过多的修订版本会影响博客的加载与打开速度。这意味着浏览者要等待更长的时间才能看到博客的内容。另外，太多的修订版本也会引起服务器上CPU的超载。 修订功能将每个修改版在 post 数据表里插入一条记录，如果经常修改内容的话，post 表会增大N倍，大大的降低博客速度和性能">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2010-12-17T03:19:12.000Z">
+<meta property="article:modified_time" content="2025-02-13T12:23:19.019Z">
+<meta property="article:author" content="Ray">
+<meta property="article:tag" content="wordpress">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://leadscloud.github.io/255001/%E7%A6%81%E7%94%A8%E6%88%96%E7%A7%BB%E9%99%A4-wordpress%E6%96%87%E7%AB%A0%E4%BF%AE%E8%AE%A2%E7%89%88%E6%9C%AC-revision-post-features/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://leadscloud.github.io/255001/%E7%A6%81%E7%94%A8%E6%88%96%E7%A7%BB%E9%99%A4-wordpress%E6%96%87%E7%AB%A0%E4%BF%AE%E8%AE%A2%E7%89%88%E6%9C%AC-revision-post-features/","path":"255001/禁用或移除-wordpress文章修订版本-revision-post-features/","title":"禁用或移除 wordpress文章修订版本(Revision Post Features)"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>禁用或移除 wordpress文章修订版本(Revision Post Features) | leadscloud</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6GCT2E7T9Y"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-6GCT2E7T9Y","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="leadscloud" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">leadscloud</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Google SEO|外贸营销推广</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">266</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">11</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">459</span></a></li><li class="menu-item menu-item-免费chatgpt"><a href="https://freegpt.tech/?refer=blog-side" rel="section" target="_blank"><i class="fa fa-heart fa-fw"></i>免费ChatGPT</a></li><li class="menu-item menu-item-我的简历"><a href="https://leadscloud.github.io/resume/resume.pdf" rel="section"><i class="fa fa-vcard fa-fw"></i>我的简历</a></li><li class="menu-item menu-item-友情链接"><a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>友情链接</a></li><li class="menu-item menu-item-chrome扩展（域名所属人）"><a href="/serp-analyzer/" rel="section"><i class="fa fa-cloud fa-fw"></i>Chrome扩展（域名所属人）</a></li><li class="menu-item menu-item-询盘管理系统"><a href="https://github.com/leadscloud/infomaster" rel="section" target="_blank"><i class="fa fa-database fa-fw"></i>询盘管理系统</a></li><li class="menu-item menu-item-外贸留言板系统"><a href="/20180615/google-seo-inquiry-messageboard/" rel="section"><i class="fa fa-database fa-fw"></i>外贸留言板系统</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fab fa-algolia fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Ray</p>
+  <div class="site-description" itemprop="description">熟悉 Google SEO，外贸营销推广，这是我的个人博客，主要分享工作中的技术。</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">459</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">266</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/leadscloud" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;leadscloud" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:love4026@gmail.com" title="E-Mail → mailto:love4026@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://cdn.livechatinc.xyz/" title="https:&#x2F;&#x2F;cdn.livechatinc.xyz&#x2F;" rel="noopener" target="_blank">RLiveChat</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://www.kamychina.com/" title="https:&#x2F;&#x2F;www.kamychina.com&#x2F;" rel="noopener" target="_blank">Roadheader</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://tinycms.xyz/" title="https:&#x2F;&#x2F;tinycms.xyz&#x2F;" rel="noopener" target="_blank">TinyCMS</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://leadscloud.github.io/255001/%E7%A6%81%E7%94%A8%E6%88%96%E7%A7%BB%E9%99%A4-wordpress%E6%96%87%E7%AB%A0%E4%BF%AE%E8%AE%A2%E7%89%88%E6%9C%AC-revision-post-features/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ray">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="leadscloud">
+      <meta itemprop="description" content="熟悉 Google SEO，外贸营销推广，这是我的个人博客，主要分享工作中的技术。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="禁用或移除 wordpress文章修订版本(Revision Post Features) | leadscloud">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          禁用或移除 wordpress文章修订版本(Revision Post Features)
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2010-12-17 11:19:12" itemprop="dateCreated datePublished" datetime="2010-12-17T11:19:12+08:00">2010-12-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-02-13 20:23:19" itemprop="dateModified" datetime="2025-02-13T20:23:19+08:00">2025-02-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/PHP%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">PHP学习</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/255001/%E7%A6%81%E7%94%A8%E6%88%96%E7%A7%BB%E9%99%A4-wordpress%E6%96%87%E7%AB%A0%E4%BF%AE%E8%AE%A2%E7%89%88%E6%9C%AC-revision-post-features/" class="post-meta-item leancloud_visitors" data-flag-title="禁用或移除 wordpress文章修订版本(Revision Post Features)" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Valine：</span>
+  
+    <a title="valine" href="/255001/%E7%A6%81%E7%94%A8%E6%88%96%E7%A7%BB%E9%99%A4-wordpress%E6%96%87%E7%AB%A0%E4%BF%AE%E8%AE%A2%E7%89%88%E6%9C%AC-revision-post-features/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/255001/%E7%A6%81%E7%94%A8%E6%88%96%E7%A7%BB%E9%99%A4-wordpress%E6%96%87%E7%AB%A0%E4%BF%AE%E8%AE%A2%E7%89%88%E6%9C%AC-revision-post-features/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>wordpress默认的文章修订版本功能帮助博主保留文章修订时的记录，包括修改作者和修改时间，也可以在任何时候恢复以前的版本。然而过多的修订版本会影响博客的加载与打开速度。这意味着浏览者要等待更长的时间才能看到博客的内容。另外，太多的修订版本也会引起服务器上CPU的超载。</p>
+<p>修订功能将每个修改版在 post 数据表里插入一条记录，如果经常修改内容的话，post 表会增大N倍，大大的降低博客速度和性能。这个功能对很小的一部分用户可能有帮助，但对于一般的博客，根本用不上。</p>
+<p>如果想关闭这个功能，在wordpress根目录，找到wp-config.php在代码 <code>define(&#39;ABSPATH&#39;, dirname(FILE).&#39;/&#39;); </code>之前 加上以下代码</p>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">define</span></span>(<span class="string">&#x27;WP_POST_REVISIONS&#x27;</span>, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+
+<p>上述代码是屏蔽掉“Revision”，有几个参数可选，根据实际需要修改（绿色部分）：</p>
+<ul>
+<li>true（默认）或者 -1：保存所有修订版本</li>
+<li>false 或者 0：不保存任何版本（除了自动保存的版本）</li>
+<li>大于 0的整数 n：保存 n 个修订版本（+1 只保存自动保存版本），旧的版本将被删除。</li>
+</ul>
+<p>你也可以在phpMyAdmin里用以下SQL语法删除wordpress文章修订版本。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DELETE</span> a,b,c</span><br><span class="line"><span class="keyword">FROM</span> wp_posts a</span><br><span class="line"><span class="keyword">LEFT</span> <span class="keyword">JOIN</span> wp_term_relationships b <span class="keyword">ON</span> (a.ID <span class="operator">=</span> b.object_id)</span><br><span class="line"><span class="keyword">LEFT</span> <span class="keyword">JOIN</span> wp_postmeta c <span class="keyword">ON</span> (a.ID <span class="operator">=</span> c.post_id)</span><br><span class="line"><span class="keyword">WHERE</span> a.post_type <span class="operator">=</span> <span class="string">&#x27;revision&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>在执行些语句前请确保你已经备份你的数据库。</p>
+</blockquote>
+<p>另外有一个插件可以代替此操作。</p>
+<ol>
+<li>下载插件 WP Cleaner（<a href="http://www.jiangmiao.org/blog/138.html">访问插件主页</a>）</li>
+<li>将下载的文件解压后上传到博客 <code>wp-content/plugins/</code> 目录下</li>
+<li>在后台的“插件”项中启用</li>
+<li>点击“设置”即可看到“WP Cleaner”项</li>
+<li>按提示删除修订版。</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Ray
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://leadscloud.github.io/255001/%E7%A6%81%E7%94%A8%E6%88%96%E7%A7%BB%E9%99%A4-wordpress%E6%96%87%E7%AB%A0%E4%BF%AE%E8%AE%A2%E7%89%88%E6%9C%AC-revision-post-features/" title="禁用或移除 wordpress文章修订版本(Revision Post Features)">https://leadscloud.github.io/255001/禁用或移除-wordpress文章修订版本-revision-post-features/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/wordpress/" rel="tag"># wordpress</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/254001/wordpress%E7%9A%84-htaccess%E8%AE%BE%E7%BD%AE%E8%AF%A6%E8%A7%A3/" rel="prev" title="wordpress的.htaccess设置详解">
+                  <i class="fa fa-angle-left"></i> wordpress的.htaccess设置详解
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/257001/ubuntu10-04%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/" rel="next" title="ubuntu10-04安装与使用体验">
+                  ubuntu10-04安装与使用体验 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="valine-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Ray</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/leadscloud" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/algoliasearch/4.24.0/algoliasearch-lite.umd.js" integrity="sha256-b2n6oSgG4C1stMT/yc/ChGszs9EY/Mhs6oltEjQbFCQ=" crossorigin="anonymous"></script><script src="/js/third-party/search/algolia-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"ePPAQV9hFzcbhOaQvvtyjTnw-gzGzoHsz","app_key":"GLniGVXsSMGBjTmaiI4wleaF","server_url":"https://leancloud.tinycms.xyz","security":true}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+
+
+<script class="next-config" data-name="valine" type="application/json">{"enable":true,"appId":"ePPAQV9hFzcbhOaQvvtyjTnw-gzGzoHsz","appKey":"GLniGVXsSMGBjTmaiI4wleaF","serverURLs":"https://leancloud.tinycms.xyz","placeholder":"Just go go","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-cn","visitor":false,"comment_count":true,"recordIP":true,"enableQQ":true,"requiredFields":[],"el":"#valine-comments","path":"/255001/%E7%A6%81%E7%94%A8%E6%88%96%E7%A7%BB%E9%99%A4-wordpress%E6%96%87%E7%AB%A0%E4%BF%AE%E8%AE%A2%E7%89%88%E6%9C%AC-revision-post-features/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.valine.el)
+    .then(() => NexT.utils.getScript(
+      'https://fastly.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js',
+      { condition: window.Valine }
+    ))
+    .then(() => {
+      new Valine(CONFIG.valine);
+    });
+});
+</script>
+
+</body>
+</html>
