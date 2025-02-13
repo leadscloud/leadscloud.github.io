@@ -1,9 +1,23 @@
-.header-inner, .container .main-inner, .footer-inner {
-  +mobile() { width: auto; }
+header.header {
+  main-container();
 }
 
-// embed tag
-embed {
-   display: block;
-   margin:  0px auto 25px auto;
+.main-inner {
+  main-container();
+  padding-bottom: $content-padding-bottom;
+
+  +mobile() {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+// Page - Container
+// --------------------------------------------------
+.post-block:first-of-type {
+  padding-top: $posts-first-padding;
+
+  +mobile() {
+    padding-top: $posts-first-padding-mobile;
+  }
 }

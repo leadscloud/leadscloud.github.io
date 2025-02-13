@@ -1,87 +1,46 @@
-<!-- ATTENTION!
+<!--
+Thank you for creating a pull request to contribute to NexT code! Before you open the pull request, please:
 
-1. Please, write pulls readme in English. Not all contributors/collaborators know Chinese language and Google translate can't always give true translates on issues. Thanks!
+1. Make the tests to confirm that the changes are compatible with PJAX, Dark Mode and all four schemes of NexT (Muse, Mist, Pisces and Gemini). For backend code changes, modify or add unit tests if necessary.
 
-2. If your pull is short and simple, recommended to use "Usual pull template".
-   If your pull is big and include many separated changes, recommended to use "BIG pull template".
+2. Break up your pull request into multiple smaller requests if it contains multiple bug fixes or new features. Each pull request should have one bug fix or new feature only for better code maintainability.
 
-3. Always remember what NexT include 4 schemes. And if on one of them all worked fine after changes, on another scheme this changes can be broken. Muse and Mist have similar structure, but Pisces is very difference from them. Gemini is a mirror of Pisces with some styles and layouts remakes. So, please, make the tests at least on two schemes (Muse or Mist and Pisces or Gemini).
+3. If possible, please write the pull request description in English.
 -->
 
-<!-- Usual pull template -->
+## PR Checklist <!-- 我确认我已经查看了 -->
+<!-- Remove items that do not apply. For completed items, change [ ] to [x] to select (将 [ ] 换成 [x] 来选择) -->
 
-## PR Checklist
-**Please check if your PR fulfills the following requirements:**
-
-- [ ] The commit message follows [our guidelines](https://github.com/iissnan/hexo-theme-next/blob/master/.github/CONTRIBUTING.md).
-- [ ] Tests for the changes have been added (for bug fixes / features).
-   - [ ] Muse | Mist have been tested.
-   - [ ] Pisces | Gemini have been tested.
-- [ ] Docs have been added / updated (for bug fixes / features).
+- [ ] The changes have been tested (for bug fixes / features).
+- [ ] [Docs](https://github.com/next-theme/theme-next-docs/tree/master/source/docs) in [NexT website](https://theme-next.js.org/docs/) have been added / updated (for features).
+<!-- For adding Docs edit needed file here: https://github.com/next-theme/theme-next-docs/tree/master/source/docs and create PR with this changes here: https://github.com/next-theme/theme-next-docs/pulls -->
 
 ## PR Type
-**What kind of change does this PR introduce?**  <!-- (Check one with "x") -->
+<!-- What kind of change does this PR introduce? -->
 
 - [ ] Bugfix.
 - [ ] Feature.
-- [ ] Code style update (formatting, local variables).
-- [ ] Refactoring (no functional changes, no api changes).
-- [ ] Build related changes.
-- [ ] CI related changes.
-- [ ] Documentation content changes.
+- [ ] Improvement.
+- [ ] Code style update (e.g. formatting, linting).
+- [ ] Refactoring (no changes to functionality and APIs).
+- [ ] Documentation.
+- [ ] Translation. <!-- We use Crowdin to manage translations: https://crowdin.com/project/hexo-theme-next -->
 - [ ] Other... Please describe:
 
 ## What is the current behavior?
-<!-- Please describe the current behavior that you are modifying, or link to a relevant issue. -->
+<!-- Please describe the current behavior that you are modifying, or link to a relevant issue -->
 
-Issue Number(s): N/A
+Issue resolved:
 
 ## What is the new behavior?
-Description about this pull, in several words...
+<!-- Please describe the new behavior of this pull request -->
 
-* Screens with this changes: N/A
-* Link to demo site with this changes: N/A
+- Link to demo site with this changes:
+- Screenshots with this changes:
 
 ### How to use?
+
 In NexT `_config.yml`:
 ```yml
-...
+
 ```
-
-## Does this PR introduce a breaking change?
-- [ ] Yes.
-- [ ] No.
-
-<!-- If this PR contains a breaking change, please describe the impact and migration path for existing applications below. -->
-
-<!-- BIG pull template -->
-<!-- 
-1. xxxxxxx - commit link on modified file. Just copy this below your pull request readme.
-2. You can paste any image directly from your clipboard. Just press **Print Scr** and paste it into pull readme - link on image will generate and paste automaticly.
--->
-<!--
-## PART X. Title of fixes and/or enhancements.
-Short description in several words here.
-
-Issue Number(s): #xxxx.
-
-### Files modified:
-1.	Short description of modified file [1].			xxxxxxx
-2.	Short description of modified file [2].			xxxxxxx
-3.	Short description of modified file [3].			xxxxxxx
-
-### Global code changes:
-* ADD: `newFunction` in `utils.js`.
-* DEL: `oldFunction` from `utils.js`
-
-### How it looks?
-![image](https://user-images.githubusercontent.com/xxxxxxxx/xxxxxxxx-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx.png)
-
-Live demo [here](http://site.com/).
-
-### How to use?
-In Next `_config.yml`:
-```yml
-...
-```
--->

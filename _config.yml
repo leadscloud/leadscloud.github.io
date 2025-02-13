@@ -8,7 +8,7 @@ subtitle: Google SEO|外贸营销推广
 hometitle: Google SEO|外贸营销推广|技术博客
 description: 熟悉 Google SEO，外贸营销推广，这是我的个人博客，主要分享工作中的技术。
 author: Ray
-language: zh-Hans
+language: zh-CN
 timezone: Asia/Shanghai
 
 # URL
@@ -94,9 +94,9 @@ baidu_url_submit:
   path: baidu_urls.txt ## 文本文档的地址， 新链接会保存在此文本文档里
 
 algolia:
-  applicationID: 'F96493CKR7'
+  applicationID: 'F1YESSIUKA'
   indexName: 'blog'
-  apiKey: '52cfc4f849dbe10556d886de6046f5c3' # 仅用来搜索
+  apiKey: 'fba180e0d225a86fe382bf021a9f0ae3' # 仅用来搜索
   chunkSize: 5000
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html

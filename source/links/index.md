@@ -8,5 +8,5 @@ layout: links
 
 * [tiankonguse' record](http://github.tiankonguse.com)
 * [欧长坤的博客](https://changkun.us/)
-* [Blessing Studio](https://blessing.studio/)
 * [Dron 博客](http://ucren.com/blog/)
+* [新的理想型社区](http://linux.do/)

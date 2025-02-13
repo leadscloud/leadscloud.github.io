@@ -6,29 +6,45 @@ tags:
   - chatgpt镜像站
 id: 20230306
 categories: 技术
+sticky: 99999
 ---
+
+![](/images/freegpt-data-overview.png)
 
 ChatGPT国内镜像站，国内使用ChatGPT中文版本
 
 
-http://chat.tinycms.xyz:3002/
+~~http://chat.tinycms.xyz:3002/~~
 
 域名更改为
 
 https://freegpt.tech/
 
-欢迎体验：
+如果网站无法打开,使用下面的导航链接
+
+https://site.tinycms.xyz
+
+欢迎体验,当前主流模型包括o1-mini模型都可免费体验,deepseek免费用：
 
 **支持**
 
  - 模拟浏览器登录访问原始chatgpt网站，ChatGPT Plus付费版本
- - 支持最新的gpt-3.5-turbo 0301 API访问
+ - 支持最新的各种chatgpt模型及市面上的其它热门模型
  - 支持你自己的chatgpt账号中的API key 调用访问
+ - 免费访问gpt-4等模型和部分画图模型
+
+<!--more-->
 
 界面是React修改而来，比较简单，不需要登录，直接就能提问
 
+后来使用的是开源版本的Chat Next Web
 
 -----
+
+### 2025-2-10更新
+
+网站运行满2年了, 中间出过各种问题, 现在运行状态较好, 现在各种类似的网站出现,不过目前这个站还是竞争力比较强的,毕竟大部分都是免费的,可以使用各种模型
+
 
 ### 2024-4-25更新
 

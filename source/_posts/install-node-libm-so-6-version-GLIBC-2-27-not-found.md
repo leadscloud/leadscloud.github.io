@@ -1,5 +1,5 @@
 ---
-title: 'node: /lib64/libm.so.6: version `GLIBC_2.27' not found'
+title: node /lib64/libm.so.6 version GLIBC_2.27 not found
 date: 2023-04-21 13:51:21
 tags: node
 id: 20230421

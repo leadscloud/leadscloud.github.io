@@ -1,14 +1,6 @@
 .site-nav {
-  border-top: none;
-
   +tablet() {
-    display: none !important;
-  }
-}
-
-.site-nav-on {
-  +tablet() {
-    display: block !important;
+    site-nav-hide-by-default();
   }
 }
 
@@ -17,51 +9,32 @@
   margin: 0;
 
   a {
-    position: relative;
-    box-sizing: border-box;
     padding: 5px 20px;
-    text-align: left;
-    line-height: inherit;
+    // For .menu-item-active::after
+    position: relative;
     transition-property: background-color;
-    the-transition();
+    menu-item-row();
+  }
 
-    &:hover {
-      background: #f9f9f9;
-      border-bottom-color: white;
+  +tablet-mobile() {
+    &.menu-item-search {
+      display: none;
     }
   }
-
-  br { display: none; }
 }
 
-.menu-item-active a {
-  @extend .menu .menu-item a:hover;
-
-  &:after {
-    content: " ";
-    position: absolute;
-    top: 50%;
-    margin-top: -3px;
-    right: 15px;
-    width: 6px;
-    height: 6px;
+if (not hexo-config('menu_settings.badges')) {
+  // Only apply to the main menu
+  // Fix issue #850
+  .main-menu .menu-item-active::after {
+    background: $grey;
     border-radius: 50%;
-    background-color: $grey;
-  }
-}
-
-.btn-bar {
-  background-color: white;
-}
-
-.site-nav-toggle {
-  left: 20px;
-  top: 50%;
-
-  -webkit-transform:  translateY(-50%);
-  transform:  translateY(-50%);
-
-  +tablet() {
-    display: block;
+    content: ' ';
+    height: 6px;
+    margin-top: -3px;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    width: 6px;
   }
 }
