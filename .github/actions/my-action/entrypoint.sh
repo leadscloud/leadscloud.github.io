@@ -41,17 +41,23 @@ apt-get install -y git && \
 # Directs the action to the the Github workspace.
 cd "${GITHUB_WORKSPACE}"
 
+echo ">>> Install yarn ..."
+npm install --global yarn
+
 echo ">>> Install NPM dependencies ..."
-npm install
+# npm install
+yarn install
+
+hexo --version
 
 echo ">>> Update algolia indexing ..."
-npx hexo algolia
+hexo algolia
 
 echo ">>> Clean folder ..."
-npx hexo clean
+hexo clean
 
 echo ">>> Generate file ..."
-npx hexo generate
+hexo generate
 
 cd $TARGET_PUBLISH_DIR
 
