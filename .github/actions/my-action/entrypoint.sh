@@ -48,6 +48,10 @@ echo ">>> Install NPM dependencies ..."
 # npm install
 yarn install
 
+npx hexo --version
+
+yarn global add hexo-cli
+
 hexo --version
 
 echo ">>> Update algolia indexing ..."
