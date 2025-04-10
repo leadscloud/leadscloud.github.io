@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/logo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="mask-icon" href="/logo.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"leadscloud.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"algolia":{"appID":"F1YESSIUKA","apiKey":"fba180e0d225a86fe382bf021a9f0ae3","indexName":"blog","hits":{"per_page":10}}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Shell 简介Shell 语言对于接触 LINUX 的人来说都比较熟悉，它是系统的用户界面，提供了用户与内核进行交互操作的一种接口。它接收用户输入的命令并把它送入内核去执行。实际上 Shell 是一个命令解释器，它解释由用户输入的命令并且把它们送到内核。它没有一般编程语言的“编译 - 链接 - 运行”过程。不仅如此，Shell 有自己的编程语言用于对命令的编辑，它允许用户编写由 shell 命令">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用-shell-脚本对-linux-系统和进程资源进行监控">
+<meta property="og:url" content="https://leadscloud.github.io/313661/%E4%BD%BF%E7%94%A8-shell-%E8%84%9A%E6%9C%AC%E5%AF%B9-linux-%E7%B3%BB%E7%BB%9F%E5%92%8C%E8%BF%9B%E7%A8%8B%E8%B5%84%E6%BA%90%E8%BF%9B%E8%A1%8C%E7%9B%91%E6%8E%A7/index.html">
+<meta property="og:site_name" content="leadscloud">
+<meta property="og:description" content="Shell 简介Shell 语言对于接触 LINUX 的人来说都比较熟悉，它是系统的用户界面，提供了用户与内核进行交互操作的一种接口。它接收用户输入的命令并把它送入内核去执行。实际上 Shell 是一个命令解释器，它解释由用户输入的命令并且把它们送到内核。它没有一般编程语言的“编译 - 链接 - 运行”过程。不仅如此，Shell 有自己的编程语言用于对命令的编辑，它允许用户编写由 shell 命令">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2013-11-03T01:38:31.000Z">
+<meta property="article:modified_time" content="2025-04-10T04:42:07.150Z">
+<meta property="article:author" content="Ray">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://leadscloud.github.io/313661/%E4%BD%BF%E7%94%A8-shell-%E8%84%9A%E6%9C%AC%E5%AF%B9-linux-%E7%B3%BB%E7%BB%9F%E5%92%8C%E8%BF%9B%E7%A8%8B%E8%B5%84%E6%BA%90%E8%BF%9B%E8%A1%8C%E7%9B%91%E6%8E%A7/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://leadscloud.github.io/313661/%E4%BD%BF%E7%94%A8-shell-%E8%84%9A%E6%9C%AC%E5%AF%B9-linux-%E7%B3%BB%E7%BB%9F%E5%92%8C%E8%BF%9B%E7%A8%8B%E8%B5%84%E6%BA%90%E8%BF%9B%E8%A1%8C%E7%9B%91%E6%8E%A7/","path":"313661/使用-shell-脚本对-linux-系统和进程资源进行监控/","title":"使用-shell-脚本对-linux-系统和进程资源进行监控"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>使用-shell-脚本对-linux-系统和进程资源进行监控 | leadscloud</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6GCT2E7T9Y"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-6GCT2E7T9Y","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="leadscloud" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">leadscloud</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Google SEO|外贸营销推广</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">266</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">11</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">459</span></a></li><li class="menu-item menu-item-免费chatgpt"><a href="https://freegpt.tech/?refer=blog-side" rel="section" target="_blank"><i class="fa fa-heart fa-fw"></i>免费ChatGPT</a></li><li class="menu-item menu-item-我的简历"><a href="https://leadscloud.github.io/resume/resume.pdf" rel="section"><i class="fa fa-vcard fa-fw"></i>我的简历</a></li><li class="menu-item menu-item-友情链接"><a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>友情链接</a></li><li class="menu-item menu-item-chrome扩展（域名所属人）"><a href="/serp-analyzer/" rel="section"><i class="fa fa-cloud fa-fw"></i>Chrome扩展（域名所属人）</a></li><li class="menu-item menu-item-询盘管理系统"><a href="https://github.com/leadscloud/infomaster" rel="section" target="_blank"><i class="fa fa-database fa-fw"></i>询盘管理系统</a></li><li class="menu-item menu-item-外贸留言板系统"><a href="/20180615/google-seo-inquiry-messageboard/" rel="section"><i class="fa fa-database fa-fw"></i>外贸留言板系统</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fab fa-algolia fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Shell-%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">Shell 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-Shell-%E5%AF%B9%E8%BF%9B%E7%A8%8B%E8%B5%84%E6%BA%90%E8%BF%9B%E8%A1%8C%E7%9B%91%E6%8E%A7"><span class="nav-number">2.</span> <span class="nav-text">使用 Shell 对进程资源进行监控</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A3%80%E6%9F%A5%E8%BF%9B%E7%A8%8B%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8"><span class="nav-number">2.1.</span> <span class="nav-text">检查进程是否存在</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-1-%E5%AF%B9%E8%BF%9B%E7%A8%8B%E8%BF%9B%E8%A1%8C%E7%9B%91%E6%8E%A7"><span class="nav-number">2.1.0.1.</span> <span class="nav-text">清单 1. 对进程进行监控</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A3%80%E6%B5%8B%E8%BF%9B%E7%A8%8B-CPU-%E5%88%A9%E7%94%A8%E7%8E%87"><span class="nav-number">2.2.</span> <span class="nav-text">检测进程 CPU 利用率</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-2-%E5%AF%B9%E4%B8%9A%E5%8A%A1%E8%BF%9B%E7%A8%8B-CPU-%E8%BF%9B%E8%A1%8C%E5%AE%9E%E6%97%B6%E7%9B%91%E6%8E%A7"><span class="nav-number">2.2.0.1.</span> <span class="nav-text">清单 2. 对业务进程 CPU 进行实时监控</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-3-%E5%88%A4%E6%96%AD-CPU-%E5%88%A9%E7%94%A8%E7%8E%87%E6%98%AF%E5%90%A6%E8%B6%85%E8%BF%87%E9%99%90%E5%88%B6"><span class="nav-number">2.2.0.2.</span> <span class="nav-text">清单 3. 判断 CPU 利用率是否超过限制</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A3%80%E6%B5%8B%E8%BF%9B%E7%A8%8B%E5%86%85%E5%AD%98%E4%BD%BF%E7%94%A8%E9%87%8F"><span class="nav-number">2.3.</span> <span class="nav-text">检测进程内存使用量</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-4-%E5%AF%B9%E4%B8%9A%E5%8A%A1%E8%BF%9B%E7%A8%8B%E5%86%85%E5%AD%98%E4%BD%BF%E7%94%A8%E9%87%8F%E8%BF%9B%E8%A1%8C%E7%9B%91%E6%8E%A7"><span class="nav-number">2.3.0.1.</span> <span class="nav-text">清单 4. 对业务进程内存使用量进行监控</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-5-%E5%88%A4%E6%96%AD%E5%86%85%E5%AD%98%E4%BD%BF%E7%94%A8%E6%98%AF%E5%90%A6%E8%B6%85%E8%BF%87%E9%99%90%E5%88%B6"><span class="nav-number">2.3.0.2.</span> <span class="nav-text">清单 5. 判断内存使用是否超过限制</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A3%80%E6%B5%8B%E8%BF%9B%E7%A8%8B%E5%8F%A5%E6%9F%84%E4%BD%BF%E7%94%A8%E9%87%8F"><span class="nav-number">2.4.</span> <span class="nav-text">检测进程句柄使用量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-Shell-%E5%AF%B9%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90%E8%BF%9B%E8%A1%8C%E7%9B%91%E6%8E%A7"><span class="nav-number">3.</span> <span class="nav-text">使用 Shell 对系统资源进行监控</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%9F%90%E4%B8%AA-TCP-%E6%88%96-UDP-%E7%AB%AF%E5%8F%A3%E6%98%AF%E5%90%A6%E5%9C%A8%E7%9B%91%E5%90%AC"><span class="nav-number">3.1.</span> <span class="nav-text">查看某个 TCP 或 UDP 端口是否在监听</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E5%8D%95-6-%E7%AB%AF%E5%8F%A3%E6%A3%80%E6%B5%8B"><span class="nav-number">3.1.0.1.</span> <span class="nav-text">清单 6. 端口检测</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%9F%90%E4%B8%AA%E8%BF%9B%E7%A8%8B%E5%90%8D%E6%AD%A3%E5%9C%A8%E8%BF%90%E8%A1%8C%E7%9A%84%E4%B8%AA%E6%95%B0"><span class="nav-number">3.2.</span> <span class="nav-text">查看某个进程名正在运行的个数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A3%80%E6%B5%8B%E7%B3%BB%E7%BB%9F-CPU-%E8%B4%9F%E8%BD%BD"><span class="nav-number">3.3.</span> <span class="nav-text">检测系统 CPU 负载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A3%80%E6%B5%8B%E7%B3%BB%E7%BB%9F%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4"><span class="nav-number">3.4.</span> <span class="nav-text">检测系统磁盘空间</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Ray</p>
+  <div class="site-description" itemprop="description">熟悉 Google SEO，外贸营销推广，这是我的个人博客，主要分享工作中的技术。</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">459</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">266</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/leadscloud" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;leadscloud" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:love4026@gmail.com" title="E-Mail → mailto:love4026@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://cdn.livechatinc.xyz/" title="https:&#x2F;&#x2F;cdn.livechatinc.xyz&#x2F;" rel="noopener" target="_blank">RLiveChat</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://www.kamychina.com/" title="https:&#x2F;&#x2F;www.kamychina.com&#x2F;" rel="noopener" target="_blank">Roadheader</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://tinycms.xyz/" title="https:&#x2F;&#x2F;tinycms.xyz&#x2F;" rel="noopener" target="_blank">TinyCMS</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://leadscloud.github.io/313661/%E4%BD%BF%E7%94%A8-shell-%E8%84%9A%E6%9C%AC%E5%AF%B9-linux-%E7%B3%BB%E7%BB%9F%E5%92%8C%E8%BF%9B%E7%A8%8B%E8%B5%84%E6%BA%90%E8%BF%9B%E8%A1%8C%E7%9B%91%E6%8E%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ray">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="leadscloud">
+      <meta itemprop="description" content="熟悉 Google SEO，外贸营销推广，这是我的个人博客，主要分享工作中的技术。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="使用-shell-脚本对-linux-系统和进程资源进行监控 | leadscloud">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          使用-shell-脚本对-linux-系统和进程资源进行监控
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2013-11-03 09:38:31" itemprop="dateCreated datePublished" datetime="2013-11-03T09:38:31+08:00">2013-11-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-04-10 12:42:07" itemprop="dateModified" datetime="2025-04-10T12:42:07+08:00">2025-04-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%BD%AC%E8%BD%BD/" itemprop="url" rel="index"><span itemprop="name">转载</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/313661/%E4%BD%BF%E7%94%A8-shell-%E8%84%9A%E6%9C%AC%E5%AF%B9-linux-%E7%B3%BB%E7%BB%9F%E5%92%8C%E8%BF%9B%E7%A8%8B%E8%B5%84%E6%BA%90%E8%BF%9B%E8%A1%8C%E7%9B%91%E6%8E%A7/" class="post-meta-item leancloud_visitors" data-flag-title="使用-shell-脚本对-linux-系统和进程资源进行监控" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Valine：</span>
+  
+    <a title="valine" href="/313661/%E4%BD%BF%E7%94%A8-shell-%E8%84%9A%E6%9C%AC%E5%AF%B9-linux-%E7%B3%BB%E7%BB%9F%E5%92%8C%E8%BF%9B%E7%A8%8B%E8%B5%84%E6%BA%90%E8%BF%9B%E8%A1%8C%E7%9B%91%E6%8E%A7/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/313661/%E4%BD%BF%E7%94%A8-shell-%E8%84%9A%E6%9C%AC%E5%AF%B9-linux-%E7%B3%BB%E7%BB%9F%E5%92%8C%E8%BF%9B%E7%A8%8B%E8%B5%84%E6%BA%90%E8%BF%9B%E8%A1%8C%E7%9B%91%E6%8E%A7/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="Shell-简介"><a href="#Shell-简介" class="headerlink" title="Shell 简介"></a>Shell 简介</h2><p>Shell 语言对于接触 LINUX 的人来说都比较熟悉，它是系统的用户界面，提供了用户与内核进行交互操作的一种接口。它接收用户输入的命令并把它送入内核去执行。实际上 Shell 是一个命令解释器，它解释由用户输入的命令并且把它们送到内核。它没有一般编程语言的“编译 - 链接 - 运行”过程。不仅如此，Shell 有自己的编程语言用于对命令的编辑，它允许用户编写由 shell 命令组成的程序。Shell 编程语言具有普通编程语言的很多特点，比如它也有循环结构和分支控制结构等，用这种编程语言编写的 Shell 程序与其他应用程序具有同样的效果。当然，Shell 功能也是很强大的。Shell 有多种类型，其中最常用的几种是 Bourne shell（sh）、C shell（csh）和 Korn shell（ksh）。三种 shell 各有优缺点，Linux 操作系统缺省的 shell 一般是 Bourne Again shell，它是 Bourne shell 的扩展，简称 Bash，bash 的命令语法是 Bourne shell 命令语法的超集，并且在 Bourne shell 的基础上增加、增强了很多特性。在这里，我们以 Bash 做为实例总结了使用 Shell 对系统和进程资源进行监控的一些内容，希望对您能有帮助。</p>
+<p><a href="http://www.ibm.com/developerworks/cn/linux/l-cn-shell-monitoring/#ibm-pcon">回页首</a></p>
+<h2 id="使用-Shell-对进程资源进行监控"><a href="#使用-Shell-对进程资源进行监控" class="headerlink" title="使用 Shell 对进程资源进行监控"></a>使用 Shell 对进程资源进行监控</h2><h3 id="检查进程是否存在"><a href="#检查进程是否存在" class="headerlink" title="检查进程是否存在"></a>检查进程是否存在</h3><p>在对进程进行监控时，我们一般需要得到该进程的 ID，进程 ID 是进程的唯一标识，但是有时可能在服务器上不同用户下运行着多个相同进程名的进程，下面的函数 GetPID 给出了获取指定用户下指定进程名的进程 ID 功能（目前只考虑这个用户下启动一个此进程名的进程），它有两个参数为用户名和进程名，它首先使用 ps 查找进程信息，同时通过 grep 过滤出需要的进程，最后通过 sed 和 awk 查找需要进程的 ID 值（此函数可根据实际情况修改，比如需要过滤其它信息等）。</p>
+<h5 id="清单-1-对进程进行监控"><a href="#清单-1-对进程进行监控" class="headerlink" title="清单 1. 对进程进行监控"></a>清单 1. 对进程进行监控</h5><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title">GetPID</span> #User #Name </span><br><span class="line"> &#123; </span><br><span class="line">    PsUser=$<span class="number">1</span> </span><br><span class="line">    PsName=$<span class="number">2</span> </span><br><span class="line">    pid=`<span class="keyword">ps</span> -<span class="keyword">u</span> $PsUser|<span class="keyword">grep</span> $PsName|<span class="keyword">grep</span> -v <span class="keyword">grep</span>|<span class="keyword">grep</span> -v <span class="keyword">vi</span>|<span class="keyword">grep</span> -v dbx\n </span><br><span class="line">    |<span class="keyword">grep</span> -v tail|<span class="keyword">grep</span> -v start|<span class="keyword">grep</span> -v <span class="keyword">stop</span> |sed -n <span class="number">1</span><span class="keyword">p</span> |awk <span class="string">&#x27;&#123;print $1&#125;&#x27;</span>` </span><br><span class="line">    <span class="keyword">echo</span> $pid </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>示例演示：</p>
+<p>1）源程序（例如查找用户为 root，进程名为 CFTestApp 的进程 ID）</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">PID</span>=`GetPID root CFTestApp` </span><br><span class="line"></span><br><span class="line">echo <span class="variable">$PID</span></span><br></pre></td></tr></table></figure>
+
+<p>2）结果输出</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">11426</span> </span><br><span class="line"><span class="string">[dyu@xilinuxbldsrv shell]</span>$</span><br></pre></td></tr></table></figure>
+
+<p>3）结果分析</p>
+<p>从上面的输出可见：11426 为 root 用户下的 CFTestApp 程序的进程 ID。</p>
+<p>4）命令介绍</p>
+<p>1. ps: 查看系统中瞬间进程信息。 参数：<code>-u &lt;用户识别码&gt;</code> 列出属于该用户的程序的状况，也可使用用户名称来指定。 <code>-p &lt;进程识别码&gt;</code> 指定进程识别码，并列出该进程的状况。 -o 指定输出格式<br>2. grep: 用于查找文件中符合字符串的当前行。 参数：-v 反向选择，亦即显示出没有 ‘搜寻字符串’ 内容的那一行。<br>3. sed: 一个非交互性文本编辑器，它编辑文件或标准输入导出的文件，一次只能处理一行内容。 参数：-n 读取下一个输入行，用下一个命令处理新的行而不是用第一个命令。 p 标志 打印匹配行<br>4. awk：一种编程语言，用于在 linux&#x2F;unix 下对文本和数据进行处理。数据可以来自标准输入、一个或多个文件，或其它命令的输出。它支持用户自定义函数和动态正则表达式等先进功能，是 linux&#x2F;unix 下的一个强大编程工具。它在命令行中使用，但更多是作为脚本来使用。awk 的处理文本和数据的方式：它逐行扫描文件，从第一行到最后一行，寻找匹配的特定模式的行，并在这些行上进行你想要的操作。如果没有指定处理动作，则把匹配的行显示到标准输出 ( 屏幕 )，如果没有指定模式，则所有被操作所指定的行都被处理。 参数：-F fs or –field-separator fs ：指定输入文件折分隔符，fs 是一个字符串或者是一个正则表达式，如 -F:。</p>
+<p>有时有可能进程没有启动，下面的功能是检查进程 ID 是否存在，如果此进程没有运行输出：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">The process does not exist. </span><br><span class="line"><span class="comment"># 检查进程是否存在</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">&quot;-<span class="variable">$PID</span>&quot;</span> == <span class="string">&quot;-&quot;</span> ] </span><br><span class="line"><span class="keyword">then</span> </span><br><span class="line">&#123; </span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;The process does not exist.&quot;</span></span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="检测进程-CPU-利用率"><a href="#检测进程-CPU-利用率" class="headerlink" title="检测进程 CPU 利用率"></a>检测进程 CPU 利用率</h3><p>在对应用服务进行维护时，我们经常遇到由于 CPU 过高导致业务阻塞，造成业务中断的情况。CPU 过高可能由于业务量过负荷或者出现死循环等异常情况，通过脚本对业务进程 CPU 进行时时监控，可以在 CPU 利用率异常时及时通知维护人员，便于维护人员及时分析，定位，以及避免业务中断等。下面的函数可获得指定进程 ID 的进程 CPU 利用率。它有一个参数为进程 ID，它首先使用 ps 查找进程信息，同时通过 grep -v 过滤掉 %CPU 行，最后通过 awk 查找 CPU 利用百分比的整数部分（如果系统中有多个 CPU，CPU 利用率可以超过 100%）。</p>
+<h5 id="清单-2-对业务进程-CPU-进行实时监控"><a href="#清单-2-对业务进程-CPU-进行实时监控" class="headerlink" title="清单 2. 对业务进程 CPU 进行实时监控"></a>清单 2. 对业务进程 CPU 进行实时监控</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> GetCpu </span><br><span class="line">  &#123; </span><br><span class="line">   CpuValue=`ps -p <span class="variable">$1</span> -o pcpu |grep -v CPU | awk <span class="string">&#x27;&#123;print $1&#125;&#x27;</span> | awk -  F. <span class="string">&#x27;&#123;print $1&#125;&#x27;</span>` </span><br><span class="line">        <span class="built_in">echo</span> <span class="variable">$CpuValue</span> </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>下面的功能是通过上面的函数 GetCpu 获得此进程的 CPU 利用率，然后通过条件语句判断 CPU 利用率是否超过限制，如果超过 80%（可以根据实际情况进行调整），则输出告警，否则输出正常信息。</p>
+<h5 id="清单-3-判断-CPU-利用率是否超过限制"><a href="#清单-3-判断-CPU-利用率是否超过限制" class="headerlink" title="清单 3. 判断 CPU 利用率是否超过限制"></a>清单 3. 判断 CPU 利用率是否超过限制</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> CheckCpu </span><br><span class="line"> &#123; </span><br><span class="line">    PID=<span class="variable">$1</span> </span><br><span class="line">    cpu=`GetCpu <span class="variable">$PID</span>` </span><br><span class="line">    <span class="keyword">if</span> [ <span class="variable">$cpu</span> -gt 80 ] </span><br><span class="line">    <span class="keyword">then</span> </span><br><span class="line">    &#123; </span><br><span class="line"> <span class="built_in">echo</span> “The usage of cpu is larger than 80%”</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">    &#123; </span><br><span class="line"> <span class="built_in">echo</span> “The usage of cpu is normal”</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">fi</span> </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>示例演示：</p>
+<p>1）源程序（假设上面已经查询出 CFTestApp 的进程 ID 为 11426）</p>
+<p><code>CheckCpu 11426</code></p>
+<p>2）结果输出</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">The <span class="keyword">usage</span> <span class="keyword">of</span> cpu <span class="keyword">is</span> <span class="number">75</span> </span><br><span class="line">The <span class="keyword">usage</span> <span class="keyword">of</span> cpu <span class="keyword">is</span> normal </span><br><span class="line">[dyu@xilinuxbldsrv shell]$</span><br></pre></td></tr></table></figure>
+
+<p>3）结果分析</p>
+<p>从上面的输出可见：CFTestApp 程序当前的 CPU 使用为 75%，是正常的，没有超过 80% 的告警限制。</p>
+<h3 id="检测进程内存使用量"><a href="#检测进程内存使用量" class="headerlink" title="检测进程内存使用量"></a>检测进程内存使用量</h3><p>在对应用服务进行维护时，也经常遇到由于内存使用过大导致进程崩溃，造成业务中断的情况（例如 32 位程序可寻址的最大内存空间为 4G，如果超出将申请内存失败，同时物理内存也是有限的）。内存使用过高可能由于内存泄露，消息堆积等情况，通过脚本对业务进程内存使用量进行时时监控，可以在内存使用量异常时及时发送告警（例如通过短信），便于维护人员及时处理。下面的函数可获得指定进程 ID 的进程内存使用情况。它有一个参数为进程 ID，它首先使用 ps 查找进程信息，同时通过 grep -v 过滤掉 VSZ 行 , 然后通过除 1000 取以兆为单位的内存使用量。</p>
+<h5 id="清单-4-对业务进程内存使用量进行监控"><a href="#清单-4-对业务进程内存使用量进行监控" class="headerlink" title="清单 4. 对业务进程内存使用量进行监控"></a>清单 4. 对业务进程内存使用量进行监控</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> GetMem </span><br><span class="line"> &#123; </span><br><span class="line">     MEMUsage=`ps -o vsz -p <span class="variable">$1</span>|grep -v VSZ` </span><br><span class="line">     (( MEMUsage /= <span class="number">1000</span>)) </span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$MEMUsage</span> </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>下面的功能是通过上面的函数 <code>GetMem</code>获得此进程的内存使用，然后通过条件语句判断内存使用是否超过限制，如果超过 1.6G（可以根据实际情况进行调整），则输出告警，否则输出正常信息。</p>
+<h5 id="清单-5-判断内存使用是否超过限制"><a href="#清单-5-判断内存使用是否超过限制" class="headerlink" title="清单 5. 判断内存使用是否超过限制"></a>清单 5. 判断内存使用是否超过限制</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mem=`GetMem <span class="variable">$PID</span>`                </span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$mem</span> -gt 1600 ] </span><br><span class="line"><span class="keyword">then</span> </span><br><span class="line">&#123; </span><br><span class="line">    <span class="built_in">echo</span> “The usage of memory is larger than 1.6G”</span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">else</span> </span><br><span class="line">&#123; </span><br><span class="line">   <span class="built_in">echo</span> “The usage of memory is normal”</span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<p>示例演示：</p>
+<p>1）源程序（假设上面已经查询出 CFTestApp 的进程 ID 为 11426）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">mem=`GetMem 11426` </span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;The usage of memory is <span class="variable">$mem</span> M&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$mem</span> -gt 1600 ] </span><br><span class="line"><span class="keyword">then</span> </span><br><span class="line">&#123; </span><br><span class="line">     <span class="built_in">echo</span> <span class="string">&quot;The usage of memory is larger than 1.6G&quot;</span></span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">else</span> </span><br><span class="line">&#123; </span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;The usage of memory is normal&quot;</span></span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<p>2）结果输出</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">The <span class="keyword">usage</span> <span class="keyword">of</span> memory <span class="keyword">is</span> <span class="number">248</span> M </span><br><span class="line">The <span class="keyword">usage</span> <span class="keyword">of</span> memory <span class="keyword">is</span> normal </span><br><span class="line">[dyu@xilinuxbldsrv shell]$</span><br></pre></td></tr></table></figure>
+
+<p>3）结果分析</p>
+<p>从上面的输出可见：CFTestApp 程序当前的内存使用为 248M，是正常的，没有超过 1.6G 的告警限制。</p>
+<h3 id="检测进程句柄使用量"><a href="#检测进程句柄使用量" class="headerlink" title="检测进程句柄使用量"></a>检测进程句柄使用量</h3><p>在对应用服务进行维护时，也经常遇到由于句柄使用 过量导致业务中断的情况。每个平台对进程的句柄使用都是有限的，例如在 Linux 平台，我们可以使用 ulimit – n 命令（open files (-n) 1024）或者对 &#x2F;etc&#x2F;security&#x2F;limits.conf 的内容进行查看，得到进程句柄限制。句柄使用过高可能由于负载过高，句柄泄露等情况，通过脚本对业务进程句柄使用量进行时时监控，可以在异常时及时发送告警（例如通过短信），便于维护人员及时处理。下面的函数可获得指定进程 ID 的进程句柄使用情况。它有一个参数为进程 ID，它首先使用 ls 输出进程句柄信息，然后通过 wc -l 统计输出句柄个数。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> GetDes </span><br><span class="line">&#123; </span><br><span class="line">    DES=`<span class="built_in">ls</span> /proc/<span class="variable">$1</span>/fd | <span class="built_in">wc</span> -l` </span><br><span class="line">    <span class="built_in">echo</span> <span class="variable">$DES</span> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>下面功能是通过上面的函数 <code>GetDes</code>获得此进程的句柄使用量，然后通过条件语句判断句柄使用是否超过限制，如果超过 900（可以根据实际情况进行调整）个，则输出告警，否则输出正常信息。</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">des=` GetDes $PID` </span><br><span class="line"><span class="keyword">if</span> [ $des -gt <span class="number">900</span> ] </span><br><span class="line">then </span><br><span class="line">&#123; </span><br><span class="line">    <span class="keyword">echo</span> “The <span class="keyword">number</span> of des <span class="keyword">is</span> larger than <span class="number">900</span>”</span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">else</span> </span><br><span class="line">&#123; </span><br><span class="line">   <span class="keyword">echo</span> “The <span class="keyword">number</span> of des <span class="keyword">is</span> <span class="keyword">normal</span>”</span><br><span class="line">&#125; </span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<p>示例演示：</p>
+<p>1）源程序（假设上面查询出 CFTestApp 的进程 ID 为 11426）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">des=`GetDes 11426` </span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;The number of des is <span class="variable">$des</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$des</span> -gt 900 ] </span><br><span class="line"><span class="keyword">then</span> </span><br><span class="line">&#123; </span><br><span class="line">     <span class="built_in">echo</span> <span class="string">&quot;The number of des is larger than 900&quot;</span></span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">else</span> </span><br><span class="line">&#123; </span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;The number of des is normal&quot;</span></span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<p>2）结果输出</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">The <span class="keyword">number</span> of des <span class="keyword">is</span> <span class="number">528</span> </span><br><span class="line">The <span class="keyword">number</span> of des <span class="keyword">is</span> <span class="keyword">normal</span> </span><br><span class="line">[dyu@xilinuxbldsrv <span class="keyword">shell</span>]$</span><br></pre></td></tr></table></figure>
+
+<p>3）结果分析</p>
+<p>从上面的输出可见：CFTestApp 程序当前的句柄使用为 528 个，是正常的，没有超过 900 个的告警限制。</p>
+<p>4）命令介绍</p>
+<p>wc: 统计指定文件中的字节数、字数、行数 , 并将统计结果显示输出。 </p>
+<p>参数：-l 统计行数。 -c 统计字节数。 -w 统计字数。</p>
+<p><a href="http://www.ibm.com/developerworks/cn/linux/l-cn-shell-monitoring/#ibm-pcon">回页首</a></p>
+<h2 id="使用-Shell-对系统资源进行监控"><a href="#使用-Shell-对系统资源进行监控" class="headerlink" title="使用 Shell 对系统资源进行监控"></a>使用 Shell 对系统资源进行监控</h2><h3 id="查看某个-TCP-或-UDP-端口是否在监听"><a href="#查看某个-TCP-或-UDP-端口是否在监听" class="headerlink" title="查看某个 TCP 或 UDP 端口是否在监听"></a>查看某个 TCP 或 UDP 端口是否在监听</h3><p>端口检测是系统资源检测经常遇到的，特别是在网络通讯情况下，端口状态的检测往往是很重要的。有时可能进程，CPU，内存等处于正常状态，但是端口处于异常状态，业务也是没有正常运行。下面函数可判断指定端口是否在监听。它有一个参数为待检测端口，它首先使用 netstat 输出端口占用信息，然后通过 grep, awk,wc 过滤输出监听 TCP 端口的个数，第二条语句为输出 UDP 端口的监听个数，如果 TCP 与 UDP 端口监听都为 0，返回 0，否则返回 1.</p>
+<h5 id="清单-6-端口检测"><a href="#清单-6-端口检测" class="headerlink" title="清单 6. 端口检测"></a>清单 6. 端口检测</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> Listening </span><br><span class="line">&#123; </span><br><span class="line">   TCPListeningnum=`netstat -an | grep <span class="string">&quot;:<span class="variable">$1</span> &quot;</span> | \n</span><br><span class="line">   awk <span class="string">&#x27;$1 == &quot;tcp&quot; &amp;&amp; $NF == &quot;LISTEN&quot; &#123;print $0&#125;&#x27;</span> | <span class="built_in">wc</span> -l` </span><br><span class="line">   UDPListeningnum=`netstat -an|grep <span class="string">&quot;:<span class="variable">$1</span> &quot;</span> \n</span><br><span class="line">   |awk <span class="string">&#x27;$1 == &quot;udp&quot; &amp;&amp; $NF == &quot;0.0.0.0:*&quot; &#123;print $0&#125;&#x27;</span> | <span class="built_in">wc</span> -l` </span><br><span class="line">   (( Listeningnum = TCPListeningnum + UDPListeningnum )) </span><br><span class="line">   <span class="keyword">if</span> [ <span class="variable">$Listeningnum</span> == 0 ] </span><br><span class="line">   <span class="keyword">then</span> </span><br><span class="line">   &#123; </span><br><span class="line">       <span class="built_in">echo</span> <span class="string">&quot;0&quot;</span></span><br><span class="line">   &#125; </span><br><span class="line">   <span class="keyword">else</span> </span><br><span class="line">   &#123; </span><br><span class="line">      <span class="built_in">echo</span> <span class="string">&quot;1&quot;</span></span><br><span class="line">   &#125; </span><br><span class="line">   <span class="keyword">fi</span> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>示例演示：</p>
+<p>1）源程序（例如查询 8080 端口的状态是否在监听）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">isListen=`Listening 8080` </span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$isListen</span> -eq 1 ] </span><br><span class="line"><span class="keyword">then</span> </span><br><span class="line">&#123; </span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;The port is listening&quot;</span></span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">else</span> </span><br><span class="line">&#123; </span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;The port is not listening&quot;</span></span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<p>2）结果输出</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">The port <span class="keyword">is</span> listening </span><br><span class="line"><span class="string">[dyu@xilinuxbldsrv shell]</span>$</span><br></pre></td></tr></table></figure>
+
+<p>3）结果分析</p>
+<p>从上面的输出可见：这个 Linux 服务器的 8080 端口处在监听状态。</p>
+<p>4）命令介绍</p>
+<p>netstat: 用于显示与 IP、TCP、UDP 和 ICMP 协议相关的统计数据，一般用于检验本机各端口的网络连接情况。 参数：-a 显示所有连线中的 Socket。 -n 直接使用 IP 地址，而不通过域名服务器。</p>
+<p>下面的功能也是检测某个 TCP 或者 UDP 端口是否处在正常状态。</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">tcp</span>: netstat -an|egrep $<span class="number">1</span> |awk &#x27;$<span class="number">6</span> == <span class="string">&quot;LISTEN&quot;</span> &amp;&amp; $<span class="number">1</span> == <span class="string">&quot;tcp&quot;</span> &#123;print $<span class="number">0</span>&#125;&#x27;</span><br><span class="line"><span class="attribute">udp</span>: netstat -an|egrep $<span class="number">1</span> |awk &#x27;$<span class="number">1</span> == <span class="string">&quot;udp&quot;</span> &amp;&amp; $<span class="number">5</span> == <span class="string">&quot;0.0.0.0:*&quot;</span> &#123;print $<span class="number">0</span>&#125;&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>命令介绍</p>
+<p>egrep: 在文件内查找指定的字符串。egrep 执行效果如 grep -E，使用的语法及参数可参照 grep 指令，与 grep 不同点在于解读字符串的方法，egrep 是用扩展的正则表达式语法来解读，而 grep 则用基本的正则表达式语法，扩展的正则表达式比基本的正则表达式有更完整的表达规范。</p>
+<h3 id="查看某个进程名正在运行的个数"><a href="#查看某个进程名正在运行的个数" class="headerlink" title="查看某个进程名正在运行的个数"></a>查看某个进程名正在运行的个数</h3><p>有时我们可能需要得到服务器上某个进程的启动个数，下面的功能是检测某个进程正在运行的个数，例如进程名为 <code>CFTestApp。</code></p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Runnum=`<span class="keyword">ps</span> -ef | <span class="keyword">grep</span> -v <span class="keyword">vi</span> | <span class="keyword">grep</span> -v tail | <span class="keyword">grep</span> <span class="string">&quot;[ /]CFTestApp&quot;</span> | <span class="keyword">grep</span> -v <span class="keyword">grep</span> | wc -<span class="keyword">l</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="检测系统-CPU-负载"><a href="#检测系统-CPU-负载" class="headerlink" title="检测系统 CPU 负载"></a>检测系统 CPU 负载</h3><p>在对服务器进行维护时，有时也遇到由于系统 CPU（利用率）负载 过量导致业务中断的情况。服务器上可能运行多个进程，查看单个进程的 CPU 都是正常的，但是整个系统的 CPU 负载可能是异常的。通过脚本对系统 CPU 负载进行时时监控，可以在异常时及时发送告警，便于维护人员及时处理，预防事故发生。下面的函数可以检测系统 CPU 使用情况 . 使用 vmstat 取 5 次系统 CPU 的 idle 值，取平均值，然后通过与 100 取差得到当前 CPU 的实际占用值。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function GetSysCPU </span><br><span class="line">&#123; </span><br><span class="line">  <span class="attribute">CpuIdle</span>=`vmstat 1 5 |sed -n <span class="string">&#x27;3,$p&#x27;</span> \n</span><br><span class="line">  |awk <span class="string">&#x27;&#123;x = x + $15&#125; END &#123;print x/5&#125;&#x27;</span> |awk -F. <span class="string">&#x27;&#123;print $1&#125;&#x27;</span></span><br><span class="line">  <span class="attribute">CpuNum</span>=`echo <span class="string">&quot;100-<span class="variable">$CpuIdle</span>&quot;</span> | bc` </span><br><span class="line">  echo <span class="variable">$CpuNum</span> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>示例演示：</p>
+<p>1）源程序</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">cpu=`GetSysCPU` </span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;The system CPU is <span class="variable">$cpu</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$cpu</span> -gt 90 ] </span><br><span class="line"><span class="keyword">then</span> </span><br><span class="line">&#123; </span><br><span class="line">   <span class="built_in">echo</span> <span class="string">&quot;The usage of system cpu is larger than 90%&quot;</span></span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">else</span> </span><br><span class="line">&#123; </span><br><span class="line">   <span class="built_in">echo</span> <span class="string">&quot;The usage of system cpu is normal&quot;</span></span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<p>2）结果输出</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">The <span class="built_in">system</span> CPU <span class="keyword">is</span> <span class="number">87</span> </span><br><span class="line">The usage of <span class="built_in">system</span> cpu <span class="keyword">is</span> <span class="keyword">normal</span> </span><br><span class="line">[dyu@xilinuxbldsrv <span class="keyword">shell</span>]$</span><br></pre></td></tr></table></figure>
+
+<p>3）结果分析</p>
+<p>从上面的输出可见：当前 Linux 服务器系统 CPU 利用率为 87%，是正常的，没有超过 90% 的告警限制。</p>
+<p>4）命令介绍</p>
+<p>vmstat：Virtual Meomory Statistics（虚拟内存统计）的缩写，可对操作系统的虚拟内存、进程、CPU 活动进行监视。<br>参数： -n 表示在周期性循环输出时，输出的头部信息仅显示一次。</p>
+<h3 id="检测系统磁盘空间"><a href="#检测系统磁盘空间" class="headerlink" title="检测系统磁盘空间"></a>检测系统磁盘空间</h3><p>系统磁盘空间检测是系统资源检测的重要部分，在系统维护维护中，我们经常需要查看服务器磁盘空间使用情况。因为有些业务要时时写话单，日志，或者临时文件等，如果磁盘空间用尽，也可能会导致业务中断，下面的函数可以检测当前系统磁盘空间中某个目录的磁盘空间使用情况 . 输入参数为需要检测的目录名，使用 df 输出系统磁盘空间使用信息，然后通过 grep 和 awk 过滤得到某个目录的磁盘空间使用百分比。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> GetDiskSpc </span><br><span class="line">&#123; </span><br><span class="line">   <span class="keyword">if</span> [ <span class="variable">$#</span> -ne 1 ] </span><br><span class="line">   <span class="keyword">then</span> </span><br><span class="line">       <span class="built_in">return</span> 1 </span><br><span class="line">   <span class="keyword">fi</span> </span><br><span class="line"></span><br><span class="line">   Folder=<span class="string">&quot;$1$&quot;</span></span><br><span class="line">   DiskSpace=`<span class="built_in">df</span> -k |grep <span class="variable">$Folder</span> |awk <span class="string">&#x27;&#123;print $5&#125;&#x27;</span> |awk -F% <span class="string">&#x27;&#123;print $1&#125;&#x27;</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="variable">$DiskSpace</span> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>示例演示：</p>
+<p>1）源程序（检测目录为 &#x2F;boot）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Folder=<span class="string">&quot;/boot&quot;</span></span><br><span class="line"></span><br><span class="line">DiskSpace=`GetDiskSpc <span class="variable">$Folder</span>` </span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;The system <span class="variable">$Folder</span> disk space is <span class="variable">$DiskSpace</span>%&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$DiskSpace</span> -gt 90 ] </span><br><span class="line"><span class="keyword">then</span> </span><br><span class="line">&#123; </span><br><span class="line">   <span class="built_in">echo</span> <span class="string">&quot;The usage of system disk(<span class="variable">$Folder</span>) is larger than 90%&quot;</span></span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">else</span> </span><br><span class="line">&#123; </span><br><span class="line">   <span class="built_in">echo</span> <span class="string">&quot;The usage of system disk(<span class="variable">$Folder</span>)  is normal&quot;</span></span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>2）结果输出</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">The <span class="built_in">system</span> /boot disk space <span class="keyword">is</span> <span class="number">14</span>% </span><br><span class="line">The usage of <span class="built_in">system</span> disk(/boot)  <span class="keyword">is</span> <span class="keyword">normal</span> </span><br><span class="line">[dyu@xilinuxbldsrv <span class="keyword">shell</span>]$</span><br></pre></td></tr></table></figure>
+
+<p>3）结果分析</p>
+<p>从上面的输出可见：当前此 Linux 服务器系统上 &#x2F;boot 目录的磁盘空间已经使用了 14%，是正常的，没有超过使用 90% 的告警限制。</p>
+<p>4）命令介绍</p>
+<p>df：检查文件系统的磁盘空间占用情况。可以利用该命令来获取硬盘被占用了多少空间，目前还剩下多少空间等信息。 参数：-k 以 k 字节为单位显示。</p>
+<p><a href="http://www.ibm.com/developerworks/cn/linux/l-cn-shell-monitoring/#ibm-pcon">回页首</a></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在 Linux 平台下，shell 脚本监控是一个非常简单，方便，有效的对服务器，进程进行监控的方法，对系统开发以及进程维护人员非常有帮助。它不仅可以对上面的信息进行监控，发送告警，同时也可以监控进程的日志等等的信息，希望本文对大家有帮助。</p>
+<p><a href="http://www.love4026.org/wp-content/uploads/2013/11/test.zip">源码下载</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Ray
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://leadscloud.github.io/313661/%E4%BD%BF%E7%94%A8-shell-%E8%84%9A%E6%9C%AC%E5%AF%B9-linux-%E7%B3%BB%E7%BB%9F%E5%92%8C%E8%BF%9B%E7%A8%8B%E8%B5%84%E6%BA%90%E8%BF%9B%E8%A1%8C%E7%9B%91%E6%8E%A7/" title="使用-shell-脚本对-linux-系统和进程资源进行监控">https://leadscloud.github.io/313661/使用-shell-脚本对-linux-系统和进程资源进行监控/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/313658/quora%E7%B2%BE%E9%80%89%EF%BC%9A%E6%80%8E%E6%A0%B7%E5%85%8B%E6%9C%8D%E6%8B%96%E5%BB%B6%E7%97%87%EF%BC%9F/" rel="prev" title="quora精选：怎样克服拖延症？">
+                  <i class="fa fa-angle-left"></i> quora精选：怎样克服拖延症？
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/313664/%E7%83%AD%E5%8A%9B%E5%AD%A6%E7%AC%AC%E4%BA%8C%E5%AE%9A%E5%BE%8B%E9%94%99%E4%BA%86%E5%90%97%EF%BC%9F/" rel="next" title="热力学第二定律错了吗？">
+                  热力学第二定律错了吗？ <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="valine-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Ray</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/leadscloud" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/algoliasearch/4.24.0/algoliasearch-lite.umd.js" integrity="sha256-b2n6oSgG4C1stMT/yc/ChGszs9EY/Mhs6oltEjQbFCQ=" crossorigin="anonymous"></script><script src="/js/third-party/search/algolia-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"ePPAQV9hFzcbhOaQvvtyjTnw-gzGzoHsz","app_key":"GLniGVXsSMGBjTmaiI4wleaF","server_url":"https://leancloud.tinycms.xyz","security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+
+
+<script class="next-config" data-name="valine" type="application/json">{"enable":true,"appId":"ePPAQV9hFzcbhOaQvvtyjTnw-gzGzoHsz","appKey":"GLniGVXsSMGBjTmaiI4wleaF","serverURLs":"https://leancloud.tinycms.xyz","placeholder":"Just go go","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-cn","visitor":false,"comment_count":true,"recordIP":true,"enableQQ":true,"requiredFields":[],"el":"#valine-comments","path":"/313661/%E4%BD%BF%E7%94%A8-shell-%E8%84%9A%E6%9C%AC%E5%AF%B9-linux-%E7%B3%BB%E7%BB%9F%E5%92%8C%E8%BF%9B%E7%A8%8B%E8%B5%84%E6%BA%90%E8%BF%9B%E8%A1%8C%E7%9B%91%E6%8E%A7/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.valine.el)
+    .then(() => NexT.utils.getScript(
+      'https://fastly.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js',
+      { condition: window.Valine }
+    ))
+    .then(() => {
+      new Valine(CONFIG.valine);
+    });
+});
+</script>
+
+</body>
+</html>

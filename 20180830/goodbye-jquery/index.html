@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/logo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="mask-icon" href="/logo.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"leadscloud.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"algolia":{"appID":"F1YESSIUKA","apiKey":"fba180e0d225a86fe382bf021a9f0ae3","indexName":"blog","hits":{"per_page":10}}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="目前来说，随着html5的兴起，大部分网站已经可以抛弃jQuery了，但仍有部分行业是离不开它的，主要为了兼容IE浏览器，有很多的jQuery插件也导致它不太可能立即消失。 但对于大部分网站来说，不使用jQuery一样可以做到同样的效果，原生的JS目前已经可以和jQuery一样方便了。 我09年接触jQuery到现在也差不多快10年了，看着前端日新月异的变化，中间也错失了很多，在这缤纷变化的世界里">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[转载]再见JQuery，我的老朋友">
+<meta property="og:url" content="https://leadscloud.github.io/20180830/goodbye-jquery/index.html">
+<meta property="og:site_name" content="leadscloud">
+<meta property="og:description" content="目前来说，随着html5的兴起，大部分网站已经可以抛弃jQuery了，但仍有部分行业是离不开它的，主要为了兼容IE浏览器，有很多的jQuery插件也导致它不太可能立即消失。 但对于大部分网站来说，不使用jQuery一样可以做到同样的效果，原生的JS目前已经可以和jQuery一样方便了。 我09年接触jQuery到现在也差不多快10年了，看着前端日新月异的变化，中间也错失了很多，在这缤纷变化的世界里">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-08-30T03:56:30.000Z">
+<meta property="article:modified_time" content="2025-04-10T04:42:07.136Z">
+<meta property="article:author" content="Ray">
+<meta property="article:tag" content="jQuery">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://leadscloud.github.io/20180830/goodbye-jquery/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://leadscloud.github.io/20180830/goodbye-jquery/","path":"20180830/goodbye-jquery/","title":"[转载]再见JQuery，我的老朋友"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>[转载]再见JQuery，我的老朋友 | leadscloud</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6GCT2E7T9Y"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-6GCT2E7T9Y","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="leadscloud" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">leadscloud</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Google SEO|外贸营销推广</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">266</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">11</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">459</span></a></li><li class="menu-item menu-item-免费chatgpt"><a href="https://freegpt.tech/?refer=blog-side" rel="section" target="_blank"><i class="fa fa-heart fa-fw"></i>免费ChatGPT</a></li><li class="menu-item menu-item-我的简历"><a href="https://leadscloud.github.io/resume/resume.pdf" rel="section"><i class="fa fa-vcard fa-fw"></i>我的简历</a></li><li class="menu-item menu-item-友情链接"><a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>友情链接</a></li><li class="menu-item menu-item-chrome扩展（域名所属人）"><a href="/serp-analyzer/" rel="section"><i class="fa fa-cloud fa-fw"></i>Chrome扩展（域名所属人）</a></li><li class="menu-item menu-item-询盘管理系统"><a href="https://github.com/leadscloud/infomaster" rel="section" target="_blank"><i class="fa fa-database fa-fw"></i>询盘管理系统</a></li><li class="menu-item menu-item-外贸留言板系统"><a href="/20180615/google-seo-inquiry-messageboard/" rel="section"><i class="fa fa-database fa-fw"></i>外贸留言板系统</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fab fa-algolia fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Polyfill-io"><span class="nav-number">1.</span> <span class="nav-text">Polyfill.io</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Github%E6%8A%9B%E5%BC%83jQuery"><span class="nav-number">2.</span> <span class="nav-text">Github抛弃jQuery</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jQuery%E7%9A%84%E8%BE%89%E7%85%8C"><span class="nav-number">3.</span> <span class="nav-text">jQuery的辉煌</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%86%E5%8F%B2%E7%9A%84%E9%80%89%E6%8B%A9"><span class="nav-number">4.</span> <span class="nav-text">历史的选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%A0%E5%8F%A5%E5%BF%A0%E5%91%8A"><span class="nav-number">5.</span> <span class="nav-text">几句忠告</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%BE%E5%A3%B0"><span class="nav-number">6.</span> <span class="nav-text">尾声</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Ray</p>
+  <div class="site-description" itemprop="description">熟悉 Google SEO，外贸营销推广，这是我的个人博客，主要分享工作中的技术。</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">459</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">266</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/leadscloud" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;leadscloud" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:love4026@gmail.com" title="E-Mail → mailto:love4026@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://cdn.livechatinc.xyz/" title="https:&#x2F;&#x2F;cdn.livechatinc.xyz&#x2F;" rel="noopener" target="_blank">RLiveChat</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://www.kamychina.com/" title="https:&#x2F;&#x2F;www.kamychina.com&#x2F;" rel="noopener" target="_blank">Roadheader</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://tinycms.xyz/" title="https:&#x2F;&#x2F;tinycms.xyz&#x2F;" rel="noopener" target="_blank">TinyCMS</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://leadscloud.github.io/20180830/goodbye-jquery/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ray">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="leadscloud">
+      <meta itemprop="description" content="熟悉 Google SEO，外贸营销推广，这是我的个人博客，主要分享工作中的技术。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="[转载]再见JQuery，我的老朋友 | leadscloud">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          [转载]再见JQuery，我的老朋友
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-08-30 11:56:30" itemprop="dateCreated datePublished" datetime="2018-08-30T11:56:30+08:00">2018-08-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-04-10 12:42:07" itemprop="dateModified" datetime="2025-04-10T12:42:07+08:00">2025-04-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/20180830/goodbye-jquery/" class="post-meta-item leancloud_visitors" data-flag-title="[转载]再见JQuery，我的老朋友" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Valine：</span>
+  
+    <a title="valine" href="/20180830/goodbye-jquery/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/20180830/goodbye-jquery/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>目前来说，随着html5的兴起，大部分网站已经可以抛弃jQuery了，但仍有部分行业是离不开它的，主要为了兼容IE浏览器，有很多的jQuery插件也导致它不太可能立即消失。</p>
+<p>但对于大部分网站来说，不使用jQuery一样可以做到同样的效果，原生的JS目前已经可以和jQuery一样方便了。</p>
+<p>我09年接触jQuery到现在也差不多快10年了，看着前端日新月异的变化，中间也错失了很多，在这缤纷变化的世界里，有时一旦不愿意接受变化，就会慢慢的被淘汰。很多3-5年的技术人员，还是一直用着jQuery，对于新的技术没有积极去学习尝试，导致离主流技术越来越远，自己的竞争力也在下降。</p>
+<p>最近看到一篇关于jQuery的文章，jQuery的确过时了，虽然一时也不会死掉，但我们要看到这种趋势。</p>
+<h3 id="Polyfill-io"><a href="#Polyfill-io" class="headerlink" title="Polyfill.io"></a>Polyfill.io</h3><p><strong>自动化的 JavaScript Polyfill 服务</strong></p>
+<p>Polyfill 可以为旧浏览器提供和标准 API 一样的功能。比如你想要 IE 浏览器实现 Promise 和 fetch 功能，你需要手动引入 es6-promise、whatwg-fetch。而通过 Polyfill.io，你只需要引入一个 JS 文件。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.polyfill.io/v2/polyfill.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>Polyfill.io 通过分析请求头信息中的 UserAgent 实现自动加载浏览器所需的 polyfills。</p>
+<p>Polyfill.io 有一份默认功能列表，包括了最常见的 polyfills：document.querySelector、Element.classList、ES5 新增的 Array 方法、Date.now、ES6 中的 Object.assign、Promise 等。</p>
+<p>你也可以通过传递 features 参数来自定义功能列表：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 加载 Promise&amp;fetch --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.polyfill.io/v2/polyfill.min.js?features=Promise,fetch&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 加载所有 ES5&amp;ES6 新特性 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.polyfill.io/v2/polyfill.min.js?features=es5,es6&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>Polyfill.io 还提供了其他 API，具体请查阅官方文档：</p>
+<p>以下是原文：</p>
+<pre><code>免责声明
+本文是仓促之作，从构思到成文不足半天。文中没有提到很多优秀的库和框架，提前在此致歉，因为没时间搜集整理。但这不代表笔者对这些库和框架没有敬意。实际上，包括jQuery在内，我的敬意是给这些名字背后整个社区和贡献者的，当然包括库和框架的最初编写者，比如John Resig。
+另外，时间所限，本文粗略、不严谨，甚至可能不客观地描绘了前端技术的发展脉络。对前端发展走向的这个判断，仅代表本人自己的主观认知，并非业界共识，恳请广大读者了解。千万不要以本文观点作为评价前端技术发展的依据。谢谢！
+
+作者：奇舞周刊
+链接：https://juejin.im/post/5b5af8565188251b186bcfcb
+来源：掘金
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+</code></pre>
+<h3 id="Github抛弃jQuery"><a href="#Github抛弃jQuery" class="headerlink" title="Github抛弃jQuery"></a>Github抛弃jQuery</h3><p>2018年7月25日，Mislav Marohnić发了一条推文，宣布GitHub.com前端已经彻底删除了jQuery（下图）。而且，还自问自答地解释（低调炫耀），删除jQuery之后也没用其他框架，而是全部依赖原生API。</p>
+<p>很多人不知道，我和jQuery颇有渊源。大概11年前（2007年），因为“疯狂迷恋”jQuery，我在国内率先翻译了jQuery 1.1的文档。后来有同好基于我翻译的版本继续翻译了jQuery新版文档，还不忘记在“关于”中提到我（<a href="http://hemin.cn/jq/about.html%EF%BC%89%EF%BC%9A">http://hemin.cn/jq/about.html）：</a></p>
+<p>居然称我为“国内jQuery的引路人”，惭愧。但在当时jQuery文档奇缺的情况下，我翻译的中文版应该是帮到了不少同学的。后来，我还翻译了Learning jQuery（《jQuery基础教程》）。<br>正因与jQuery的这个不解之缘，GitHub.com彻底抛弃jQuery的消息才触动我想了一些事。于是，决定写这篇小文，以飨读者（但愿有用，哈哈）。</p>
+<h3 id="jQuery的辉煌"><a href="#jQuery的辉煌" class="headerlink" title="jQuery的辉煌"></a>jQuery的辉煌</h3><p>jQuery最初诞生于2006年8月，作者是John Resig（<a href="https://zh.wikipedia.org/wiki/JQuery%EF%BC%89%E3%80%8210%E5%A4%9A%E5%B9%B4%E5%89%8D%EF%BC%8C%E7%BD%91%E9%A1%B5%E5%BC%80%E5%8F%91%E8%80%85%EF%BC%88%E5%BD%93%E6%97%B6%E8%BF%98%E6%B2%A1%E6%9C%89%E2%80%9C%E5%89%8D%E7%AB%AF%E2%80%9D%E8%BF%99%E4%B8%AA%E6%A6%82%E5%BF%B5%EF%BC%89%E6%B7%B1%E5%8F%97%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%8D%E5%85%BC%E5%AE%B9%E6%80%A7%E4%B9%8B%E8%8B%A6%E3%80%82%E4%BB%A5jQuery%E4%B8%BA%E4%BB%A3%E8%A1%A8%E7%9A%84%E4%B8%80%E6%89%B9JavaScript%E5%BA%93/%E6%A1%86%E6%9E%B6%E5%BA%94%E8%BF%90%E8%80%8C%E7%94%9F%EF%BC%9A">https://zh.wikipedia.org/wiki/JQuery）。10多年前，网页开发者（当时还没有“前端”这个概念）深受浏览器不兼容性之苦。以jQuery为代表的一批JavaScript库/框架应运而生：</a></p>
+<ul>
+<li>Dojo</li>
+<li>jQuery</li>
+<li>MooTools</li>
+<li>Prototype</li>
+<li>Yahoo! User Interface Library (YUI)</li>
+<li>Script.aculo.us</li>
+</ul>
+<p>这些库有的像jQuery一样是主打通用性，比如Dojo、Prototype；有的则走更专业化的路线，比如YUI（组件化）和Script.aculo.us（动画交互）。从通用功能看，这些库大都提供了如下特性：</p>
+<ul>
+<li>语法糖：链式调用、实用函数</li>
+<li>选择元素：基于各种标准选择符和库自定义的选择符，以及通过回调进行筛选</li>
+<li>操作DOM：创建和操作元素，乃至各种属性操作</li>
+<li>处理事件：ready事件及各种注册和触发事件的方法，乃至委托</li>
+<li>动画：基于animate的CSS属性动画，以及内置动画方法</li>
+<li>Ajax：封装原生的XMLHttpRequest API，简化请求方法及回调处理</li>
+</ul>
+<p>一批宣传和推广这些库和框架的书籍相继面世，迅速推动了这些库的采用。2010年出版的DOM Scripting, 2nd（《JavaScript DOM脚本编程艺术（第2版）》）就是其中之一。这本书专门有一个附录，介绍当时流行的库，主推jQuery。</p>
+<p>当时jQuery官网的自我描述是这样的：</p>
+<p>  “a fast and concise JavaScript Library that simplifies HTML document traversing, event handling, animating, and Ajax interactions for rapid web development. jQuery is designed to change the way that you write JavaScript.”</p>
+<p>不错，正是这样。jQuery凭借其选择器方法、面向集合的链式调用、对事件和Ajax的完善支持、简单而强大的动效等独有优势，迅速风靡，成为几乎所有网站开发必备的JavaScript库，乃至开创了jQuery编程风格。</p>
+<p>开发者选择jQuery的理由简单直接：</p>
+<ul>
+<li>跨浏览器</li>
+<li>简单高效</li>
+<li>稳定可靠</li>
+<li>插件丰富</li>
+</ul>
+<p>2011年新版的“犀牛书”第6版——JavaScript: The Definitive Guide, 6th甚至拿出第19章整整64页篇幅隆重讲解了jQuery（“Chapter 19. The jQuery Library”）。</p>
+<p>jQuery从此走向鼎盛和辉煌。后来，随着前端交互越来越重和移动应用的普及，jQuery UI、jQuery Mobile相继面世。</p>
+<p>时至今日，jQuery仍然在支撑着数以千万计各种规模网站的运作——尽管聚光灯下已经不常看到她的身影。</p>
+<h3 id="历史的选择"><a href="#历史的选择" class="headerlink" title="历史的选择"></a>历史的选择</h3><p>最近10年，是“前端行业”有史以来发展最快的10年。</p>
+<p>移动社交时代的到来不仅没有让桌面Web失色，反倒刺激了Web标准的迅猛改进。HTML5不仅带来了极大的向后兼容性，也带来了更丰富的原生DOM API。CSS从CSS3开始走上模块化的快车道，文本样式、排版布局、媒体查询，各种新模块让人目不暇接。</p>
+<p>各大主流浏览器也在快速跟进，Firefox、Chrome、Opera、Safari、IE乃至Edge，都在积极重构甚至重写内核，争做支持Web标准的“楷模”。在这个大背景下，各大互联网公司不断调高兼容的IE版本号，从8到9到10，再到11。</p>
+<p>当然，还有ECMAScript语言标准。自从划时代的ES6（ECMAScript 2015）发布之后，JavaScript终于真正开始摆脱“玩具”语言的尴尬境地。更重要的，从ES6起，ECMAScript也进入了快速迭代、每年发一版的节奏。ES7、ES8，以及ES9，每次都会给这门语言注入更强大的语言特性。</p>
+<p>与此同时，Node.js和Babel等服务端运行时及转译工具的出现，也让前端工程化，以及向传统工业级软件开发最佳实践靠拢的速度日益加快。</p>
+<p>2012年，笔者在图灵社区翻译过一篇文章“JavaScript宝座：七大框架论剑”（<a href="http://www.ituring.com.cn/article/8108%EF%BC%89%E3%80%82%E5%BD%93%E6%97%B6%E7%9A%84%E2%80%9C%E4%B8%83%E5%A4%A7%E6%A1%86%E6%9E%B6%E2%80%9D%E6%98%AF%EF%BC%9A">http://www.ituring.com.cn/article/8108）。当时的“七大框架”是：</a></p>
+<ul>
+<li>Backbone</li>
+<li>Knockout</li>
+<li>Spine</li>
+<li>CanJS</li>
+<li>Ember</li>
+<li>AngularJS</li>
+<li>Batman</li>
+<li>Meteor</li>
+</ul>
+<p>后来，谷歌主打SPA（Single Page Application，单页应用）的Angular终于一枝独秀。不久，脸书推出的“在JS里写HTML一样优雅”的React则一路高歌猛进。最终，集各家所长且简单易用的Vue横空出世。</p>
+<p>前端开发已经从后“刀耕火种”时代的“农业文明”，逐渐进化为以大规模、可扩展、规范化、自动化为特征的准“工业文明”。<br>俗话说：“皮之不存，毛将焉附。”随着时代变迁、技术进步，jQuery赖以存在的环境正逐渐消失。如前所述，新的环境催生了一批框架新秀。曾经辉煌的jQuery终于走到了可以华丽谢幕的时刻。</p>
+<h3 id="几句忠告"><a href="#几句忠告" class="headerlink" title="几句忠告"></a>几句忠告</h3><p>8年前，DOM Scripting, 2nd在推荐开发者使用前端库时，语重心长地说过下面这段话：</p>
+<p>  “开发中使用库当然没问题，但前提是不要仅仅只知道怎么使用，更要知道它的工作原理。如果不能超越这些库，那在这些库变成你的拐杖之时，你也会随之“残废”。在使用某个库之前，一定要花时间学习掌握JavaScript和DOM。我们从一开头就强调“知其所以然”的重要性，告诉大家不能满足于仅仅“知其然”。如果使用了库，却不晓得其背后原理，无论对自己还是对产品都将是有害的。”</p>
+<p>2012年，从后端转前端不久的Ray Nicholus接手了一个跨浏览器文件上传库（<a href="https://github.com/FineUploader%EF%BC%89%E7%9A%84%E7%BB%B4%E6%8A%A4%E5%92%8C%E5%BC%80%E5%8F%91%E5%B7%A5%E4%BD%9C%E3%80%82%E4%BB%96%E7%9A%84%E7%AC%AC%E4%B8%80%E5%8F%8D%E5%BA%94%E5%B0%B1%E6%98%AF%E7%94%A8jQuery%E9%87%8D%E5%86%99%E8%BF%99%E4%B8%AA%E5%BA%93%E3%80%82%E7%84%B6%E8%80%8C%EF%BC%8C%E7%94%A8%E6%88%B7%E5%8F%8D%E5%AF%B9%E5%BC%95%E5%85%A5%E4%BB%BB%E4%BD%95%E5%AF%B9%E5%85%B6%E4%BB%96%E5%BA%93%E7%9A%84%E4%BE%9D%E8%B5%96%E3%80%82%E7%BB%93%E6%9E%9C%E4%BB%96%E5%8F%AA%E8%83%BD%E4%BD%BF%E7%94%A8%E5%8E%9F%E7%94%9F%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84API%E3%80%82%E9%82%A3%E5%8F%88%E6%80%8E%E6%A0%B7%E5%91%A2%EF%BC%9F%E4%BB%96%E5%8F%91%E7%8E%B0%EF%BC%8C%E5%8E%9F%E6%9D%A5%E6%94%BE%E5%BC%83jQuery%E7%9A%84%E5%86%99%E6%B3%95%E6%AF%94%E8%87%AA%E5%B7%B1%E6%83%B3%E8%B1%A1%E7%9A%84%E8%A6%81%E5%AE%B9%E6%98%93%E3%80%82">https://github.com/FineUploader）的维护和开发工作。他的第一反应就是用jQuery重写这个库。然而，用户反对引入任何对其他库的依赖。结果他只能使用原生浏览器的API。那又怎样呢？他发现，原来放弃jQuery的写法比自己想象的要容易。</a></p>
+<p>2014年，Ray发表了：“You Don’t Need jQuery!”系列博客（<a href="https://blog.garstasio.com/you-dont-need-jquery/%EF%BC%89%E3%80%822016%E5%B9%B4%EF%BC%8C%E4%BB%96%E7%9A%84%E8%91%97%E4%BD%9CBeyond">https://blog.garstasio.com/you-dont-need-jquery/）。2016年，他的著作Beyond</a> jQuery （Apress，<a href="https://www.amazon.com/dp/1484222342/%EF%BC%89%E5%87%BA%E7%89%88%E3%80%82Ray%E5%BB%BA%E8%AE%AE%EF%BC%8C%E5%AD%A6%E4%B9%A0%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%EF%BC%8C%E6%9C%AC%E6%9D%A5%E5%BA%94%E8%AF%A5%E6%98%AF%E8%BF%99%E4%B8%AA%E9%A1%BA%E5%BA%8F%EF%BC%9A">https://www.amazon.com/dp/1484222342/）出版。Ray建议，学习前端开发，本来应该是这个顺序：</a></p>
+<ol>
+<li>学习JavaScript</li>
+<li>学习Web API</li>
+<li>学习jQuery（或其他框架&#x2F;库）</li>
+</ol>
+<p>但很多人实际上是从#3开始的，然后过了很久才开始#1和#2（甚至从来没想过#1和#2）。结果就是“只知其然，而不知其所以然”。</p>
+<p>如今，时移世易，jQuery即将谢幕，新一代组件化开发框架粉墨登场。然而，“太阳底下没有新鲜事。”不管是使用Angular，还是React，抑或是Vue，还是要真正理解它们背后的工作原理。<br>（为避免广告嫌疑，我在这里就不着重推荐360导航前端的刘博文同学即将出版的《深入浅出Vue.js》一书了，哈哈哈～～，因为没有封面可以展示。）</p>
+<h3 id="尾声"><a href="#尾声" class="headerlink" title="尾声"></a>尾声</h3><p>jQuery作为第一代前端库的优秀代表，成就了今天Web的繁荣，也成就了一代Web开发者。作为“国内jQuery的引路人”（这个帽子是别人给的，我借用一下，哈哈），我个人对jQuery的感情是复杂的。既不希望它离开，又希望它早点离开。我想，这应该也是很多早期接触jQuery的前端开发者的心声吧。</p>
+<p>作者：奇舞周刊<br>链接：<a href="https://juejin.im/post/5b5af8565188251b186bcfcb">https://juejin.im/post/5b5af8565188251b186bcfcb</a><br>来源：掘金<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Ray
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://leadscloud.github.io/20180830/goodbye-jquery/" title="[转载]再见JQuery，我的老朋友">https://leadscloud.github.io/20180830/goodbye-jquery/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/jQuery/" rel="tag"># jQuery</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/20180731/javascript-hoisting/" rel="prev" title="Javascript Hoisting 变量提升">
+                  <i class="fa fa-angle-left"></i> Javascript Hoisting 变量提升
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/20180925/nanjing-travel/" rel="next" title="中秋南京二日游">
+                  中秋南京二日游 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="valine-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Ray</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/leadscloud" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/algoliasearch/4.24.0/algoliasearch-lite.umd.js" integrity="sha256-b2n6oSgG4C1stMT/yc/ChGszs9EY/Mhs6oltEjQbFCQ=" crossorigin="anonymous"></script><script src="/js/third-party/search/algolia-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"ePPAQV9hFzcbhOaQvvtyjTnw-gzGzoHsz","app_key":"GLniGVXsSMGBjTmaiI4wleaF","server_url":"https://leancloud.tinycms.xyz","security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+
+
+<script class="next-config" data-name="valine" type="application/json">{"enable":true,"appId":"ePPAQV9hFzcbhOaQvvtyjTnw-gzGzoHsz","appKey":"GLniGVXsSMGBjTmaiI4wleaF","serverURLs":"https://leancloud.tinycms.xyz","placeholder":"Just go go","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-cn","visitor":false,"comment_count":true,"recordIP":true,"enableQQ":true,"requiredFields":[],"el":"#valine-comments","path":"/20180830/goodbye-jquery/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.valine.el)
+    .then(() => NexT.utils.getScript(
+      'https://fastly.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js',
+      { condition: window.Valine }
+    ))
+    .then(() => {
+      new Valine(CONFIG.valine);
+    });
+});
+</script>
+
+</body>
+</html>

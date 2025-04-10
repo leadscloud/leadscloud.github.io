@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/logo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="mask-icon" href="/logo.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"leadscloud.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"algolia":{"appID":"F1YESSIUKA","apiKey":"fba180e0d225a86fe382bf021a9f0ae3","indexName":"blog","hits":{"per_page":10}}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="[caption id&#x3D;”attachment_313288” align&#x3D;”alignleft” width&#x3D;”172” caption&#x3D;”Google搜索引擎工作原理图示”][&#x2F;caption] PPCblog.com呈现给我们一幅由Jess Bachman（在WallStats.com工作）精心描绘的示意图，这张流程图展示了每天拥有3亿次点击">
+<meta property="og:type" content="article">
+<meta property="og:title" content="google搜索引擎的工作原理">
+<meta property="og:url" content="https://leadscloud.github.io/313287/google%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/index.html">
+<meta property="og:site_name" content="leadscloud">
+<meta property="og:description" content="[caption id&#x3D;”attachment_313288” align&#x3D;”alignleft” width&#x3D;”172” caption&#x3D;”Google搜索引擎工作原理图示”][&#x2F;caption] PPCblog.com呈现给我们一幅由Jess Bachman（在WallStats.com工作）精心描绘的示意图，这张流程图展示了每天拥有3亿次点击">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.love4026.org/wp-content/uploads/2012/03/how-google-works-chinese-detail-172x300.jpg">
+<meta property="article:published_time" content="2012-03-05T00:08:52.000Z">
+<meta property="article:modified_time" content="2025-04-10T04:42:07.137Z">
+<meta property="article:author" content="Ray">
+<meta property="article:tag" content="Google">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.love4026.org/wp-content/uploads/2012/03/how-google-works-chinese-detail-172x300.jpg">
+
+
+<link rel="canonical" href="https://leadscloud.github.io/313287/google%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://leadscloud.github.io/313287/google%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/","path":"313287/google搜索引擎的工作原理/","title":"google搜索引擎的工作原理"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>google搜索引擎的工作原理 | leadscloud</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6GCT2E7T9Y"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-6GCT2E7T9Y","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="leadscloud" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">leadscloud</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Google SEO|外贸营销推广</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">266</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">11</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">459</span></a></li><li class="menu-item menu-item-免费chatgpt"><a href="https://freegpt.tech/?refer=blog-side" rel="section" target="_blank"><i class="fa fa-heart fa-fw"></i>免费ChatGPT</a></li><li class="menu-item menu-item-我的简历"><a href="https://leadscloud.github.io/resume/resume.pdf" rel="section"><i class="fa fa-vcard fa-fw"></i>我的简历</a></li><li class="menu-item menu-item-友情链接"><a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>友情链接</a></li><li class="menu-item menu-item-chrome扩展（域名所属人）"><a href="/serp-analyzer/" rel="section"><i class="fa fa-cloud fa-fw"></i>Chrome扩展（域名所属人）</a></li><li class="menu-item menu-item-询盘管理系统"><a href="https://github.com/leadscloud/infomaster" rel="section" target="_blank"><i class="fa fa-database fa-fw"></i>询盘管理系统</a></li><li class="menu-item menu-item-外贸留言板系统"><a href="/20180615/google-seo-inquiry-messageboard/" rel="section"><i class="fa fa-database fa-fw"></i>外贸留言板系统</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fab fa-algolia fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Google%E5%AE%98%E6%96%B9%E5%AF%B9%E5%85%B6%E6%90%9C%E7%B4%A2%E6%8A%80%E6%9C%AF%E7%9A%84%E5%8F%99%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">Google官方对其搜索技术的叙述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E4%B8%AD%E5%BF%83%EF%BC%9AGoogle%E7%94%A8%E6%9D%A5%E7%B4%A2%E5%BC%95%E4%B8%96%E7%95%8C%E7%9A%84%E5%A1%94"><span class="nav-number">2.</span> <span class="nav-text">数据中心：Google用来索引世界的塔</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">处理流程</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Ray</p>
+  <div class="site-description" itemprop="description">熟悉 Google SEO，外贸营销推广，这是我的个人博客，主要分享工作中的技术。</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">459</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">266</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/leadscloud" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;leadscloud" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:love4026@gmail.com" title="E-Mail → mailto:love4026@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://cdn.livechatinc.xyz/" title="https:&#x2F;&#x2F;cdn.livechatinc.xyz&#x2F;" rel="noopener" target="_blank">RLiveChat</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://www.kamychina.com/" title="https:&#x2F;&#x2F;www.kamychina.com&#x2F;" rel="noopener" target="_blank">Roadheader</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://tinycms.xyz/" title="https:&#x2F;&#x2F;tinycms.xyz&#x2F;" rel="noopener" target="_blank">TinyCMS</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://leadscloud.github.io/313287/google%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ray">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="leadscloud">
+      <meta itemprop="description" content="熟悉 Google SEO，外贸营销推广，这是我的个人博客，主要分享工作中的技术。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="google搜索引擎的工作原理 | leadscloud">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          google搜索引擎的工作原理
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2012-03-05 08:08:52" itemprop="dateCreated datePublished" datetime="2012-03-05T08:08:52+08:00">2012-03-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-04-10 12:42:07" itemprop="dateModified" datetime="2025-04-10T12:42:07+08:00">2025-04-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Google-SEO/" itemprop="url" rel="index"><span itemprop="name">Google SEO</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/313287/google%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" class="post-meta-item leancloud_visitors" data-flag-title="google搜索引擎的工作原理" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Valine：</span>
+  
+    <a title="valine" href="/313287/google%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/313287/google%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>[caption id&#x3D;”attachment_313288” align&#x3D;”alignleft” width&#x3D;”172” caption&#x3D;”Google搜索引擎工作原理图示”]<a href="http://www.love4026.org/wp-content/uploads/2012/03/how-google-works-chinese-detail.jpg"><img src="http://www.love4026.org/wp-content/uploads/2012/03/how-google-works-chinese-detail-172x300.jpg" alt="Google搜索引擎工作原理图示" title="Google搜索引擎工作原理图示"></a>[&#x2F;caption]</p>
+<p>PPCblog.com呈现给我们一幅由Jess Bachman（在WallStats.com工作）精心描绘的示意图，这张流程图展示了每天拥有3亿次点击量的Google搜索按钮背后搜索引擎在那不到1秒的响应时间内所进行的处理。这张流程图演示了在你点击Google搜索按钮后，在Google返回查询结果前那一眨眼的功夫里，Google是如何处理你的搜索请求的？这可是搜索巨人Google年赢利额高达200亿美元的杀手级应用，也是Internet首屈一指的商业和技术神话，大家肯定都想知道Google这棵摇钱树背后的秘密。</p>
+<h2 id="Google官方对其搜索技术的叙述"><a href="#Google官方对其搜索技术的叙述" class="headerlink" title="Google官方对其搜索技术的叙述"></a>Google官方对其搜索技术的叙述</h2><p>我们搜索技术的后端软件会在服务器侧触发一系列执行时间不到1秒的并行计算，Google问世前的传统搜索引擎的搜索结果严重依赖于关键词在页面上出现的频度，我们使用了200多个指标信号（其中包括我们拥有专利的PageRank页面等级加权算法）用来检查万维网的链接结构（佩奇和布林最初的想法是把万维网的链接结构用图论的有向无环图来建模）并决定网页的重要程度，我们假定一个网页的重要程度取决于别的页面对它的引用，就像学术论文中的引用指数一样，重要的论文总是会被很多其他论文引用。然后我们再根据搜索条件进行超文本匹配分析（对bot抓取的页面内容进行关键词倒排索引检索）确定跟搜索请求最相关的网页。综合最重要的网页和跟搜索请求最相关的网页两个方面，我们就能按重要程度和用户搜索请求相关程度把查询结果排序后呈现给我们的用户。</p>
+<h2 id="数据中心：Google用来索引世界的塔"><a href="#数据中心：Google用来索引世界的塔" class="headerlink" title="数据中心：Google用来索引世界的塔"></a>数据中心：Google用来索引世界的塔</h2><p>Google的数据中心高度机密，我们能了解到的不多：</p>
+<p>1． 在美国本土有19个以上的数据中心，其余17个数据中心分布在美国以外的世界各地。</p>
+<p>2． 每个数据中心有50万平方英尺那么大，建造一个数据中心要花费约6亿美元。</p>
+<p>3． Google数据中心是世界上最高效的设施之一，而且也非常环保，几乎没有碳排放。</p>
+<p>4． 数据中心使用50到100兆瓦的电力，由于需要冷却，通常建在便于用水的地方。</p>
+<p>5． Google服务器安置在一个一组容得下1160台服务器的有房子那么大的标准集装箱容器中。</p>
+<h2 id="处理流程"><a href="#处理流程" class="headerlink" title="处理流程"></a>处理流程</h2><p>1．你写博客、或在Twitter上推微博、更新站点等诸如此类往Web上添加内容的操作</p>
+<p>2．Google bots程序（一种作为搜索引擎构件的智能代理程序）抓取你网页的title和description、keyword等内容</p>
+<p>（1）Google爬虫沿着链接路径周游万维网，如果没有超文本路径到你的站点，你的站点将不会被索引</p>
+<p>（2）如果你在robots.txt中设置不许索引，Google爬虫程序将不会抓取你的网页</p>
+<p>（3）如果链接到你站点的超文本链接上有nofollow标签，Google爬虫将不会从这些链接路径周游到你的站点。</p>
+<p>（4）Google也能通过blog软件或xml站点地图找到你的网站</p>
+<p>（5）从PageRank越高的网站链接到你的网站的链接越多，你的网站的PageRank就越高。</p>
+<p>（6）Google爬虫将周游所有未标注为nofollow的链接</p>
+<p>3．一旦被Google爬虫访问到，网页几秒内就被索引了</p>
+<p>（1）网页内容被存储在一个倒排索引中</p>
+<p>① 网页标题和链接数据被保存在一个索引中，用于广度优先搜索</p>
+<p>② 网页内容保存在另一个索引中，以用于检索频率不高的长尾、个性化、深度优先搜索</p>
+<p>（2）当你用Google搜索时，你并没有在检索时时更新的万维网，而是在检索Google的缓存，Google定期更新其索引库，在Twitter实时搜索等的竞争下，Google的索引库更新周期趋短。</p>
+<p>4．Google基于链接评估域名和网页的总体PageRank值。</p>
+<p>5．检查网页以防止作弊行为</p>
+<p>(1) Google的搜索质量和反垃圾信息审查和优化算法</p>
+<p>(2) 1万多远程测试用户评价搜索结果的质量</p>
+<p>(3) Google征请用户对有PageRank讹诈嫌疑的垃圾信息进行举报</p>
+<p>(4) Google接到 (美国)数字千年版权法案的通知，要求Google从搜索结果中剔除涉嫌盗版的内容</p>
+<p>6．在对页面做了损害分析后，现在每个页面都有很多用于辅助用户搜索的数据片（比如检索关键词）反向引用着它</p>
+<p>7．用户发出搜索请求</p>
+<p>（1）Google搜索质量工程师Patrick Riley：在大多数Google搜索中，你的搜索处于许多并行的控制过程或Google实验室的创新项目组过程中，可以说每一个查询请求都会参与一些Google的创意实验。</p>
+<p>8．Google会用同义词匹配与你的搜索关键词语义相近的查询结果</p>
+<p>9．生成初步的查询结果</p>
+<p>（1）Google当然能返回成千上万数量无限的查询结果，但一般只显示不到1000条的查询结果，出于“少则得，多则惑”的考虑。（2）对查询结果做本地化处理，本土站点在查询结果中优先出现</p>
+<p>10．对查询结果集按权威性和PageRank进行排序，重复的查询结果被剔除。</p>
+<p>(1) Google根据关键词、广告类型、用户所处位置找出相关的被竞价拍卖的关键词广告</p>
+<p>(2) 关键词广告必须遵守当地法律条文</p>
+<p>① 广告业主的非法广告将被取缔</p>
+<p>② 如果关键词的搜索流量过低或关键词广告点击量偏低，则会被自动禁用</p>
+<p>③ 出于商业策略，像亚马逊这样的客户会给予优惠折扣。</p>
+<p>(3) 关键词相关广告按收益潜力（对关键词进行竞价拍卖后的广告质量不断进行评估）排序</p>
+<p>(4) 对广告业主来说广告内容一般都是固定的，但有时使用动态关键词使关键词广告与搜索关键词相关度更高</p>
+<p>① 一些广告本身允许增加易变的附属信息，比如网站链接、电话号码、产品链接、地址等</p>
+<p>(5) 当广告拥有了相当高的点击率，则会显示在搜索结果列表的上方，以使其更显眼。</p>
+<p>(6) 其余的广告依序显示在相应的位置</p>
+<p>11．对查询结果进行过滤处理</p>
+<p>(1) 对通常的查询（比如在Google首页上发出的搜索请求），Google会把相关的专题性垂直搜索结果（比如新闻、购物、视频、书籍、地图等）也加到返回的查询结果中</p>
+<p>(2) 个性化方面：用户访问过的网站在查询结果列表中会更靠上</p>
+<p>(3) 大量使用锚点的网站有可能被从查询结果中删除</p>
+<p>(4) 搜索结果集的聚簇性：如果网页被其他高PageRank的网站引用，则网页的重要性会大大提高。</p>
+<p>(5) 趋势分析：对搜索流量爆增或有大量新闻的搜索关键词，Google会在新的查询结果中增加额外的PageRank权值。（Google有反映关键词搜索流量的Google趋势专题页面）</p>
+<p>(6) 同一个域名下的多个网页如果具有相同的PageRank会被归为一组。</p>
+<p>12. 最终返回给浏览器端的用户一个人性化的、布局良好的、查询结果和广告泾渭分明的有机查询结果页面。</p>
+<p>所有这些步骤在总共不到1秒的响应时间内完成，每天3亿次的点击量给Google带来了超过200亿美元的年收入。</p>
+<p>文章来源：honest Translate</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Ray
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://leadscloud.github.io/313287/google%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" title="google搜索引擎的工作原理">https://leadscloud.github.io/313287/google搜索引擎的工作原理/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Google/" rel="tag"># Google</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/313285/%E8%A7%A6%E6%91%B8%E5%B1%8F%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E4%B9%8B%E5%85%A5%E9%97%A8%E8%A7%A3%E6%9E%90/" rel="prev" title="触摸屏工作原理之入门解析">
+                  <i class="fa fa-angle-left"></i> 触摸屏工作原理之入门解析
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/313289/google-%E6%9B%B4%E6%96%B0/" rel="next" title="Google 更新">
+                  Google 更新 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="valine-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Ray</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/leadscloud" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/algoliasearch/4.24.0/algoliasearch-lite.umd.js" integrity="sha256-b2n6oSgG4C1stMT/yc/ChGszs9EY/Mhs6oltEjQbFCQ=" crossorigin="anonymous"></script><script src="/js/third-party/search/algolia-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"ePPAQV9hFzcbhOaQvvtyjTnw-gzGzoHsz","app_key":"GLniGVXsSMGBjTmaiI4wleaF","server_url":"https://leancloud.tinycms.xyz","security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+
+
+<script class="next-config" data-name="valine" type="application/json">{"enable":true,"appId":"ePPAQV9hFzcbhOaQvvtyjTnw-gzGzoHsz","appKey":"GLniGVXsSMGBjTmaiI4wleaF","serverURLs":"https://leancloud.tinycms.xyz","placeholder":"Just go go","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-cn","visitor":false,"comment_count":true,"recordIP":true,"enableQQ":true,"requiredFields":[],"el":"#valine-comments","path":"/313287/google%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.valine.el)
+    .then(() => NexT.utils.getScript(
+      'https://fastly.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js',
+      { condition: window.Valine }
+    ))
+    .then(() => {
+      new Valine(CONFIG.valine);
+    });
+});
+</script>
+
+</body>
+</html>

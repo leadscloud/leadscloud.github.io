@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/logo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="mask-icon" href="/logo.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"leadscloud.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"algolia":{"appID":"F1YESSIUKA","apiKey":"fba180e0d225a86fe382bf021a9f0ae3","indexName":"blog","hits":{"per_page":10}}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="最初用Privoxy是因为七星庐的文章强大的代理调度器代理Privoxy，用作代理切换，后来顺便也用起它广告过滤的功能 能实现这两个功能的软件&#x2F;插件很多，而且用起来往往比privoxy来的方便，比如foxproxy和adblock。我之所以用privoxy是因为以下原因：  作为系统的全局自动代理切换器。GNOME和环境变量的代理设置不是对任何软件都管用，PAC也不是哪里都行 广告过滤可">
+<meta property="og:type" content="article">
+<meta property="og:title" content="privoxy 广告过滤和自动代理切换">
+<meta property="og:url" content="https://leadscloud.github.io/313599/privoxy-%E5%B9%BF%E5%91%8A%E8%BF%87%E6%BB%A4%E5%92%8C%E8%87%AA%E5%8A%A8%E4%BB%A3%E7%90%86%E5%88%87%E6%8D%A2/index.html">
+<meta property="og:site_name" content="leadscloud">
+<meta property="og:description" content="最初用Privoxy是因为七星庐的文章强大的代理调度器代理Privoxy，用作代理切换，后来顺便也用起它广告过滤的功能 能实现这两个功能的软件&#x2F;插件很多，而且用起来往往比privoxy来的方便，比如foxproxy和adblock。我之所以用privoxy是因为以下原因：  作为系统的全局自动代理切换器。GNOME和环境变量的代理设置不是对任何软件都管用，PAC也不是哪里都行 广告过滤可">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2013-06-04T02:24:31.000Z">
+<meta property="article:modified_time" content="2025-04-10T04:42:07.142Z">
+<meta property="article:author" content="Ray">
+<meta property="article:tag" content="privoxy">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://leadscloud.github.io/313599/privoxy-%E5%B9%BF%E5%91%8A%E8%BF%87%E6%BB%A4%E5%92%8C%E8%87%AA%E5%8A%A8%E4%BB%A3%E7%90%86%E5%88%87%E6%8D%A2/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://leadscloud.github.io/313599/privoxy-%E5%B9%BF%E5%91%8A%E8%BF%87%E6%BB%A4%E5%92%8C%E8%87%AA%E5%8A%A8%E4%BB%A3%E7%90%86%E5%88%87%E6%8D%A2/","path":"313599/privoxy-广告过滤和自动代理切换/","title":"privoxy 广告过滤和自动代理切换"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>privoxy 广告过滤和自动代理切换 | leadscloud</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6GCT2E7T9Y"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-6GCT2E7T9Y","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="leadscloud" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">leadscloud</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Google SEO|外贸营销推广</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">266</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">11</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">459</span></a></li><li class="menu-item menu-item-免费chatgpt"><a href="https://freegpt.tech/?refer=blog-side" rel="section" target="_blank"><i class="fa fa-heart fa-fw"></i>免费ChatGPT</a></li><li class="menu-item menu-item-我的简历"><a href="https://leadscloud.github.io/resume/resume.pdf" rel="section"><i class="fa fa-vcard fa-fw"></i>我的简历</a></li><li class="menu-item menu-item-友情链接"><a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>友情链接</a></li><li class="menu-item menu-item-chrome扩展（域名所属人）"><a href="/serp-analyzer/" rel="section"><i class="fa fa-cloud fa-fw"></i>Chrome扩展（域名所属人）</a></li><li class="menu-item menu-item-询盘管理系统"><a href="https://github.com/leadscloud/infomaster" rel="section" target="_blank"><i class="fa fa-database fa-fw"></i>询盘管理系统</a></li><li class="menu-item menu-item-外贸留言板系统"><a href="/20180615/google-seo-inquiry-messageboard/" rel="section"><i class="fa fa-database fa-fw"></i>外贸留言板系统</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fab fa-algolia fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%90%86%E5%88%87%E6%8D%A2"><span class="nav-number">1.</span> <span class="nav-text">代理切换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B9%BF%E5%91%8A%E8%BF%87%E6%BB%A4"><span class="nav-number">2.</span> <span class="nav-text">广告过滤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E5%AE%83%E5%86%85%E5%AE%B9"><span class="nav-number">3.</span> <span class="nav-text">其它内容</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A5%E6%99%AE%E9%80%9A%E7%94%A8%E6%88%B7%E5%90%AF%E5%8A%A8"><span class="nav-number">3.1.</span> <span class="nav-text">以普通用户启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%89%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81%E7%9A%84%E4%BB%A3%E7%90%86"><span class="nav-number">3.2.</span> <span class="nav-text">有身份验证的代理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E5%AE%8C%E6%95%B4%E7%9A%84%E6%96%B9%E6%A1%88"><span class="nav-number">4.</span> <span class="nav-text">一个完整的方案</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Ray</p>
+  <div class="site-description" itemprop="description">熟悉 Google SEO，外贸营销推广，这是我的个人博客，主要分享工作中的技术。</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">459</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">266</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/leadscloud" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;leadscloud" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:love4026@gmail.com" title="E-Mail → mailto:love4026@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://cdn.livechatinc.xyz/" title="https:&#x2F;&#x2F;cdn.livechatinc.xyz&#x2F;" rel="noopener" target="_blank">RLiveChat</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://www.kamychina.com/" title="https:&#x2F;&#x2F;www.kamychina.com&#x2F;" rel="noopener" target="_blank">Roadheader</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://tinycms.xyz/" title="https:&#x2F;&#x2F;tinycms.xyz&#x2F;" rel="noopener" target="_blank">TinyCMS</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://leadscloud.github.io/313599/privoxy-%E5%B9%BF%E5%91%8A%E8%BF%87%E6%BB%A4%E5%92%8C%E8%87%AA%E5%8A%A8%E4%BB%A3%E7%90%86%E5%88%87%E6%8D%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ray">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="leadscloud">
+      <meta itemprop="description" content="熟悉 Google SEO，外贸营销推广，这是我的个人博客，主要分享工作中的技术。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="privoxy 广告过滤和自动代理切换 | leadscloud">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          privoxy 广告过滤和自动代理切换
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2013-06-04 10:24:31" itemprop="dateCreated datePublished" datetime="2013-06-04T10:24:31+08:00">2013-06-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-04-10 12:42:07" itemprop="dateModified" datetime="2025-04-10T12:42:07+08:00">2025-04-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%BD%AC%E8%BD%BD/" itemprop="url" rel="index"><span itemprop="name">转载</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/313599/privoxy-%E5%B9%BF%E5%91%8A%E8%BF%87%E6%BB%A4%E5%92%8C%E8%87%AA%E5%8A%A8%E4%BB%A3%E7%90%86%E5%88%87%E6%8D%A2/" class="post-meta-item leancloud_visitors" data-flag-title="privoxy 广告过滤和自动代理切换" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Valine：</span>
+  
+    <a title="valine" href="/313599/privoxy-%E5%B9%BF%E5%91%8A%E8%BF%87%E6%BB%A4%E5%92%8C%E8%87%AA%E5%8A%A8%E4%BB%A3%E7%90%86%E5%88%87%E6%8D%A2/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/313599/privoxy-%E5%B9%BF%E5%91%8A%E8%BF%87%E6%BB%A4%E5%92%8C%E8%87%AA%E5%8A%A8%E4%BB%A3%E7%90%86%E5%88%87%E6%8D%A2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>最初用Privoxy是因为七星庐的文章<a href="http://qixinglu.com/archives/powerful_filter_proxy_privoxy" title="http:&#x2F;&#x2F;qixinglu.com&#x2F;archives&#x2F;powerful_filter_proxy_privoxy">强大的代理调度器代理Privoxy</a>，用作代理切换，后来顺便也用起它广告过滤的功能</p>
+<p>能实现这两个功能的软件&#x2F;插件很多，而且用起来往往比privoxy来的方便，比如foxproxy和adblock。我之所以用privoxy是因为以下原因：</p>
+<ul>
+<li>作为系统的全局自动代理切换器。GNOME和环境变量的代理设置不是对任何软件都管用，PAC也不是哪里都行</li>
+<li>广告过滤可用于任何浏览器，并且容易定制，改改网页什么的</li>
+</ul>
+<p>配置是繁琐些，但用起来确实不错。</p>
+<p>安装用源里的就可以，默认是作为系统服务启动的。装好后请将浏览器代理设置为127.0.0.1:8118，以便测试。地址栏输入”p.p”可以查看配置、文档、调试等等。</p>
+<h2 id="代理切换"><a href="#代理切换" class="headerlink" title="代理切换"></a>代理切换</h2><p>配置文件都在&#x2F;etc&#x2F;privoxy目录下。编辑config文件，加入一行<br><code>actionsfile pac.action</code><br>这表示添加一个动作文件，文件名是pac.action。在同目录下建立文件”pac.action”，并写入配置。一个示例如下</p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;alias&#125;&#125;</span><br><span class="line">direct      = +forward-override&#123;forward .&#125;</span><br><span class="line">ssh         = +forward-override&#123;forward-socks5 <span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span>:<span class="number">7000</span> .&#125;</span><br><span class="line">gae         = +forward-override&#123;forward <span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span>:<span class="number">8000</span>&#125; </span><br><span class="line">default     = direct</span><br><span class="line">#==========默认代理==========</span><br><span class="line">&#123;default&#125;</span><br><span class="line">/</span><br><span class="line">#==========直接连接==========</span><br><span class="line">&#123;direct&#125; </span><br><span class="line">.edu.cn</span><br><span class="line"><span class="number">202</span>.<span class="number">117</span>.<span class="number">255</span>.</span><br><span class="line"><span class="number">222.24.211.70</span></span><br><span class="line">#==========SSH代理==========</span><br><span class="line">&#123;ssh&#125;</span><br><span class="line">.launchpad.net</span><br><span class="line">#==========GAE代理==========</span><br><span class="line">&#123;gae&#125;</span><br><span class="line">.webupd8.org</span><br><span class="line"><span class="number">222.24.211.70</span></span><br></pre></td></tr></table></figure>
+
+<p>上面的<code>&#123;&#123;alias&#125;&#125;</code>部分定义了一些缩写，注意http代理和socks代理的写法不同。</p>
+<p>后面的如{direct}部分定义对哪些地址应用这个代理。其中”&#x2F;“表示全部地址。注意一个URL的域名部分只能用glob匹配，而地址部分可以用复杂的正则表达式。具体可以看Privoxy的文档</p>
+<p>这些规则在后面的会覆盖前面的，比如<code>222.24.211.70</code>实际是以gae代理访问的。这样可以实现一些稍微复杂的功能</p>
+<h2 id="广告过滤"><a href="#广告过滤" class="headerlink" title="广告过滤"></a>广告过滤</h2><p>广告过滤用的文件要多些，可能还需要filter文件。先看一个最基本的只使用action文件和block动作的广告过滤。直接编辑user.action文件，添加</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;+block&#125;</span><br><span class="line"><span class="string">.5622.cn</span></span><br><span class="line"><span class="string">/.</span>*\<span class="string">.swf</span>$</span><br></pre></td></tr></table></figure>
+
+<p>这样5622.cn和所有flash都被阻止了。如果你还想看某些flash视频，可以在后面再-block，这会覆盖前面的设置，如</p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;-block&#125;</span><br><span class="line"><span class="keyword">static</span>.youku.com/.*<span class="string">\.swf$</span></span><br></pre></td></tr></table></figure>
+
+<p>配合filter文件和action文件，可以实现对网页内容的替换，从而屏蔽某些不想要的内容。先编辑config文件，去掉”filterfile user.filter”这行的注释，然后在同目录下建立user.filter文件，写入</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">FILTER: iframe</span><br><span class="line">s@<span class="tag">&lt;/<span class="name">head</span>&gt;</span>@<span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span><span class="language-css">\n\</span></span><br><span class="line"><span class="language-css">    <span class="selector-tag">iframe</span> &#123;<span class="attribute">display</span>:none; !important&#125;\n\</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span>\n$0@</span><br></pre></td></tr></table></figure>
+
+<p>这样就定义了一个名为”iframe”的过滤器。之后再编辑user.action文件，添加</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;+<span class="attribute">filter</span>&#123;<span class="selector-tag">iframe</span>&#125;&#125;</span><br><span class="line"><span class="selector-class">.filestube</span><span class="selector-class">.com</span></span><br></pre></td></tr></table></figure>
+
+<p>这表明对filestube应用”iframe”这个过滤器。filter书写复杂些</p>
+<p>除了过滤广告，还能做做地址转向，比如</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;+redirect&#123;s@^<span class="link">http://</span>[<span class="string">^/</span>]<span class="strong">*/.*</span>?&amp;amp;q=(.*)@http://www.google.com/search?hl=en&amp;amp;q=$1@&#125;&#125;</span><br><span class="line"><span class="title">.google.com.hk/search</span></span><br><span class="line"></span><br><span class="line">&#123;+redirect&#123;s@^<span class="link">http://</span>[<span class="string">^/</span>]*(/$|$)@http://www.google.com/ncr@&#125;&#125;</span><br><span class="line"><span class="title">.google.com.hk/$</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="其它内容"><a href="#其它内容" class="headerlink" title="其它内容"></a>其它内容</h2><div></div>
+
+<h3 id="以普通用户启动"><a href="#以普通用户启动" class="headerlink" title="以普通用户启动"></a>以普通用户启动</h3><p>先关掉privoxy服务，可以用sysv-rc-conf或者直接删掉&#x2F;etc&#x2F;init.d&#x2F;privoxy文件。然后将&#x2F;etc&#x2F;privoxy目录的内容复制到家目录下，比如~&#x2F;.privoxy。编辑config文件，将”confdir &#x2F;etc&#x2F;privoxy”改为</p>
+<p><code>confdir /home/用户名/.privoxy</code><br>然后用下面命令启动<br><code>privoxy --no-daemon $HOME/.privoxy/config</code></p>
+<h3 id="有身份验证的代理"><a href="#有身份验证的代理" class="headerlink" title="有身份验证的代理"></a>有身份验证的代理</h3><p>先获得”用户名:密码”的base64编码，方法如下</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">perl</span> -e <span class="string">&quot;use MIME::Base64; print encode_base64(&#x27;用户名:密码&#x27;);&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>然后这样写alias</p>
+<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">proxy = +<span class="keyword">forward</span>-<span class="keyword">override</span><span class="comment">&#123;forward 127.0.0.1:808&#125;</span> +<span class="keyword">add</span>-header<span class="comment">&#123;Proxy-authorization: Basic &lt;auth&gt;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>将<code>&lt;auth&gt;</code>替换为上面得到的base64编码的用户名和密码</p>
+<h2 id="一个完整的方案"><a href="#一个完整的方案" class="headerlink" title="一个完整的方案"></a>一个完整的方案</h2><div>
+
+<p>上面这些文件完全可以精简和清晰，我的目录下只有config、pac.action、user.action、user.filter这四个文件。另外还可以小脚本来切换默认的代理。下面贴出这些配置和切换脚本，略加修改过的，我的配置目录是~&#x2F;.proxy</p>
+<ul>
+<li><code>config</code>文件：<a href="http://paste.pocoo.org/show/372744/" title="http:&#x2F;&#x2F;paste.pocoo.org&#x2F;show&#x2F;372744&#x2F;">http://paste.pocoo.org/show/372744/</a></li>
+<li><code>pac.action</code>文件：<a href="http://paste.pocoo.org/show/372758/" title="http:&#x2F;&#x2F;paste.pocoo.org&#x2F;show&#x2F;372758&#x2F;">http://paste.pocoo.org/show/372758/</a></li>
+<li><code>user.action</code>文件：<a href="http://paste.pocoo.org/show/372759/" title="http:&#x2F;&#x2F;paste.pocoo.org&#x2F;show&#x2F;372759&#x2F;">http://paste.pocoo.org/show/372759/</a></li>
+<li><code>user.filter</code>文件：<a href="http://paste.pocoo.org/show/372761/" title="http:&#x2F;&#x2F;paste.pocoo.org&#x2F;show&#x2F;372761&#x2F;">http://paste.pocoo.org/show/372761/</a><br>上面的<code>pac.action</code>是我在家里用的，学校因为有ipv6等有些不一样：<a href="http://paste.pocoo.org/show/372767/" title="http:&#x2F;&#x2F;paste.pocoo.org&#x2F;show&#x2F;372767&#x2F;">http://paste.pocoo.org/show/372767/</a></li>
+</ul>
+<p>切换脚本：<a href="http://paste.pocoo.org/show/372771/" title="http:&#x2F;&#x2F;paste.pocoo.org&#x2F;show&#x2F;372771&#x2F;">http://paste.pocoo.org/show/372771/</a></p>
+<p>这个脚本是，在家里默认代理<code>(default)</code>在<code>direct</code>和<code>gae</code>之间切换，学校是在paper和gae之间切换。绑定个快捷键会很方便</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Ray
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://leadscloud.github.io/313599/privoxy-%E5%B9%BF%E5%91%8A%E8%BF%87%E6%BB%A4%E5%92%8C%E8%87%AA%E5%8A%A8%E4%BB%A3%E7%90%86%E5%88%87%E6%8D%A2/" title="privoxy 广告过滤和自动代理切换">https://leadscloud.github.io/313599/privoxy-广告过滤和自动代理切换/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/privoxy/" rel="tag"># privoxy</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/313595/html-5-%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89-data-%E5%B1%9E%E6%80%A7%E5%92%8Cjquery%E7%9A%84data%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%BF%E7%94%A8/" rel="prev" title="HTML 5 的自定义 data-* 属性和jquery的data()方法的使用">
+                  <i class="fa fa-angle-left"></i> HTML 5 的自定义 data-* 属性和jquery的data()方法的使用
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/313601/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BB%8F%E5%B8%B8%E5%B4%A9%E6%BA%83shellext-dll_unloaded/" rel="next" title="浏览器经常崩溃shellext-dll_unloaded">
+                  浏览器经常崩溃shellext-dll_unloaded <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="valine-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Ray</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/leadscloud" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/algoliasearch/4.24.0/algoliasearch-lite.umd.js" integrity="sha256-b2n6oSgG4C1stMT/yc/ChGszs9EY/Mhs6oltEjQbFCQ=" crossorigin="anonymous"></script><script src="/js/third-party/search/algolia-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"ePPAQV9hFzcbhOaQvvtyjTnw-gzGzoHsz","app_key":"GLniGVXsSMGBjTmaiI4wleaF","server_url":"https://leancloud.tinycms.xyz","security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+
+
+<script class="next-config" data-name="valine" type="application/json">{"enable":true,"appId":"ePPAQV9hFzcbhOaQvvtyjTnw-gzGzoHsz","appKey":"GLniGVXsSMGBjTmaiI4wleaF","serverURLs":"https://leancloud.tinycms.xyz","placeholder":"Just go go","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-cn","visitor":false,"comment_count":true,"recordIP":true,"enableQQ":true,"requiredFields":[],"el":"#valine-comments","path":"/313599/privoxy-%E5%B9%BF%E5%91%8A%E8%BF%87%E6%BB%A4%E5%92%8C%E8%87%AA%E5%8A%A8%E4%BB%A3%E7%90%86%E5%88%87%E6%8D%A2/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.valine.el)
+    .then(() => NexT.utils.getScript(
+      'https://fastly.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js',
+      { condition: window.Valine }
+    ))
+    .then(() => {
+      new Valine(CONFIG.valine);
+    });
+});
+</script>
+
+</body>
+</html>

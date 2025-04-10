@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/logo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="mask-icon" href="/logo.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"leadscloud.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"algolia":{"appID":"F1YESSIUKA","apiKey":"fba180e0d225a86fe382bf021a9f0ae3","indexName":"blog","hits":{"per_page":10}}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="关于CSS代码的书写，今天在网上看到一篇很优秀的博文，特此分享。  ISD Webteam的大布同学（twitter：@tc_bryanzhang）牺牲了自己大量的xx时间翻译了Page Speed系列中的Optimize browser rendering，因其blog还在重新打造当中，所以偶这里先转载了，以下是翻译全文： 优化浏览器渲染资源被下载到客户端后，浏览器仍需加载，解释，并渲染HTM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="转载翻译优化浏览器渲染">
+<meta property="og:url" content="https://leadscloud.github.io/38001/%E8%BD%AC%E8%BD%BD%E7%BF%BB%E8%AF%91%E4%BC%98%E5%8C%96%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93/index.html">
+<meta property="og:site_name" content="leadscloud">
+<meta property="og:description" content="关于CSS代码的书写，今天在网上看到一篇很优秀的博文，特此分享。  ISD Webteam的大布同学（twitter：@tc_bryanzhang）牺牲了自己大量的xx时间翻译了Page Speed系列中的Optimize browser rendering，因其blog还在重新打造当中，所以偶这里先转载了，以下是翻译全文： 优化浏览器渲染资源被下载到客户端后，浏览器仍需加载，解释，并渲染HTM">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2010-09-11T04:41:40.000Z">
+<meta property="article:modified_time" content="2025-04-10T04:42:07.158Z">
+<meta property="article:author" content="Ray">
+<meta property="article:tag" content="CSS">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://leadscloud.github.io/38001/%E8%BD%AC%E8%BD%BD%E7%BF%BB%E8%AF%91%E4%BC%98%E5%8C%96%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://leadscloud.github.io/38001/%E8%BD%AC%E8%BD%BD%E7%BF%BB%E8%AF%91%E4%BC%98%E5%8C%96%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93/","path":"38001/转载翻译优化浏览器渲染/","title":"转载翻译优化浏览器渲染"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>转载翻译优化浏览器渲染 | leadscloud</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6GCT2E7T9Y"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-6GCT2E7T9Y","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="leadscloud" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">leadscloud</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Google SEO|外贸营销推广</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">266</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">11</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">459</span></a></li><li class="menu-item menu-item-免费chatgpt"><a href="https://freegpt.tech/?refer=blog-side" rel="section" target="_blank"><i class="fa fa-heart fa-fw"></i>免费ChatGPT</a></li><li class="menu-item menu-item-我的简历"><a href="https://leadscloud.github.io/resume/resume.pdf" rel="section"><i class="fa fa-vcard fa-fw"></i>我的简历</a></li><li class="menu-item menu-item-友情链接"><a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>友情链接</a></li><li class="menu-item menu-item-chrome扩展（域名所属人）"><a href="/serp-analyzer/" rel="section"><i class="fa fa-cloud fa-fw"></i>Chrome扩展（域名所属人）</a></li><li class="menu-item menu-item-询盘管理系统"><a href="https://github.com/leadscloud/infomaster" rel="section" target="_blank"><i class="fa fa-database fa-fw"></i>询盘管理系统</a></li><li class="menu-item menu-item-外贸留言板系统"><a href="/20180615/google-seo-inquiry-messageboard/" rel="section"><i class="fa fa-database fa-fw"></i>外贸留言板系统</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fab fa-algolia fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93"><span class="nav-number">1.</span> <span class="nav-text">优化浏览器渲染</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Ray</p>
+  <div class="site-description" itemprop="description">熟悉 Google SEO，外贸营销推广，这是我的个人博客，主要分享工作中的技术。</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">459</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">266</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/leadscloud" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;leadscloud" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:love4026@gmail.com" title="E-Mail → mailto:love4026@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://cdn.livechatinc.xyz/" title="https:&#x2F;&#x2F;cdn.livechatinc.xyz&#x2F;" rel="noopener" target="_blank">RLiveChat</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://www.kamychina.com/" title="https:&#x2F;&#x2F;www.kamychina.com&#x2F;" rel="noopener" target="_blank">Roadheader</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://tinycms.xyz/" title="https:&#x2F;&#x2F;tinycms.xyz&#x2F;" rel="noopener" target="_blank">TinyCMS</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://leadscloud.github.io/38001/%E8%BD%AC%E8%BD%BD%E7%BF%BB%E8%AF%91%E4%BC%98%E5%8C%96%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ray">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="leadscloud">
+      <meta itemprop="description" content="熟悉 Google SEO，外贸营销推广，这是我的个人博客，主要分享工作中的技术。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="转载翻译优化浏览器渲染 | leadscloud">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          转载翻译优化浏览器渲染
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2010-09-11 12:41:40" itemprop="dateCreated datePublished" datetime="2010-09-11T12:41:40+08:00">2010-09-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-04-10 12:42:07" itemprop="dateModified" datetime="2025-04-10T12:42:07+08:00">2025-04-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/HTML-CSS/" itemprop="url" rel="index"><span itemprop="name">HTML/CSS</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/38001/%E8%BD%AC%E8%BD%BD%E7%BF%BB%E8%AF%91%E4%BC%98%E5%8C%96%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93/" class="post-meta-item leancloud_visitors" data-flag-title="转载翻译优化浏览器渲染" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Valine：</span>
+  
+    <a title="valine" href="/38001/%E8%BD%AC%E8%BD%BD%E7%BF%BB%E8%AF%91%E4%BC%98%E5%8C%96%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/38001/%E8%BD%AC%E8%BD%BD%E7%BF%BB%E8%AF%91%E4%BC%98%E5%8C%96%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><blockquote>
+<p>关于CSS代码的书写，今天在网上看到一篇很优秀的博文，特此分享。</p>
+</blockquote>
+<p>ISD Webteam的大布同学（twitter：<a href="http://twitter.com/tc_bryanzhang">@tc_bryanzhang</a>）牺牲了自己大量的xx时间翻译了Page Speed系列中的<a href="http://code.google.com/intl/zh-CN/speed/page-speed/docs/rendering.html">Optimize browser rendering</a>，因其blog还在重新打造当中，所以偶这里先转载了，以下是翻译全文：</p>
+<h3 id="优化浏览器渲染"><a href="#优化浏览器渲染" class="headerlink" title="优化浏览器渲染"></a>优化浏览器渲染</h3><p>资源被下载到客户端后，浏览器仍需加载，解释，并渲染HTML、CSS和Javascript代码。只需利用现有浏览器的特性简单地编排你的代码和页面，就可以提升客户端的性能。</p>
+<ol>
+<li><a href="http://www.99css.com/?p=275#UseEfficientCSSSelectors">使用高效率的CSS选择器</a></li>
+<li><a href="http://www.99css.com/?p=275#AvoidCSSExpressions">避免CSS expressions</a></li>
+<li><a href="http://www.99css.com/?p=275#PutCSSInHead">将样式表放在页面顶部</a></li>
+<li><a href="http://www.99css.com/?p=275#SpecifyImageDimensions">指定图像尺寸</a></li>
+</ol>
+<p><strong>使用高效率的CSS选择器</strong></p>
+<p><strong>概述</strong></p>
+<p>避免低效率的匹配大量元素的键选择器【key selectors】可以加快页面渲染。</p>
+<p><strong>详细信息</strong></p>
+<p>当浏览器解析HTML时首先构造一个内部文件树来代表所有显示的元素。然后浏览器根据标准的CSS级联、继承和排序规则，为元素指定匹配的各种样<br>式。在Mozilla里的执行情况(可能在其他浏览器也是这样)，CSS搜索引擎通过样式规则为每个元素找到匹配的样式。该引擎由右至左评估每个规则，从<br>最右边的选择器开始（称为“键”【Key】），并通过移动每个选择器，直到找到一个匹配或丢弃的规则。（“选择器”是应用规则的文档元素。）</p>
+<p>基于此原则，引擎要评估的规则越少越好。所以提高渲染性能的重要一步就是<span style="text-decoration: underline;"><a href="http://code.google.com/intl/zh-CN/speed/page-speed/docs/payload.html#RemoveUnusedCSS">删除未使用的CSS</a></span>。在此之后，对包含大量的元素和&#x2F;或CSS规则的页面来说，优化规则本身的定义就能够提高性能。优化规则的关键在于尽可能具体定义规则，并避免不必要的重复，让样式引擎快速找到匹配的规则,而不用花费时间查找不适用的规则。</p>
+<p>下列各类规则被认为是低效的：</p>
+<p><strong>后代选择器的规则</strong></p>
+<p>例如：</p>
+<p><strong>通配选择器作为键的规则</strong></p>
+<figure class="highlight nim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">body * <span class="meta">&#123;...&#125;</span></span><br><span class="line">.hide-scrollbars * <span class="meta">&#123;...&#125;</span></span><br></pre></td></tr></table></figure>
+
+
+<p><strong>标签选择器作为键的规则</strong></p>
+<figure class="highlight nim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ul li a <span class="meta">&#123;...&#125;</span></span><br><span class="line"><span class="comment">#footer h3 &#123;...&#125;</span></span><br><span class="line">* html <span class="comment">#atticPromo ul li a &#123;...&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>后代选择器是低效的，因为对于每个与键相匹配的元素，浏览器必须遍历DOM树，评估每一个祖先元素，直到找到一个匹配或到达根元素。键越不具体，需要进行评估的节点数量就越大。</p>
+<p><strong>子代选择器和相邻选择器的规则</strong></p>
+<p>例如：</p>
+<p><strong>通配选择器作为键的规则</strong></p>
+<figure class="highlight nim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">body &gt; * <span class="meta">&#123;...&#125;</span></span><br><span class="line">.hide-scrollbars &gt; * <span class="meta">&#123;...&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>标签选择器作为键的规则</strong></p>
+<figure class="highlight nim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ul &gt; li &gt; a <span class="meta">&#123;...&#125;</span></span><br><span class="line"><span class="comment">#footer &gt; h3 &#123;...&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>子代选择器和相邻选择器是低效的，因为对每个匹配的元素，浏览器必须评估另一个节点。这样导致规则中的每个子选择器加倍消耗。同样，键越不具体，需要进行评估的节点数量就越大。尽管如此，虽然同样效率低下，在性能方面相对后代选择器而言，它们仍然是可取的。</p>
+<p><strong>有多余修饰的规则</strong></p>
+<p>例如：</p>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ul#top_blue_nav &#123;<span class="params">...</span>&#125;</span><br><span class="line">form#UserLogin &#123;<span class="params">...</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>ID选择是唯一的定义。加上标签或类的限制只增加了多余的、引起不必要评估的信息。</p>
+<p><strong>对非链接元素应用</strong><code>:hover</code><strong>伪选择器的规则</strong></p>
+<p>例如：</p>
+<figure class="highlight nim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">h3:hover <span class="meta">&#123;...&#125;</span></span><br><span class="line">.foo:hover <span class="meta">&#123;...&#125;</span></span><br><span class="line"><span class="comment">#foo:hover &#123;...&#125;</span></span><br><span class="line"><span class="keyword">div</span>.faa:hover <span class="meta">&#123;...&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>非链接元素上的:hover伪选择器在某些情况下*会使IE 7 和IE 8 变慢。当页面没有一个严格的doctype时，IE 7 和IE 8 将忽略除了链接外的任何元素的<code>:hover</code>。当页面有严格的doctype，在非链接元素上的<code>:hover</code>将导致性能下降。</p>
+<p>*查看bug报告<span style="text-decoration: underline;"><a href="http://connect.microsoft.com/IE/feedback/ViewFeedback.aspx?FeedbackID=391387">http://connect.microsoft.com/IE/feedback/ViewFeedback.aspx?FeedbackID=391387</a></span>。</p>
+<p><strong>建议</strong></p>
+<p><strong>避免通配选择器。</strong></p>
+<p>允许元素继承祖先的样式，或者使用一个类来给多个元素应用样式。</p>
+<p><strong>使您的规则尽可能具体。</strong></p>
+<p>尽量使用class和ID选择器而非标签选择器。</p>
+<p><strong>删除多余的修饰语。</strong></p>
+<p>这些修饰语是多余的:</p>
+<p>ID选择器被class选择器和&#x2F;或者标签选择器限制。</p>
+<p>class选择器被标签选择器限制(当一个类只是用于一个标签，无论如何这都是一个很好的设计实践)。</p>
+<p><strong>避免使用后代选择器，特别是那些指定多余祖先的。</strong></p>
+<p>例如，这一个规则 <code>body ul li a &#123;...&#125;</code> 指定了一个多余的body选择器, 因为所有的元素都是body标签的后代。</p>
+<p><strong>使用class选择器代替后代选择器。</strong></p>
+<p>例如，如果您需要有序列表项和无序列表项有不同的两个样式，而不是使用两个规则:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">ul</span> <span class="selector-tag">li</span> &#123;<span class="attribute">color</span>: blue;&#125;</span><br><span class="line"><span class="selector-tag">ol</span> <span class="selector-tag">li</span> &#123;<span class="attribute">color</span>: red;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>你可以将样式编码成两个类名并在规则中使用，例如：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.unordered-list-item</span> &#123;<span class="attribute">color</span>: blue;&#125;</span><br><span class="line"><span class="selector-class">.ordered-list-item</span> &#123;<span class="attribute">color</span>: red;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果您必须使用后代选择器，尽量使用子代选择器，这最少只需评估一个额外的节点，而非中间直至祖先的所有节点。</p>
+<p><strong>在IE中避免对非链接元素应用:hover。</strong></p>
+<p>如果您对非链接元素应用:hover，请在IE7和IE8中测试并确保页面可用。如果您发现:hover导致性能问题，可以考虑条件性的为IE使用JavaScript onmouseover事件（只对IE写mouseover事件）。</p>
+<p><strong>附加资源</strong></p>
+<p>更多关于Mozilla里的高效CSS规则的细节，请看<span style="text-decoration: underline;"><a href="http://connect.microsoft.com/IE/feedback/ViewFeedback.aspx?FeedbackID=391387">https://developer.mozilla.org/en/Writing_Efficient_CSS</a></span>。</p>
+<p>有关CSS的完整信息，请看<span style="text-decoration: underline;"><a href="http://www.w3.org/TR/CSS21/">Cascading Style Sheets Level 2 Revision 1 (CSS 2.1) Specification</a></span>。有关CSS选择器的资料，请看<span style="text-decoration: underline;"><a href="http://www.w3.org/TR/CSS21/selector.html">Chapter 5</a></span>。</p>
+<p><a href="#">Back to top</a></p>
+<p><strong>避免CSS expressions</strong></p>
+<p><strong>概述</strong></p>
+<p>CSS表达式会降低浏览器的渲染性能；用其他方案替换它们将会改善IE浏览器的渲染性能。</p>
+<p>**注意：**本节最佳实践只适用于Internet Explorer 5到7，它们支持CSS表达式。Internet Explorer 8放弃使用CSS表达式，而其他浏览器是不支持的。</p>
+<p><strong>详细信息</strong></p>
+<p>作为一种动态改变文档属性来响应各种事件的的手段，Internet Explorer 5引入了CSS表达式或 “动态属性”。它们由在CSS声明中的CSS属性值里嵌入JavaScript表达式构成。在大多数情况下，它们用于以下目的：</p>
+<p>模拟其他浏览器支持但IE浏览器尚未支持的标准CSS属性。</p>
+<p>使用比编写全面JavaScript注入式样式更小巧，更便捷的方法，来提供动态样式和高级的事件处理。</p>
+<p>不幸的是，CSS表达式对于性能的不良影响是相当大的，因为每当有事件触发，浏览器都要重新计算每个表达式，如一个窗口改变大小，鼠标移动等。<br>CSS表达式的低性能表现是IE 8弃用它们的原因之一。如果你在网页里使用CSS表达式，应该尽一切努力来消除它们并且使用其他方法来达到同样的功能。</p>
+<p><strong>建议</strong></p>
+<p><strong>尽可能使用标准的CSS属性。</strong></p>
+<p>IE 8已高度兼容标准CSS；IE<br>8只有在“兼容”模式才支持运行CSS表达式，而在“标准”模式下则不支持。如果你不需要向后兼容旧版本的IE，你应该转换成标准的CSS属性来替换所有<br>对应的CSS表达式。如需CSS属性和支持它们的IE版本的完整列表，请参见MSDN的CSS<span style="text-decoration: underline;"><a href="http://msdn.microsoft.com/en-us/library/ms531207%28VS.85%29.aspx">属性索引</a></span>。如果你确实需要支持所需CSS属性不可用的旧版本IE浏览器，请使用JavaScript来实现等效的功能。</p>
+<p><strong>使用JavaScript脚本样式。</strong></p>
+<p>如果你正在使用CSS表达式来实现动态样式，用纯JavaScript重写它们是很有意义的，因为这样既能提高IE性能，同时在其他浏览器获得相同效果的支持。在这个由MSDN<span style="text-decoration: underline;"><a href="http://msdn.microsoft.com/en-us/library/ms537634%28VS.85%29.aspx">动态属性</a></span>页提供的例子里，下面的CSS表达式用于在浏览器里居中一个HTML块元素，并且该元素的尺寸可以在运行时改变，每次调整窗口大小都能重新定位在浏览器中心：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">div</span> <span class="built_in">id</span>=<span class="string">&quot;oDiv&quot;</span> style=<span class="string">&quot;background-color: #CFCFCF; position: absolute;</span></span><br><span class="line"><span class="string">left:expression(document.body.clientWidth/2-oDiv.offsetWidth/2);</span></span><br><span class="line"><span class="string">top:expression(document.body.clientHeight/2-oDiv.offsetHeight/2)&quot;</span>&gt;Example DIV&lt;/<span class="keyword">div</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<p>下面是一个使用JavaScript和标准CSS的等价例子：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">  <span class="selector-id">#oDiv</span> &#123; <span class="attribute">position</span>: absolute; <span class="attribute">background-color</span>: <span class="number">#CFCFCF</span>;&#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"> <span class="comment">// Check for browser support of event handling capability</span></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">if</span> (<span class="variable language_">window</span>.<span class="property">addEventListener</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">  <span class="variable language_">window</span>.<span class="title function_">addEventListener</span>(<span class="string">&quot;load&quot;</span>, centerDiv, <span class="literal">false</span>);</span></span><br><span class="line"><span class="language-javascript"> <span class="variable language_">window</span>.<span class="title function_">addEventListener</span>(<span class="string">&quot;resize&quot;</span>, centerDiv, <span class="literal">false</span>);</span></span><br><span class="line"><span class="language-javascript">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="variable language_">window</span>.<span class="property">attachEvent</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">  <span class="variable language_">window</span>.<span class="title function_">attachEvent</span>(<span class="string">&quot;onload&quot;</span>, centerDiv);</span></span><br><span class="line"><span class="language-javascript">  <span class="variable language_">window</span>.<span class="title function_">attachEvent</span>(<span class="string">&quot;onresize&quot;</span>, centerDiv);</span></span><br><span class="line"><span class="language-javascript">  &#125; <span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="language-javascript">  <span class="variable language_">window</span>.<span class="property">onload</span> = centerDiv;</span></span><br><span class="line"><span class="language-javascript">  <span class="variable language_">window</span>.<span class="property">resize</span> = centerDiv;</span></span><br><span class="line"><span class="language-javascript">  &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">function</span> <span class="title function_">centerDiv</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">var</span> myDiv = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;oDiv&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">var</span> myBody = <span class="variable language_">document</span>.<span class="property">body</span>;</span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">var</span> bodyWidth = myBody.<span class="property">offsetWidth</span>;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="comment">//Needed for Firefox, which doesn&#x27;t support offsetHeight</span></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">var</span> bodyHeight;</span></span><br><span class="line"><span class="language-javascript"> <span class="keyword">if</span> (myBody.<span class="property">scrollHeight</span>)</span></span><br><span class="line"><span class="language-javascript"> bodyHeight = myBody.<span class="property">scrollHeight</span>;</span></span><br><span class="line"><span class="language-javascript"> <span class="keyword">else</span> bodyHeight = myBody.<span class="property">offsetHeight</span>;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">var</span> divWidth = myDiv.<span class="property">offsetWidth</span>;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">if</span> (myDiv.<span class="property">scrollHeight</span>)</span></span><br><span class="line"><span class="language-javascript">   <span class="keyword">var</span> divHeight = myDiv.<span class="property">scrollHeight</span>;</span></span><br><span class="line"><span class="language-javascript">   <span class="keyword">else</span> <span class="keyword">var</span> divHeight = myDiv.<span class="property">offsetHeight</span>;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"> myDiv.<span class="property">style</span>.<span class="property">top</span> = (bodyHeight - divHeight) / <span class="number">2</span>;</span></span><br><span class="line"><span class="language-javascript">  myDiv.<span class="property">style</span>.<span class="property">left</span> = (bodyWidth - divWidth) / <span class="number">2</span>;</span></span><br><span class="line"><span class="language-javascript">  &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>如果您使用CSS表达式来模拟早期IE版本中不可用的CSS属性，你应该提供版本测试的javascript代码，为支持CSS的浏览器禁止CSS<br>表达式。举例来说，max-width属性，这个属性在一定数量的像素范围内强制文本换行，在IE<br>7前是不支持的。下面的CSS表达式作为一种解决方法，为IE 5和6提供了这个功能：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123; <span class="attribute">width</span>: <span class="built_in">expression</span>( document.body.clientWidth &gt; <span class="number">600</span> ? <span class="string">&quot;600px&quot;</span> : <span class="string">&quot;auto&quot;</span> ); &#125;</span><br></pre></td></tr></table></figure>
+
+<p>为不支持此属性的IE浏览器版本使用等价的JavaScript替换CSS表达式，可以使用类似于下面的内容：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">  <span class="selector-tag">p</span> &#123; <span class="attribute">max-width</span>: <span class="number">300px</span>; &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">if</span> ((navigator.<span class="property">appName</span> == <span class="string">&quot;Microsoft Internet Explorer&quot;</span>) &amp;amp;&amp;amp; (<span class="built_in">parseInt</span>(navigator.<span class="property">appVersion</span>) &lt; <span class="number">7</span>))</span></span><br><span class="line"><span class="language-javascript">  <span class="variable language_">window</span>.<span class="title function_">attachEvent</span>(<span class="string">&quot;onresize&quot;</span>, setMaxWidth);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">function</span> <span class="title function_">setMaxWidth</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">var</span> paragraphs = <span class="variable language_">document</span>.<span class="title function_">getElementsByTagName</span>(<span class="string">&quot;p&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">for</span> ( <span class="keyword">var</span> i = <span class="number">0</span>; i &lt; paragraphs.<span class="property">length</span>; i++ )</span></span><br><span class="line"><span class="language-javascript">  paragraphs[i].<span class="property">style</span>.<span class="property">width</span> = ( <span class="variable language_">document</span>.<span class="property">body</span>.<span class="property">clientWidth</span> &gt; <span class="number">300</span> ? <span class="string">&quot;300px&quot;</span> : <span class="string">&quot;auto&quot;</span> );</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><span style="text-decoration: underline;"><a href="#">Back to top</a></span></p>
+<p><strong>将样式放在页面头部</strong></p>
+<p><strong>概述</strong></p>
+<p>将内联样式块和<code>&lt;link&gt;</code>元素从页面<code>&lt;body&gt;</code>移动到页面<code>&lt;head&gt;</code>中，这样能提高渲染性能。</p>
+<p><strong>详细信息</strong></p>
+<p>在HTML文件<code>&lt;body&gt;</code>中指定外部样式表和内联样式块可能对浏览器的渲染性能产生不利影响。浏览器阻塞渲染网页直到所有外部的样式表都已被下载。（用<code>&lt;style&gt;</code>标记指定的）内联样式块可能会导致reflows和页面跳动。因此，把外部样式表和内联样式块放在页面的<code>&lt;head&gt;</code>中是很重要的。通过确保样式表<span style="text-decoration: line-through;">首</span>先被下载和解析，可以让浏览器逐步渲染页面</p>
+<p><strong>建议</strong></p>
+<p>HTML 4.01规范（<span style="text-decoration: underline;"><a href="http://www.w3.org/TR/html4/struct/links.html#h-12.3">第12.3节</a></span>）规定，始终把使用<code>&lt;link&gt;</code>标签的外部样式表放在<code>&lt;head&gt;</code>部分里。不要使用<code>@import</code>。还要确保您指定的样式有<span style="text-decoration: underline;"><a href="http://code.google.com/intl/zh-CN/speed/page-speed/docs/rtt.html#PutStylesBeforeScripts">正确的顺序</a></span>。</p>
+<p>把<code>&lt;style&gt;</code>区块放在<code>&lt;head&gt;</code>部分里。</p>
+<p><span style="text-decoration: underline;"><a href="#">Back to top</a></span></p>
+<p><strong>指定图片尺寸</strong></p>
+<p><strong>概述</strong></p>
+<p>为页面中所有图片指定宽度和高度可以消除不必要的reflows和重新绘制页面【repaints】，使页面渲染速度更快。</p>
+<p><strong>详细信息</strong></p>
+<p>当浏览器勾画页面时，它需要能够流动的，如图片这样的可替换的元素。提供了图片尺寸，浏览器知道去环绕附近的不可替换元素，甚至可以在图片下载之前<br>开始渲染页面。如果没有指定的图片尺寸，或者如果指定的尺寸不符合图片的实际尺寸，一旦图片下载，浏览器将需要reflows和重新绘制页面。为了防止<br>reflows，在HTML的<code>&lt;img&gt;</code>标签中或在CSS中为所有图片指定宽度和高度。</p>
+<p><strong>建议</strong></p>
+<p><strong>指定与图片本身相一致的尺寸</strong></p>
+<p>不要使用非图片原始尺寸来缩放图片。如果一个图片文件实际上的大小是60×60像素，不要在HTML或CSS里设置尺寸为30×30像素。如果图片需要较小的尺寸，在图像编辑软件中，设置成相一致的尺寸(详见<span style="text-decoration: underline;"><a href="http://code.google.com/intl/zh-CN/speed/page-speed/docs/payload.html#CompressImages">优化图像</a></span>。)</p>
+<p><strong>一定要指定图片或它的块级父元素的尺寸</strong></p>
+<p>一定要设置<code>&lt;img&gt;</code>元素本身，或它的块级父元素的尺寸。如果父元素不是块级元素，尺寸将被忽略。不要在一个非最近父元素的祖先元素上设置尺寸。</p>
+<p><span style="text-decoration: underline;"><a href="#">Back to top</a></span></p>
+<p><strong>注：浏览器为了重新渲染部分或整个页面，重新计算页面元素位置和几何结构的进程叫做reflow</strong></p>
+<p>**<strong>—————–分界线————– **<br></strong></p>
+<p>个人觉得这里面还是有很多问题值得探讨，依这个文章很多大公司网站的CSS代码写的都很有问题。以后慢慢改进吧。</p>
+<p>From: <a href="http://www.99css.com/?p=275">http://www.99css.com/?p=275</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Ray
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://leadscloud.github.io/38001/%E8%BD%AC%E8%BD%BD%E7%BF%BB%E8%AF%91%E4%BC%98%E5%8C%96%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93/" title="转载翻译优化浏览器渲染">https://leadscloud.github.io/38001/转载翻译优化浏览器渲染/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/CSS/" rel="tag"># CSS</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/36001/php%E8%8E%B7%E5%8F%96%E5%BD%93%E5%89%8D%E9%A1%B5%E9%9D%A2%E7%9A%84url/" rel="prev" title="php获取当前页面的url">
+                  <i class="fa fa-angle-left"></i> php获取当前页面的url
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/39001/%E6%96%B0%E5%A2%9Eapache%E8%99%9A%E6%8B%9F%E7%9B%AE%E5%BD%95/" rel="next" title="新增apache虚拟目录">
+                  新增apache虚拟目录 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="valine-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Ray</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/leadscloud" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/algoliasearch/4.24.0/algoliasearch-lite.umd.js" integrity="sha256-b2n6oSgG4C1stMT/yc/ChGszs9EY/Mhs6oltEjQbFCQ=" crossorigin="anonymous"></script><script src="/js/third-party/search/algolia-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"ePPAQV9hFzcbhOaQvvtyjTnw-gzGzoHsz","app_key":"GLniGVXsSMGBjTmaiI4wleaF","server_url":"https://leancloud.tinycms.xyz","security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+
+
+<script class="next-config" data-name="valine" type="application/json">{"enable":true,"appId":"ePPAQV9hFzcbhOaQvvtyjTnw-gzGzoHsz","appKey":"GLniGVXsSMGBjTmaiI4wleaF","serverURLs":"https://leancloud.tinycms.xyz","placeholder":"Just go go","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-cn","visitor":false,"comment_count":true,"recordIP":true,"enableQQ":true,"requiredFields":[],"el":"#valine-comments","path":"/38001/%E8%BD%AC%E8%BD%BD%E7%BF%BB%E8%AF%91%E4%BC%98%E5%8C%96%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.valine.el)
+    .then(() => NexT.utils.getScript(
+      'https://fastly.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js',
+      { condition: window.Valine }
+    ))
+    .then(() => {
+      new Valine(CONFIG.valine);
+    });
+});
+</script>
+
+</body>
+</html>

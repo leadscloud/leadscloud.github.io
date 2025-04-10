@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/logo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="mask-icon" href="/logo.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"leadscloud.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"algolia":{"appID":"F1YESSIUKA","apiKey":"fba180e0d225a86fe382bf021a9f0ae3","indexName":"blog","hits":{"per_page":10}}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Linode CentOS7下面的安装流程 安装前准备123yum install git -yyum install epel-release -yyum install libsodium -y  # 使用salsa20 或 chacha20 或 chacha20-ietf 算法必须的  下载shadowsocksr1git clone -b manyuser https:&#x2F;&#x2F;github.c">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOS7下安装shadowsocksR">
+<meta property="og:url" content="https://leadscloud.github.io/315060/install-shadowsocksr-in-centos7/index.html">
+<meta property="og:site_name" content="leadscloud">
+<meta property="og:description" content="Linode CentOS7下面的安装流程 安装前准备123yum install git -yyum install epel-release -yyum install libsodium -y  # 使用salsa20 或 chacha20 或 chacha20-ietf 算法必须的  下载shadowsocksr1git clone -b manyuser https:&#x2F;&#x2F;github.c">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-01-21T06:23:46.000Z">
+<meta property="article:modified_time" content="2025-04-10T04:42:07.138Z">
+<meta property="article:author" content="Ray">
+<meta property="article:tag" content="shadwosocks">
+<meta property="article:tag" content="shadowsocksr">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://leadscloud.github.io/315060/install-shadowsocksr-in-centos7/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://leadscloud.github.io/315060/install-shadowsocksr-in-centos7/","path":"315060/install-shadowsocksr-in-centos7/","title":"CentOS7下安装shadowsocksR"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>CentOS7下安装shadowsocksR | leadscloud</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6GCT2E7T9Y"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-6GCT2E7T9Y","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="leadscloud" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">leadscloud</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Google SEO|外贸营销推广</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">266</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">11</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">459</span></a></li><li class="menu-item menu-item-免费chatgpt"><a href="https://freegpt.tech/?refer=blog-side" rel="section" target="_blank"><i class="fa fa-heart fa-fw"></i>免费ChatGPT</a></li><li class="menu-item menu-item-我的简历"><a href="https://leadscloud.github.io/resume/resume.pdf" rel="section"><i class="fa fa-vcard fa-fw"></i>我的简历</a></li><li class="menu-item menu-item-友情链接"><a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>友情链接</a></li><li class="menu-item menu-item-chrome扩展（域名所属人）"><a href="/serp-analyzer/" rel="section"><i class="fa fa-cloud fa-fw"></i>Chrome扩展（域名所属人）</a></li><li class="menu-item menu-item-询盘管理系统"><a href="https://github.com/leadscloud/infomaster" rel="section" target="_blank"><i class="fa fa-database fa-fw"></i>询盘管理系统</a></li><li class="menu-item menu-item-外贸留言板系统"><a href="/20180615/google-seo-inquiry-messageboard/" rel="section"><i class="fa fa-database fa-fw"></i>外贸留言板系统</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fab fa-algolia fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%89%8D%E5%87%86%E5%A4%87"><span class="nav-number">1.</span> <span class="nav-text">安装前准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BDshadowsocksr"><span class="nav-number">2.</span> <span class="nav-text">下载shadowsocksr</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEshadowoskcr"><span class="nav-number">3.</span> <span class="nav-text">配置shadowoskcr</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8Cssr"><span class="nav-number">4.</span> <span class="nav-text">后台运行ssr</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSR%E5%90%AF%E5%8A%A8%E8%84%9A%E6%9C%AC"><span class="nav-number">5.</span> <span class="nav-text">SSR启动脚本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CentOS-RHEL6-%E6%89%A7%E8%A1%8C"><span class="nav-number">5.1.</span> <span class="nav-text">CentOS&#x2F;RHEL6 执行:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ubuntu-14-x%EF%BC%8CDebian7-x-%E6%89%A7%E8%A1%8C"><span class="nav-number">5.2.</span> <span class="nav-text">Ubuntu 14.x，Debian7.x 执行:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#systemd%E8%84%9A%E6%9C%AC"><span class="nav-number">6.</span> <span class="nav-text">systemd脚本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E7%94%A8%E6%88%B7%E7%89%88"><span class="nav-number">6.1.</span> <span class="nav-text">单用户版</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E7%94%A8%E6%88%B7%E7%89%88"><span class="nav-number">6.2.</span> <span class="nav-text">多用户版</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">6.3.</span> <span class="nav-text">参考资料</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSR-%E4%BC%98%E5%8C%96"><span class="nav-number">7.</span> <span class="nav-text">SSR 优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shadowsocks-SSR%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%8B%E8%BD%BD"><span class="nav-number">8.</span> <span class="nav-text">shadowsocks SSR客户端下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99-1"><span class="nav-number">9.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Ray</p>
+  <div class="site-description" itemprop="description">熟悉 Google SEO，外贸营销推广，这是我的个人博客，主要分享工作中的技术。</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">459</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">266</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/leadscloud" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;leadscloud" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:love4026@gmail.com" title="E-Mail → mailto:love4026@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://cdn.livechatinc.xyz/" title="https:&#x2F;&#x2F;cdn.livechatinc.xyz&#x2F;" rel="noopener" target="_blank">RLiveChat</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://www.kamychina.com/" title="https:&#x2F;&#x2F;www.kamychina.com&#x2F;" rel="noopener" target="_blank">Roadheader</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://tinycms.xyz/" title="https:&#x2F;&#x2F;tinycms.xyz&#x2F;" rel="noopener" target="_blank">TinyCMS</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://leadscloud.github.io/315060/install-shadowsocksr-in-centos7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ray">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="leadscloud">
+      <meta itemprop="description" content="熟悉 Google SEO，外贸营销推广，这是我的个人博客，主要分享工作中的技术。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="CentOS7下安装shadowsocksR | leadscloud">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CentOS7下安装shadowsocksR
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-01-21 14:23:46" itemprop="dateCreated datePublished" datetime="2018-01-21T14:23:46+08:00">2018-01-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-04-10 12:42:07" itemprop="dateModified" datetime="2025-04-10T12:42:07+08:00">2025-04-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/315060/install-shadowsocksr-in-centos7/" class="post-meta-item leancloud_visitors" data-flag-title="CentOS7下安装shadowsocksR" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Valine：</span>
+  
+    <a title="valine" href="/315060/install-shadowsocksr-in-centos7/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/315060/install-shadowsocksr-in-centos7/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>Linode CentOS7下面的安装流程</p>
+<h2 id="安装前准备"><a href="#安装前准备" class="headerlink" title="安装前准备"></a>安装前准备</h2><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum <span class="keyword">install</span> git -y</span><br><span class="line">yum <span class="keyword">install</span> epel-release -y</span><br><span class="line">yum <span class="keyword">install</span> libsodium -y  <span class="comment"># 使用salsa20 或 chacha20 或 chacha20-ietf 算法必须的</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="下载shadowsocksr"><a href="#下载shadowsocksr" class="headerlink" title="下载shadowsocksr"></a>下载shadowsocksr</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b manyuser https://github.com/shadowsocksr-backup/shadowsocksr.git &amp;&amp; <span class="built_in">cd</span> shadowsocksr/</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置shadowoskcr"><a href="#配置shadowoskcr" class="headerlink" title="配置shadowoskcr"></a>配置shadowoskcr</h2><p><code>vi user-config.json</code></p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;server&quot;</span>: <span class="string">&quot;0.0.0.0&quot;</span>,</span><br><span class="line">    <span class="string">&quot;server_ipv6&quot;</span>: <span class="string">&quot;::&quot;</span>,</span><br><span class="line">    <span class="string">&quot;server_port&quot;</span>: <span class="number">3008</span>,</span><br><span class="line">    <span class="string">&quot;local_address&quot;</span>: <span class="string">&quot;127.0.0.1&quot;</span>,</span><br><span class="line">    <span class="string">&quot;local_port&quot;</span>: <span class="number">1080</span>,</span><br><span class="line"></span><br><span class="line">    <span class="string">&quot;password&quot;</span>: <span class="string">&quot;password-lanthy.com&quot;</span>,</span><br><span class="line">    <span class="string">&quot;method&quot;</span>: <span class="string">&quot;chacha20&quot;</span>,</span><br><span class="line">    <span class="string">&quot;protocol&quot;</span>: <span class="string">&quot;auth_aes128_md5&quot;</span>,</span><br><span class="line">    <span class="string">&quot;protocol_param&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">    <span class="string">&quot;obfs&quot;</span>: <span class="string">&quot;tls1.2_ticket_auth_compatible&quot;</span>,</span><br><span class="line">    <span class="string">&quot;obfs_param&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">    <span class="string">&quot;speed_limit_per_con&quot;</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="string">&quot;speed_limit_per_user&quot;</span>: <span class="number">0</span>,</span><br><span class="line"></span><br><span class="line">    <span class="string">&quot;additional_ports&quot;</span> : &#123;&#125;, // only works under multi-<span class="keyword">user</span> <span class="title">mode</span></span><br><span class="line">    <span class="string">&quot;additional_ports_only&quot;</span> : <span class="literal">false</span>, // only works under multi-<span class="keyword">user</span> <span class="title">mode</span></span><br><span class="line">    <span class="string">&quot;timeout&quot;</span>: <span class="number">120</span>,</span><br><span class="line">    <span class="string">&quot;udp_timeout&quot;</span>: <span class="number">60</span>,</span><br><span class="line">    <span class="string">&quot;dns_ipv6&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="string">&quot;connect_verbose_info&quot;</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="string">&quot;redirect&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">    <span class="string">&quot;fast_open&quot;</span>: <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="后台运行ssr"><a href="#后台运行ssr" class="headerlink" title="后台运行ssr"></a>后台运行ssr</h2><p><code>cd shadowsocks</code></p>
+<p>后台运行</p>
+<p><code>python server.py -d start</code></p>
+<p>如果要停止&#x2F;重启：</p>
+<p><code>python server.py -d stop/restart</code></p>
+<p>查看日志：</p>
+<p><code>tail -f /var/log/shadowsocksr.log</code></p>
+<h2 id="SSR启动脚本"><a href="#SSR启动脚本" class="headerlink" title="SSR启动脚本"></a>SSR启动脚本</h2><p>以下启动脚本均假定shadowsocks-rss安装于&#x2F;root&#x2F;shadowsocksr目录，配置文件为&#x2F;root&#x2F;shadowsocksr&#x2F;user-config.json，请按照实际情况自行修改</p>
+<p>SysVinit启动脚本，适合CentOS&#x2F;RHEL6系以及Ubuntu 14.x，Debian7.x</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/sh</span></span><br><span class="line"><span class="comment"># chkconfig: 2345 90 10</span></span><br><span class="line"><span class="comment"># description: Start or stop the Shadowsocks R server</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">### BEGIN INIT INFO</span></span><br><span class="line"><span class="comment"># Provides: Shadowsocks-R</span></span><br><span class="line"><span class="comment"># Required-Start: $network $syslog</span></span><br><span class="line"><span class="comment"># Required-Stop: $network</span></span><br><span class="line"><span class="comment"># Default-Start: 2 3 4 5</span></span><br><span class="line"><span class="comment"># Default-Stop: 0 1 6</span></span><br><span class="line"><span class="comment"># Description: Start or stop the Shadowsocks R server</span></span><br><span class="line"><span class="comment">### END INIT INFO</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Author: Yvonne Lu(Min) &lt;min@utbhost.com&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="attribute">name</span>=shadowsocks</span><br><span class="line"><span class="attribute">PY</span>=/usr/bin/python</span><br><span class="line"><span class="attribute">SS</span>=/root/shadowsocksr/shadowsocks/server.py</span><br><span class="line"><span class="attribute">SSPY</span>=server.py</span><br><span class="line"><span class="attribute">conf</span>=/root/shadowsocksr/user-config.json</span><br><span class="line"></span><br><span class="line">start()&#123;</span><br><span class="line">    <span class="variable">$PY</span> <span class="variable">$SS</span> -c <span class="variable">$conf</span> -d start</span><br><span class="line">    <span class="attribute">RETVAL</span>=$?</span><br><span class="line">    <span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$RETVAL</span>&quot;</span> = <span class="string">&quot;0&quot;</span> ]; then</span><br><span class="line">        echo <span class="string">&quot;<span class="variable">$name</span> start success&quot;</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        echo <span class="string">&quot;<span class="variable">$name</span> start failed&quot;</span></span><br><span class="line">    fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">stop()&#123;</span><br><span class="line">    <span class="attribute">pid</span>=`ps -ef | grep -v grep | grep -v ps | grep -i <span class="string">&quot;<span class="variable">$&#123;SSPY&#125;</span>&quot;</span> | awk <span class="string">&#x27;&#123;print $2&#125;&#x27;</span>`</span><br><span class="line">    <span class="keyword">if</span> [ ! -z <span class="string">&quot;<span class="variable">$pid</span>&quot;</span> ]; then</span><br><span class="line">        <span class="variable">$PY</span> <span class="variable">$SS</span> -c <span class="variable">$conf</span> -d stop</span><br><span class="line">        <span class="attribute">RETVAL</span>=$?</span><br><span class="line">        <span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$RETVAL</span>&quot;</span> = <span class="string">&quot;0&quot;</span> ]; then</span><br><span class="line">            echo <span class="string">&quot;<span class="variable">$name</span> stop success&quot;</span></span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            echo <span class="string">&quot;<span class="variable">$name</span> stop failed&quot;</span></span><br><span class="line">        fi</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        echo <span class="string">&quot;<span class="variable">$name</span> is not running&quot;</span></span><br><span class="line">        <span class="attribute">RETVAL</span>=1</span><br><span class="line">    fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">status()&#123;</span><br><span class="line">    <span class="attribute">pid</span>=`ps -ef | grep -v grep | grep -v ps | grep -i <span class="string">&quot;<span class="variable">$&#123;SSPY&#125;</span>&quot;</span> | awk <span class="string">&#x27;&#123;print $2&#125;&#x27;</span>`</span><br><span class="line">    <span class="keyword">if</span> [ -z <span class="string">&quot;<span class="variable">$pid</span>&quot;</span> ]; then</span><br><span class="line">        echo <span class="string">&quot;<span class="variable">$name</span> is not running&quot;</span></span><br><span class="line">        <span class="attribute">RETVAL</span>=1</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        echo <span class="string">&quot;<span class="variable">$name</span> is running with PID <span class="variable">$pid</span>&quot;</span></span><br><span class="line">        <span class="attribute">RETVAL</span>=0</span><br><span class="line">    fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">case <span class="string">&quot;<span class="variable">$1</span>&quot;</span> <span class="keyword">in</span></span><br><span class="line"><span class="string">&#x27;start&#x27;</span>)</span><br><span class="line">    start</span><br><span class="line">    ;;</span><br><span class="line"><span class="string">&#x27;stop&#x27;</span>)</span><br><span class="line">    stop</span><br><span class="line">    ;;</span><br><span class="line"><span class="string">&#x27;status&#x27;</span>)</span><br><span class="line">    status</span><br><span class="line">    ;;</span><br><span class="line"><span class="string">&#x27;restart&#x27;</span>)</span><br><span class="line">    stop</span><br><span class="line">    start</span><br><span class="line">    <span class="attribute">RETVAL</span>=$?</span><br><span class="line">    ;;</span><br><span class="line">*)</span><br><span class="line">    echo <span class="string">&quot;Usage: <span class="variable">$0</span> &#123; start | stop | restart | status &#125;&quot;</span></span><br><span class="line">    <span class="attribute">RETVAL</span>=1</span><br><span class="line">    ;;</span><br><span class="line">esac</span><br><span class="line">exit <span class="variable">$RETVAL</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>请将上述脚本保存为 <code>/etc/init.d/shadowsocks</code>  </p>
+</blockquote>
+<h3 id="CentOS-RHEL6-执行"><a href="#CentOS-RHEL6-执行" class="headerlink" title="CentOS&#x2F;RHEL6 执行:"></a>CentOS&#x2F;RHEL6 执行:</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> 755 /etc/init.d/shadowsocks &amp;&amp; chkconfig --add shadowsocks &amp;&amp; service shadowsocks start</span><br></pre></td></tr></table></figure>
+
+<h3 id="Ubuntu-14-x，Debian7-x-执行"><a href="#Ubuntu-14-x，Debian7-x-执行" class="headerlink" title="Ubuntu 14.x，Debian7.x 执行:"></a>Ubuntu 14.x，Debian7.x 执行:</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> 755 /etc/init.d/shadowsocks ; update-rc.d shadowsocks defaults ; service shadowsocks start</span><br></pre></td></tr></table></figure>
+
+<h2 id="systemd脚本"><a href="#systemd脚本" class="headerlink" title="systemd脚本"></a>systemd脚本</h2><p>systemd脚本，适用于CentOS&#x2F;RHEL7以上，Ubuntu 15以上，Debian8以上</p>
+<h3 id="单用户版"><a href="#单用户版" class="headerlink" title="单用户版"></a>单用户版</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=ShadowsocksR server</span><br><span class="line">After=network.target</span><br><span class="line">Wants=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=forking</span><br><span class="line">PIDFile=/var/run/shadowsocksr.pid</span><br><span class="line">ExecStart=/usr/bin/python /usr/local/shadowsocksr/shadowsocks/server.py --pid-file /var/run/shadowsocksr.pid -c /usr/local/shadowsocksr/user-config.json -d start</span><br><span class="line">ExecStop=/usr/bin/python /usr/local/shadowsocksr/shadowsocks/server.py --pid-file /var/run/shadowsocksr.pid -c /usr/local/shadowsocksr/user-config.json -d stop</span><br><span class="line">ExecReload=/bin/kill -HUP $MAINPID</span><br><span class="line">KillMode=process</span><br><span class="line">Restart=always</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+
+<h3 id="多用户版"><a href="#多用户版" class="headerlink" title="多用户版"></a>多用户版</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=ShadowsocksR server</span><br><span class="line">After=syslog.target</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">LimitCORE=infinity</span><br><span class="line">LimitNOFILE=512000</span><br><span class="line">LimitNPROC=512000</span><br><span class="line">Type=simple</span><br><span class="line">WorkingDirectory=/usr/local/shadowsocksr</span><br><span class="line">ExecStart=/usr/bin/python /usr/local/shadowsocksr/server.py</span><br><span class="line">ExecReload=/bin/kill -s HUP $MAINPID</span><br><span class="line">ExecStop=/bin/kill -s TERM $MAINPID</span><br><span class="line">Restart=always</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>请将上述脚本保存为 <code>/etc/systemd/system/shadowsocksr.service</code><br>并执行<code>systemctl enable shadowsocksr.service &amp;&amp; systemctl start shadowsocksr.service</code></p>
+</blockquote>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
+<li><a href="https://github.com/shadowsocksr-backup/shadowsocks-rss/wiki/System-startup-script">https://github.com/shadowsocksr-backup/shadowsocks-rss/wiki/System-startup-script</a></li>
+</ul>
+<h2 id="SSR-优化"><a href="#SSR-优化" class="headerlink" title="SSR 优化"></a>SSR 优化</h2><ul>
+<li><a href="https://github.com/iMeiji/shadowsocks_install/wiki/shadowsocks-optimize">https://github.com/iMeiji/shadowsocks_install/wiki/shadowsocks-optimize</a></li>
+<li><a href="https://github.com/iMeiji/shadowsocks_install/wiki/%E5%BC%80%E5%90%AFTCP-BBR%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6%E7%AE%97%E6%B3%95">开启TCP BBR拥塞控制算法</a></li>
+</ul>
+<h2 id="shadowsocks-SSR客户端下载"><a href="#shadowsocks-SSR客户端下载" class="headerlink" title="shadowsocks SSR客户端下载"></a>shadowsocks SSR客户端下载</h2><ul>
+<li><a href="https://github.com/shadowsocksr-backup/shadowsocksr-csharp/releases">https://github.com/shadowsocksr-backup/shadowsocksr-csharp/releases</a></li>
+</ul>
+<h2 id="参考资料-1"><a href="#参考资料-1" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a href="https://github.com/shadowsocksr-backup/shadowsocks-rss">https://github.com/shadowsocksr-backup/shadowsocks-rss</a></li>
+<li><a href="https://github.com/shadowsocksr-backup/shadowsocks-rss/wiki/Server-Setup">https://github.com/shadowsocksr-backup/shadowsocks-rss/wiki/Server-Setup</a></li>
+<li><a href="https://github.com/shadowsocksr-backup/shadowsocks-rss/wiki/libsodium">https://github.com/shadowsocksr-backup/shadowsocks-rss/wiki/libsodium</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Ray
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://leadscloud.github.io/315060/install-shadowsocksr-in-centos7/" title="CentOS7下安装shadowsocksR">https://leadscloud.github.io/315060/install-shadowsocksr-in-centos7/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/shadwosocks/" rel="tag"># shadwosocks</a>
+              <a href="/tags/shadowsocksr/" rel="tag"># shadowsocksr</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/315050/nginx-pagespeed-config/" rel="prev" title="Nginx Pagespeed 配置">
+                  <i class="fa fa-angle-left"></i> Nginx Pagespeed 配置
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/315070/using-iptables-to-forward-shadowsocks/" rel="next" title="利用iptables实现shadowsocks中继/转发">
+                  利用iptables实现shadowsocks中继/转发 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="valine-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Ray</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/leadscloud" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/algoliasearch/4.24.0/algoliasearch-lite.umd.js" integrity="sha256-b2n6oSgG4C1stMT/yc/ChGszs9EY/Mhs6oltEjQbFCQ=" crossorigin="anonymous"></script><script src="/js/third-party/search/algolia-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"ePPAQV9hFzcbhOaQvvtyjTnw-gzGzoHsz","app_key":"GLniGVXsSMGBjTmaiI4wleaF","server_url":"https://leancloud.tinycms.xyz","security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+
+
+<script class="next-config" data-name="valine" type="application/json">{"enable":true,"appId":"ePPAQV9hFzcbhOaQvvtyjTnw-gzGzoHsz","appKey":"GLniGVXsSMGBjTmaiI4wleaF","serverURLs":"https://leancloud.tinycms.xyz","placeholder":"Just go go","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-cn","visitor":false,"comment_count":true,"recordIP":true,"enableQQ":true,"requiredFields":[],"el":"#valine-comments","path":"/315060/install-shadowsocksr-in-centos7/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.valine.el)
+    .then(() => NexT.utils.getScript(
+      'https://fastly.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js',
+      { condition: window.Valine }
+    ))
+    .then(() => {
+      new Valine(CONFIG.valine);
+    });
+});
+</script>
+
+</body>
+</html>

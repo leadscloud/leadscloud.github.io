@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/logo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="mask-icon" href="/logo.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"leadscloud.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"algolia":{"appID":"F1YESSIUKA","apiKey":"fba180e0d225a86fe382bf021a9f0ae3","indexName":"blog","hits":{"per_page":10}}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="什么是比特币？比特币 (bitcoin) 是一种数字货币。     小知识：什么是比特(bit) ?      bit 是计算机表示二进制的单位。     例如：     1bit 可以表示 0 或者 1 两种状态；     2bit 可以表示 00&#x2F;01&#x2F;10&#x2F;11 四种状态。      所以，习惯上人们用比特来形容数字化相关的事物，例如：比特币  既然比特币是一种数字货币，那么理解比特币之前">
+<meta property="og:type" content="article">
+<meta property="og:title" content="看完你就知道什么是比特币了">
+<meta property="og:url" content="https://leadscloud.github.io/316022/what-is-bitcoin/index.html">
+<meta property="og:site_name" content="leadscloud">
+<meta property="og:description" content="什么是比特币？比特币 (bitcoin) 是一种数字货币。     小知识：什么是比特(bit) ?      bit 是计算机表示二进制的单位。     例如：     1bit 可以表示 0 或者 1 两种状态；     2bit 可以表示 00&#x2F;01&#x2F;10&#x2F;11 四种状态。      所以，习惯上人们用比特来形容数字化相关的事物，例如：比特币  既然比特币是一种数字货币，那么理解比特币之前">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/1/7/160d129fe08810ee">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/1/8/160d5afb3792be0d">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/1/8/160d5934991362e3">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/1/8/160d5b5aca4c1df7">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/1/8/160d5fcd00648bc5">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/1/8/160d637fc413969b">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/1/8/160d643f7acaa623">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/1/13/160ee7bb6d2cd5d0">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/1/9/160dab8e862a67fd">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/1/10/160e077bfa0945c7">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/1/9/160dadd19f95721a">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/1/9/160db1218bf436b7">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/1/13/160ee7721e3e891d">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/1/11/160e5add7ef1d9dd?imageslim">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/1/11/160e5c59ad7cad36">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/1/12/160ea45968bffbf1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/1/11/160e5d246884e60c">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/1/12/160e9aac711c1507">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/1/12/160ea10ee36bfca6">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/1/12/160ea9155eec7149">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/1/12/160eacb8bf5a6827">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/1/13/160f00c91d99f74f">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/1/13/160f01a142a576e4?imageslim">
+<meta property="article:published_time" content="2018-03-07T07:27:07.000Z">
+<meta property="article:modified_time" content="2025-04-10T04:42:07.145Z">
+<meta property="article:author" content="Ray">
+<meta property="article:tag" content="bitcoin">
+<meta property="article:tag" content="比特币">
+<meta property="article:tag" content="区块链">
+<meta property="article:tag" content="挖矿">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/1/7/160d129fe08810ee">
+
+
+<link rel="canonical" href="https://leadscloud.github.io/316022/what-is-bitcoin/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://leadscloud.github.io/316022/what-is-bitcoin/","path":"316022/what-is-bitcoin/","title":"看完你就知道什么是比特币了"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>看完你就知道什么是比特币了 | leadscloud</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6GCT2E7T9Y"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-6GCT2E7T9Y","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="leadscloud" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">leadscloud</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Google SEO|外贸营销推广</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">266</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">11</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">459</span></a></li><li class="menu-item menu-item-免费chatgpt"><a href="https://freegpt.tech/?refer=blog-side" rel="section" target="_blank"><i class="fa fa-heart fa-fw"></i>免费ChatGPT</a></li><li class="menu-item menu-item-我的简历"><a href="https://leadscloud.github.io/resume/resume.pdf" rel="section"><i class="fa fa-vcard fa-fw"></i>我的简历</a></li><li class="menu-item menu-item-友情链接"><a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>友情链接</a></li><li class="menu-item menu-item-chrome扩展（域名所属人）"><a href="/serp-analyzer/" rel="section"><i class="fa fa-cloud fa-fw"></i>Chrome扩展（域名所属人）</a></li><li class="menu-item menu-item-询盘管理系统"><a href="https://github.com/leadscloud/infomaster" rel="section" target="_blank"><i class="fa fa-database fa-fw"></i>询盘管理系统</a></li><li class="menu-item menu-item-外贸留言板系统"><a href="/20180615/google-seo-inquiry-messageboard/" rel="section"><i class="fa fa-database fa-fw"></i>外贸留言板系统</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fab fa-algolia fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%AF%94%E7%89%B9%E5%B8%81%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">什么是比特币？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BD%93%E5%89%8D%E7%9A%84%E8%B4%A7%E5%B8%81%E4%BD%93%E7%B3%BB"><span class="nav-number">2.</span> <span class="nav-text">当前的货币体系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AF%94%E7%89%B9%E5%B8%81%E7%B3%BB%E7%BB%9F%E6%98%AF%E5%A6%82%E4%BD%95%E8%BF%90%E8%BD%AC%E7%9A%84%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">比特币系统是如何运转的？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8E%E8%AE%B0%E8%B4%A6%E5%BC%80%E5%A7%8B"><span class="nav-number">3.1.</span> <span class="nav-text">从记账开始</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%96%E7%9F%BF%E5%90%A7%EF%BC%81%E5%B0%91%E5%B9%B4"><span class="nav-number">3.2.</span> <span class="nav-text">挖矿吧！少年</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%B0%E5%9C%A8%E5%B0%B1%E5%8E%BB%E5%BC%80%E6%88%B7"><span class="nav-number">3.3.</span> <span class="nav-text">现在就去开户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AC%E8%B4%A6%E6%98%AF%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E7%9A%84"><span class="nav-number">3.4.</span> <span class="nav-text">转账是如何实现的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8A%82%E7%82%B9%E4%B8%BA%E4%BA%86%E4%BB%80%E4%B9%88%E8%80%8C%E5%B7%A5%E4%BD%9C"><span class="nav-number">3.5.</span> <span class="nav-text">节点为了什么而工作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%88%91%E7%9A%84%E9%92%B1%E5%BD%92%E6%88%91"><span class="nav-number">3.6.</span> <span class="nav-text">我的钱归我</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%BE%E6%88%90%E5%85%B1%E8%AF%86"><span class="nav-number">3.7.</span> <span class="nav-text">达成共识</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%9F%E5%A4%A7%E7%9A%84%E8%AF%95%E9%AA%8C"><span class="nav-number">4.</span> <span class="nav-text">伟大的试验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%99%E5%8F%AA%E6%98%AF%E5%BC%80%E5%A7%8B"><span class="nav-number">5.</span> <span class="nav-text">这只是开始</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Ray</p>
+  <div class="site-description" itemprop="description">熟悉 Google SEO，外贸营销推广，这是我的个人博客，主要分享工作中的技术。</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">459</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">266</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/leadscloud" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;leadscloud" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:love4026@gmail.com" title="E-Mail → mailto:love4026@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://cdn.livechatinc.xyz/" title="https:&#x2F;&#x2F;cdn.livechatinc.xyz&#x2F;" rel="noopener" target="_blank">RLiveChat</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://www.kamychina.com/" title="https:&#x2F;&#x2F;www.kamychina.com&#x2F;" rel="noopener" target="_blank">Roadheader</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://tinycms.xyz/" title="https:&#x2F;&#x2F;tinycms.xyz&#x2F;" rel="noopener" target="_blank">TinyCMS</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://leadscloud.github.io/316022/what-is-bitcoin/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ray">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="leadscloud">
+      <meta itemprop="description" content="熟悉 Google SEO，外贸营销推广，这是我的个人博客，主要分享工作中的技术。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="看完你就知道什么是比特币了 | leadscloud">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          看完你就知道什么是比特币了
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-03-07 15:27:07" itemprop="dateCreated datePublished" datetime="2018-03-07T15:27:07+08:00">2018-03-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-04-10 12:42:07" itemprop="dateModified" datetime="2025-04-10T12:42:07+08:00">2025-04-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%BD%AC%E8%BD%BD/" itemprop="url" rel="index"><span itemprop="name">转载</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/316022/what-is-bitcoin/" class="post-meta-item leancloud_visitors" data-flag-title="看完你就知道什么是比特币了" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Valine：</span>
+  
+    <a title="valine" href="/316022/what-is-bitcoin/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/316022/what-is-bitcoin/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p><img src="https://user-gold-cdn.xitu.io/2018/1/7/160d129fe08810ee" alt="什么是比特币？"></p>
+<h2 id="什么是比特币？"><a href="#什么是比特币？" class="headerlink" title="什么是比特币？"></a>什么是比特币？</h2><p>比特币 (bitcoin) 是一种数字货币。</p>
+<pre><code>    小知识：什么是比特(bit) ?
+
+    bit 是计算机表示二进制的单位。
+    例如：
+    1bit 可以表示 0 或者 1 两种状态；
+    2bit 可以表示 00/01/10/11 四种状态。
+
+    所以，习惯上人们用比特来形容数字化相关的事物，例如：比特币
+</code></pre>
+<p>既然比特币是一种数字货币，那么理解比特币之前，先要了解：什么是<code>货币</code>？</p>
+<p>经济学上认为，货币本质上是<code>一般等价物</code>。</p>
+<p>什么是一般等价物？</p>
+<p>考虑原始时代的经济：</p>
+<p>A 圈养了一头牛，B 纺织了一块布，为了满足彼此的需求，他们可以约定：</p>
+<pre><code>    一头牛 换 一匹布
+</code></pre>
+<p>通过这种原始的<code>物物交换</code>实现了简单的<code>价值流动</code>。</p>
+<p>但是，随着社会生产力的提高，这种模式已经不能适应经济发展的要求。</p>
+<pre><code>    小思考：为什么物物交换行不通？
+
+    1、A 在安阳，B 在梅州，空间上没法物物交换；
+    2、A 今天生产了商品甲，下个月才需要商品乙，时间上没法物物交换；
+    3、参与市场的各方提供了成千上万的商品，效率上不接受物物交换。
+</code></pre>
+<p>这个时候，需要一种各方都认可的<code>一般等价物</code>来衡量、转换和传递商品的价值，从而实现商品的高效自由流动。</p>
+<pre><code>    价值流动：商品 -&gt; 一般等价物 -&gt; 商品
+</code></pre>
+<p>早期，人们使用贝壳来充当<code>一般等价物</code>，后来又使用金、银等贵金属，再发展出纸币，甚至到现在的移动支付。</p>
+<pre><code>    小思考：
+
+    财、货、贵、贩、赚、账、赁，这些字有什么共同点？
+</code></pre>
+<p>以 ￥人民币 为例，它是以国家信用为背书，充当价值媒介的一般等价物。具有价值尺度、流通手段、贮藏手段、支付手段等职能。</p>
+<p>所以，货币本质上是一般等价物。</p>
+<p>只要你能创造出一种东西：它满足充当一般等价物的条件，那么你就是创造了一种货币！</p>
+<pre><code>    小思考：充当一般等价物需要哪些条件？
+
+    1、全体参与方认可；
+    2、不可伪造；
+    3、方便携带、分隔、可以长期保存；
+    4、数量可控；
+    ......
+</code></pre>
+<p>比特币就是这样一种东西。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/1/8/160d5afb3792be0d" alt="比特币"></p>
+<p>这是一个革命性的创举，它打破了古今中外的惯例：货币都由政府的中央银行负责发行，而且只能在特定国家或地区流通。</p>
+<p>要知道，往往只有改朝换代的时候有机会发行全新的货币，可谓百年难遇。现在比特币做到了，而且是全球性地发行和流通，前无古人！</p>
+<h2 id="当前的货币体系"><a href="#当前的货币体系" class="headerlink" title="当前的货币体系"></a>当前的货币体系</h2><p>政府通过国家信用和强制手段保证央行发行的货币被广泛认可和接受。</p>
+<p>例如，通过颁布法律和规章制度：《中华人民共和国中国人民银行法》、《中华人民共和国人民币管理条例》等。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/1/8/160d5934991362e3"></p>
+<p>对于防止伪造，一方面通过技术手段提高纸币的伪造难度；另一方面通过法律手段打击制造、流通假币。</p>
+<p>截至目前，通过央行发行货币是全世界通用的做法，运行良好，但缺点明显。</p>
+<p>显而易见的问题，包括但不限于：</p>
+<ol>
+<li><p>由于发行权掌握在中心化的央行手中，理论上存在货币超发的可能，从而导致通货膨胀，例如：委内瑞拉、津巴布韦等国家由于通货膨胀，货币体系近乎崩溃；</p>
+</li>
+<li><p>即使高压打击，依然无法避免假币出现，最薄弱的环节不在于印制技术，而在于流通中需要人去辨别，而人往往是不可靠的。</p>
+</li>
+</ol>
+<p><img src="https://user-gold-cdn.xitu.io/2018/1/8/160d5b5aca4c1df7"></p>
+<h2 id="比特币系统是如何运转的？"><a href="#比特币系统是如何运转的？" class="headerlink" title="比特币系统是如何运转的？"></a>比特币系统是如何运转的？</h2><p>2008 年，一个网名为中本聪 (Satoshi Nakamoto) 的人，发表了<a href="https://bitcoin.org/bitcoin.pdf">《比特币：一种点对点式的电子现金系统》</a>的论文，由此掀开了比特币风靡全球的大幕。</p>
+<pre><code>    小链接：
+
+    论文 PDF 版原文：https://bitcoin.org/bitcoin.pdf
+
+    中文翻译： [比特币白皮书：一种点对点的电子现金系统](http://www.8btc.com/wiki/bitcoin-a-peer-to-peer-electronic-cash-system)
+</code></pre>
+<p>由于思维定势，刚接触比特币概念的人，往往有一些认知的误区或盲区：</p>
+<p>1、比特币是不是和硬币或纸币一样有实体形式？<br>2、比特币是数字货币，是不是和银行账户一样，在某个服务器的数据库里记录着我的账户下有多少余额？<br>3、两个人之间怎么转账？是不是和传统的银行一样：A 的账户 -100，B 的账户 +100？<br>4、比特币的数量有多少？最小分割单位是多少？<br>5、没有中央银行，那么比特币是谁发行的？<br>6、软件、音乐、文档等数字资产可以随便复制，为什么比特币不能拷贝？</p>
+<p>……</p>
+<p>一大堆问题！是什么？！为什么？！</p>
+<p>当你开始思考这些问题的时候，那么恭喜你，你已经在思考如何设计一种货币系统了。</p>
+<p>真是激动人心，从来没有想过有一天自己也可以设计一套货币系统，而且可以在真实世界运行起来。</p>
+<p>更令人兴奋的是，你有机会参与价值的重新分配，就像淘金。</p>
+<p>接下来，开始揭秘比特币是如何运行的。</p>
+<span id="more"></span>
+
+<h3 id="从记账开始"><a href="#从记账开始" class="headerlink" title="从记账开始"></a>从记账开始</h3><p>比特币系统不需要一个具体的地方记录某个账户下有多少余额，只要知道所有账户之间的转账记录，就可以推算出某个账户下有多少余额。</p>
+<p>假设系统总共有 3 个账户 A&#x2F;B&#x2F;C，它们初始值和转账记录如下：</p>
+<pre><code>    A B C 账户初始值分别为 50元、0元、0元
+</code></pre>
+<p>转账记录：</p>
+<pre><code>    A -&gt; B : 10元
+    B -&gt; C : 5元
+    C -&gt; A : 2元
+    B -&gt; A : 3元
+</code></pre>
+<p>那么，可以计算出 A&#x2F;B&#x2F;C 目前的余额分别是：</p>
+<pre><code>    A: 50 - 10 + 2 + 3 = 45元
+    B: 0 + 10 - 5 - 3 = 2元
+    C: 0 + 5 - 2 = 3元
+</code></pre>
+<p><strong>所以：只要知道转账记录，就可以知道账户余额</strong></p>
+<p>前提是，你要知道所有账户的初始值。</p>
+<p>额… 结果还是有某个地方记录着 A&#x2F;B&#x2F;C 的初始值为 50&#x2F;0&#x2F;0，说好的比特币不用记录每个账户的余额呢？！</p>
+<p>怎么解决？</p>
+<p>只要规定每个账户初始余额都是 0 ，不就可以不用记录了么！</p>
+<p>都是 0 ？那后来 A 的 50元 哪里来的？没有这 50 ，哪来后续的转账？总不能无中生有吧？？</p>
+<p>答案确实是：无中生有。</p>
+<p>现在，A&#x2F;B&#x2F;C 账户的余额都是 0，所以不用记录了，但是多了一笔“无中生有”的转账记录：</p>
+<pre><code>    -&gt; A : 50元（无中生有）
+    A -&gt; B : 10元
+    B -&gt; C : 5元
+    C -&gt; A : 2元
+    B -&gt; A : 3元
+</code></pre>
+<p>那么，可以计算出 A&#x2F;B&#x2F;C 目前的余额分别是：</p>
+<pre><code>    A: 0 + 50 - 10 + 2 + 3 = 45元
+    B: 0 + 10 - 5 - 3 = 2元
+    C: 0 + 5 - 2 = 3元
+</code></pre>
+<p>结论依然是：只要知道转账记录，就可以知道账户余额。</p>
+<p>凭什么？！</p>
+<p>凭什么无中生有的时候，到了 A 的账户下，而不是我的，或者至少是所有人平均？！</p>
+<p>想想吧，A 发现了一座疑似金矿，他 费时费力、千辛万苦、冒着万一不是金矿或者发生矿难的风险 开采完，最终总共得到了 50 克黄金。</p>
+<p>这个时候，你还会说凭什么么？不会的。</p>
+<p>当 A 拿 10 克 黄金向 B 买一份腌面的时候，转账发生了：</p>
+<pre><code>    -&gt; A : 50
+    A -&gt; B : 10
+    ...
+</code></pre>
+<p>所以，无中生有的成本是：A 要成为一名矿工，去挖矿。</p>
+<p>而 A 的所得是系统对他的奖励，毕竟没人挖矿的话，市场上就没有支持价值流动的媒介：一般等价物。</p>
+<p>这也是比特币唯一的发行方式：矿工每完成一次有效“挖矿”，就奖励一定数量的比特币。</p>
+<p>同时，“挖矿”会设置一定的难度，保证每次“挖矿”时间在 10 分钟左右。</p>
+<p>最开始的时候，每次奖励 50 个比特币，每过 4 年时间奖励减半：</p>
+<pre><code>    2009 - 2012 年，每次奖励 50 btc
+    2013 - 2016 年，每次奖励 25 btc
+    2017 - 2020 年，每次奖励 12.5 btc
+    ...
+</code></pre>
+<p>按照这样的规则，时间线到 2140 年左右，奖励会变为 0，那时候问世的比特币总量约 2100 万个。</p>
+<p>所以，你现在就参加挖矿的话，每次可以奖励到 12.5 个比特币，根据比特币交易所 coinbase.com 的最新数据：1btc &#x3D; $14907，那么 12.5 个比特币约合人民币 ￥1210802，心动不？</p>
+<p>比特币价格变化曲线：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/1/8/160d5fcd00648bc5"></p>
+<h3 id="挖矿吧！少年"><a href="#挖矿吧！少年" class="headerlink" title="挖矿吧！少年"></a>挖矿吧！少年</h3><p>事实上，“挖矿”只是一个形象的比喻。比特币作为一种数字货币，并不像黄金一样要开着挖掘机一勺一勺的挖。</p>
+<p>上文说到，“无中生有”是对“矿工”辛苦“挖矿”付出成本的一种奖励，随着奖励的不断进行，这些“矿工”的账户上也就不断地有比特币增加，然后“矿工”们向其他人支付或者转账，那么货币系统就开始运行起来了。</p>
+<p>既然不用真的去挖，那么哪来的成本？</p>
+<p>你说对了，目前看起来确实没有成本。</p>
+<p>那怎么办？</p>
+<p>解决方案是：人为的制造成本！</p>
+<p>比特币系统给每个“矿工”布置一道作业题，谁先解答出来，就算谁“挖矿”成功，然后奖励就花落他家。</p>
+<p>到底是什么样的作业题，要计算机花大约 10 分钟才能解答出来？</p>
+<p>答案类似于“抽奖”。</p>
+<p>给你 1-10 个号码，随机从中抽一个，放回后可以重复任意次，谁先抽到 “小于等于 N”的号码，就算解答成功。</p>
+<pre><code>    那么：
+
+    对于题目“抽到号码小于等于 10”，那么平均抽 10/10=1 次，就能出现；
+    对于题目“抽到号码小于等于 5”，那么平均抽 10/5=2 次，就能出现；
+    对于题目“抽到号码小于等于 2”，那么平均抽 10/2=5 次，就能出现；
+    ...
+    可见 N 的值越小，需要抽的次数就越多
+</code></pre>
+<p>是不是很简单？以计算机的速度，别说抽 10 次，就算抽 100 万次也是分分钟搞定的事情。感觉我也能“挖矿”，马上就要一夜暴富了，哈哈哈。</p>
+<p>你高兴的太早了。</p>
+<p>如果改为从 1 到 2的256次方 之间抽一个呢？</p>
+<pre><code>    2^256 = 115792089237316195423570985008687907853269984665640564039457584007913129639936
+
+    2的256次方 是一个很大的数字！
+
+    用 16 进制来表示就是：
+
+    从 0x0000000000000000000000000000000000000000000000000000000000000000
+    到 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+
+    如果现在要求抽到一个小于等于：
+
+    0x00000000ffff0000000000000000000000000000000000000000000000000000
+
+    的数。
+
+    那么平均需要 4295032833(约 43 亿)次。
+</code></pre>
+<p>所以，事情没有你想象的那么简单。</p>
+<p>目前，“挖矿”已经是一个竞争激烈残酷到不忍直视的工作。</p>
+<p>比特币系统为了保证每次挖矿时间大约为 10 分钟，会根据过去 2016 次挖矿的平均时间，动态调整 N 的大小。</p>
+<pre><code>    小思考：为什么是 2016 次？
+
+    如果 10 分钟可以挖一次，那么每小时 6 次 x 一天 24 小时 x 14 天(2 周) = 2016 次
+</code></pre>
+<p>N 越小，需要计算的次数就越多，那么时间也就越长。</p>
+<p>如果“矿工”投入了计算速度超快的设备，也就是传说中的“矿机”，甚至使用成千上万的“矿机”的联合体，也就是更可怕的“矿场”。</p>
+<p>直至终极形态：由无数的个体户和“矿场”等联合，形成“矿池”！那么，计算能力不断增强，为了保证计算时间稳定在 10 分钟左右，N 的值就得不断减小。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/1/8/160d637fc413969b"></p>
+<pre><code>    小知识：“挖矿”设备变迁史
+
+    个人电脑 CPU -&gt;  GPU -&gt; FPGA -&gt; ASIC（矿机）-&gt; 矿场 -&gt; 矿池
+
+    注：专用集成电路（英语：Application-specific integrated circuit，缩写：ASIC）
+</code></pre>
+<p>根据 btc.com 的统计，目前参与比特币系统“挖矿”的计算能力已经达到：15.23 EH&#x2F;s！</p>
+<pre><code>    15.23 EH/s = 15.23 x 10^18 次哈希计算/每秒
+</code></pre>
+<p>难度系数也达到了：</p>
+<pre><code>    1.93T = 1.93 x 10^12
+</code></pre>
+<p>难度系数是个相对值：</p>
+<p>以难度系数 1 需要计算 4295032833(约 43 亿)次为基准</p>
+<p>那么，难度系数 1.93T 需要计算：</p>
+<pre><code>    4295032833 x 1.93 x 10^12 = 8289413367690000000000 次
+</code></pre>
+<p><img src="https://user-gold-cdn.xitu.io/2018/1/8/160d643f7acaa623"></p>
+<p>所以，很遗憾，作为“个体户”，你已经没有参与“挖矿”的机会了，或者说你那点计算能力参与竞争的话，机会有点渺茫，很渺茫的那种渺茫。so sad ;(</p>
+<p>根据 blockchain.info 的统计，目前全球各大矿池算力份额占比如下图所示：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/1/13/160ee7bb6d2cd5d0"></p>
+<p>其中，有超过 70% 的算力分布在中国，真是“勤劳勇敢的中国人”。</p>
+<pre><code>    小思考：
+
+    每台“矿机”背后都要消耗大量的电源，所以为了降低成本，很多“矿场”都选择建在靠近电站的地方。
+
+    比特币这种人为设置“挖矿”成本的机制，一直被批评人士诟病：造成大量能源的浪费。
+
+    你觉得有什么好的解决方案呢？
+</code></pre>
+<blockquote>
+<p>[新闻链接] 腾讯财经：<a href="https://finance.qq.com/a/20180103/021201.htm">《央行闭门会议讨论对比特币矿场限电 并非关停》</a></p>
+</blockquote>
+<p>现在，你已经对比特币“挖矿”的概念有了感性的认识：付出“辛苦劳动”的成本，获得系统的奖励，这样你的账户上就会“无中生有”多出比特币，然后你用这些“被挖出”的比特币购买商品或服务，给他人支付或转账，那么比特币就开始充当一般等价物的角色，变身为货币。</p>
+<h3 id="现在就去开户"><a href="#现在就去开户" class="headerlink" title="现在就去开户"></a>现在就去开户</h3><p>上文说到，不管你是参与“挖矿”，还是接受比特币支付或者转账，都需要一个属于你的账户。所以，参与到比特币系统的前提是，你要有一个比特币账户。</p>
+<pre><code>    小知识：
+
+    截至 2018 年 1 月，比特币网络上活跃的账户已经超过 2200 万个。
+</code></pre>
+<p>你以前去银行开户的时候，需要本人带着身份证，填写一大堆信息和签名，甚至需要现场录指纹和拍照，相当繁琐。</p>
+<p>那么，比特币开户需要携带什么材料，到哪个机构去开户呢？</p>
+<p>答案是：不用带任何材料，不用到任何机构，你可以随时随地零成本地开设任意数量的账户！</p>
+<p>这只是比特币货币系统一个小特性而已。从现在开始，你脑海中的思维定势需要被慢慢推翻，直到你完全掌握比特币运行的原理。</p>
+<p>事实上，你只需要一对密钥，分别称为私钥和公钥。</p>
+<p>这对密钥有这样的特性：私钥加密后的信息只有公钥能解密；公钥加密后的信息只有私钥能解密。也就是所谓的“非对称加密”。</p>
+<pre><code>    小知识：
+
+    这也是比特币被称为数字加密货币的原因，整个系统都依赖密码学基础。
+</code></pre>
+<p>现在，你完全不用关心怎么生成这样一对密钥。因为有专门的软件帮你生成和保管，这种软件被形象地称为“比特币钱包”。</p>
+<p>你可以到 bitcoin.org&#x2F;coinbase.com&#x2F;btc.com 等网站下载它们提供的比特币钱包，甚至可以自己编程开发一个。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/1/9/160dab8e862a67fd"></p>
+<p>有了比特币钱包之后，你需要做的就是动动手指，点一下就开好账户了，再点一下又开好了一个账户。</p>
+<p>一个账户由一对密钥（私钥，公钥）组成，公钥可以通过私钥生成。再使用公钥经过一系列不可逆的哈希计算得到比特币账号地址。</p>
+<pre><code>    小知识：什么是哈希计算？
+
+    哈希(hash)计算具有如下特点:
+    1、将任意长度的数据映射为固定长度的大整数；
+    2、数据有任意变化后，计算出来的结果完全不同；
+    3、无法通过哈希结果逆推出原始数据内容。
+
+    哈希算法有很多种实现，比如常见的 SHA-256 算法：
+
+    sha256(&#39;123&#39;) = a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3
+    sha256(&#39;234&#39;) = 114bd151f8fb0c58642d2170da4ae7d7c57977260ac2cc8905306cab6b2acabc
+    ...
+
+    可见这里：
+    哈希值是用 16 进制表示的整数；
+    原始内容轻微变化，但哈希结果差之千里，那么每次改动原始内容，得到的哈希值相当于从 1 到 2的256次方 中随机抽一个数。
+</code></pre>
+<p>所谓“不可逆”就是：别人无法通过账号地址推算出公钥。所以，你可以放心的把地址告诉别人，接受对方的转账。下图展示了通过公钥计算出比特币地址的过程：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/1/10/160e077bfa0945c7"></p>
+<p>你很兴奋，因为有了第一个属于自己的比特币账户，但是也很沮丧，因为里面空空如也。</p>
+<p>那么怎样让自己的钱包鼓起来？毕竟一个比特币价值 $17082！</p>
+<pre><code>    小知识：比特币冷笑话
+
+    为什么前文提到比特币价值 1btc = $14907，这里又变成了 $17082？
+
+    因为比特币交易价格剧烈波动，在作者写到这里的时候，已经过了 10 分钟。^_^
+</code></pre>
+<p>已知的获取比特币的方式和存在的障碍：</p>
+<p>1、比特币“挖矿”；（竞争很激烈，机会很渺茫）</p>
+<p>2、接受比特币支付，比如你的工资&#x2F;咖啡店；（你的老板&#x2F;顾客也没有比特币）</p>
+<p>3、让你的好朋友给你转一点；（你可能没有好到这种程度的朋友 ^_^）</p>
+<p>4、花钱到比特币交易所购买。（国内已经禁止比特币交易，另外价格也已经突破 $10000 美元）</p>
+<p>那普通人不是没有机会参与了么？</p>
+<p>你说对了，目前参与门槛已经非常高了。这是比特币发展必然要经历的一个过程，也许等到“矿工”们愿意花费他们手中的比特币，也有足够的机构和个人愿意接受比特币支付了，比特币才会通过价值流动慢慢到达普通人手中。</p>
+<p>根据 btc.com 统计的全球前十大比特币账户下的余额：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/1/9/160dadd19f95721a"></p>
+<p>第一名的价值已经超过 26亿 美金！</p>
+<p>这就是技术变革给先行者最好的奖励！“拥抱变化”不是一句空谈。</p>
+<p>当然，这里可能有一些是比特币交易所的公共账户。</p>
+<pre><code>    小思考：
+
+    批评人士也认为，目前的比特币不能给大众带来普惠。
+    狂热的炒作只是一个庞氏骗局，泡沫终将破灭。
+
+    你怎么看？
+</code></pre>
+<blockquote>
+<p>[新闻链接] 人民日报：<a href="http://paper.people.com.cn/rmrb/html/2018-01/03/nw.D110000renmrb_20180103_2-22.htm">《比特币价格存在泡沫，已是一个无需讨论的问题》</a></p>
+</blockquote>
+<h3 id="转账是如何实现的"><a href="#转账是如何实现的" class="headerlink" title="转账是如何实现的"></a>转账是如何实现的</h3><p>假设 Mr.Chen 在国外，通过 coinbase.com 比特币交易所，用美元向他人购买了 0.1 个比特币。</p>
+<pre><code>    小知识：比特币最小单位
+
+    就像 1元 = 10角 = 100分 一样，1btc 也可以细分：
+
+    1btc = 100000000聪（没错，是1亿，也是中本聪那个聪）
+    也即：1聪 = 0.00000001btc
+
+    所以，当你以后听到：“2两葱多少钱？” “2聪” 这样对话的时候，不要惊讶。
+</code></pre>
+<p>现在 Mr.Chen 想给 Miss.Liu 转 0.05个比特币，怎么实现呢？</p>
+<p>想一下，你以前用银行卡的时候怎么转账：</p>
+<ol>
+<li>账户余额大于等于转账金额；</li>
+<li>知道对方的账号；</li>
+<li>输入密码，确认是本人操作。</li>
+</ol>
+<p>剩下的事情，银行会帮你搞定：扣掉你账户的金额，加到对方账户下，给你出账单等等，还可能会收你手续费。</p>
+<p>比特币转账步骤类似，但是没有银行这个角色，就像你开比特币账户的时候不用带着材料跑去银行一样。</p>
+<p>那么谁来扣钱、谁来记录账单呢？</p>
+<p>答案是：分布式节点。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/1/9/160db1218bf436b7"></p>
+<pre><code>    小知识：什么叫分布式？
+
+    与分布式对应的是“中心化”，就像所有人的交易都由银行这个中心记录管理。
+    如果银行服务器崩溃了，那么所有人的交易都无法再进行。
+
+    相反，分布式就是所有交易由比特币网络中的节点共同记录。
+    每个节点独立维护一份完整的交易账本，这个账本也叫做“分布式账本”。
+    任何一个节点退出比特币网络，不影响系统运行。
+
+    现在，比特币系统由分布在全球各地的节点组成。
+    每个节点都与附近的节点连接，组成一张覆盖全球的 P2P 网络。
+
+    这也是比特币可以全球流通的物质基础。
+</code></pre>
+<p>所以，你只需将交易信息告诉比特币网络中任意节点就行。</p>
+<p>它不仅会帮你记录到它的账本中，还会帮你转发给与之连接的近邻节点，通过这样病毒式扩散后，数分钟内交易信息将抵达全球每一个比特币节点。蔚为壮观！</p>
+<p>那么节点在哪？看不见摸不着，我去哪里找它？</p>
+<p>幸运的是，不用你费心去找节点，你的“比特币钱包”会帮你做这件事。</p>
+<p>事实上，比特币钱包要把交易信息告诉节点，那么它就至少得连接比特币网络中的一个节点，当与节点连接后，比特币钱包本身也就成为了网络中的一个节点，只不过叫做“轻量级节点”，因为它既没有记录完整的账本，也没有去“挖矿”。</p>
+<pre><code>    小知识：比特币钱包都有哪些功能？
+
+    1、管理比特币账户（密钥）；
+    2、发送交易信息；
+    3、查询余额。
+</code></pre>
+<p>好奇的你还是想多问一句：比特币钱包是怎么发现节点的？</p>
+<p>很简单，在比特币网络发展的过程中，会有一些长期稳定的节点，称为“种子节点”。</p>
+<p>开发比特币钱包软件的时候，会把这些“种子节点”的域名写进代码，通过 DNS 动态查询的方式，向“种子节点”要一份活跃节点地址列表，以这些节点为媒介比特币钱包就可以加入网络了。</p>
+<p>好极了！现在 Mr.Chen 通过比特币钱包给 Miss.Liu 完成转账了，这笔转账通过“分布式账本”被全球的比特币网络节点记录在案。</p>
+<pre><code>    转账记录：
+
+    Mr. Chen -&gt; Miss. Liu : 0.05btc
+
+    当然，不会真的这样记录名字，而是两人的比特币账号，类似于：
+    1AC4fMwgY8j9onSbXEWeH6Zan8QGMSdmtA -&gt; 1JWq3G8pqCo6jZGhLHpctYap5yVScqGxkv : 0.05btc
+    小思考：
+
+    交易记录中没有任何隐私信息，即比特币交易的“匿名性”。
+
+    那么，匿名交易的利与弊都有哪些？
+</code></pre>
+<h3 id="节点为了什么而工作"><a href="#节点为了什么而工作" class="headerlink" title="节点为了什么而工作"></a>节点为了什么而工作</h3><p>那么谁来充当比特币网络中记账的“全节点”？为什么它们会那么好心，帮我记录交易信息呢？毕竟随着交易数量的增长，这个账本可不小。</p>
+<p>自 2009 年比特币网络开始记账以来，账本已经接近 150G 大小：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/1/13/160ee7721e3e891d"></p>
+<p>节点们并没有好心到“免费”帮你记账。</p>
+<p>事实上，每一个节点都可能是“坏节点”，即使收到你发来的交易信息了，也不帮你记账！so bad ;(</p>
+<p>那怎么办呢？</p>
+<p>解决方案：每笔交易支付一笔“转账费”，谁愿意记账就可以获得这笔费用。</p>
+<p>这样节点就有动力收集全网的交易信息，真是“有钱能使鬼推磨”。</p>
+<pre><code>    带转账费的交易：
+
+    Mr. Chen -&gt; Miss. Liu : 0.05btc
+    Mr. Chen -&gt; 某 “矿工” : 0.001btc
+</code></pre>
+<p>我们说过，交易会被全球比特币网络节点记录在案，那么“转账费”是它们均分么？节点那么多，平均下来也太少了，起码我不干。</p>
+<p>当然不会均分，而是谁先完成“挖矿”，这笔费用就归谁，也就是跟系统奖励一起给他，赢者通吃！</p>
+<p>这也是节点被称为“矿工”的原因，勤勤勉勉的记账，辛辛苦苦的付出计算成本，最后得到转账费+系统奖励。</p>
+<p>那其他节点不乐意了，没有收到小费凭什么要我记录？</p>
+<p>解决方案：“挖矿”是每 10 分钟一次，虽然这次你没挖着，没了奖励也没了转账费，但是可以开始下一轮竞赛了啊，不过参加下一轮竞赛的前提是，你得把账本更新到最新，也就是你不记账就失去了继续竞赛的资格。</p>
+<p>“好吧，我们愿意接着干”，节点们心有不甘地说道。</p>
+<h3 id="我的钱归我"><a href="#我的钱归我" class="headerlink" title="我的钱归我"></a>我的钱归我</h3><p>你已经知道，只需向比特币网络广播一次交易信息，就会被全网的节点记录在案。</p>
+<p>假如有个坏人 HR ，他知道你的账号是 A，那么他广播一条交易信息：</p>
+<pre><code>    A -&gt; HR : 10btc
+</code></pre>
+<p>那你的钱不就被他转走了吗？</p>
+<p>并不会。</p>
+<p>比特币节点接收到一条交易信息后，会独立进行真实性校验，如果有误就不会入账：</p>
+<ol>
+<li>账户余额是否足够；</li>
+<li>是否本人发起交易。</li>
+</ol>
+<p>对于余额查询，我们前文说过，比特币系统的分布式账本并不直接记录某个账户下有多少余额，而是只记录转账记录。“挖矿”奖励所得也相当于一次系统给“矿工”的转账。</p>
+<p>假设你账户 A 如下，有“挖矿”所得及 X&#x2F;Y&#x2F;Z 三人给你转账，共 50btc：</p>
+<pre><code>    记录1：  -&gt; A : 12.5btc
+    记录2：X -&gt; A : 12.5btc
+    记录3：Y -&gt; A : 20btc
+    记录4：Z -&gt; A : 5btc
+</code></pre>
+<p>显然，你还没花出去。</p>
+<p>在比特币系统中，这 4 笔转账记录的输出部分也叫做“未花费交易输出” (Unspent Transaction Output 缩写为：UTXO)。</p>
+<p>UTXO 不可分割，只能以整体作为一笔新交易的输入。</p>
+<p>就像你不能把1元硬币割成两块，分别作为5毛钱一样。如果你要给商户支付5毛，只能给他1元，然后找回你5毛。</p>
+<p>现在，你想给 B 转账 22btc，你只能从这 4 个 UTXO 中挑几个，如果刚好可以凑齐 22btc 最好，否则只能选大于 22btc 的组合。</p>
+<p>就像你钱包有 10元&#x2F;5元&#x2F;2元&#x2F;1元 各一张，买地铁票需要 3元，那么你可以给 ￥2+￥1 的组合，也可以给 ￥5 找回 ￥2，甚至可以给 ￥10 找回 ￥7，随你意。</p>
+<p>经过反复斟酌，你挑选了这 2 个 UTXO：</p>
+<pre><code>    记录3：Y -&gt; A : 20btc
+    记录4：Z -&gt; A : 5btc
+</code></pre>
+<p>这就是你准备发起的新交易的输入部分，总共 25btc。等到交易被确认之后，它们会被从 UTXO 记录中移除 ，也就不能再作为另一笔交易的输入了。</p>
+<p>输出分为两部分，一个是给 B 转账 22btc，另一个是给自己转账 2.5btc：</p>
+<pre><code>    记录5：A -&gt; B : 22btc
+    记录6：A -&gt; A : 2.5btc
+</code></pre>
+<p>给自己转账也叫作“找零”。</p>
+<p>可是：</p>
+<pre><code>    25btc - 22btc = 3btc
+</code></pre>
+<p>怎么只“找零”了 2.5btc？</p>
+<p>为什么 0.5btc 神秘消失了？是因为人性的扭曲还是道德的沦丧？</p>
+<p>是因为隐性的“转账费”。</p>
+<p>当记录交易的节点发现一笔交易的输入大于输出的时候，他就知道：</p>
+<pre><code>    转账费 = 输入 - 输出
+</code></pre>
+<p>那转账费给多少合适呢？</p>
+<p>答案是：随意，而且交易费和交易额无关，只和交易数据大小有关。费用越高，你的交易就越快地被记录。</p>
+<p>幸运的是，挑选 UTXO 组合和计算转账费的工作都有“比特币钱包”帮你搞定，对你来说只需关注：给谁转了多少、找零多少、费用多少。</p>
+<pre><code>    小思考：不给转账费会怎样？
+
+    当传统的银行都开始取消转账费的时候，比特币还在收费，有点过分。
+    这也是批评人士诟病比特币的缺陷之一。
+
+    事实上，转账费是为了鼓励节点参与到系统的维护。
+    传统银行系统也有巨额的维护成本，只不过他们转移了收费方式，毕竟“羊毛出在羊身上”。
+
+    即使你不交转账费，交易也可能被顺利记录，因为网络中有一些“热情的”节点。
+    只不过不能那么及时可以确认转账成功。
+</code></pre>
+<p>现在，你已经知道，一笔交易由输入和输出组成。输入由多个 UTXO 组成，输出由转出额以及可选的找零、交易费组成。</p>
+<p>所以，当你挑选的 UTXO 组合小于转出额的时候，被判定为：余额不足，交易无效。</p>
+<p>节点会给你的比特币钱包返回错误提示，也不会再把这个交易信息转发给近邻节点。</p>
+<p>这样就杜绝了舞弊者：给人开空头支票。</p>
+<p>另一个问题：如何确认是账户所有者本人操作？</p>
+<p>上文说到，你的账户 A 在给 B 转账 22btc 之前，有 4 笔 UTXO：</p>
+<pre><code>    记录1：  -&gt; A : 12.5btc
+    记录2：X -&gt; A : 12.5btc
+    记录3：Y -&gt; A : 20btc
+    记录4：Z -&gt; A : 5btc
+</code></pre>
+<p>事实上，每笔 UTXO 都带有转账方为 A 量身打造的的“锁定脚本”（scriptPubKey），A 想要花费这笔 UTXO 的话必须提供“解锁脚本”（scriptSigs）。</p>
+<p>“解锁脚本”和“锁定脚本”拼接在一起，可以组成一段可执行代码。如果执行成功，那么解锁成功，解锁者可以花费这笔 UTXO，否则记账节点在验证交易的时候认为他没有权限操作。</p>
+<p>相当于转账者用你提供的一把锁，锁住了 UTXO，只要你能提供钥匙解锁，就可以花费。</p>
+<p>那么“脚本”长啥样？</p>
+<pre><code>    锁定脚本：
+    DUP HASH160 PUSHDATA(&lt;public-key-hash&gt;) EQUALVERIFY CHECKSIG
+
+    解锁脚本：
+    PUSHDATA(&lt;signature&gt;) PUSHDATA(&lt;public-key&gt;)
+
+    拼接 &lt;解锁脚本&gt; &lt;锁定脚本&gt; 得到：
+    PUSHDATA(&lt;signature&gt;) PUSHDATA(&lt;public-key&gt;) DUP HASH160 PUSHDATA(&lt;public-key-hash&gt;) EQUALVERIFY CHECKSIG
+</code></pre>
+<p>看起来很复杂，其实就是一条条指令：</p>
+<p>步骤一 PUSHDATA(signature)：</p>
+<p>把解锁者提供的签名 signature 压入栈顶；</p>
+<p>步骤二 PUSHDATA(public-key)：</p>
+<p>把解锁者提供的公钥 public-key 压入栈顶；</p>
+<p>此时，栈内有两个数据：</p>
+<table>
+<thead>
+<tr>
+<th align="center">栈</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">public-key</td>
+</tr>
+<tr>
+<td align="center">signature</td>
+</tr>
+</tbody></table>
+<p>步骤三 DUP：</p>
+<p>将栈顶数据复制一份；</p>
+<table>
+<thead>
+<tr>
+<th align="center">栈</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">public-key</td>
+</tr>
+<tr>
+<td align="center">public-key</td>
+</tr>
+<tr>
+<td align="center">signature</td>
+</tr>
+</tbody></table>
+<p>步骤四 HASH160：</p>
+<p>将栈顶数据使用 HASH160 哈希算法加密；</p>
+<table>
+<thead>
+<tr>
+<th align="center">栈</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">public-key-hash</td>
+</tr>
+<tr>
+<td align="center">public-key</td>
+</tr>
+<tr>
+<td align="center">signature</td>
+</tr>
+</tbody></table>
+<p>步骤五 PUSHDATA(public-key-hash) ：</p>
+<p>将锁定者提供的 public-key-hash 加入栈顶；</p>
+<table>
+<thead>
+<tr>
+<th align="center">栈</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">public-key-hash</td>
+</tr>
+<tr>
+<td align="center">public-key-hash</td>
+</tr>
+<tr>
+<td align="center">public-key</td>
+</tr>
+<tr>
+<td align="center">signature</td>
+</tr>
+</tbody></table>
+<p>步骤六 EQUALVERIFY：</p>
+<p>判断栈顶2个元素是否相等，相等的话就移除；</p>
+<table>
+<thead>
+<tr>
+<th align="center">栈</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">public-key</td>
+</tr>
+<tr>
+<td align="center">signature</td>
+</tr>
+</tbody></table>
+<p>步骤七 CHECKSIG：</p>
+<p>使用栈顶的公钥 public-key 解密签名 signature，能够解密的话，执行成功；</p>
+<table>
+<thead>
+<tr>
+<th align="center">栈</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">成功</td>
+</tr>
+</tbody></table>
+<p>这些步骤只有一个目的：证明 A 是这笔 UTXO 的所有者。</p>
+<p>“锁定脚本”中包含的 public-key-hash 就是 A 的公钥哈希（注意：不是公钥），可以通过 A 的比特币地址解码出来。</p>
+<p>所以，我们说知道对方的比特币地址就可以给对方转账，实质上是知道对方的 public-key-hash 从而可以制造“锁定脚本”，也就是所谓的 P2PKH(Pay-To-Public-Key-Hash)。</p>
+<p>A 想要花费一笔 UTXO 的时候，需要提供“解锁脚本”，包含他的公钥(public-key)和对新建交易的签名(signature)。</p>
+<p>签名是通过 A 的私钥对交易信息加密生成的：</p>
+<pre><code>    签名(signature) = 私钥::加密(交易信息)
+</code></pre>
+<p>前文说到，私钥加密的信息只有对应的公钥能解密。言下之意，如果一段密文可以用公钥解密出来，那么这段密文肯定是对应的私钥所有者亲手加密的，因为私钥只存在所有者手中。</p>
+<p>用私钥对一份数据加密，生成密文的过程，被形象地称为“签名”。就像你在一份合同上签名后就不可抵赖，因为没人可以写出你那样的笔迹。</p>
+<p>用私钥对交易信息签名完成后，就相当于宣告：</p>
+<ol>
+<li>这是你本人行为；</li>
+<li>任何人无法篡改交易信息，因为签名是对原始信息的加密，如果信息有变动，那么用你的公钥解密出原始内容后，就可以比对发现差异。</li>
+</ol>
+<p>综上所述，将一笔 UTXO 作为交易的输入部分而花费的时候，你需要提供一段“解锁脚本”，包含有你的私钥加密后的签名。</p>
+<p>当你把交易信息广播给节点的时候，节点会进行真实性校验：</p>
+<ol>
+<li>确认存在这样一笔 UTXO；</li>
+<li>将你提供的“解锁脚本”和 UTXO 携带的“锁定脚本”组合成一段代码并执行；</li>
+<li>代码执行过程的本质就是确认你是这笔 UTXO 的所有者，是你本人准备花费它，而且交易信息在网络传输过程中没有被篡改过。</li>
+</ol>
+<p>至此，“转账是本人操作”的问题已经解决。</p>
+<pre><code>    小知识：
+
+    智能合约(smart contract)的概念也就是从上述“脚本”代码执行过程衍生出来的。
+    所谓“智能”指的是：当条件满足时，代码可以顺利执行。
+
+    比特币系统对“脚本”的设计是开放的。
+    上述 P2PKH 的执行过程，只要你能提供私钥就可以花费 UTXO。
+    事实上，你可以设计为：3 人中有 2 个人提供私钥，代码就可以顺利执行。
+    这就相当于，你把比特币账户交给 3 人共同保管，有 2 人达成协议就可以花费。
+</code></pre>
+<h3 id="达成共识"><a href="#达成共识" class="headerlink" title="达成共识"></a>达成共识</h3><p>遍布全球的比特币网络节点各自独立工作，随时有节点退出或者加入，怎么保证最终大家记录的账本一致，或者说达成共识呢？</p>
+<p>先看看账本长啥样。</p>
+<p>假设某节点 Node 在 10 分钟内接收到 3 笔经过合法校验的交易：</p>
+<pre><code>    交易1：A -&gt; B
+    交易2：C -&gt; D
+    交易3：E -&gt; F
+</code></pre>
+<p>节点会计算每笔交易的输入减去输出的差额，也就是前文所说的“隐性的转账费”。</p>
+<p>假设每笔交易包含的转账费都是 0.1btc，那么总共就有 0.3btc。</p>
+<p>再加上当前时段的系统奖励 12.5btc，那么节点将会得到：</p>
+<pre><code>    12.5btc + 0.3btc = 12.8btc
+</code></pre>
+<p>节点会构造一笔系统给自己的转账，加入到交易列表：</p>
+<pre><code>    交易0：  -&gt; Node (12.8btc)
+    交易1：A -&gt; B
+    交易2：C -&gt; D
+    交易3：E -&gt; F
+</code></pre>
+<p>这笔交易也叫作 coinbase transaction，是对节点辛苦记账的奖励。</p>
+<p>接下来，节点以这些交易列表为基础，构造出一个区块头，共同组成一个完整的区块。</p>
+<p>其中，区块头主要包含以下信息：</p>
+<table>
+<thead>
+<tr>
+<th align="center">区块头结构</th>
+<th align="center">简介</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">版本号</td>
+<td align="center">不同版本的区块适用不同版本的校验规则</td>
+</tr>
+<tr>
+<td align="center">上一个区块头的哈希值</td>
+<td align="center">链接上一个区块，从而在区块之间形成“链条”</td>
+</tr>
+<tr>
+<td align="center">交易列表的 Merkle Root</td>
+<td align="center">由交易列表数据通过一定规则生成</td>
+</tr>
+<tr>
+<td align="center">时间戳</td>
+<td align="center">构造区块头的时间点</td>
+</tr>
+<tr>
+<td align="center">难度目标值</td>
+<td align="center">区块头的哈希值要小于难度目标值</td>
+</tr>
+<tr>
+<td align="center">随机数</td>
+<td align="center">不断调整以改变区块头内容，使得区块头的哈希值满足特定要求</td>
+</tr>
+</tbody></table>
+<p>可以使用区块链浏览器查询每个区块的数据内容，以下是通过 btc.com 查询到的高度为 503688（也就是第 503688 个区块）的区块信息：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/1/11/160e5add7ef1d9dd?imageslim"></p>
+<p>可以直观的看到，区块分为区块头和交易列表两部分。</p>
+<pre><code>    为了方便浏览，有一些并不在区块头中实际存储的信息，也被展示出来了。
+    比如：区块自身的哈希值、后一个区块哈希值等。
+</code></pre>
+<p>那么区块头的各个字段都是如何确定内容的呢？</p>
+<p><em>版本号</em></p>
+<p>比特币协议会不断发展以适应新的需求，不同的版本有不同的规则，可以通过版本字段标示这个区块适用哪些规则。</p>
+<p><em>上一个区块头的哈希</em></p>
+<p>根据上一个区块头内容计算出来的哈希值。</p>
+<p>这里有个递归的问题：构造区块头需要上一个区块的信息，那么同理，上一个区块在被构造出来的时候需要上上一个区块的信息….</p>
+<p>解决方案：创世区块，也就是第 0 个区块，不需要上一个区块的信息。</p>
+<p>下图展示了创世区块(Genesis Block)的数据结构，可以看到它没有上一个区块头的哈希值，同时也没有交易记录，只有一笔系统奖励的 50btc：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/1/11/160e5c59ad7cad36"></p>
+<p>有了创世区块问题就解决了，下一个区块可以指向创世区块，从此子子孙孙无穷尽也。</p>
+<p><em>Merkle Root</em></p>
+<p>Merkle Root 美国计算机科学家 Ralph Merkle 最早提出，并由他冠名的一种数据处理过程。</p>
+<p>例如，对于排好序的 4 份数据 L1&#x2F;L2&#x2F;L3&#x2F;L4，分别计算它们的哈希值，然后将哈希值两两合并再计算哈希值，直至最后剩下一个根节点：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/1/12/160ea45968bffbf1"></p>
+<p>上图看起来就像一棵不断分叉的树，最底层的称为叶子(leaf)节点，最顶部的称为 Merkle Root。</p>
+<p>这种数据结构具有特点：任意叶子节点的数据变化，都会沿着箭头向上传递，最终导致 Merkle Root 也发生变化。</p>
+<p>将这种处理方法应用到区块的交易列表数据上，把每笔交易作为叶子节点，就可以计算出区块头所需要的 Merkle Root。</p>
+<p><em>时间戳</em></p>
+<p>区块头被构造出来的时间点。</p>
+<p>例如，创世区块是在 2009-01-04 02:15:05 被构造出来的。</p>
+<p><em>难度目标值</em></p>
+<p>上文说到，比特币网络设置了“挖矿”难度，保证不管全网算力增加还是减少，都让“挖矿”时间保持在 10 分钟左右。</p>
+<p>每经过 2016 个区块，难度就会调整一次。如果平均时间大于 10 分钟，那么降低难度；如果平均时间小于 10 分钟，那么增大难度。</p>
+<p>下图是对数化处理后的难度变化曲线，可以看到从 2010 年 2 月开始难度剧烈增加（对数化处理后才能在图表内展示完整，所以看起来平缓）：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/1/11/160e5d246884e60c"></p>
+<p>比特币协议要求构造出来的区块头的哈希值小于难度目标值，否则区块无效：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">hash</span><span class="params">(block-header)</span></span> &lt; difficulty-target</span><br></pre></td></tr></table></figure>
+
+<p>这个构造过程也称为“工作量证明”(Proof of Work)，因为不花费一定时间投入算力的话，就不能构造出符合条件的区块头。那么构造成功的话也就证明了投入的工作量。</p>
+<p>在区块头中，有 4 个字节的长度存储编码后的难度目标值，以第 503829 个区块的难度目标值为例：</p>
+<pre><code>    0x180091c1
+</code></pre>
+<p>这串 16 进制表示的数据分为 0091c1 和 18 两部分，经过固定公式计算后，可以得到难度目标值：</p>
+<pre><code>    0x0091c1 * 2^(8*(0x18 - 3)) = 0x00000000000000000091c1000000000000000000000000000000000000000000
+</code></pre>
+<p>可以看到难度目标值是一个 16 进制表示的整数。</p>
+<p>计算区块头哈希值的算法把区块头内容也映射为一个 16 进制表示的整数，例如第 503829 个区块头的哈希值：</p>
+<pre><code>    hash(block.503829) = 0x000000000000000000304f4c17301acc6bb0990c3791db64d642ae5868158038
+</code></pre>
+<p>通过对比可以发现，区块头哈希值小于难度目标值：</p>
+<pre><code>    区块哈希值:0x000000000000000000304f4c17301acc6bb0990c3791db64d642ae5868158038
+    难度目标值:0x00000000000000000091c1000000000000000000000000000000000000000000
+</code></pre>
+<p>所以这个区块是合法的。</p>
+<p>我们知道哈希计算是单向的，也就是没有办法通过哈希值推算出原始内容。</p>
+<p>只能通过不断地变化原始内容，然后计算出哈希值，看看是否符合小于难度目标值的要求。</p>
+<p>这是一个费时的工作，大约需要 10 分钟。虽然“挖矿”设备计算速度超快，但是需要尝试的次数实在是太多了！</p>
+<p>例如，到底要尝试多少次，才能获得小于下列难度目标值的哈希呢？</p>
+<pre><code>    0x00000000000000000091c1000000000000000000000000000000000000000000
+</code></pre>
+<p>相当于前文说到的在 1 到 2的256次方 之间随机抽一个数，使其小于等于这个难度目标值。</p>
+<p>那么平均要计算：</p>
+<pre><code>    8.29 x 10^21 次 = 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff/0x00000000000000000091c1000000000000000000000000000000000000000000
+
+    如果你的计算机每秒可以计算 10 亿次的话，那么需要：
+    8.29*10^21/1000000000/3600/24/365 = 26万年
+
+    得等到天荒地老！
+</code></pre>
+<p>确实有难度。</p>
+<p>所以前文说到；个人计算设备参与“挖矿”机会很渺茫。</p>
+<p>现在你已经知道：难度目标值的存在，使得构造一个有效的区块相当费时费力。</p>
+<p>这也是前文所说的：人为制造“挖矿”成本。</p>
+<p>那么如何确认构造当前区块需要的难度目标值呢？</p>
+<p>答案是：每构造完 2016 个区块，有一次调整的机会，根据过去的 2016 块消耗的平均时间，用固定的规则计算出新的难度目标值。</p>
+<p>还是有递归的问题，所以创世区块的难度目标值只能人为设定。事实上，初始难度目标值由中本聪写在第一版比特币代码中：</p>
+<pre><code>    0x00000000ffff0000000000000000000000000000000000000000000000000000
+</code></pre>
+<p>平均需要计算：</p>
+<pre><code>    4295032833 = 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff/0x00000000ffff0000000000000000000000000000000000000000000000000000
+
+    约 43 亿次，相当轻松
+</code></pre>
+<p>以这个为难度系数 1 的话，截至目前，难度系数已经达到：</p>
+<pre><code>    1.93x10^12 (1.93T) = 0x00000000ffff0000000000000000000000000000000000000000000000000000 / 0x00000000000000000091c1000000000000000000000000000000000000000000
+</code></pre>
+<p>难度系数(difficulty)是相对值，表征当前相对于第一次，构造一个有效区块有多难。</p>
+<p>难度目标值(target)是实现这个难度的具体阈值，要求构造的区块头的哈希小于这个数。</p>
+<p>下图展示了最近几次的难度变化：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/1/12/160e9aac711c1507"></p>
+<p>可见，难度有涨有跌，涨多跌少，这也表明加入“挖矿”大军的算力总体上在不断增加。</p>
+<p>根据过去 2016 个区块的平均生成时间和难度目标值，就可以计算出接下来 2016 个区块的难度目标值：</p>
+<pre><code>    新难度目标值 = 过去难度目标值 * (过去平均分钟时间 / 10)
+
+    例如：
+
+    当前难度目标值为 0x180091c1，解码后：
+    0x00000000000000000091c1000000000000000000000000000000000000000000
+
+    过去 2016 块平均出块时间为 8.7 分钟
+
+    那么新的难度目标值：
+
+    0x00000000000000000091c1000000000000000000000000000000000000000000 * (8.7 / 10)
+    = 0x0000000000000000007e578c0000000000000000000000000000000000000000
+
+    转码后记为：0x177e578c
+</code></pre>
+<p><em>随机数</em></p>
+<p>前文说到，为了让区块头的哈希值满足条件，必须不断地变化区块头内容，但是区块头的其他部分都是固定的，所以只能调整区块头的随机数字段。</p>
+<p>事实上，这个字段有 4 字节长度，可以表示：</p>
+<pre><code>    0 到 4,294,967,295
+</code></pre>
+<p>所以，随机数字段(Nonce:Number use Once) 从 0 开始遍历，可以产生约 43 亿个不同的值，也就可以生成 43 亿个不同的哈希，只要有一个哈希满足条件了，区块头构造工作就实现了。</p>
+<p>不过，随着全网算力的不断攀升，43 亿次计算根本不够难度要求。</p>
+<p>前文说到，普通交易需要在输入部分提供“解锁脚本”，用于花费 UTXO ，但是“矿工”自己构造的系统奖励+转账费的那笔交易(coinbase transaction)并不需要指定 UTXO ，所以不用写入“解锁脚本”。这里空出来的地方可以写入多达 100 字节的任何数据。</p>
+<p>交易列表的每次变动会导致区块头中的 Merkle Root 也发生变化，从而保证足够多次的哈希尝试。</p>
+<p>以创世区块为例，虽然当时随机数字段足够满足哈希尝试次数，但是中本聪依然在 coinbase transaction 写入了这句话：</p>
+<blockquote>
+<p>The Times 03&#x2F;Jan&#x2F;2009 Chancellor on brink of second bailout for banks</p>
+<p>(泰晤士报 2009年1月3号 财政大臣准备再次对银行施以援手)</p>
+</blockquote>
+<p><img src="https://user-gold-cdn.xitu.io/2018/1/12/160ea10ee36bfca6"></p>
+<p>这句话既证明了创世区块诞生于 2009 年 1 月 3 号 之后，又表达了对银行(传统货币体系)的讽刺和创造比特币系统的初衷，还示范了 coinibase transaction 字段的扩展性用法。</p>
+<p>现在你已经知道构造区块头需要的所有数据，以及如何获取到这些数据，回顾一下：</p>
+<pre><code>    1、节点收集 10 分钟内全网有效的交易信息；
+    2、插入一笔包含交易费和系统奖励的交易信息；
+    3、将交易列表排好顺序，计算出 Merkle Root 写入区块头；
+    4、找到上一个区块，并计算出它的区块头哈希值写入区块头；
+    5、获取当前难度目标值；
+    6、不断调整随机数和 coinbase transaction 扩展字段，使得区块头的哈希值满足要求。
+</code></pre>
+<p>这就是一次“挖矿”的全部过程。</p>
+<p>所以，“挖矿”的本质就是记录交易并构造出一个满足条件的区块。</p>
+<p>从创世区块开始，每 10 分钟左右全网发生的交易被打包进一个区块，每个区块都包含上一个区块头的哈希值，从而在块与块之间形成“链条”，这就是所谓的“区块链”：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/1/12/160ea9155eec7149" alt="区块链"></p>
+<p>区块链便是上文所说的“分布式账本”的真实面貌。</p>
+<p>现在的问题是：如何让所有节点记录的区块链保持一致？</p>
+<p>每个节点是独立开展工作的，只打包自己接收到的交易信息，同时会插入给自己的奖励交易，那最后岂不是每人一条自己的区块链？</p>
+<p>毕竟自己构造的区块才包含给自己的奖励，谁也不愿意放弃。</p>
+<p>为了让这群“自私”的节点保持一致，比特币协议规定：</p>
+<p><strong>系统中只有最长的那条区块链是有效的</strong></p>
+<p>这会导致两个结果：</p>
+<pre><code>    1、节点成功构造出区块后，除了加到自己的链尾，还会第一时间广播给全网节点；
+    2、其他节点收到一个有效区块后，会第一时间加入到自己的区块链上，同时也就宣布自己放弃这一轮的“挖矿”了。
+</code></pre>
+<p>第 1 个结果是显而易见的，把好不容易构造出来的区块藏着掖着，对自己没有任何好处。</p>
+<p>倒不如发给更多人，反正它们无法篡改，让它们加到链尾，那么你的区块所在的链条长度又 +1 了，这样就巩固了“系统中最长的区块链”的地位，你才可以认为系统奖励安心落袋了。</p>
+<pre><code>    小思考：为什么其他节点无法篡改你的区块？
+
+    篡改的主要目标是交易记录，比如把系统奖励改到自己名下。
+    这就会导致 Merkle Root 发生变化，那么区块头的哈希值也跟着变化。
+    那就不再是一个有效的区块了，毕竟区块头的哈希值必须小于难度目标值。
+</code></pre>
+<p>第 2 个结果充分运用了博弈的原理，假设你收到一个别人发过来的有效区块，你最佳的选择就是马上把它加到自己的区块链上，因为你不知道其他节点会不会加到它们的链尾，如果它们加了而你没加，那你的链条就比人短，导致你记录的整个链条作废！</p>
+<p>那么摆在你面前的只有两个选项：放弃这一轮“挖矿”，开始下一个区块的构造；或者等着自己的链条作废。“利欲熏心”的你应该不难做出选择，毕竟没人跟钱过不去。</p>
+<p>至此，“自私”的节点在有效规则之下做到了大规模协同，让系统利益最大化：只保持同一条最长的区块链。这也叫做“达成共识”。</p>
+<p>但世界上没有完美的规则。</p>
+<p>假设 A&#x2F;B 两个节点在同一时刻成功构造区块并广播出去，全网节点中有一半先收到 A 的区块后收到 B 的区块，另一半先收到 B 的区块后收到 A 的区块。</p>
+<p>节点会把先后收到的两个区块都接入链尾，以先收到为主链，后收到的为候选链，并开始以主链为基础继续下一轮“挖矿”。</p>
+<p>节点们都按照规则办事，但此时出现了两条“最长的区块链”：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/1/12/160eacb8bf5a6827"></p>
+<p>这就是传说中的“区块链分叉”问题。</p>
+<p>怎么办？完全蒙了…</p>
+<p>不要担心，如果“挖矿”期间又收到下一个有效区块，其指向的是候选链，那么此时候选链更长，节点会把它切换为主链。</p>
+<p>所以，这种“分叉”危机往往只存在一个“挖矿”周期，最后全网又只有一条最长的区块链。</p>
+<p><strong>你也可能是坏人</strong></p>
+<p>前文介绍了比特币系统如何确保一笔交易是本人签发的，主要为了防止坏人盗取你的资金。</p>
+<p>但如果你就是坏人呢？</p>
+<p>考虑到只有参与“挖矿”并第一个完成“工作量证明”，才能获得系统发行的比特币。只有存在别人给你转账而你未花费的 UTXO，你才能发起一笔有效交易。这就确保比特币系统基本上没有作弊的空间了。</p>
+<p>但是百密一疏。</p>
+<p>假设你的比特币地址是 A，给某商户 B 支付了 100btc：</p>
+<pre><code>    A -&gt; B : 100btc
+</code></pre>
+<p>这笔交易被广播到比特币网络，大约 10 分钟后被打包进一个区块，加入到区块链。</p>
+<p>这时 B 认为你支付成功了。</p>
+<p>但是，此时你使用同一份 UTXO 又生成一笔转给 C 的交易：</p>
+<pre><code>    A -&gt; C : 100btc
+</code></pre>
+<p>并把这笔交易只发给自己控制的具有强大算力的“矿池”，假设你的“矿池”的算力已经占到全网的 51%，那么你可以很快的生成包含转给 C 的交易的区块，并广播给其他节点。</p>
+<p>其他节点会接受这个区块。因为后收到，所以把它作为候选链。</p>
+<p>由于你的“矿池”算力如此之大，以至于下一个区块又是首先被你构造成功。于是乎全网节点都把候选链切换为主链。</p>
+<p>就这样，包含给 B 支付的那笔交易的区块就被排除在“最长区块链”之外了，相当于你没给 B 付钱。</p>
+<p>这就是所谓“双重支付”。</p>
+<p>幸运的是，目前全网算力如此之高，以至于你得付出巨大的成本才能掌握超过 51% 的算力。权衡利弊，你发现得不偿失就放弃了这个想法。</p>
+<p>但这确实是比特币系统存在的缺陷之一。</p>
+<p>对于 B 来说，可以做的就是等待。不要看到交易被打包进区块加入区块链后，就认为支付已经成功了。</p>
+<p>等到更多后续的区块被加入区块链后，想要篡改之前的某笔交易，就必须重新生成后续的所有区块，但是每个区块都要耗时大约 10 分钟，攻击者在算力有限的情况下无论如何也追不上主链的区块构造速度。</p>
+<p>现在你就可以理解区块链的设计初衷了：</p>
+<p>1、块与块之间形成链式结构，如果某个区块被改动，那么后续的区块就不再指向它，要想成为“最长的区块链”只能重新构造后续的区块；</p>
+<p>2、为构造区块设置难度，使得这是一件费时费力的工作，让攻击者有心无力。</p>
+<p>所以，前文说到人为地给比特币“挖矿”制造成本，并不是设计者没事找事，而是为了让比特币系统无懈可击。</p>
+<p>事实上，比特币“挖矿”难度完全可以改为 5 分钟、20分钟或任意分钟，但是综合考虑到：既不能让人等太久才可以确认交易，又不能让攻击者有机可乘，便折中确定为 10 分钟。</p>
+<p>真是煞费苦心。</p>
+<h2 id="伟大的试验"><a href="#伟大的试验" class="headerlink" title="伟大的试验"></a>伟大的试验</h2><p>现在你已经完全理解了比特币系统运行的原理，所有这些复杂的设计，都只有一个目的：满足成为一般等价物的条件。</p>
+<p>目前看来，比特币基本上做到了：</p>
+<pre><code>    1、总量有限，减量供给；
+    2、无法伪造；
+    3、交易方便安全；
+</code></pre>
+<p>这些特点给人以信心，使人相信比特币可以作为一般等价物，于是慢慢地：</p>
+<pre><code>    4、被广泛认可和接受
+</code></pre>
+<p>另外，比特币还具有鲜明的特点：</p>
+<pre><code>    5、去中心化；
+    6、全球发行和流通；
+</code></pre>
+<p>这既包括了发行的去中心化，也包括分布式账本。</p>
+<p>比特币的优点很明显，就和它的缺点一样：</p>
+<pre><code>    1、比特币的“挖矿”机制，耗费了全球大量的能源；
+    2、盲目的炒作令比特币价格剧烈波动，而货币的首要目标就是币值稳定；
+    3、交易的匿名性存在缺陷，比如此前勒索病毒要求使用比特币作为赎金；
+    4、比特币总量有限，所以是一种通缩型货币，价值只增不减，可能导致人人囤积，从而市场上缺少流动性，最终经济萎缩；
+    5、转账耗时，还需要手续费；
+    6、交易并发容量有限。
+</code></pre>
+<p>货币问题本质上是经济问题，但也是政治问题。</p>
+<p>政府发行货币，本身就是对其合法性的一种宣示。对货币发行的控制权本质上是对社会财富分配的控制权。</p>
+<p>所以，对比特币盲目的乐观或消极的诋毁都是错误的。</p>
+<p>比特币是一场伟大的社会试验！</p>
+<p>从 2009 年正式问世以来，比特币在无数人的共同努力下不断发展，启发了人们关于货币体系的思考，这本身就是巨大的成就。</p>
+<p>但更伟大的是比特币带来了区块链技术。区块链从比特币发展而来，但却远远超出了比特币的范畴。</p>
+<p>区块链让人们看到了如何在没有“中心”的前提下构建彼此之间的信任。</p>
+<p>“中心”的形成是因为信任的需要，因为只有建立了信任才能提高活动效率。但一旦成为“中心”，便带来垄断和不透明，这本身又侵蚀了效率。</p>
+<p>能不能建立不需要“中心”的信任网络？</p>
+<p>敬请期待下一篇文章：《区块链：通往未来世界的桥梁》</p>
+<h2 id="这只是开始"><a href="#这只是开始" class="headerlink" title="这只是开始"></a>这只是开始</h2><p>本文主要介绍了比特币的运行原理，相信读者已经对比特币相关的概念有了基本的认知。</p>
+<p>你脑海中还有一大堆疑问，想了解更多关于比特币&#x2F;区块链的信息，可以联系作者微信&#x2F;微博 @Ceelog，或者使用微信扫一扫加入知识星球交流群。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/1/13/160f00c91d99f74f"></p>
+<p>上文说到，比特币是一场伟大的试验。这场试验只是刚刚开始。</p>
+<p>事实上，受到比特币启发，人们又发行了上千种数字货币：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/1/13/160f01a142a576e4?imageslim"></p>
+<p>这些数字货币甚至比比特币更完善，价格也在不断攀升，受到越来越多人的认可，虽然有很大一部分人是无知而无畏的投机。</p>
+<p>随着区块链底层技术的发展完善，已经到了人人都可以发行数字货币的时代。</p>
+<p>伟大而疯狂的时代。</p>
+<p>你其实已经参与到这场试验中了，从阅读本文，理解了比特币运行原理开始。</p>
+<p>接下来，祝你好运！</p>
+<p>（完）</p>
+<p>转载： <a href="https://juejin.im/post/5a5237226fb9a01c975a1221">看完你就知道什么是比特币了</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Ray
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://leadscloud.github.io/316022/what-is-bitcoin/" title="看完你就知道什么是比特币了">https://leadscloud.github.io/316022/what-is-bitcoin/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/bitcoin/" rel="tag"># bitcoin</a>
+              <a href="/tags/%E6%AF%94%E7%89%B9%E5%B8%81/" rel="tag"># 比特币</a>
+              <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag"># 区块链</a>
+              <a href="/tags/%E6%8C%96%E7%9F%BF/" rel="tag"># 挖矿</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/316020/2018-front-end-interview-questions/" rel="prev" title="2018前端面试题收集">
+                  <i class="fa fa-angle-left"></i> 2018前端面试题收集
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/316026/ubuntu-create-self-server-ngrok/" rel="next" title="Ubuntu下搭建ngrok 服务实现内网穿透">
+                  Ubuntu下搭建ngrok 服务实现内网穿透 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="valine-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Ray</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/leadscloud" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/algoliasearch/4.24.0/algoliasearch-lite.umd.js" integrity="sha256-b2n6oSgG4C1stMT/yc/ChGszs9EY/Mhs6oltEjQbFCQ=" crossorigin="anonymous"></script><script src="/js/third-party/search/algolia-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"ePPAQV9hFzcbhOaQvvtyjTnw-gzGzoHsz","app_key":"GLniGVXsSMGBjTmaiI4wleaF","server_url":"https://leancloud.tinycms.xyz","security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+
+
+<script class="next-config" data-name="valine" type="application/json">{"enable":true,"appId":"ePPAQV9hFzcbhOaQvvtyjTnw-gzGzoHsz","appKey":"GLniGVXsSMGBjTmaiI4wleaF","serverURLs":"https://leancloud.tinycms.xyz","placeholder":"Just go go","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-cn","visitor":false,"comment_count":true,"recordIP":true,"enableQQ":true,"requiredFields":[],"el":"#valine-comments","path":"/316022/what-is-bitcoin/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.valine.el)
+    .then(() => NexT.utils.getScript(
+      'https://fastly.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js',
+      { condition: window.Valine }
+    ))
+    .then(() => {
+      new Valine(CONFIG.valine);
+    });
+});
+</script>
+
+</body>
+</html>

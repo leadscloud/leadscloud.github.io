@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/logo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="mask-icon" href="/logo.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"leadscloud.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"algolia":{"appID":"F1YESSIUKA","apiKey":"fba180e0d225a86fe382bf021a9f0ae3","indexName":"blog","hits":{"per_page":10}}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="selenium 是一个web的自动化测试工具，不少学习功能自动化的同学开始首选selenium ，相因为它相比QTP有诸多有点： *  免费，也不用再为破解QTP而大伤脑筋 *  小巧，对于不同的语言它只是一个包而已，而QTP需要下载安装1个多G 的程序。 *  这也是最重要的一点，不管你以前更熟悉C、 java、ruby、python、或都是C# ，你都可以通过selenium完成自动化测试，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="selenium python自动化测试环境搭建">
+<meta property="og:url" content="https://leadscloud.github.io/313778/selenium-python%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/index.html">
+<meta property="og:site_name" content="leadscloud">
+<meta property="og:description" content="selenium 是一个web的自动化测试工具，不少学习功能自动化的同学开始首选selenium ，相因为它相比QTP有诸多有点： *  免费，也不用再为破解QTP而大伤脑筋 *  小巧，对于不同的语言它只是一个包而已，而QTP需要下载安装1个多G 的程序。 *  这也是最重要的一点，不管你以前更熟悉C、 java、ruby、python、或都是C# ，你都可以通过selenium完成自动化测试，">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2014-03-17T00:03:29.000Z">
+<meta property="article:modified_time" content="2025-04-10T04:42:07.143Z">
+<meta property="article:author" content="Ray">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="selenium">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://leadscloud.github.io/313778/selenium-python%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://leadscloud.github.io/313778/selenium-python%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/","path":"313778/selenium-python自动化测试环境搭建/","title":"selenium python自动化测试环境搭建"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>selenium python自动化测试环境搭建 | leadscloud</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6GCT2E7T9Y"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-6GCT2E7T9Y","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="leadscloud" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">leadscloud</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Google SEO|外贸营销推广</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">266</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">11</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">459</span></a></li><li class="menu-item menu-item-免费chatgpt"><a href="https://freegpt.tech/?refer=blog-side" rel="section" target="_blank"><i class="fa fa-heart fa-fw"></i>免费ChatGPT</a></li><li class="menu-item menu-item-我的简历"><a href="https://leadscloud.github.io/resume/resume.pdf" rel="section"><i class="fa fa-vcard fa-fw"></i>我的简历</a></li><li class="menu-item menu-item-友情链接"><a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>友情链接</a></li><li class="menu-item menu-item-chrome扩展（域名所属人）"><a href="/serp-analyzer/" rel="section"><i class="fa fa-cloud fa-fw"></i>Chrome扩展（域名所属人）</a></li><li class="menu-item menu-item-询盘管理系统"><a href="https://github.com/leadscloud/infomaster" rel="section" target="_blank"><i class="fa fa-database fa-fw"></i>询盘管理系统</a></li><li class="menu-item menu-item-外贸留言板系统"><a href="/20180615/google-seo-inquiry-messageboard/" rel="section"><i class="fa fa-database fa-fw"></i>外贸留言板系统</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fab fa-algolia fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BDpython"><span class="nav-number">1.</span> <span class="nav-text">下载python</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#window%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4"><span class="nav-number">2.</span> <span class="nav-text">window安装步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ubuntu-%E4%B8%8B%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F%EF%BC%9A"><span class="nav-number">3.</span> <span class="nav-text">ubuntu 下安装方式：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E5%AE%89%E8%A3%85%EF%BC%9Asetuptools"><span class="nav-number">3.1.</span> <span class="nav-text">1、安装：setuptools</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E5%AE%89%E8%A3%85pip"><span class="nav-number">3.2.</span> <span class="nav-text">2、安装pip</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E5%AE%89%E8%A3%85selenium"><span class="nav-number">3.3.</span> <span class="nav-text">3、安装selenium</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Chrome-driver"><span class="nav-number">4.</span> <span class="nav-text">安装Chrome driver</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85IE-driver"><span class="nav-number">5.</span> <span class="nav-text">安装IE driver</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Ray</p>
+  <div class="site-description" itemprop="description">熟悉 Google SEO，外贸营销推广，这是我的个人博客，主要分享工作中的技术。</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">459</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">266</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/leadscloud" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;leadscloud" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:love4026@gmail.com" title="E-Mail → mailto:love4026@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://cdn.livechatinc.xyz/" title="https:&#x2F;&#x2F;cdn.livechatinc.xyz&#x2F;" rel="noopener" target="_blank">RLiveChat</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://www.kamychina.com/" title="https:&#x2F;&#x2F;www.kamychina.com&#x2F;" rel="noopener" target="_blank">Roadheader</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://tinycms.xyz/" title="https:&#x2F;&#x2F;tinycms.xyz&#x2F;" rel="noopener" target="_blank">TinyCMS</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://leadscloud.github.io/313778/selenium-python%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ray">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="leadscloud">
+      <meta itemprop="description" content="熟悉 Google SEO，外贸营销推广，这是我的个人博客，主要分享工作中的技术。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="selenium python自动化测试环境搭建 | leadscloud">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          selenium python自动化测试环境搭建
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2014-03-17 08:03:29" itemprop="dateCreated datePublished" datetime="2014-03-17T08:03:29+08:00">2014-03-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-04-10 12:42:07" itemprop="dateModified" datetime="2025-04-10T12:42:07+08:00">2025-04-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/313778/selenium-python%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="post-meta-item leancloud_visitors" data-flag-title="selenium python自动化测试环境搭建" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Valine：</span>
+  
+    <a title="valine" href="/313778/selenium-python%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/313778/selenium-python%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>selenium 是一个web的自动化测试工具，不少学习功能自动化的同学开始首选selenium ，相因为它相比QTP有诸多有点：</p>
+<p>*  免费，也不用再为破解QTP而大伤脑筋</p>
+<p>*  小巧，对于不同的语言它只是一个包而已，而QTP需要下载安装1个多G 的程序。</p>
+<p>*  这也是最重要的一点，不管你以前更熟悉C、 java、ruby、python、或都是C# ，你都可以通过selenium完成自动化测试，而QTP只支持VBS</p>
+<p>*  支持多平台：windows、linux、MAC ，支持多浏览器：ie、ff、safari、opera、chrome</p>
+<p>*  支持分布式测试用例的执行，可以把测试用例分布到不同的测试机器的执行，相当于分发机的功能。</p>
+<p>关于selenium的基础知识与java平台的结合，我之前写过一个《菜鸟学习自动化测试》系列，最近学python，所以想尝试一下selenium的在python平台如何搭建；还好这方法的文章很容易，在此将搭建步骤整理分享。</p>
+<p>搭建平台windows</p>
+<p>准备工具如下：</p>
+<hr>
+<h2 id="下载python"><a href="#下载python" class="headerlink" title="下载python"></a>下载python</h2><p><a href="http://python.org/getit/">http://python.org/getit/</a></p>
+<p>下载setuptools 【python的基础包工具】</p>
+<p><a href="http://pypi.python.org/pypi/setuptools">http://pypi.python.org/pypi/setuptools</a></p>
+<p><a href="https://pypi.python.org/packages/2.7/s/setuptools/">https://pypi.python.org/packages/2.7/s/setuptools/</a></p>
+<p>下载pip 【python的安装包管理工具】</p>
+<p><a href="https://pypi.python.org/pypi/pip">https://pypi.python.org/pypi/pip</a></p>
+<hr>
+<p>因为版本都在更新，pyhton选择2.7.xx ，setuptools 选择你平台对应的版本，pip 不要担心tar.gz 在windows下一样可用。</p>
+<h2 id="window安装步骤"><a href="#window安装步骤" class="headerlink" title="window安装步骤"></a>window安装步骤</h2><p>1、python的安装 ，这个不解释，exe文件运行安装即可，既然你选择python，相信你是熟悉python的，我安装目录C:\Python27</p>
+<p>2、setuptools 的安装也非常简单，同样是exe文件，默认会找到python的安装路径，将安装到C:\Python27\Lib\site-packages 目录下。</p>
+<p>通过上面提供的setuptools的连接，拖动页面到底部找到，<a href="https://pypi.python.org/packages/source/s/setuptools/setuptools-1.3.2.tar.gz#md5=441f2e58c0599d31597622a7b9eb605f">setuptools-1.3.2.tar.gz</a> 文件（版本随着时间版本会有更新），对文件进行解压，找到ez_install.py文件，进入windows命令提示下执行ez_install.py：</p>
+<p><strong>C:\setuptools-1.3&gt;python ez_install.py</strong> 没有报错表示安装成功。</p>
+<p>（如果提示python不是内部或外部命令！别急，去配置一下环境变量吧）</p>
+<p>修改我的电脑-&gt;属性-&gt;高级-&gt;环境变量-&gt;系统变量中的PATH为:</p>
+<p>变量名：<code>PATH</code></p>
+<p>变量值：<code>;C:\Python27</code></p>
+<p>3、安装pip ，我默认解压在了C:\pip-1.3.1 目录下</p>
+<p>4、打开命令提示符（开始—cmd回车）进入<code>C:\pip-1.3.1</code>目录下输入：</p>
+<p><code>C:\pip-1.3.1 &gt; python setup.py install</code></p>
+<p>5、再切换到<code>C:\Python27\Scripts</code> 目录下输入：</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">C:</span>\Python27\Scripts &gt; easy_install pip</span><br></pre></td></tr></table></figure>
+
+<p>6、安装selenium，（下载地址： <a href="https://pypi.python.org/pypi/selenium">https://pypi.python.org/pypi/selenium</a>    ）</p>
+<p>如果是联网状态的话，可以直接在C:\Python27\Scripts  下输入命令安装：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Python27\<span class="keyword">Scripts </span>&gt; pip <span class="keyword">install </span>-U selenium</span><br></pre></td></tr></table></figure>
+
+<p>如果没联网（这个一般不太可能），下载selenium 2.33.0 （目前的最新版本）</p>
+<p>并解压把整个目录放到C:\Python27\Lib\site-packages 目录下。</p>
+<p>&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;如果你不分析wedriver 原理的话，下面两步可以省略&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</p>
+<p>7、下载并安装（<a href="http://www.java.com/zh_CN/download/chrome.jsp?locale=zh_CN%EF%BC%89%E4%BB%80%E4%B9%88%EF%BC%9F%E4%BD%A0%E6%B2%A1%E6%95%B4%E8%BF%87java%EF%BC%8C%E5%8F%82%E8%80%83%E5%85%B6%E5%AE%83%E6%96%87%E6%A1%A3%E5%90%A7%EF%BC%81%E8%BF%99%E4%B8%8D%E9%9A%BE%E3%80%82">http://www.java.com/zh_CN/download/chrome.jsp?locale=zh_CN）什么？你没整过java，参考其它文档吧！这不难。</a></p>
+<p>8、 下载selenium 的服务端（<a href="https://code.google.com/p/selenium/%EF%BC%89%E5%9C%A8%E9%A1%B5%E9%9D%A2%E7%9A%84%E5%B7%A6%E4%BE%A7%E5%88%97%E8%A1%A8%E4%B8%AD%E6%89%BE%E5%88%B0">https://code.google.com/p/selenium/）在页面的左侧列表中找到</a></p>
+<p>selenium-server-standalone-XXX.jar</p>
+<p>对！就是这个东西，把它下载下来并解压；</p>
+<p>在selenium-server-standalone-xxx.jar目录下使用命令 java -jar selenium-server-standalone-xxx.jar启动（如果打不开，查看是否端口被占 用：netstat -aon|findstr 4444）。</p>
+<p>&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</p>
+<h2 id="ubuntu-下安装方式："><a href="#ubuntu-下安装方式：" class="headerlink" title="ubuntu 下安装方式："></a>ubuntu 下安装方式：</h2><h3 id="1、安装：setuptools"><a href="#1、安装：setuptools" class="headerlink" title="1、安装：setuptools"></a>1、安装：setuptools</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root<span class="variable">@fnngj</span>-<span class="variable constant_">H24X</span><span class="symbol">:~</span><span class="comment"># apt-get install python-setuptools</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2、安装pip"><a href="#2、安装pip" class="headerlink" title="2、安装pip"></a>2、安装pip</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">root<span class="variable">@fnngj</span>-<span class="variable constant_">H24X</span><span class="symbol">:/home/fnngj/python</span><span class="comment"># tar -zxvf pip-1.4.1.tar.gz</span></span><br><span class="line"></span><br><span class="line">root<span class="variable">@fnngj</span>-<span class="variable constant_">H24X</span><span class="symbol">:/home/fnngj/python</span><span class="comment"># cd pip-1.4.1/</span></span><br><span class="line"></span><br><span class="line">root<span class="variable">@fnngj</span>-<span class="variable constant_">H24X</span><span class="symbol">:/home/fnngj/python</span><span class="comment"># python setup.py install</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3、安装selenium"><a href="#3、安装selenium" class="headerlink" title="3、安装selenium"></a>3、安装selenium</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root<span class="variable">@fnngj</span>-<span class="variable constant_">H24X</span><span class="symbol">:/home/fnngj/python/pip-</span><span class="number">1.4</span>.<span class="number">1</span><span class="comment"># pip install -U selenium</span></span><br></pre></td></tr></table></figure>
+
+<p>恭喜~！ 你前期工作已经做了，上面的步骤确实有些繁琐，但是并不难，不过我们已经完成成了，下面体验一下成果吧！ 拿python网站上的例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">from</span> selenium.common.exceptions <span class="keyword">import</span> NoSuchElementException</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.common.keys <span class="keyword">import</span> Keys</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">browser = webdriver.Firefox() <span class="comment"># Get local session of firefox</span></span><br><span class="line">browser.get(<span class="string">&quot;http://www.yahoo.com&quot;</span>) <span class="comment"># Load page</span></span><br><span class="line"><span class="keyword">assert</span> <span class="string">&quot;Yahoo!&quot;</span> <span class="keyword">in</span> browser.title</span><br><span class="line">elem = browser.find_element_by_name(<span class="string">&quot;p&quot;</span>) <span class="comment"># Find the query box</span></span><br><span class="line">elem.send_keys(<span class="string">&quot;seleniumhq&quot;</span> + Keys.RETURN)</span><br><span class="line">time.sleep(<span class="number">0.2</span>) <span class="comment"># Let the page load, will be added to the API</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    browser.find_element_by_xpath(<span class="string">&quot;//a[contains(@href,&#x27;http://seleniumhq.org&#x27;)]&quot;</span>)</span><br><span class="line"><span class="keyword">except</span> NoSuchElementException:</span><br><span class="line">    <span class="keyword">assert</span> <span class="number">0</span>, <span class="string">&quot;can&#x27;t find seleniumhq&quot;</span></span><br><span class="line">browser.close()</span><br></pre></td></tr></table></figure>
+
+<p>（运行过程中如果出现错误：</p>
+<pre><code>WebDriverException: Message: u&#39;Unexpected error launching Internet Explorer.
+
+Protected Mode settings are not the same for all zones. Enable Protected Mo
+
+de must be set to the same value (enabled or disabled) for all zones.&#39;
+</code></pre>
+<p>更改IE的internet选项-&gt;安全，将Internet&#x2F;本地Internet&#x2F;受信任的站定&#x2F;受限制的站点中的启用保护模式全部去 掉勾，或者全部勾上。）</p>
+<hr>
+<p>selenium + python的一份不错文档</p>
+<p><a href="http://selenium.googlecode.com/git/docs/api/py/index.html">http://selenium.googlecode.com/git/docs/api/py/index.html</a></p>
+<p>&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;如果想通过其它浏览器（IE Chrome）运行脚本&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</p>
+<h2 id="安装Chrome-driver"><a href="#安装Chrome-driver" class="headerlink" title="安装Chrome driver"></a><strong>安装Chrome driver</strong></h2><p>chrome driver的下载地址在<a href="https://code.google.com/p/chromedriver/downloads/list">这里</a>。</p>
+<p>1. 下载解压，你会得到一个chromedriver.exe文件（我点开，运行提示started no prot 9515 ，这是干嘛的？端口9515被占了？中间折腾了半天），后来才知道需要把这家伙放到chrome的安装目录下…\Google\Chrome\Application\ ,然后设置path环境变量，把chrome的安装目录（我的：C:\Program Files\Google\Chrome\Application），然后再调用运行：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding = utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> selenium import webdriver</span><br><span class="line"></span><br><span class="line">driver = webdriver.Chrome()</span><br><span class="line"></span><br><span class="line">driver.<span class="built_in">get</span>(<span class="string">&#x27;http://radar.kuaibo.com&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> driver.title</span><br><span class="line"></span><br><span class="line">driver.quit()</span><br></pre></td></tr></table></figure>
+
+<p>又报了个错：</p>
+<pre><code>Chrome version must be &gt;= 27.0.1453.0\n  (Driver info: chromedriver=2.0,platform=Windows NT 5.1 SP3 x86)
+</code></pre>
+<p>说我chrome的版本没有大于27.0.1453.0 ，这个好办，更新到最新版本即可。</p>
+<h2 id="安装IE-driver"><a href="#安装IE-driver" class="headerlink" title="安装IE driver"></a><strong>安装IE driver</strong></h2><p>在新版本的webdriver中，只有安装了ie driver使用ie进行测试工作。</p>
+<p>ie driver的下载地址在<a href="https://code.google.com/p/selenium/downloads/list">这里</a>，记得根据自己机器的操作系统版本来下载相应的driver。</p>
+<p>暂时还没尝试，应该和chrome的安装方式类似。</p>
+<p><strong>记得配置IE的保护模式</strong></p>
+<p>如果要使用webdriver启动IE的话，那么就需要配置IE的保护模式了。</p>
+<p>把IE里的保护模式都选上或都勾掉就可以了。</p>
+<p>乙醇的安装方式：</p>
+<p><a href="http://easonhan007.github.io/python/2013/05/07/setup-env/">http://easonhan007.github.io/python/2013/05/07/setup-env/</a></p>
+<p>5分钟安装好selenium webdriver + python 环境：</p>
+<p><a href="http://v.youku.com/v_show/id_XNjQ1MDI5Nzc2.html?qq-pf-to=pcqq.group">http://v.youku.com/v_show&#x2F;id_XNjQ1MDI5Nzc2.html?qq-pf-to&#x3D;pcqq.group</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Ray
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://leadscloud.github.io/313778/selenium-python%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" title="selenium python自动化测试环境搭建">https://leadscloud.github.io/313778/selenium-python自动化测试环境搭建/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/selenium/" rel="tag"># selenium</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/313773/python-openpyxl%E5%88%97%E5%AE%BD%E8%87%AA%E9%80%82%E5%BA%94/" rel="prev" title="python openpyxl列宽自适应">
+                  <i class="fa fa-angle-left"></i> python openpyxl列宽自适应
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/313784/sublimepythonide-%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83%E6%8F%90%E7%A4%BA%E9%97%AE%E9%A2%98/" rel="next" title="Sublime Python IDE 编码规范提示问题">
+                  Sublime Python IDE 编码规范提示问题 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="valine-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Ray</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/leadscloud" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/algoliasearch/4.24.0/algoliasearch-lite.umd.js" integrity="sha256-b2n6oSgG4C1stMT/yc/ChGszs9EY/Mhs6oltEjQbFCQ=" crossorigin="anonymous"></script><script src="/js/third-party/search/algolia-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"ePPAQV9hFzcbhOaQvvtyjTnw-gzGzoHsz","app_key":"GLniGVXsSMGBjTmaiI4wleaF","server_url":"https://leancloud.tinycms.xyz","security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+
+
+<script class="next-config" data-name="valine" type="application/json">{"enable":true,"appId":"ePPAQV9hFzcbhOaQvvtyjTnw-gzGzoHsz","appKey":"GLniGVXsSMGBjTmaiI4wleaF","serverURLs":"https://leancloud.tinycms.xyz","placeholder":"Just go go","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-cn","visitor":false,"comment_count":true,"recordIP":true,"enableQQ":true,"requiredFields":[],"el":"#valine-comments","path":"/313778/selenium-python%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.valine.el)
+    .then(() => NexT.utils.getScript(
+      'https://fastly.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js',
+      { condition: window.Valine }
+    ))
+    .then(() => {
+      new Valine(CONFIG.valine);
+    });
+});
+</script>
+
+</body>
+</html>

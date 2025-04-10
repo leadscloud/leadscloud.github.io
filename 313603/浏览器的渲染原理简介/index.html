@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/logo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="mask-icon" href="/logo.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"leadscloud.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"algolia":{"appID":"F1YESSIUKA","apiKey":"fba180e0d225a86fe382bf021a9f0ae3","indexName":"blog","hits":{"per_page":10}}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="看到这个标题大家一定会想到这篇神文《How Browsers Work》，这篇文章把浏览器的很多细节讲得很细，而且也被翻译成了中文。为什么我还想写一篇呢？因为两个原因， 1）这篇文章太长了，阅读成本太大，不能一口气读完。 2）花了大力气读了这篇文章后可以了解很多，但似乎对工作没什么帮助。 所以，我准备写下这篇文章来解决上述两个问题。希望你能在上班途中，或是坐马桶时就能读完，并能从中学会一些能用在工">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浏览器的渲染原理简介">
+<meta property="og:url" content="https://leadscloud.github.io/313603/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E6%B8%B2%E6%9F%93%E5%8E%9F%E7%90%86%E7%AE%80%E4%BB%8B/index.html">
+<meta property="og:site_name" content="leadscloud">
+<meta property="og:description" content="看到这个标题大家一定会想到这篇神文《How Browsers Work》，这篇文章把浏览器的很多细节讲得很细，而且也被翻译成了中文。为什么我还想写一篇呢？因为两个原因， 1）这篇文章太长了，阅读成本太大，不能一口气读完。 2）花了大力气读了这篇文章后可以了解很多，但似乎对工作没什么帮助。 所以，我准备写下这篇文章来解决上述两个问题。希望你能在上班途中，或是坐马桶时就能读完，并能从中学会一些能用在工">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://coolshell.cn//wp-content/uploads/2013/05/Render-Process.jpg">
+<meta property="og:image" content="http://coolshell.cn//wp-content/uploads/2013/05/DOM-Tree-01.jpg">
+<meta property="og:image" content="http://coolshell.cn//wp-content/uploads/2013/05/DOM-Tree-02.jpg">
+<meta property="og:image" content="http://coolshell.cn//wp-content/uploads/2013/05/DOM-Tree-Example.jpg">
+<meta property="og:image" content="http://coolshell.cn//wp-content/uploads/2013/05/CSS-Rule-Tree-Example.jpg">
+<meta property="og:image" content="http://coolshell.cn//wp-content/uploads/2013/05/CSS-Content-Tree-Example.jpg">
+<meta property="og:image" content="http://coolshell.cn//wp-content/uploads/2013/05/Firefox-style-context-tree.png">
+<meta property="og:image" content="http://coolshell.cn//wp-content/uploads/2013/05/Render-Process-Skipping.jpg">
+<meta property="article:published_time" content="2013-06-16T18:41:45.000Z">
+<meta property="article:modified_time" content="2025-04-10T04:42:07.155Z">
+<meta property="article:author" content="Ray">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://coolshell.cn//wp-content/uploads/2013/05/Render-Process.jpg">
+
+
+<link rel="canonical" href="https://leadscloud.github.io/313603/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E6%B8%B2%E6%9F%93%E5%8E%9F%E7%90%86%E7%AE%80%E4%BB%8B/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://leadscloud.github.io/313603/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E6%B8%B2%E6%9F%93%E5%8E%9F%E7%90%86%E7%AE%80%E4%BB%8B/","path":"313603/浏览器的渲染原理简介/","title":"浏览器的渲染原理简介"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>浏览器的渲染原理简介 | leadscloud</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6GCT2E7T9Y"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-6GCT2E7T9Y","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="leadscloud" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">leadscloud</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Google SEO|外贸营销推广</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">266</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">11</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">459</span></a></li><li class="menu-item menu-item-免费chatgpt"><a href="https://freegpt.tech/?refer=blog-side" rel="section" target="_blank"><i class="fa fa-heart fa-fw"></i>免费ChatGPT</a></li><li class="menu-item menu-item-我的简历"><a href="https://leadscloud.github.io/resume/resume.pdf" rel="section"><i class="fa fa-vcard fa-fw"></i>我的简历</a></li><li class="menu-item menu-item-友情链接"><a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>友情链接</a></li><li class="menu-item menu-item-chrome扩展（域名所属人）"><a href="/serp-analyzer/" rel="section"><i class="fa fa-cloud fa-fw"></i>Chrome扩展（域名所属人）</a></li><li class="menu-item menu-item-询盘管理系统"><a href="https://github.com/leadscloud/infomaster" rel="section" target="_blank"><i class="fa fa-database fa-fw"></i>询盘管理系统</a></li><li class="menu-item menu-item-外贸留言板系统"><a href="/20180615/google-seo-inquiry-messageboard/" rel="section"><i class="fa fa-database fa-fw"></i>外贸留言板系统</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fab fa-algolia fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E5%B7%A5%E4%BD%9C%E5%A4%A7%E6%B5%81%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">浏览器工作大流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DOM%E8%A7%A3%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">DOM解析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CSS%E8%A7%A3%E6%9E%90"><span class="nav-number">3.</span> <span class="nav-text">CSS解析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B8%B2%E6%9F%93"><span class="nav-number">4.</span> <span class="nav-text">渲染</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%8F%E5%B0%91reflow-repaint"><span class="nav-number">5.</span> <span class="nav-text">减少reflow&#x2F;repaint</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%A0%E4%B8%AA%E5%B7%A5%E5%85%B7%E5%92%8C%E5%87%A0%E7%AF%87%E6%96%87%E7%AB%A0"><span class="nav-number">6.</span> <span class="nav-text">几个工具和几篇文章</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">7.</span> <span class="nav-text">参考</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Ray</p>
+  <div class="site-description" itemprop="description">熟悉 Google SEO，外贸营销推广，这是我的个人博客，主要分享工作中的技术。</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">459</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">266</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/leadscloud" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;leadscloud" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:love4026@gmail.com" title="E-Mail → mailto:love4026@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://cdn.livechatinc.xyz/" title="https:&#x2F;&#x2F;cdn.livechatinc.xyz&#x2F;" rel="noopener" target="_blank">RLiveChat</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://www.kamychina.com/" title="https:&#x2F;&#x2F;www.kamychina.com&#x2F;" rel="noopener" target="_blank">Roadheader</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://tinycms.xyz/" title="https:&#x2F;&#x2F;tinycms.xyz&#x2F;" rel="noopener" target="_blank">TinyCMS</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://leadscloud.github.io/313603/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E6%B8%B2%E6%9F%93%E5%8E%9F%E7%90%86%E7%AE%80%E4%BB%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ray">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="leadscloud">
+      <meta itemprop="description" content="熟悉 Google SEO，外贸营销推广，这是我的个人博客，主要分享工作中的技术。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="浏览器的渲染原理简介 | leadscloud">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          浏览器的渲染原理简介
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2013-06-17 02:41:45" itemprop="dateCreated datePublished" datetime="2013-06-17T02:41:45+08:00">2013-06-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-04-10 12:42:07" itemprop="dateModified" datetime="2025-04-10T12:42:07+08:00">2025-04-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%89%8D%E7%AB%AF%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index"><span itemprop="name">前端设计</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/313603/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E6%B8%B2%E6%9F%93%E5%8E%9F%E7%90%86%E7%AE%80%E4%BB%8B/" class="post-meta-item leancloud_visitors" data-flag-title="浏览器的渲染原理简介" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Valine：</span>
+  
+    <a title="valine" href="/313603/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E6%B8%B2%E6%9F%93%E5%8E%9F%E7%90%86%E7%AE%80%E4%BB%8B/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/313603/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E6%B8%B2%E6%9F%93%E5%8E%9F%E7%90%86%E7%AE%80%E4%BB%8B/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>看到这个标题大家一定会想到这篇神文《<a href="http://taligarsiel.com/Projects/howbrowserswork1.htm">How Browsers Work</a>》，这篇文章把浏览器的很多细节讲得很细，而且也被<a href="http://ux.sohu.com/topics/50972d9ae7de3e752e0081ff">翻译成了中文</a>。为什么我还想写一篇呢？因为两个原因，</p>
+<p>1）这篇文章太长了，阅读成本太大，不能一口气读完。</p>
+<p>2）花了大力气读了这篇文章后可以了解很多，但似乎对工作没什么帮助。</p>
+<p>所以，我准备写下这篇文章来解决上述两个问题。希望你能在上班途中，或是坐马桶时就能读完，并能从中学会一些能用在工作上的东西。</p>
+<h4 id="浏览器工作大流程"><a href="#浏览器工作大流程" class="headerlink" title="浏览器工作大流程"></a>浏览器工作大流程</h4><p>废话少说，先来看个图：</p>
+<p><img src="http://coolshell.cn//wp-content/uploads/2013/05/Render-Process.jpg"></p>
+<p>从上面这个图中，我们可以看到那么几个事：</p>
+<p>&nbsp;</p>
+<p>1）浏览器会解析三个东西：</p>
+<ul>
+<li><p>一个是HTML&#x2F;SVG&#x2F;XHTML，事实上，Webkit有三个C++的类对应这三类文档。解析这三种文件会产生一个DOM Tree。</p>
+</li>
+<li><p>CSS，解析CSS会产生CSS规则树。</p>
+</li>
+<li><p>Javascript，脚本，主要是通过DOM API和CSSOM API来操作DOM Tree和CSS Rule Tree.<br>2）解析完成后，浏览器引擎会通过DOM Tree 和 CSS Rule Tree 来构造 Rendering Tree。注意：</p>
+</li>
+<li><p>Rendering Tree 渲染树并不等同于DOM树，因为一些像Header或display:none的东西就没必要放在渲染树中了。</p>
+</li>
+<li><p>CSS 的 Rule Tree主要是为了完成匹配并把CSS Rule附加上Rendering Tree上的每个Element。也就是DOM结点。也就是所谓的Frame。</p>
+</li>
+<li><p>然后，计算每个Frame（也就是每个Element）的位置，这又叫layout和reflow过程。<br>3）最后通过调用操作系统Native GUI的API绘制。</p>
+</li>
+</ul>
+<h4 id="DOM解析"><a href="#DOM解析" class="headerlink" title="DOM解析"></a>DOM解析</h4><p>HTML的DOM Tree解析如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Web page parsing<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Web page parsing<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>This is an example Web page.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>上面这段HTML会解析成这样：</p>
+<p><img src="http://coolshell.cn//wp-content/uploads/2013/05/DOM-Tree-01.jpg"></p>
+<p>下面是另一个有SVG标签的情况。</p>
+<p><img src="http://coolshell.cn//wp-content/uploads/2013/05/DOM-Tree-02.jpg"></p>
+<h4 id="CSS解析"><a href="#CSS解析" class="headerlink" title="CSS解析"></a>CSS解析</h4><p>CSS的解析大概是下面这个样子（下面主要说的是Gecko也就是Firefox的玩法），假设我们有下面的HTML文档：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">doc</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>A few quotes<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">para</span>&gt;</span></span><br><span class="line">  Franklin said that <span class="tag">&lt;<span class="name">quote</span>&gt;</span>&quot;A penny saved is a penny earned.&quot;<span class="tag">&lt;/<span class="name">quote</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">para</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">para</span>&gt;</span></span><br><span class="line">  FDR said <span class="tag">&lt;<span class="name">quote</span>&gt;</span>&quot;We have nothing to fear but <span class="tag">&lt;<span class="name">span</span>&gt;</span>fear itself.<span class="tag">&lt;/<span class="name">span</span>&gt;</span>&quot;<span class="tag">&lt;/<span class="name">quote</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">para</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">doc</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>于是DOM Tree是这个样子：</p>
+<p><img src="http://coolshell.cn//wp-content/uploads/2013/05/DOM-Tree-Example.jpg"></p>
+<p>然后我们的CSS文档是这样的：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* rule 1 */</span> doc &#123; <span class="attribute">display</span>: block; <span class="attribute">text-indent</span>: <span class="number">1em</span>; &#125;</span><br><span class="line"><span class="comment">/* rule 2 */</span> title &#123; <span class="attribute">display</span>: block; <span class="attribute">font-size</span>: <span class="number">3em</span>; &#125;</span><br><span class="line"><span class="comment">/* rule 3 */</span> para &#123; <span class="attribute">display</span>: block; &#125;</span><br><span class="line"><span class="comment">/* rule 4 */</span> <span class="selector-attr">[class=<span class="string">&quot;emph&quot;</span>]</span> &#123; <span class="attribute">font-style</span>: italic; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>于是我们的CSS Rule Tree会是这个样子：</p>
+<p><img src="http://coolshell.cn//wp-content/uploads/2013/05/CSS-Rule-Tree-Example.jpg"></p>
+<p>注意，图中的第4条规则出现了两次，一次是独立的，一次是在规则3的子结点。所以，我们可以知道，建立CSS Rule Tree是需要比照着DOM Tree来的。CSS匹配DOM Tree主要是从右到左解析CSS的Selector，好多人以为这个事会比较快，其实并不一定。关键还看我们的CSS的Selector怎么写了。</p>
+<p><strong>注意：CSS匹配HTML元素是一个相当复杂和有性能问题的事情。所以，你就会在N多地方看到很多人都告诉你，DOM树要小，CSS尽量用id和class，千万不要过渡层叠下去，……</strong></p>
+<p>通过这两个树，我们可以得到一个叫Style Context Tree，也就是下面这样（把CSS Rule结点Attach到DOM Tree上）：</p>
+<p><img src="http://coolshell.cn//wp-content/uploads/2013/05/CSS-Content-Tree-Example.jpg"></p>
+<p>所以，Firefox基本上来说是通过CSS 解析 生成 CSS Rule Tree，然后，通过比对DOM生成Style Context Tree，然后Firefox通过把Style Context Tree和其Render Tree（Frame Tree）关联上，就完成了。注意：Render Tree会把一些不可见的结点去除掉。而<strong>Firefox中所谓的Frame就是一个DOM结点，不要被其名字所迷惑了</strong>。</p>
+<p><img src="http://coolshell.cn//wp-content/uploads/2013/05/Firefox-style-context-tree.png"></p>
+<p>注：Webkit不像Firefox要用两个树来干这个，Webkit也有Style对象，它直接把这个Style对象存在了相应的DOM结点上了。</p>
+<h4 id="渲染"><a href="#渲染" class="headerlink" title="渲染"></a>渲染</h4><p>渲染的流程基本上如下（黄色的四个步骤）：</p>
+<ol>
+<li>计算CSS样式</li>
+<li>构建Render Tree</li>
+<li>Layout – 定位坐标和大小，是否换行，各种position, overflow, z-index属性 ……</li>
+<li>正式开画</li>
+</ol>
+<p><img src="http://coolshell.cn//wp-content/uploads/2013/05/Render-Process-Skipping.jpg"></p>
+<p>注意：上图流程中有很多连接线，这表示了Javascript动态修改了DOM属性或是CSS属会导致重新Layout，有些改变不会，就是那些指到天上的箭头，比如，修改后的CSS rule没有被匹配到，等。</p>
+<p>这里重要要说两个概念，一个是Reflow，另一个是Repaint。这两个不是一回事。</p>
+<p>ul&gt;</p>
+<ul>
+<li>Repaint——屏幕的一部分要重画，比如某个CSS的背景色变了。但是元素的几何尺寸没有变。</li>
+<li>Reflow——意味着元件的几何尺寸变了，我们需要重新验证并计算Render Tree。是Render Tree的一部分或全部发生了变化。这就是Reflow，或是Layout。（<strong>HTML使用的是flow based layout，也就是流式布局，所以，如果某元件的几何尺寸发生了变化，需要重新布局，也就叫reflow</strong>）reflow 会从<html>这个root frame开始递归往下，依次计算所有的结点几何尺寸和位置，在reflow过程中，可能会增加一些frame，比如一个文本字符串必需被包装起来。<br>下面是一个打开Wikipedia时的Layout&#x2F;reflow的视频（注：HTML在初始化的时候也会做一次reflow，叫 <dfn>intial reflow</dfn>），你可以感受一下：</li>
+</ul>
+<p>&nbsp;</p>
+<center><object width="480" height="400" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" align="middle"><param name="src" value="http://player.youku.com/player.php/sid/XMzI5MDg0OTA0/v.swf" /><param name="allowfullscreen" value="true" /><param name="quality" value="high" /><param name="allowscriptaccess" value="always" /><embed width="480" height="400" type="application/x-shockwave-flash" src="http://player.youku.com/player.php/sid/XMzI5MDg0OTA0/v.swf" allowfullscreen="true" quality="high" allowscriptaccess="always" align="middle" /></object></center>Reflow的成本比Repaint的成本高得多的多。DOM Tree里的每个结点都会有reflow方法，一个结点的reflow很有可能导致子结点，甚至父点以及同级结点的reflow。**在一些高性能的电脑上也许还没什么，但是如果reflow发生在手机上，那么这个过程是非常痛苦和耗电的**。
+
+<p>&nbsp;</p>
+<p>所以，下面这些动作有很大可能会是成本比较高的。</p>
+<ul>
+<li>当你增加、删除、修改DOM结点时，会导致Reflow或Repaint</li>
+<li>当你移动DOM的位置，或是搞个动画的时候。</li>
+<li>当你修改CSS样式的时候。</li>
+<li>当你Resize窗口的时候（移动端没有这个问题），或是滚动的时候。</li>
+<li>当你修改网页的默认字体时。</li>
+</ul>
+<p>注：display:none会触发reflow，而visibility:hidden只会触发repaint，因为没有发现位置变化。</p>
+<p>多说两句关于滚屏的事，通常来说，如果在滚屏的时候，我们的页面上的所有的像素都会跟着滚动，那么性能上没什么问题，因为我们的显卡对于这种把全屏像素往上往下移的算法是很快。但是如果你有一个fixed的背景图，或是有些Element不跟着滚动，有些Elment是动画，那么这个滚动的动作对于浏览器来说会是相当相当痛苦的一个过程。你可以看到很多这样的网页在滚动的时候性能有多差。因为滚屏也有可能会造成reflow。</p>
+<p>基本上来说，reflow有如下的几个原因：</p>
+<ul>
+<li>Initial。网页初始化的时候。</li>
+<li>Incremental。一些Javascript在操作DOM Tree时。</li>
+<li>Resize。其些元件的尺寸变了。</li>
+<li>StyleChange。如果CSS的属性发生变化了。</li>
+<li>Dirty。几个Incremental的reflow发生在同一个frame的子树上。</li>
+</ul>
+<p>好了，我们来看一个示例吧：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> bstyle = <span class="built_in">document</span>.body.style; <span class="comment">// cache</span></span><br><span class="line"></span><br><span class="line">bstyle.padding = <span class="string">&quot;20px&quot;</span>; <span class="comment">// reflow, repaint</span></span><br><span class="line">bstyle.border = <span class="string">&quot;10px solid red&quot;</span>; <span class="comment">//  再一次的 reflow 和 repaint</span></span><br><span class="line"></span><br><span class="line">bstyle.color = <span class="string">&quot;blue&quot;</span>; <span class="comment">// repaint</span></span><br><span class="line">bstyle.backgroundColor = <span class="string">&quot;#fad&quot;</span>; <span class="comment">// repaint</span></span><br><span class="line"></span><br><span class="line">bstyle.fontSize = <span class="string">&quot;2em&quot;</span>; <span class="comment">// reflow, repaint</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// new DOM element - reflow, repaint</span></span><br><span class="line"><span class="built_in">document</span>.body.appendChild(<span class="built_in">document</span>.createTextNode(<span class="string">&#x27;dude!&#x27;</span>));</span><br></pre></td></tr></table></figure>
+
+<p>当然，我们的浏览器是聪明的，它不会像上面那样，你每改一次样式，它就reflow或repaint一次。<strong>一般来说，浏览器会把这样的操作积攒一批，然后做一次reflow，这又叫异步reflow或增量异步reflow</strong>。但是有些情况浏览器是不会这么做的，比如：resize窗口，改变了页面默认的字体，等。对于这些操作，浏览器会马上进行reflow。</p>
+<p>但是有些时候，我们的脚本会阻止浏览器这么干，比如：如果我们请求下面的一些DOM值：</p>
+<ol>
+<li>offsetTop, offsetLeft, offsetWidth, offsetHeight</li>
+<li>scrollTop&#x2F;Left&#x2F;Width&#x2F;Height</li>
+<li>clientTop&#x2F;Left&#x2F;Width&#x2F;Height</li>
+<li>IE中的 getComputedStyle(), 或 currentStyle</li>
+</ol>
+<p>因为，如果我们的程序需要这些值，那么浏览器需要返回最新的值，而这样一样会flush出去一些样式的改变，从而造成频繁的reflow&#x2F;repaint。</p>
+<h4 id="减少reflow-repaint"><a href="#减少reflow-repaint" class="headerlink" title="减少reflow&#x2F;repaint"></a>减少reflow&#x2F;repaint</h4><p>下面是一些Best Practices：</p>
+<p><strong>1）不要一条一条地修改DOM的样式。与其这样，还不如预先定义好css的class，然后修改DOM的className。</strong></p>
+<figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// bad</span><br><span class="line">var <span class="built_in">left</span> = <span class="number">10</span>,</span><br><span class="line"><span class="built_in">top</span> = <span class="number">10</span>;</span><br><span class="line">el.style.<span class="built_in">left</span> = <span class="built_in">left</span> + <span class="string">&quot;px&quot;</span>;</span><br><span class="line">el.style.<span class="built_in">top</span>  = <span class="built_in">top</span>  + <span class="string">&quot;px&quot;</span>;</span><br><span class="line"></span><br><span class="line">// Good</span><br><span class="line">el.className += <span class="string">&quot; theclassname&quot;</span>;</span><br><span class="line"></span><br><span class="line">// Good</span><br><span class="line">el.style.cssText += <span class="string">&quot;; left: &quot;</span> + <span class="built_in">left</span> + <span class="string">&quot;px; top: &quot;</span> + <span class="built_in">top</span> + <span class="string">&quot;px;&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong>2）把DOM离线后修改。如：</strong></p>
+<ul>
+<li>使用documentFragment 对象在内存里操作DOM</li>
+<li>先把DOM给display:none(有一次reflow)，然后你想怎么改就怎么改。比如修改100次，然后再把他显示出来。</li>
+<li>clone一个DOM结点到内存里，然后想怎么改就怎么改，改完后，和在线的那个的交换一下。<br>3）**不要把DOM结点的属性值放在一个循环里当成循环里的变量。**不然这会导致大量地读写这个结点的属性。</li>
+</ul>
+<p>4）<strong>尽可能的修改层级比较低的DOM</strong>。当然，改变层级比较底的DOM有可能会造成大面积的reflow，但是也可能影响范围很小。</p>
+<p>5）<strong>为动画的HTML元件使用fixed或absoult的position</strong>，那么修改他们的CSS是不会reflow的。</p>
+<p>6）<strong>千万不要使用table布局</strong>。因为可能很小的一个小改动会造成整个table的重新布局。</p>
+<blockquote>
+<p>In this manner, the user agent can begin to lay out the table once the entire first row has been received. Cells in subsequent rows do not affect column widths. Any cell that has content that overflows uses the ‘overflow’ property to determine whether to clip the overflow content.</p>
+<p><cite><a href="http://www.w3.org/TR/CSS21/tables.html#fixed-table-layout">Fixed layout, CSS 2.1 Specification</a></cite><br>This algorithm may be inefficient since it requires the user agent to have access to all the content in the table before determining the final layout and may demand more than one pass.</p>
+<p><cite><a href="http://www.w3.org/TR/CSS21/tables.html#auto-table-layout">Automatic layout, CSS 2.1 Specification</a></cite></p>
+</blockquote>
+<h4 id="几个工具和几篇文章"><a href="#几个工具和几篇文章" class="headerlink" title="几个工具和几篇文章"></a>几个工具和几篇文章</h4><p>有时候，你会也许会发现在IE下，你不知道你修改了什么东西，结果CPU一下子就上去了到100%，然后过了好几秒钟repaint&#x2F;reflow才完成，这种事情以IE的年代时经常发生。所以，我们需要一些工具帮我们看看我们的代码里有没有什么不合适的东西。</p>
+<ul>
+<li><p>Chrome下，Google的<a href="http://code.google.com/webtoolkit/speedtracer/">SpeedTracer</a>是个非常强悍的工作让你看看你的浏览渲染的成本有多大。其实Safari和Chrome都可以使用开发者工具里的一个Timeline的东东。</p>
+</li>
+<li><p>Firefox下这个基于Firebug的叫<a href="https://addons.mozilla.org/en-US/firefox/addon/firebug-paint-events/">Firebug Paint Events</a>的插件也不错。</p>
+</li>
+<li><p>IE下你可以用一个叫<a href="http://ajax.dynatrace.com/pages/">dynaTrace</a>的IE扩展。<br>最后，别忘了下面这几篇提高浏览器性能的文章：</p>
+</li>
+<li><p><a href="http://code.google.com/speed/page-speed/docs/rules_intro.html">Google – Web Performance Best Practices</a></p>
+</li>
+<li><p><a href="http://developer.yahoo.com/performance/rules.html">Yahoo – Best Practices for Speeding Up Your Web Site</a></p>
+</li>
+<li><p><a href="http://stevesouders.com/hpws/rules.php">Steve Souders – 14 Rules for Faster-Loading Web Sites</a></p>
+</li>
+</ul>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><ul>
+<li><p>David Baron的演讲：Fast CSS: How Browsers Lay Out Web Pages：<a href="http://dbaron.org/talks/2012-03-11-sxsw/slide-1.xhtml">slideshow</a>, <a href="http://dbaron.org/talks/2012-03-11-sxsw/master.xhtml">all slides</a>, <a href="http://audio.sxsw.com/2012/podcasts/11-ACC-Fast_CSS_How_Browser_Layout.mp3">audio (MP3)</a>, <a href="http://schedule.sxsw.com/2012/events/event_IAP12909">Session page</a>, <a href="http://lanyrd.com/2012/sxsw-interactive/spmbt/">Lanyrd page</a></p>
+</li>
+<li><p>How Browsers Work: <a href="http://taligarsiel.com/Projects/howbrowserswork1.htm">http://taligarsiel.com/Projects/howbrowserswork1.htm</a></p>
+</li>
+<li><p>Mozilla 的 Style System Overview：<a href="https://developer.mozilla.org/en-US/docs/Style_System_Overview">https://developer.mozilla.org/en-US/docs/Style_System_Overview</a></p>
+</li>
+<li><p>Mozilla 的 Note of reflow： <a href="http://www-archive.mozilla.org/newlayout/doc/reflow.html">http://www-archive.mozilla.org/newlayout/doc/reflow.html</a></p>
+</li>
+<li><p>Rendering: repaint, reflow&#x2F;relayout, restyle：<a href="http://www.phpied.com/rendering-repaint-reflowrelayout-restyle/">http://www.phpied.com/rendering-repaint-reflowrelayout-restyle/</a></p>
+</li>
+<li><p>Effective Rendering CSS：<a href="http://css-tricks.com/efficiently-rendering-css/">http://css-tricks.com/efficiently-rendering-css/</a></p>
+</li>
+<li><p>Webkit Rendering文档：<a href="http://trac.webkit.org/wiki/WebCoreRendering">http://trac.webkit.org/wiki/WebCoreRendering</a></p>
+</li>
+</ul>
+<p>原文:<a href="http://coolshell.cn/articles/9666.html">http://coolshell.cn/articles/9666.html</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Ray
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://leadscloud.github.io/313603/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E6%B8%B2%E6%9F%93%E5%8E%9F%E7%90%86%E7%AE%80%E4%BB%8B/" title="浏览器的渲染原理简介">https://leadscloud.github.io/313603/浏览器的渲染原理简介/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/313601/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BB%8F%E5%B8%B8%E5%B4%A9%E6%BA%83shellext-dll_unloaded/" rel="prev" title="浏览器经常崩溃shellext-dll_unloaded">
+                  <i class="fa fa-angle-left"></i> 浏览器经常崩溃shellext-dll_unloaded
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/313606/28%E4%B8%AAunixlinux%E7%9A%84%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%A5%9E%E5%99%A8/" rel="next" title="28个unixlinux的命令行神器">
+                  28个unixlinux的命令行神器 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="valine-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Ray</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/leadscloud" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/algoliasearch/4.24.0/algoliasearch-lite.umd.js" integrity="sha256-b2n6oSgG4C1stMT/yc/ChGszs9EY/Mhs6oltEjQbFCQ=" crossorigin="anonymous"></script><script src="/js/third-party/search/algolia-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"ePPAQV9hFzcbhOaQvvtyjTnw-gzGzoHsz","app_key":"GLniGVXsSMGBjTmaiI4wleaF","server_url":"https://leancloud.tinycms.xyz","security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+
+
+<script class="next-config" data-name="valine" type="application/json">{"enable":true,"appId":"ePPAQV9hFzcbhOaQvvtyjTnw-gzGzoHsz","appKey":"GLniGVXsSMGBjTmaiI4wleaF","serverURLs":"https://leancloud.tinycms.xyz","placeholder":"Just go go","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-cn","visitor":false,"comment_count":true,"recordIP":true,"enableQQ":true,"requiredFields":[],"el":"#valine-comments","path":"/313603/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E6%B8%B2%E6%9F%93%E5%8E%9F%E7%90%86%E7%AE%80%E4%BB%8B/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.valine.el)
+    .then(() => NexT.utils.getScript(
+      'https://fastly.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js',
+      { condition: window.Valine }
+    ))
+    .then(() => {
+      new Valine(CONFIG.valine);
+    });
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/logo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="mask-icon" href="/logo.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"leadscloud.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"algolia":{"appID":"F1YESSIUKA","apiKey":"fba180e0d225a86fe382bf021a9f0ae3","indexName":"blog","hits":{"per_page":10}}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="一、last 命令last    显示系统开机以来获是从每月初登入者的讯息 -R  省略 hostname 的栏位 -num 展示前 num 个  如：last -3  展示前三行 username 展示 username 的登入讯息 tty 限制登入讯息包含终端机代号  范例： 1234[root@elain ~]# last -R -2root     pts&#x2F;0        Fri Oct">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VPS 监控性能方面命令大总结">
+<meta property="og:url" content="https://leadscloud.github.io/313429/vps-%E7%9B%91%E6%8E%A7%E6%80%A7%E8%83%BD%E6%96%B9%E9%9D%A2%E5%91%BD%E4%BB%A4%E5%A4%A7%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="leadscloud">
+<meta property="og:description" content="一、last 命令last    显示系统开机以来获是从每月初登入者的讯息 -R  省略 hostname 的栏位 -num 展示前 num 个  如：last -3  展示前三行 username 展示 username 的登入讯息 tty 限制登入讯息包含终端机代号  范例： 1234[root@elain ~]# last -R -2root     pts&#x2F;0        Fri Oct">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2012-06-16T05:41:18.000Z">
+<meta property="article:modified_time" content="2025-04-10T04:42:07.145Z">
+<meta property="article:author" content="Ray">
+<meta property="article:tag" content="vps">
+<meta property="article:tag" content="监控">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://leadscloud.github.io/313429/vps-%E7%9B%91%E6%8E%A7%E6%80%A7%E8%83%BD%E6%96%B9%E9%9D%A2%E5%91%BD%E4%BB%A4%E5%A4%A7%E6%80%BB%E7%BB%93/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://leadscloud.github.io/313429/vps-%E7%9B%91%E6%8E%A7%E6%80%A7%E8%83%BD%E6%96%B9%E9%9D%A2%E5%91%BD%E4%BB%A4%E5%A4%A7%E6%80%BB%E7%BB%93/","path":"313429/vps-监控性能方面命令大总结/","title":"VPS 监控性能方面命令大总结"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>VPS 监控性能方面命令大总结 | leadscloud</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6GCT2E7T9Y"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-6GCT2E7T9Y","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="leadscloud" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">leadscloud</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Google SEO|外贸营销推广</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">266</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">11</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">459</span></a></li><li class="menu-item menu-item-免费chatgpt"><a href="https://freegpt.tech/?refer=blog-side" rel="section" target="_blank"><i class="fa fa-heart fa-fw"></i>免费ChatGPT</a></li><li class="menu-item menu-item-我的简历"><a href="https://leadscloud.github.io/resume/resume.pdf" rel="section"><i class="fa fa-vcard fa-fw"></i>我的简历</a></li><li class="menu-item menu-item-友情链接"><a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>友情链接</a></li><li class="menu-item menu-item-chrome扩展（域名所属人）"><a href="/serp-analyzer/" rel="section"><i class="fa fa-cloud fa-fw"></i>Chrome扩展（域名所属人）</a></li><li class="menu-item menu-item-询盘管理系统"><a href="https://github.com/leadscloud/infomaster" rel="section" target="_blank"><i class="fa fa-database fa-fw"></i>询盘管理系统</a></li><li class="menu-item menu-item-外贸留言板系统"><a href="/20180615/google-seo-inquiry-messageboard/" rel="section"><i class="fa fa-database fa-fw"></i>外贸留言板系统</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fab fa-algolia fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81last-%E5%91%BD%E4%BB%A4"><span class="nav-number">1.</span> <span class="nav-text">一、last 命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81top-%E5%91%BD%E4%BB%A4"><span class="nav-number">2.</span> <span class="nav-text">二、top 命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81free-%E5%91%BD%E4%BB%A4"><span class="nav-number">3.</span> <span class="nav-text">三、free 命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81dstat-%E5%91%BD%E4%BB%A4"><span class="nav-number">4.</span> <span class="nav-text">四、dstat 命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81iostat-%E5%91%BD%E4%BB%A4"><span class="nav-number">5.</span> <span class="nav-text">五、iostat 命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81vmstat-%E5%91%BD%E4%BB%A4"><span class="nav-number">6.</span> <span class="nav-text">六、vmstat 命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E3%80%81mpstat-%E5%91%BD%E4%BB%A4"><span class="nav-number">7.</span> <span class="nav-text">七、mpstat 命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AB%E3%80%81sar-%E5%91%BD%E4%BB%A4"><span class="nav-number">8.</span> <span class="nav-text">八、sar 命令</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Ray</p>
+  <div class="site-description" itemprop="description">熟悉 Google SEO，外贸营销推广，这是我的个人博客，主要分享工作中的技术。</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">459</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">266</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/leadscloud" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;leadscloud" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:love4026@gmail.com" title="E-Mail → mailto:love4026@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://cdn.livechatinc.xyz/" title="https:&#x2F;&#x2F;cdn.livechatinc.xyz&#x2F;" rel="noopener" target="_blank">RLiveChat</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://www.kamychina.com/" title="https:&#x2F;&#x2F;www.kamychina.com&#x2F;" rel="noopener" target="_blank">Roadheader</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://tinycms.xyz/" title="https:&#x2F;&#x2F;tinycms.xyz&#x2F;" rel="noopener" target="_blank">TinyCMS</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://leadscloud.github.io/313429/vps-%E7%9B%91%E6%8E%A7%E6%80%A7%E8%83%BD%E6%96%B9%E9%9D%A2%E5%91%BD%E4%BB%A4%E5%A4%A7%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ray">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="leadscloud">
+      <meta itemprop="description" content="熟悉 Google SEO，外贸营销推广，这是我的个人博客，主要分享工作中的技术。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="VPS 监控性能方面命令大总结 | leadscloud">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          VPS 监控性能方面命令大总结
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2012-06-16 13:41:18" itemprop="dateCreated datePublished" datetime="2012-06-16T13:41:18+08:00">2012-06-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-04-10 12:42:07" itemprop="dateModified" datetime="2025-04-10T12:42:07+08:00">2025-04-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%BD%AC%E8%BD%BD/" itemprop="url" rel="index"><span itemprop="name">转载</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/313429/vps-%E7%9B%91%E6%8E%A7%E6%80%A7%E8%83%BD%E6%96%B9%E9%9D%A2%E5%91%BD%E4%BB%A4%E5%A4%A7%E6%80%BB%E7%BB%93/" class="post-meta-item leancloud_visitors" data-flag-title="VPS 监控性能方面命令大总结" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Valine：</span>
+  
+    <a title="valine" href="/313429/vps-%E7%9B%91%E6%8E%A7%E6%80%A7%E8%83%BD%E6%96%B9%E9%9D%A2%E5%91%BD%E4%BB%A4%E5%A4%A7%E6%80%BB%E7%BB%93/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/313429/vps-%E7%9B%91%E6%8E%A7%E6%80%A7%E8%83%BD%E6%96%B9%E9%9D%A2%E5%91%BD%E4%BB%A4%E5%A4%A7%E6%80%BB%E7%BB%93/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="一、last-命令"><a href="#一、last-命令" class="headerlink" title="一、last 命令"></a>一、last 命令</h2><pre><code>last    显示系统开机以来获是从每月初登入者的讯息
+-R  省略 hostname 的栏位
+-num 展示前 num 个  如：last -3  展示前三行
+username 展示 username 的登入讯息
+tty 限制登入讯息包含终端机代号
+</code></pre>
+<p>范例：</p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@elain ~]<span class="comment"># last -R -2</span></span><br><span class="line">root     pts/0        Fri Oct<span class="number"> 22 </span>14:23   still logged in</span><br><span class="line">root     pts/0        Fri Oct<span class="number"> 22 </span>12:10 - 14:23  (02:13)</span><br><span class="line">wtmp begins Sat Sep <span class="number"> 4 </span>00:38:05 2010</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@elain ~]<span class="comment"># last -2 root</span></span><br><span class="line">root     pts/0        192.168.8.87     Fri Oct<span class="number"> 22 </span>14:23   still logged in</span><br><span class="line">root     pts/0        192.168.8.87     Fri Oct<span class="number"> 22 </span>12:10 - 14:23  (02:13)</span><br><span class="line">wtmp begins Sat Sep <span class="number"> 4 </span>00:38:05 2010</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="二、top-命令"><a href="#二、top-命令" class="headerlink" title="二、top 命令"></a>二、top 命令</h2><p>top    是Linux下常用的性能分析工具，能够实时显示系统中各个进程的资源占用状况，类似于Windows的任务管理器。</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">top</span> - <span class="number">14</span>:<span class="number">34</span>:<span class="number">14</span> up <span class="number">4</span> days, <span class="number">16</span>:<span class="number">20</span>,  <span class="number">2</span> users,  load average: <span class="number">0</span>.<span class="number">56</span>, <span class="number">0</span>.<span class="number">23</span>, <span class="number">0</span>.<span class="number">32</span></span><br><span class="line"><span class="attribute">Tasks</span>:  <span class="number">75</span> total,   <span class="number">1</span> running,  <span class="number">74</span> sleeping,   <span class="number">0</span> stopped,   <span class="number">0</span> zombie</span><br><span class="line"><span class="attribute">Cpu</span>(s):  <span class="number">0</span>.<span class="number">0</span>%us,  <span class="number">0</span>.<span class="number">0</span>%sy,  <span class="number">0</span>.<span class="number">0</span>%ni, <span class="number">99</span>.<span class="number">8</span>%id,  <span class="number">0</span>.<span class="number">2</span>%wa,  <span class="number">0</span>.<span class="number">0</span>%hi,  <span class="number">0</span>.<span class="number">0</span>%si,  <span class="number">0</span>.<span class="number">0</span>%st</span><br><span class="line"><span class="attribute">Mem</span>:   <span class="number">1026824</span>k total,   <span class="number">917580</span>k used,   <span class="number">109244</span>k free,   <span class="number">124708</span>k buffers</span><br><span class="line"><span class="attribute">Swap</span>:  <span class="number">2096472</span>k total,        <span class="number">0</span>k used,  <span class="number">2096472</span>k free,   <span class="number">664320</span>k cached</span><br><span class="line"><span class="attribute">PID</span> USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND</span><br><span class="line"><span class="attribute">3078</span> root      <span class="number">15</span>   <span class="number">0</span> <span class="number">12720</span> <span class="number">1032</span>  <span class="number">800</span> R  <span class="number">0</span>.<span class="number">7</span>  <span class="number">0</span>.<span class="number">1</span>   <span class="number">0</span>:<span class="number">00</span>.<span class="number">02</span> top</span><br><span class="line"><span class="attribute">2463</span> root      <span class="number">16</span>   <span class="number">0</span> <span class="number">10232</span>  <span class="number">676</span>  <span class="number">584</span> S  <span class="number">0</span>.<span class="number">3</span>  <span class="number">0</span>.<span class="number">1</span>   <span class="number">1</span>:<span class="number">33</span>.<span class="number">69</span> hald-addon-stor</span><br><span class="line"><span class="attribute">1</span> root      <span class="number">15</span>   <span class="number">0</span> <span class="number">10352</span>  <span class="number">692</span>  <span class="number">584</span> S  <span class="number">0</span>.<span class="number">0</span>  <span class="number">0</span>.<span class="number">1</span>   <span class="number">0</span>:<span class="number">00</span>.<span class="number">61</span> init</span><br><span class="line"><span class="attribute">2</span> root      RT  -<span class="number">5</span>     <span class="number">0</span>    <span class="number">0</span>    <span class="number">0</span> S  <span class="number">0</span>.<span class="number">0</span>  <span class="number">0</span>.<span class="number">0</span>   <span class="number">0</span>:<span class="number">00</span>.<span class="number">35</span> migration/<span class="number">0</span></span><br><span class="line"><span class="attribute">3</span> root      <span class="number">34</span>  <span class="number">19</span>     <span class="number">0</span>    <span class="number">0</span>    <span class="number">0</span> S  <span class="number">0</span>.<span class="number">0</span>  <span class="number">0</span>.<span class="number">0</span>   <span class="number">0</span>:<span class="number">00</span>.<span class="number">00</span> ksoftirqd/<span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+
+<p>统计信息区前五行是系统整体的统计信息。</p>
+<p>第一行是任务队列信息，同 uptime 命令的执行结果。其内容如下：</p>
+<p>14:34:14      当前时间<br>up 4 days      系统已运行时间<br>2 users              当前登录用户数<br>0.56, 0.23, 0.32  系统负载，即任务队列的平均长度。三个数值分别为1分钟、5分钟、15分钟前到现在的平均值。</p>
+<p>第二行为进程信息，内容如下：</p>
+<p>Tasks:  75 total    进程总数<br>1 running            正在运行的进程数<br>74 sleeping            睡眠的进程数<br>0 stopped            停止的进程数<br>0 zombie            僵尸进程数</p>
+<p>第三行为CPU信息，当有多个CPU时，这些内容可能会超过两行。内容如下：</p>
+<p>Cpu(s):  0.0%us            用户空间占用CPU百分比<br>0.0% sy                    内核空间占用CPU百分比<br>0.0% ni                    用户进程空间内改变过优先级的进程占用CPU百分比<br>98.8% id            空闲CPU百分比<br>0.2% wa                    等待输入输出(IO)的CPU时间百分比<br>0.0% hi                    cpu处理硬件中断的时间；<br>0.0% si                 cpu处理软中断的时间；</p>
+<p>第四行为内存信息，内容如下：</p>
+<p>Mem: 1026824k total      物理内存总量<br>917580k used              使用的物理内存总量<br>109244k free               空闲内存总量<br>124708k buffers            用作内核缓存的内存量</p>
+<p>第五行为SWAP信息</p>
+<p>Swap: 2096472k total    交换区总量<br>2096472k free              空闲交换区总量<br>664320k cached            缓冲的交换区总量。</p>
+<p>第六行往后是进程列表，常见的这几列的意义分别为：<br>PID(进程号)， USER（运行用户），PR（优先级），NI（任务nice值），VIRT（虚拟内存用量），RES（物理内存用量），<br>SHR（共享内存用量），S（进程状态），%CPU（CPU占用比），%MEM（内存占用比），TIME+（累计CPU占用时间)。<br>除了这些信息之外，top还提供了很多命令能帮我们更好的解读这些信息，例如按”M”键可以按内存用量进行排序;<br>按”P”可以按CPU使用量进行排序，这样一来对于分析系统瓶颈很有帮助；此外，按“f”可以进入交互页面，选择指定的列显示，<br>例如可以按“b”选择显示PPID，再按一次“b”即可取消显示。”r”可以改变一个进程的nice值；”k”可以向一个进程发信号；<br>”z”可以使用彩色显示。进程信息区统计信息区域的下方显示了各个进程的详细信息。首先来认识一下各列的含义。<br>序号    列名    含义<br>a    PID    进程id<br>b    PPID    父进程id<br>c    RUSER    Real user name<br>d    UID    进程所有者的用户id<br>e    USER    进程所有者的用户名<br>f    GROUP    进程所有者的组名<br>g    TTY    启动进程的终端名。不是从终端启动的进程则显示为 ?<br>h    PR    优先级<br>i    NI    nice值。负值表示高优先级，正值表示低优先级<br>j    P    最后使用的CPU，仅在多CPU环境下有意义<br>k    %CPU    上次更新到现在的CPU时间占用百分比<br>l    TIME    进程使用的CPU时间总计，单位秒<br>m    TIME+    进程使用的CPU时间总计，单位1&#x2F;100秒<br>n    %MEM    进程使用的物理内存百分比<br>o    VIRT    进程使用的虚拟内存总量，单位kb。VIRT&#x3D;SWAP+RES<br>p    SWAP    进程使用的虚拟内存中，被换出的大小，单位kb。<br>q    RES    进程使用的、未被换出的物理内存大小，单位kb。RES&#x3D;CODE+DATA<br>r    CODE    可执行代码占用的物理内存大小，单位kb<br>s    DATA    可执行代码以外的部分(数据段+栈)占用的物理内存大小，单位kb<br>t    SHR    共享内存大小，单位kb<br>u    nFLT    页面错误次数<br>v    nDRT    最后一次写入到现在，被修改过的页面数。<br>w    S    进程状态。<br>x    COMMAND    命令名&#x2F;命令行<br>y    WCHAN    若该进程在睡眠，则显示睡眠中的系统函数名<br>z    Flags    任务标志，参考 sched.h<br>D&#x3D;不可中断的睡眠状态<br>R&#x3D;运行<br>S&#x3D;睡眠<br>T&#x3D;跟踪&#x2F;停止<br>Z&#x3D;僵尸进程</p>
+<p>默认情况下仅显示比较重要的  PID、USER、PR、NI、VIRT、RES、SHR、S、%CPU、%MEM、TIME+、COMMAND  列。可以通过下面的快捷键来更改显示内容。<br>更改显示内容通过 f 键可以选择显示的内容。按 f 键之后会显示列的列表，按 a-z  即可显示或隐藏对应的列，最后按回车键确定。<br>按 o 键可以改变列的显示顺序。按小写的 a-z 可以将相应的列向右移动，而大写的 A-Z  可以将相应的列向左移动。最后按回车键确定。<br>按大写的 F 或 O 键，然后按 a-z 可以将进程按照相应的列进行排序。而大写的  R 键可以将当前的排序倒转。</p>
+<h2 id="三、free-命令"><a href="#三、free-命令" class="headerlink" title="三、free 命令"></a>三、free 命令</h2><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">free</span><br><span class="line">[root@elain ~]<span class="comment"># free</span></span><br><span class="line">total       used       free     shared    buffers     cached</span><br><span class="line"><span class="params">Mem:</span>       <span class="number">1026824</span>     <span class="number">917764</span>     <span class="number">109060</span>          <span class="number">0</span>     <span class="number">124908</span>     <span class="number">664328</span></span><br><span class="line"><span class="operator">-</span><span class="symbol">/+</span> buffers<span class="operator">/</span><span class="params">cache:</span>     <span class="number">128528</span>     <span class="number">898296</span></span><br><span class="line"><span class="params">Swap:</span>      <span class="number">2096472</span>          <span class="number">0</span>    <span class="number">2096472</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>第1行</strong></p>
+<pre><code>total 内存总数: 1026824
+used 已经使用的内存数: 917764
+free 空闲的内存数: 109060
+shared 当前已经废弃不用，总是0
+buffers Buffer Cache内存数: 124908
+cached Page Cache内存数:  664328
+</code></pre>
+<p><strong>第2行</strong></p>
+<pre><code>-/+ buffers/cache的意思相当于：
+-buffers/cache 的内存数：1128528 (等于第1行的 used - buffers - cached)
++buffers/cache 的内存数: 2752124 (等于第1行的 free + buffers + cached)
+</code></pre>
+<p><strong>第3行</strong></p>
+<pre><code>total 交换分区总数: 2096472
+used 已经使用的: 0
+free 空闲的数: 2096472
+free -m    大小以M来显示
+</code></pre>
+<h2 id="四、dstat-命令"><a href="#四、dstat-命令" class="headerlink" title="四、dstat 命令"></a>四、dstat 命令</h2><figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install -y <span class="built_in">dstat</span></span><br><span class="line"><span class="built_in">dstat</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>-c     显示CPU情况
+-d     显示磁盘情况
+-g     显示通信情况
+-m     显示内存情况
+-n     显示网络情况
+-p     显示进程情况
+-s     显示swap情况
+-t     显示系统时钟
+-y     显示系统统计
+-f     使用 -C, -D, -I, -N and -S 显示
+-v     使用-pmgdsc -D 显示
+--ipc   报告IPC消息队列和信号量的使用情况
+--lock  enable lock stats
+--raw   enable raw stats
+--tcp  enable tcp stats
+--udp   enable udp stats
+--unix   enable unix stats
+--mods   stat1,stat2
+--integer  show integer values Bbs.Svn8.Com
+--nocolor  disable colors (implies --noupdate) Bbs.Svn8.Com
+--noheaders 只显示一次表头以后就不显示了,使用重定向写入文件时很有用 Bbs.Svn8.Com
+--noupdate  disable intermediate updates Svn中文网
+--output file 写入到CVS文件中
+</code></pre>
+<p>推荐使用 <code>date &amp;&amp; dstat -tclmdny 60</code> 一分钟监视一次（注意调节显示的宽度，或去掉-t选项）。</p>
+<h2 id="五、iostat-命令"><a href="#五、iostat-命令" class="headerlink" title="五、iostat 命令"></a>五、iostat 命令</h2><p><code># cat /proc/partitions</code></p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@elain ~]<span class="comment"># cat /proc/partitions</span></span><br><span class="line">major minor  <span class="comment">#blocks  name</span></span><br><span class="line">8     0     <span class="number"> 20971520 </span>sda</span><br><span class="line">8     1       <span class="number"> 200781 </span>sda1</span><br><span class="line">8     2      <span class="number"> 8193150 </span>sda2</span><br><span class="line">8     3      <span class="number"> 2096482 </span>sda3</span><br><span class="line">8     4            <span class="number"> 1 </span>sda4</span><br><span class="line">8     5     <span class="number"> 10474348 </span>sda5</span><br></pre></td></tr></table></figure>
+
+<pre><code>major: 主设备号。8 代表 sda。
+minor: 次设备号。5 代表 No.5 分区。
+`#blocks`: 设备总块数
+name: 设备名称。如 sda3。
+</code></pre>
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="title">@elain</span> ~]# iostat -<span class="keyword">x</span></span><br><span class="line">Linux <span class="number">2.6</span>.<span class="number">18</span><span class="number">-194.11</span>.<span class="number">3</span>.el<span class="number">5</span> (elain)      <span class="number">2010</span>年<span class="number">10</span>月<span class="number">22</span>日</span><br><span class="line">avg-cpu:  <span class="variable">%user</span>   <span class="variable">%nice</span> <span class="variable">%system</span> <span class="variable">%iowait</span>  <span class="variable">%steal</span>   <span class="variable">%idle</span></span><br><span class="line"><span class="number">0.17</span>    <span class="number">0.10</span>    <span class="number">0.12</span>    <span class="number">0.05</span>    <span class="number">0.00</span>   <span class="number">99.55</span></span><br><span class="line">Device:         rrqm/s   wrqm/s   r/s   w/s   rsec/s   wsec/s avgrq-sz avgqu-sz   await  svctm  <span class="variable">%util</span></span><br><span class="line">sda               <span class="number">0.17</span>     <span class="number">1.14</span>  <span class="number">0.07</span>  <span class="number">0.35</span>     <span class="number">3.38</span>    <span class="number">11.80</span>    <span class="number">35.72</span>     <span class="number">0.03</span>   <span class="number">59.56</span>   <span class="number">3.64</span>   <span class="number">0.15</span></span><br><span class="line">sda<span class="number">1</span>              <span class="number">0.00</span>     <span class="number">0.00</span>  <span class="number">0.00</span>  <span class="number">0.00</span>     <span class="number">0.00</span>     <span class="number">0.00</span>    <span class="number">18.96</span>     <span class="number">0.00</span>    <span class="number">8.47</span>   <span class="number">6.65</span>   <span class="number">0.00</span></span><br><span class="line">sda<span class="number">2</span>              <span class="number">0.05</span>     <span class="number">1.11</span>  <span class="number">0.06</span>  <span class="number">0.35</span>     <span class="number">3.19</span>    <span class="number">11.68</span>    <span class="number">36.24</span>     <span class="number">0.02</span>   <span class="number">60.31</span>   <span class="number">3.64</span>   <span class="number">0.15</span></span><br><span class="line">sda<span class="number">3</span>              <span class="number">0.00</span>     <span class="number">0.00</span>  <span class="number">0.00</span>  <span class="number">0.00</span>     <span class="number">0.00</span>     <span class="number">0.00</span>    <span class="number">31.65</span>     <span class="number">0.00</span>    <span class="number">8.21</span>   <span class="number">6.47</span>   <span class="number">0.00</span></span><br><span class="line">sda<span class="number">4</span>              <span class="number">0.00</span>     <span class="number">0.00</span>  <span class="number">0.00</span>  <span class="number">0.00</span>     <span class="number">0.00</span>     <span class="number">0.00</span>     <span class="number">2.00</span>     <span class="number">0.00</span>    <span class="number">6.00</span>   <span class="number">6.00</span>   <span class="number">0.00</span></span><br><span class="line">sda<span class="number">5</span>              <span class="number">0.11</span>     <span class="number">0.04</span>  <span class="number">0.01</span>  <span class="number">0.01</span>     <span class="number">0.18</span>     <span class="number">0.12</span>    <span class="number">21.11</span>     <span class="number">0.00</span>   <span class="number">39.66</span>   <span class="number">4.71</span>   <span class="number">0.01</span></span><br></pre></td></tr></table></figure>
+
+<p>rrqm&#x2F;s: 每秒进行 merge 的读操作数目。即 delta(rmerge)&#x2F;s<br>wrqm&#x2F;s: 每秒进行 merge 的写操作数目。即 delta(wmerge)&#x2F;s<br>r&#x2F;s: 每秒完成的读 I&#x2F;O 设备次数。即 delta(rio)&#x2F;s<br>w&#x2F;s: 每秒完成的写 I&#x2F;O 设备次数。即 delta(wio)&#x2F;s<br>rsec&#x2F;s: 每秒读扇区数。即 delta(rsect)&#x2F;s<br>wsec&#x2F;s: 每秒写扇区数。即 delta(wsect)&#x2F;s<br>avgrq-sz: 平均每次设备I&#x2F;O操作的数据大小 (扇区)。即 delta(rsect+wsect)&#x2F;delta(rio+wio)<br>avgqu-sz: 平均I&#x2F;O队列长度。即 delta(aveq)&#x2F;s&#x2F;1000 (因为aveq的单位为毫秒)。<br>await: 平均每次设备I&#x2F;O操作的等待时间 (毫秒)。即 delta(ruse+wuse)&#x2F;delta(rio+wio)<br>svctm: 平均每次设备I&#x2F;O操作的服务时间 (毫秒)。即 delta(use)&#x2F;delta(rio+wio)<br>％util: 一秒中有百分之多少的时间用于 I&#x2F;O 操作，或者说一秒中有多少时间 I&#x2F;O 队列是非空的。<br>即 delta(use)&#x2F;s&#x2F;1000 (因为use的单位为毫秒)</p>
+<p>如果 ％util 接近 100％，说明产生的I&#x2F;O请求太多，I&#x2F;O系统已经满负荷，该磁盘可能存在瓶颈。</p>
+<p>svctm 一般要小于 await (因为同时等待的请求的等待时间被重复计算了)，<br>svctm 的大小一般和磁盘性能有关，CPU&#x2F;内存的负荷也会对其有影响，请求过多<br>也会间接导致 svctm 的增加。await 的大小一般取决于服务时间(svctm) 以及<br>I&#x2F;O 队列的长度和 I&#x2F;O 请求的发出模式。如果 svctm 比较接近 await，说明<br>I&#x2F;O 几乎没有等待时间；如果 await 远大于 svctm，说明 I&#x2F;O 队列太长，应用<br>得到的响应时间变慢，如果响应时间超过了用户可以容许的范围，这时可以考虑<br>更换更快的磁盘，调整内核 elevator 算法，优化应用，或者升级 CPU。</p>
+<p>队列长度(avgqu-sz)也可作为衡量系统 I&#x2F;O 负荷的指标，但由于 avgqu-sz 是<br>按照单位时间的平均值，所以不能反映瞬间的 I&#x2F;O 洪水。</p>
+<h2 id="六、vmstat-命令"><a href="#六、vmstat-命令" class="headerlink" title="六、vmstat 命令"></a>六、vmstat 命令</h2><p>vmstat 命令报告虚拟内存统计信息和CPU负荷：页面调度，交换，任务交换，CPU利用率。命令的语法是：</p>
+<pre><code>vmstat
+-swap    现时可用的交换内存（k表示）
+-free    空闲的内存（k表示）
+-disk    显示每秒的磁盘操作。 s表示scsi盘，0表示盘号
+</code></pre>
+<figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">[</span><span class="comment">root@elain ~</span><span class="title">]</span><span class="comment"># vmstat 1 3</span> <span class="title">[</span><span class="comment">一秒刷新一次 总共3次</span><span class="title">]</span></span><br><span class="line"><span class="comment">procs</span> <span class="literal">-----------</span><span class="comment">memory</span><span class="literal">----------</span> <span class="literal">---</span><span class="comment">swap</span><span class="literal">--</span> <span class="literal">-----</span><span class="comment">io</span><span class="literal">----</span> <span class="literal">--</span><span class="comment">system</span><span class="literal">--</span> <span class="literal">-----</span><span class="comment">cpu</span><span class="literal">------</span></span><br><span class="line"><span class="comment">r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st</span></span><br><span class="line"><span class="comment">0  0      0 109036 123156 664444    0    0     1     3   37   12  0  0 100  0  0</span></span><br><span class="line"><span class="comment">0  0      0 109036 123156 664444    0    0     0     0 1022   28  0  0 100  0  0</span></span><br><span class="line"><span class="comment">0  0      0 109036 123156 664444    0    0     0     0 1003   17  0  0 100  0  0</span></span><br></pre></td></tr></table></figure>
+
+<p>如果 r经常大于 4 ，且id经常少于40[空闲CPU]，表示cpu的负荷很重。</p>
+<p>目前说来，对于服务器监控有用处的度量主要有：</p>
+<p>r（运行队列）<br>us（用户CPU）<br>sy（系统CPU）<br>id（空闲）</p>
+<p>通过VMSTAT识别CPU瓶颈</p>
+<p>r（运行队列）展示了正在执行和等待CPU资源的任务个数。当这个值超过了CPU数目，就会出现CPU瓶颈了。<br>获得CPU个数的命令(LINUX环境)：</p>
+<p><code>cat /proc/cpuinfo|grep processor|wc -l</code></p>
+<p>当r值超过了CPU个数，就会出现CPU瓶颈，解决办法大体几种：</p>
+<p>1. 最简单的就是增加CPU个数<br>2. 通过调整任务执行时间，如大任务放到系统不繁忙的情况下进行执行，进尔平衡系统任务<br>3. 调整已有任务的优先级</p>
+<p>通过VMSTAT识别CPU满负荷<br>首先需要声明一点的是，vmstat中CPU的度量是百分比的。当us＋sy的值接近100的时候，表示CPU正在接近满负荷工作。<br>但要注意的是，CPU 满负荷工作并不能说明什么，UNIX总是试图要CPU尽可能的繁忙，使得任务的吞吐量最大化。唯一能够确定CPU瓶颈的还是r（运行队列）的值。<br>通过VMSTAT识别RAM瓶颈</p>
+<p>数据库服务器都只有有限的RAM，出现内存争用现象是Oracle的常见问题。<br>首先察看RAM的数量，命令如下（LINUX环境）：</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@elain ~]<span class="comment"># free</span></span><br><span class="line">total       used       free     shared    buffers     cached</span><br><span class="line"><span class="params">Mem:</span>       <span class="number">1026824</span>     <span class="number">918284</span>     <span class="number">108540</span>          <span class="number">0</span>     <span class="number">123180</span>     <span class="number">664448</span></span><br><span class="line"><span class="operator">-</span><span class="symbol">/+</span> buffers<span class="operator">/</span><span class="params">cache:</span>     <span class="number">130656</span>     <span class="number">896168</span></span><br><span class="line"><span class="params">Swap:</span>      <span class="number">2096472</span>          <span class="number">0</span>    <span class="number">2096472</span></span><br></pre></td></tr></table></figure>
+
+<p>当然可以使用top等其他命令来显示RAM。</p>
+<p>当内存的需求大于RAM的数量，服务器启动了虚拟内存机制，通过虚拟内存，可以将RAM段移到SWAP DISK的特殊磁盘段上，<br>这样会出现虚拟内存的页导出和页导入现象，页导出并不能说明RAM瓶颈，虚拟内存系统经常会对内存段进行页导出，<br>但页导入操作就表明了服务器需要更多的内存了，页导入需要从SWAP DISK上将内存段复制回RAM，导致服务器速度变慢。<br>解决的办法有几种：</p>
+<p>1. 最简单的，加大RAM<br>2. 改小SGA，使得对RAM需求减少<br>3. 减少RAM的需求（如：减少PGA）</p>
+<p>vmstat各项：<br>procs:<br>r–&gt;在运行队列中等待的进程数<br>b–&gt;在等待io的进程数<br>w–&gt;可以进入运行队列但被替换的进程<br>memoy<br>swap–&gt;现时可用的交换内存（k表示）<br>free–&gt;空闲的内存（k表示）<br>pages<br>re－－》回收的页面<br>mf－－》非严重错误的页面<br>pi－－》进入页面数（k表示）<br>po－－》出页面数（k表示）<br>fr－－》空余的页面数（k表示）<br>de－－》提前读入的页面中的未命中数<br>sr－－》通过时钟算法扫描的页面<br>disk 显示每秒的磁盘操作。 s表示scsi盘，0表示盘号<br>fault 显示每秒的中断数<br>in－－》设备中断<br>sy－－》系统中断<br>cy－－》cpu交换<br>cpu 表示cpu的使用状态<br>cs－－》用户进程使用的时间<br>sy－－》系统进程使用的时间<br>id－－》cpu空闲的时间<br>如果 r经常大于 4 ，且id经常少于40，表示cpu的负荷很重。<br>如果pi，po 长期不等于0，表示内存不足。<br>如果disk 经常不等于0， 且在 b中的队列 大于3， 表示 io性能不好。</p>
+<h2 id="七、mpstat-命令"><a href="#七、mpstat-命令" class="headerlink" title="七、mpstat 命令"></a>七、mpstat 命令</h2><p>mpstat是MultiProcessor Statistics的缩写，是实时系统监控工具。其报告与CPU的一些统计信息，这些信息存放在&#x2F;proc&#x2F;stat文件中。<br>在多CPUs系统里，其不但能查看所有CPU的平均状况信息，而且能够查看特定CPU的信息。mpstat的语法如下：</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@elain</span> ~]<span class="comment"># mpstat</span></span><br><span class="line">Linux <span class="number">2.6</span><span class="number">.18</span>-<span class="number">194.11</span>.<span class="number">3</span>.el5 (elain)      <span class="number">2010</span>年<span class="number">10</span>月<span class="number">22</span>日</span><br><span class="line"><span class="number">16</span>时<span class="number">13</span>分<span class="number">59</span>秒  CPU   <span class="variable">%user</span>   <span class="variable">%nice</span>    <span class="variable">%sys</span> <span class="variable">%iowait</span>    <span class="variable">%irq</span>   <span class="variable">%soft</span>  <span class="variable">%steal</span>   <span class="variable">%idle</span>    intr/s</span><br><span class="line"><span class="number">16</span>时<span class="number">13</span>分<span class="number">59</span>秒  all    <span class="number">0.17</span>    <span class="number">0.10</span>    <span class="number">0.07</span>    <span class="number">0.05</span>    <span class="number">0.02</span>    <span class="number">0.03</span>    <span class="number">0.00</span>   <span class="number">99.56</span>   <span class="number">1018.86</span></span><br></pre></td></tr></table></figure>
+
+<p><code>%user</code> 在internal时间段里，用户态的CPU时间（%），不包含 nice值为负 进程 (usr&#x2F;total)*100<br><code>%nice</code> 在internal时间段里，nice值为负进程的CPU时间（%）   <code>(nice/total)*100</code><br><code>%sys</code>  在internal时间段里，核心时间（%）   <code>(system/total)*100</code><br><code>%iowait</code> 在internal时间段里，硬盘IO等待时间（%） <code>(iowait/total)*100</code><br><code>%irq</code> 在internal时间段里，硬中断时间（%）      <code>(irq/total)*100</code><br><code>%soft</code> 在internal时间段里，软中断时间（%）    <code>(softirq/total)*100</code><br><code>%idle</code> 在internal时间段里，CPU除去等待磁盘IO操作外的因为任何原因而空闲的时间闲置时间（%）<code>(idle/total)*100</code><br><code>%intr/s</code> 在internal时间段里，每秒CPU接收的中断的次数<code>intr/total)*100</code></p>
+<p>total_cur&#x3D;user+system+nice+idle+iowait+irq+softirq<br>total_pre&#x3D;pre_user+ pre_system+ pre_nice+ pre_idle+ pre_iowait+ pre_irq+ pre_softirq<br>user&#x3D;user_cur – user_pre<br>total&#x3D;total_cur-total_pre</p>
+<p>其中_cur 表示当前值，_pre表示interval时间前的值。上表中的所有值可取到两位小数点。</p>
+<p>实例: 每2秒产生了2个处理器的统计数据报告<br>下面的命令可以每2秒产生了2个处理器的统计数据报告，一共产生三个interval 的信息，然后再给出这三个interval的平<br>均信息。默认时，输出是按照CPU 号排序。第一个行给出了从系统引导以来的所有活跃数据。接下来每行对应一个处理器的<br>活跃状态。。</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@elain</span> ~]<span class="comment"># mpstat -P ALL 2 3</span></span><br><span class="line">Linux <span class="number">2.6</span><span class="number">.18</span>-<span class="number">194.11</span>.<span class="number">3</span>.el5 (elain)      <span class="number">2010</span>年<span class="number">10</span>月<span class="number">22</span>日</span><br><span class="line"></span><br><span class="line"><span class="number">16</span>时<span class="number">17</span>分<span class="number">43</span>秒  CPU   <span class="variable">%user</span>   <span class="variable">%nice</span>    <span class="variable">%sys</span> <span class="variable">%iowait</span>    <span class="variable">%irq</span>   <span class="variable">%soft</span>  <span class="variable">%steal</span>   <span class="variable">%idle</span>    intr/s</span><br><span class="line"><span class="number">16</span>时<span class="number">17</span>分<span class="number">45</span>秒  all    <span class="number">0.00</span>    <span class="number">0.00</span>    <span class="number">0.00</span>    <span class="number">0.00</span>    <span class="number">0.00</span>    <span class="number">0.00</span>    <span class="number">0.00</span>  <span class="number">100.00</span>   <span class="number">1036.36</span></span><br><span class="line"><span class="number">16</span>时<span class="number">17</span>分<span class="number">45</span>秒    <span class="number">0</span>    <span class="number">0.00</span>    <span class="number">0.00</span>    <span class="number">0.00</span>    <span class="number">0.00</span>    <span class="number">0.00</span>    <span class="number">0.00</span>    <span class="number">0.00</span>  <span class="number">100.00</span>   <span class="number">1036.36</span></span><br><span class="line"><span class="number">16</span>时<span class="number">17</span>分<span class="number">45</span>秒    <span class="number">1</span>    <span class="number">0.00</span>    <span class="number">0.00</span>    <span class="number">0.00</span>    <span class="number">0.00</span>    <span class="number">0.00</span>    <span class="number">0.00</span>    <span class="number">0.00</span>  <span class="number">100.00</span>      <span class="number">0.00</span></span><br><span class="line"></span><br><span class="line"><span class="number">16</span>时<span class="number">17</span>分<span class="number">45</span>秒  CPU   <span class="variable">%user</span>   <span class="variable">%nice</span>    <span class="variable">%sys</span> <span class="variable">%iowait</span>    <span class="variable">%irq</span>   <span class="variable">%soft</span>  <span class="variable">%steal</span>   <span class="variable">%idle</span>    intr/s</span><br><span class="line"><span class="number">16</span>时<span class="number">17</span>分<span class="number">47</span>秒  all    <span class="number">0.00</span>    <span class="number">0.00</span>    <span class="number">0.00</span>    <span class="number">0.00</span>    <span class="number">0.00</span>    <span class="number">0.25</span>    <span class="number">0.00</span>   <span class="number">99.75</span>   <span class="number">1045.27</span></span><br><span class="line"><span class="number">16</span>时<span class="number">17</span>分<span class="number">47</span>秒    <span class="number">0</span>    <span class="number">0.00</span>    <span class="number">0.00</span>    <span class="number">0.00</span>    <span class="number">0.00</span>    <span class="number">0.50</span>    <span class="number">0.00</span>    <span class="number">0.00</span>   <span class="number">99.50</span>   <span class="number">1045.27</span></span><br><span class="line"><span class="number">16</span>时<span class="number">17</span>分<span class="number">47</span>秒    <span class="number">1</span>    <span class="number">0.50</span>    <span class="number">0.00</span>    <span class="number">0.00</span>    <span class="number">0.00</span>    <span class="number">0.00</span>    <span class="number">0.00</span>    <span class="number">0.00</span>   <span class="number">99.50</span>      <span class="number">0.00</span></span><br><span class="line"></span><br><span class="line"><span class="number">16</span>时<span class="number">17</span>分<span class="number">47</span>秒  CPU   <span class="variable">%user</span>   <span class="variable">%nice</span>    <span class="variable">%sys</span> <span class="variable">%iowait</span>    <span class="variable">%irq</span>   <span class="variable">%soft</span>  <span class="variable">%steal</span>   <span class="variable">%idle</span>    intr/s</span><br><span class="line"><span class="number">16</span>时<span class="number">17</span>分<span class="number">49</span>秒  all    <span class="number">0.00</span>    <span class="number">0.00</span>    <span class="number">0.25</span>    <span class="number">0.50</span>    <span class="number">0.00</span>    <span class="number">0.00</span>    <span class="number">0.00</span>   <span class="number">99.25</span>   <span class="number">1031.84</span></span><br><span class="line"><span class="number">16</span>时<span class="number">17</span>分<span class="number">49</span>秒    <span class="number">0</span>    <span class="number">0.00</span>    <span class="number">0.00</span>    <span class="number">0.50</span>    <span class="number">1.49</span>    <span class="number">0.00</span>    <span class="number">0.00</span>    <span class="number">0.00</span>   <span class="number">98.01</span>   <span class="number">1031.84</span></span><br><span class="line"><span class="number">16</span>时<span class="number">17</span>分<span class="number">49</span>秒    <span class="number">1</span>    <span class="number">0.00</span>    <span class="number">0.00</span>    <span class="number">0.00</span>    <span class="number">0.00</span>    <span class="number">0.00</span>    <span class="number">0.00</span>    <span class="number">0.00</span>  <span class="number">100.00</span>      <span class="number">0.00</span></span><br><span class="line"></span><br><span class="line">Average:     CPU   <span class="variable">%user</span>   <span class="variable">%nice</span>    <span class="variable">%sys</span> <span class="variable">%iowait</span>    <span class="variable">%irq</span>   <span class="variable">%soft</span>  <span class="variable">%steal</span>   <span class="variable">%idle</span>    intr/s</span><br><span class="line">Average:     all    <span class="number">0.00</span>    <span class="number">0.00</span>    <span class="number">0.08</span>    <span class="number">0.17</span>    <span class="number">0.00</span>    <span class="number">0.08</span>    <span class="number">0.00</span>   <span class="number">99.67</span>   <span class="number">1037.83</span></span><br><span class="line">Average:       <span class="number">0</span>    <span class="number">0.00</span>    <span class="number">0.00</span>    <span class="number">0.17</span>    <span class="number">0.50</span>    <span class="number">0.17</span>    <span class="number">0.00</span>    <span class="number">0.00</span>   <span class="number">99.17</span>   <span class="number">1037.83</span></span><br><span class="line">Average:       <span class="number">1</span>    <span class="number">0.17</span>    <span class="number">0.00</span>    <span class="number">0.00</span>    <span class="number">0.00</span>    <span class="number">0.00</span>    <span class="number">0.00</span>    <span class="number">0.00</span>   <span class="number">99.83</span>      <span class="number">0.00</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="八、sar-命令"><a href="#八、sar-命令" class="headerlink" title="八、sar 命令"></a>八、sar 命令</h2><p>该命令是系统维护 的重要工具，主要帮助我们掌握系统资源的使用情况，特别是内存和CPU 的使用情况， 是UNIX系统使用者应该掌握的工具之 一。</p>
+<p><code>sar</code></p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="deletion">-A：所有报告的总和。</span></span><br><span class="line"><span class="deletion">-u：CPU利用率</span></span><br><span class="line"><span class="deletion">-v：进程、I节点、文件和锁表状态。</span></span><br><span class="line"><span class="deletion">-d：硬盘使用报告。</span></span><br><span class="line"><span class="deletion">-r：没有使用的内存页面和硬盘块。</span></span><br><span class="line"><span class="deletion">-g：串口I/O的情况。</span></span><br><span class="line"><span class="deletion">-b：缓冲区使用情况。</span></span><br><span class="line"><span class="deletion">-a：文件读写情况。</span></span><br><span class="line"><span class="deletion">-c：系统调用情况。</span></span><br><span class="line"><span class="deletion">-R：进程的活动情况。</span></span><br><span class="line"><span class="deletion">-y：终端设备活动情况。</span></span><br><span class="line"><span class="deletion">-w：系统交换活动。</span></span><br></pre></td></tr></table></figure>
+
+<p>实例1：每60秒采样一次，连续采样5次，观察CPU的使用情况，并将采样结果以二进制形式存入当前目录下的文件&#x2F;sar中，需键入如下命令：</p>
+<figure class="highlight nsis"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@elain ~]<span class="comment"># sar -u -o sar 60 5</span></span><br><span class="line">Linux <span class="number">2.6</span>.<span class="number">18</span>-<span class="number">194.11</span>.<span class="number">3</span>.el5 (elain)      <span class="number">2010</span>年<span class="number">10</span>月<span class="number">22</span>日</span><br><span class="line"><span class="number">16</span>时<span class="number">28</span>分<span class="number">47</span>秒       CPU     %<span class="literal">user</span>     %nice   %<span class="params">system</span>   %iowait    %steal     %idle</span><br><span class="line"><span class="number">16</span>时<span class="number">29</span>分<span class="number">47</span>秒       <span class="literal">all</span>      <span class="number">0.00</span>      <span class="number">0.00</span>      <span class="number">0.00</span>      <span class="number">1.00</span>      <span class="number">0.00</span>     <span class="number">99.00</span></span><br><span class="line"><span class="number">16</span>时<span class="number">30</span>分<span class="number">47</span>秒       <span class="literal">all</span>      <span class="number">0.00</span>      <span class="number">0.00</span>      <span class="number">0.00</span>      <span class="number">1.00</span>      <span class="number">0.00</span>     <span class="number">99.00</span></span><br><span class="line"><span class="number">16</span>时<span class="number">31</span>分<span class="number">47</span>秒       <span class="literal">all</span>      <span class="number">0.00</span>      <span class="number">0.00</span>      <span class="number">0.00</span>      <span class="number">1.50</span>      <span class="number">0.00</span>     <span class="number">98.50</span></span><br><span class="line"><span class="number">16</span>时<span class="number">32</span>分<span class="number">47</span>秒       <span class="literal">all</span>      <span class="number">0.00</span>      <span class="number">0.00</span>      <span class="number">0.00</span>      <span class="number">1.00</span>      <span class="number">0.00</span>     <span class="number">99.00</span></span><br><span class="line"><span class="number">16</span>时<span class="number">33</span>分<span class="number">57</span>秒       <span class="literal">all</span>      <span class="number">0.00</span>      <span class="number">0.00</span>      <span class="number">0.00</span>      <span class="number">1.00</span>      <span class="number">0.00</span>     <span class="number">99.00</span></span><br><span class="line">Average:          <span class="literal">all</span>      <span class="number">0.00</span>      <span class="number">0.00</span>      <span class="number">0.00</span>      <span class="number">1.10</span>      <span class="number">0.00</span>     <span class="number">98.90</span></span><br></pre></td></tr></table></figure>
+
+<p>在显示内容包括：<br><code>%usr：</code>   CPU处在用户模式下的时间百分比。<br><code>%sys：</code>   CPU处在系统模式下的时间百分比。<br><code>%iowait：</code> CPU等待输入输出完成时间的百分比。<br><code>%idle：</code>  CPU空闲时间百分比。<br>我们应主要注意<code>%wio</code>和<code>%idle</code>，<code>%wio</code>的值过高，表示硬盘存在I&#x2F;O瓶颈，<code>%idle</code>值高，表示CPU较空闲，如果%idle值高 但系统响应慢时，有可能是CPU等待分配内存，<br>此时应加大内存容量。%idle值如果持续低于10，那么系统的CPU处理能力相对较低，表明系统中最需要 解决的资源是CPU。</p>
+<p>查看二进制文件sar中的内容，则需键入如下sar命令：</p>
+<p><code>sar -u -f sar</code></p>
+<p>实例2：每30秒采样一次，连续采样5次，观察核心表的状态，需键入如下命令：</p>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@elain ~]# sar -v <span class="number">30</span> <span class="number">5</span></span><br><span class="line">Linux <span class="number">2.6</span><span class="number">.18</span><span class="number">-194.11</span><span class="number">.3</span>.el5 (elain)      <span class="number">2010</span>年<span class="number">10</span>月<span class="number">22</span>日</span><br><span class="line"><span class="number">16</span>时<span class="number">32</span>分<span class="number">54</span>秒 dentunusd   <span class="keyword">file</span>-sz  inode-sz  super-sz %super-sz  dquot-sz %dquot-sz  rtsig-sz %rtsig-sz</span><br><span class="line"><span class="number">16</span>时<span class="number">33</span>分<span class="number">54</span>秒     <span class="number">60602</span>       <span class="number">510</span>     <span class="number">50659</span>         <span class="number">0</span>      <span class="number">0.00</span>         <span class="number">0</span>      <span class="number">0.00</span>         <span class="number">0</span>      <span class="number">0.00</span></span><br><span class="line"><span class="number">16</span>时<span class="number">34</span>分<span class="number">54</span>秒     <span class="number">60602</span>       <span class="number">510</span>     <span class="number">50659</span>         <span class="number">0</span>      <span class="number">0.00</span>         <span class="number">0</span>      <span class="number">0.00</span>         <span class="number">0</span>      <span class="number">0.00</span></span><br><span class="line"><span class="number">16</span>时<span class="number">35</span>分<span class="number">54</span>秒     <span class="number">60602</span>       <span class="number">510</span>     <span class="number">50659</span>         <span class="number">0</span>      <span class="number">0.00</span>         <span class="number">0</span>      <span class="number">0.00</span>         <span class="number">0</span>      <span class="number">0.00</span></span><br><span class="line"><span class="number">16</span>时<span class="number">36</span>分<span class="number">54</span>秒     <span class="number">60602</span>       <span class="number">510</span>     <span class="number">50659</span>         <span class="number">0</span>      <span class="number">0.00</span>         <span class="number">0</span>      <span class="number">0.00</span>         <span class="number">0</span>      <span class="number">0.00</span></span><br><span class="line"><span class="number">16</span>时<span class="number">37</span>分<span class="number">54</span>秒     <span class="number">60602</span>       <span class="number">510</span>     <span class="number">50659</span>         <span class="number">0</span>      <span class="number">0.00</span>         <span class="number">0</span>      <span class="number">0.00</span>         <span class="number">0</span>      <span class="number">0.00</span></span><br><span class="line">Average:        <span class="number">60602</span>       <span class="number">510</span>     <span class="number">50659</span>         <span class="number">0</span>      <span class="number">0.00</span>         <span class="number">0</span>      <span class="number">0.00</span>         <span class="number">0</span>      <span class="number">0.00</span></span><br></pre></td></tr></table></figure>
+
+<p>显示内容表示，核心使用完全正常，三个表没有出现溢出现象，核心参数不需调整，如果出现溢出时，要调整相应的核心参数，将对应的表项数加大。<br>小提示：<br>怀疑CPU存在瓶颈，可用sar -u 和sar -q来看，怀疑I&#x2F;O存在 瓶颈，可用sar -b、sar -u和sar-d来看。</p>
+<p>原文：<a href="http://blog.csdn.net/adparking/article/details/7440245">http://blog.csdn.net/adparking/article/details/7440245</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Ray
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://leadscloud.github.io/313429/vps-%E7%9B%91%E6%8E%A7%E6%80%A7%E8%83%BD%E6%96%B9%E9%9D%A2%E5%91%BD%E4%BB%A4%E5%A4%A7%E6%80%BB%E7%BB%93/" title="VPS 监控性能方面命令大总结">https://leadscloud.github.io/313429/vps-监控性能方面命令大总结/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/vps/" rel="tag"># vps</a>
+              <a href="/tags/%E7%9B%91%E6%8E%A7/" rel="tag"># 监控</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/313425/php%E6%95%88%E7%8E%87%E9%AB%98%E5%86%99%E6%B3%95-%E3%80%90%E7%BD%91%E7%BB%9C%E6%96%87%E7%AB%A0%E4%BB%85%E4%BE%9B%E5%8F%82%E8%80%83%EF%BC%8C%E6%9C%AA%E9%AA%8C%E8%AF%81%E3%80%91/" rel="prev" title="php效率高写法 【网络文章仅供参考，未验证】">
+                  <i class="fa fa-angle-left"></i> php效率高写法 【网络文章仅供参考，未验证】
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/313431/php%E5%A6%82%E4%BD%95%E5%BC%80%E5%90%AFcurl%E5%87%BD%E6%95%B0/" rel="next" title="php如何开启curl函数">
+                  php如何开启curl函数 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="valine-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Ray</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/leadscloud" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/algoliasearch/4.24.0/algoliasearch-lite.umd.js" integrity="sha256-b2n6oSgG4C1stMT/yc/ChGszs9EY/Mhs6oltEjQbFCQ=" crossorigin="anonymous"></script><script src="/js/third-party/search/algolia-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"ePPAQV9hFzcbhOaQvvtyjTnw-gzGzoHsz","app_key":"GLniGVXsSMGBjTmaiI4wleaF","server_url":"https://leancloud.tinycms.xyz","security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+
+
+<script class="next-config" data-name="valine" type="application/json">{"enable":true,"appId":"ePPAQV9hFzcbhOaQvvtyjTnw-gzGzoHsz","appKey":"GLniGVXsSMGBjTmaiI4wleaF","serverURLs":"https://leancloud.tinycms.xyz","placeholder":"Just go go","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-cn","visitor":false,"comment_count":true,"recordIP":true,"enableQQ":true,"requiredFields":[],"el":"#valine-comments","path":"/313429/vps-%E7%9B%91%E6%8E%A7%E6%80%A7%E8%83%BD%E6%96%B9%E9%9D%A2%E5%91%BD%E4%BB%A4%E5%A4%A7%E6%80%BB%E7%BB%93/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.valine.el)
+    .then(() => NexT.utils.getScript(
+      'https://fastly.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js',
+      { condition: window.Valine }
+    ))
+    .then(() => {
+      new Valine(CONFIG.valine);
+    });
+});
+</script>
+
+</body>
+</html>

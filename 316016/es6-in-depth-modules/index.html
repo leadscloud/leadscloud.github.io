@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/logo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="mask-icon" href="/logo.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"leadscloud.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"algolia":{"appID":"F1YESSIUKA","apiKey":"fba180e0d225a86fe382bf021a9f0ae3","indexName":"blog","hits":{"per_page":10}}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="回想2007年，那时候我刚加入Mozilla’s JavaScript团队，那时候的一个典型的JavaScript程序只需要一行代码，听起来像个笑话。 两年后，Google Maps发布。在这之前，JavaScript主要用来做表单的验证，你用来处理&lt;input onchange&#x3D;&gt;这个程序当然只需要一行。 时过境迁，JavaScript项目已经发展到让人叹为观止，社区涌现了许多帮助开">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入理解ES6的模块 -【翻译】">
+<meta property="og:url" content="https://leadscloud.github.io/316016/es6-in-depth-modules/index.html">
+<meta property="og:site_name" content="leadscloud">
+<meta property="og:description" content="回想2007年，那时候我刚加入Mozilla’s JavaScript团队，那时候的一个典型的JavaScript程序只需要一行代码，听起来像个笑话。 两年后，Google Maps发布。在这之前，JavaScript主要用来做表单的验证，你用来处理&lt;input onchange&#x3D;&gt;这个程序当然只需要一行。 时过境迁，JavaScript项目已经发展到让人叹为观止，社区涌现了许多帮助开">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-03-06T05:37:57.000Z">
+<meta property="article:modified_time" content="2025-04-10T04:42:07.135Z">
+<meta property="article:author" content="Ray">
+<meta property="article:tag" content="es6">
+<meta property="article:tag" content="javascript">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://leadscloud.github.io/316016/es6-in-depth-modules/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://leadscloud.github.io/316016/es6-in-depth-modules/","path":"316016/es6-in-depth-modules/","title":"深入理解ES6的模块 -【翻译】"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>深入理解ES6的模块 -【翻译】 | leadscloud</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6GCT2E7T9Y"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-6GCT2E7T9Y","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="leadscloud" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">leadscloud</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Google SEO|外贸营销推广</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">266</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">11</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">459</span></a></li><li class="menu-item menu-item-免费chatgpt"><a href="https://freegpt.tech/?refer=blog-side" rel="section" target="_blank"><i class="fa fa-heart fa-fw"></i>免费ChatGPT</a></li><li class="menu-item menu-item-我的简历"><a href="https://leadscloud.github.io/resume/resume.pdf" rel="section"><i class="fa fa-vcard fa-fw"></i>我的简历</a></li><li class="menu-item menu-item-友情链接"><a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>友情链接</a></li><li class="menu-item menu-item-chrome扩展（域名所属人）"><a href="/serp-analyzer/" rel="section"><i class="fa fa-cloud fa-fw"></i>Chrome扩展（域名所属人）</a></li><li class="menu-item menu-item-询盘管理系统"><a href="https://github.com/leadscloud/infomaster" rel="section" target="_blank"><i class="fa fa-database fa-fw"></i>询盘管理系统</a></li><li class="menu-item menu-item-外贸留言板系统"><a href="/20180615/google-seo-inquiry-messageboard/" rel="section"><i class="fa fa-database fa-fw"></i>外贸留言板系统</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fab fa-algolia fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9D%97%E7%9A%84%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-number">1.</span> <span class="nav-text">模块的基础知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BC%E5%87%BA%E5%88%97%E8%A1%A8"><span class="nav-number">2.</span> <span class="nav-text">导出列表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E5%91%BD%E5%90%8D%E5%AF%BC%E5%87%BA%E5%92%8C%E5%AF%BC%E5%85%A5"><span class="nav-number">3.</span> <span class="nav-text">重命名导出和导入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%BB%98%E8%AE%A4%E7%9A%84%E5%AF%BC%E5%87%BA"><span class="nav-number">4.</span> <span class="nav-text">默认的导出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9D%97%E5%AF%B9%E8%B1%A1"><span class="nav-number">5.</span> <span class="nav-text">模块对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%81%9A%E5%90%88%E6%A8%A1%E5%9D%97"><span class="nav-number">6.</span> <span class="nav-text">聚合模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#import%E5%88%B0%E5%BA%95%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">7.</span> <span class="nav-text">import到底做了什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%99%E6%80%81-VS-%E5%8A%A8%E6%80%81%EF%BC%8C%E6%88%96%E8%80%85%E8%AF%B4%EF%BC%9A%E8%A7%84%E5%88%99%E5%A6%82%E4%BD%95%E6%89%93%E7%A0%B4%E8%A7%84%E5%88%99"><span class="nav-number">8.</span> <span class="nav-text">静态 VS 动态，或者说：规则如何打破规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%91%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E6%89%8D%E8%83%BD%E4%BD%BF%E7%94%A8ES6%E6%A8%A1%E5%9D%97%EF%BC%9F"><span class="nav-number">9.</span> <span class="nav-text">我什么时候才能使用ES6模块？</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Ray</p>
+  <div class="site-description" itemprop="description">熟悉 Google SEO，外贸营销推广，这是我的个人博客，主要分享工作中的技术。</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">459</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">266</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/leadscloud" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;leadscloud" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:love4026@gmail.com" title="E-Mail → mailto:love4026@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://cdn.livechatinc.xyz/" title="https:&#x2F;&#x2F;cdn.livechatinc.xyz&#x2F;" rel="noopener" target="_blank">RLiveChat</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://www.kamychina.com/" title="https:&#x2F;&#x2F;www.kamychina.com&#x2F;" rel="noopener" target="_blank">Roadheader</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://tinycms.xyz/" title="https:&#x2F;&#x2F;tinycms.xyz&#x2F;" rel="noopener" target="_blank">TinyCMS</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://leadscloud.github.io/316016/es6-in-depth-modules/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ray">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="leadscloud">
+      <meta itemprop="description" content="熟悉 Google SEO，外贸营销推广，这是我的个人博客，主要分享工作中的技术。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="深入理解ES6的模块 -【翻译】 | leadscloud">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          深入理解ES6的模块 -【翻译】
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-03-06 13:37:57" itemprop="dateCreated datePublished" datetime="2018-03-06T13:37:57+08:00">2018-03-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-04-10 12:42:07" itemprop="dateModified" datetime="2025-04-10T12:42:07+08:00">2025-04-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/316016/es6-in-depth-modules/" class="post-meta-item leancloud_visitors" data-flag-title="深入理解ES6的模块 -【翻译】" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Valine：</span>
+  
+    <a title="valine" href="/316016/es6-in-depth-modules/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/316016/es6-in-depth-modules/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>回想2007年，那时候我刚加入Mozilla’s JavaScript团队，那时候的一个典型的JavaScript程序只需要一行代码，听起来像个笑话。</p>
+<p>两年后，Google Maps发布。在这之前，JavaScript主要用来做表单的验证，你用来处理<code>&lt;input onchange=&gt;</code>这个程序当然只需要一行。</p>
+<p>时过境迁，JavaScript项目已经发展到让人叹为观止，社区涌现了许多帮助开发的工具。但是最迫切需要的是一个模块系统，它能将你的工作分散到不同的文件与目录中，在需要的时候他们能彼此之间相互访问，并且可以有效的加载所有代码。所以JavaScript有模块系统这很正常，而且还有多个模块系统（CommonJS、AMD、CMD、UMD）。不仅如此，它还有几个包管理器（npm、bower），用来安装软件还能拷贝一些深度依赖。你可能认为ES6和它的新模块系统出现得有点晚。</p>
+<p>那我们来看看ES6为现存的模块系统添加了什么，以及未来的标准和工具能否建立在这个系统上。首先，让我们看看ES6的模块是什么样子的。</p>
+<h2 id="模块的基础知识"><a href="#模块的基础知识" class="headerlink" title="模块的基础知识"></a>模块的基础知识</h2><p>ES6模块是一个包含了JS代码的文件。没有所谓的<code>module</code>关键词，一个模块看起来和一个脚本文件没什么不一样，除了一下两个区别：</p>
+<ul>
+<li>ES6的模块自动开启严格模式，即使你没有写<code>&quot;use strict&quot;;</code>；</li>
+<li>在模块中，你可以使用<code>import</code>和<code>exprot</code>。</li>
+</ul>
+<p>先来谈谈export。在默认情况下，模块中所有的声明都是私有的，如果你希望模块中的某些声明是公开的，并在其他模块中使用它们，你就必须导出它们。这里有一些实现方法，最简单的是添加<code>export</code>关键字</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// kittydar.js - Find the locations of all the cats in an image.</span></span><br><span class="line"><span class="comment">// (Heather Arthur wrote this library for real)</span></span><br><span class="line"><span class="comment">// (but she didn&#x27;t use modules, because it was 2013)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">detectCats</span>(<span class="params">canvas, options</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> kittydar = <span class="keyword">new</span> <span class="title class_">Kittydar</span>(options);</span><br><span class="line">  <span class="keyword">return</span> kittydar.<span class="title function_">detectCats</span>(canvas);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">Kittydar</span> &#123;</span><br><span class="line">  ... several methods doing image processing ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// This helper function isn&#x27;t exported.</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">resizeCanvas</span>(<span class="params"></span>) &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br><span class="line">...</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>你可以<code>export</code>任何的顶级变量：<code>function</code>、<code>class</code>、<code>var</code>、<code>let</code>、<code>const</code>。</p>
+<p>你如果要写一个模块知道这么多就够了！你不必再把所有的东西放到一个立即执行函数或者回调函数里面，只需要在你需要的地方进行声明。由于这个代码是一个模块，而不是一个脚本，所有的声明的作用域都只属于这个模块，而不是所有脚本和模块都能全局访问的。你只要把模块中的声明导出成一组公共模块的API就足够了。</p>
+<p>除了导出，模块里的代码和其他普通代码没有什么区别。它可以访问全局变量，像<code>Object</code>和<code>Array</code>。如果你的模块在浏览器运行，还能够使用<code>document</code>和<code>XMLHttpRequest</code>。</p>
+<p>在另一个文件中，我们可以导入并使用<code>detectCats()</code>函数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// demo.js - Kittydar demo program</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123;detectCats&#125; <span class="keyword">from</span> <span class="string">&quot;kittydar.js&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">go</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> canvas = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;catpix&quot;</span>);</span><br><span class="line">    <span class="keyword">var</span> cats = <span class="title function_">detectCats</span>(canvas);</span><br><span class="line">    <span class="title function_">drawRectangles</span>(canvas, cats);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>要从一个模块导入多个变量，你可以这样写：</p>
+<figure class="highlight capnproto"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;detectCats, Kittydar&#125; <span class="keyword">from</span> <span class="string">&quot;kittydar.js&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>当你运行一个包含<code>import</code>声明的模块，会先导入要导入的模块并加载，然后根据深度优先的原则遍历依赖图谱来执行对应模块，并跳过已经执行的模块，来避免循环。</p>
+<p>这就是模块基础知识，这真的很简单。;-)</p>
+<h2 id="导出列表"><a href="#导出列表" class="headerlink" title="导出列表"></a>导出列表</h2><p>你可以把你要导出的功能名写在一个列表里，然后用大括号括起来，这样就不用在每个要导出的功能前面加上export标记。</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">export &#123;detectCats, Kittydar&#125;;</span><br><span class="line"></span><br><span class="line"><span class="regexp">//</span> <span class="keyword">no</span> <span class="string">`export`</span> keyword required here</span><br><span class="line">function detectCats(canvas, options) &#123; ... &#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Kittydar</span> </span>&#123; ... &#125;</span><br></pre></td></tr></table></figure>
+
+<p>导出列表并不需要写在文件的第一行，它可以出现在模块文件的顶级作用域的任何位置。你可以有多个导出列表，或者将导出列表与导出声明混合使用，只要不重复导出同一个变量名就行。</p>
+<h2 id="重命名导出和导入"><a href="#重命名导出和导入" class="headerlink" title="重命名导出和导入"></a>重命名导出和导入</h2><p>有时，导入的变量名碰巧与你需要使用的一些变量名冲突了，ES6允许你重命名导入的变量。</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// suburbia.js</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Both these modules export something named `flip`.</span></span><br><span class="line"><span class="comment">// To import them both, we must rename at least one.</span></span><br><span class="line"><span class="keyword">import</span> &#123;flip <span class="keyword">as</span> flipOmelet&#125; <span class="keyword">from</span> <span class="string">&quot;eggs.js&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;flip <span class="keyword">as</span> flipHouse&#125; <span class="keyword">from</span> <span class="string">&quot;real-estate.js&quot;</span>;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>同样，你在导出变量的时候也可以重命名它们。这在你想使用不同名字导出相同功能的时候十分方便。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// unlicensed_nuclear_accelerator.js - media streaming without drm</span></span><br><span class="line"><span class="comment">// (not a real library, but maybe it should be)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">v1</span>(<span class="params"></span>) &#123; ... &#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">v2</span>(<span class="params"></span>) &#123; ... &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> &#123;</span><br><span class="line">  v1 <span class="keyword">as</span> streamV1,</span><br><span class="line">  v2 <span class="keyword">as</span> streamV2,</span><br><span class="line">  v2 <span class="keyword">as</span> streamLatestVersion</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="默认的导出"><a href="#默认的导出" class="headerlink" title="默认的导出"></a>默认的导出</h2><p>新的标准在设计上是兼容已经存在的CommonJS和AMD模块的。如果你有一个Node项目，并且你已经执行了<code>npm install lodash</code>。你使用ES6代码能够单独引入Lodash中的函数：</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;<span class="keyword">each</span>, map&#125; <span class="keyword">from</span> &quot;lodash&quot;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">each</span>([<span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>], x =&gt; console.log(x));</span><br></pre></td></tr></table></figure>
+
+<p>如果你已经习惯使用<code>_.each</code>而不是<code>each</code>，你依然想像以前一样使用它。或者， 你想把_当成一个函数来使用，因为这才是Lodash。</p>
+<p>这种情况下，你只要稍微改变下你的写法：不使用花括号来导入模块。</p>
+<figure class="highlight capnproto"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> _ <span class="keyword">from</span> <span class="string">&quot;lodash&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>这个写法等同于<code>import &#123;default as _&#125; from &quot;lodash&quot;;</code>。所有的CommonJS 和AMD模块在ES6中都能被当作<code>default</code>导出，这个导出和你在CommonJS中使用<code>require()</code>导出得到东西一样，即<code>exports</code>对象。</p>
+<p>ES6模块在设计上可以让你导出更多的东西，但对于现在的CommonJS模块，导出的default模块就是能导出的全部东西了。例如，在写这篇文章时，据我所知，著名的<a href="https://github.com/Marak/colors.js">colors模块</a>没有特意去支持ES6语法，这是一个CommonJS模块组成的包，就像npm上的那些包一样，但是你可以直接引入到你的ES6代码中。</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">//</span> ES6 equivalent <span class="keyword">of</span> `<span class="language-javascript"><span class="keyword">var</span> colors = <span class="built_in">require</span>(<span class="string">&quot;colors/safe&quot;</span>);</span>`</span><br><span class="line"><span class="keyword">import</span> colors <span class="keyword">from</span> <span class="string">&quot;colors/safe&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>如果你希望自己ES6模块也具有默认导出，这很简单。默认的导出方式并没有什么魔力；他就像其他导出一样，除了它的导出名为default。你可以使用我们之前提到的重命名语法：</p>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> myObject <span class="operator">=</span> &#123;</span><br><span class="line">  field1<span class="operator">:</span> value1,</span><br><span class="line">  field2<span class="operator">:</span> value2</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">export</span> &#123;myObject <span class="keyword">as</span> <span class="keyword">default</span>&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>或者使用简写：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span><span class="built_in"> default </span>&#123;</span><br><span class="line">  field1: value1,</span><br><span class="line">  field2: value2</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><code>export default</code>关键词后面可以跟任何值：一个函数、一个类、一个对象，所有能被命名的变量。</p>
+<h2 id="模块对象"><a href="#模块对象" class="headerlink" title="模块对象"></a>模块对象</h2><p>不好意思，这篇文章有点长。JavaScript并不孤独：因为一些原因，所有的语言中都有模块系统，并且倾向于设计大量杂乱而又无聊的小特性。幸运的是我们只剩下一个话题，噢，不对，是两个。</p>
+<figure class="highlight capnproto"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> cows <span class="keyword">from</span> <span class="string">&quot;cows&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>当你使用<code>import *</code>的时候，被引入的是一个模块命名空间对象（module namespace object），它的属性是模块的输出。如果“cows”模块导出一个名为moo()的函数，那么在导入“cows”之后，你可以使用<code>cows.moo()</code>来进行调用。</p>
+<h2 id="聚合模块"><a href="#聚合模块" class="headerlink" title="聚合模块"></a>聚合模块</h2><p>有时候一个包的主模块只不过是导入包其他所有的模块，并用统一的方式导出。为了简化这种代码，有一种将导入导出全部合一的简写：</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">//</span> world-foods.js - good stuff <span class="keyword">from</span> all over</span><br><span class="line"></span><br><span class="line"><span class="regexp">//</span> <span class="keyword">import</span> <span class="string">&quot;sri-lanka&quot;</span> <span class="keyword">and</span> re-<span class="keyword">export</span> some <span class="keyword">of</span> its <span class="built_in">exports</span></span><br><span class="line"><span class="keyword">export</span> &#123;Tea, Cinnamon&#125; <span class="keyword">from</span> <span class="string">&quot;sri-lanka&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="regexp">//</span> <span class="keyword">import</span> <span class="string">&quot;equatorial-guinea&quot;</span> <span class="keyword">and</span> re-<span class="keyword">export</span> some <span class="keyword">of</span> its <span class="built_in">exports</span></span><br><span class="line"><span class="keyword">export</span> &#123;Coffee, Cocoa&#125; <span class="keyword">from</span> <span class="string">&quot;equatorial-guinea&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="regexp">//</span> <span class="keyword">import</span> <span class="string">&quot;singapore&quot;</span> <span class="keyword">and</span> <span class="keyword">export</span> ALL <span class="keyword">of</span> its <span class="built_in">exports</span></span><br><span class="line"><span class="keyword">export</span> * <span class="keyword">from</span> <span class="string">&quot;singapore&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>这种<code>export-from</code>表达式类似于<code>import-from</code>后面跟了一个export。这和真正的导入有一些区别，它不会在当前作用域中绑定将要导出的变量。如果你打算在<code>world-foods.js</code>中使用<code>Tea</code>来编写一些代码，请不要使用这种简写，你会发现Tea为定义。</p>
+<p>如果“singapore”导出的命名与其他导出发生了冲突，那就会出现错误，所以请谨慎使用。</p>
+<p>呼，我们已经把语法介绍完了！下面来谈谈一些有趣的事情。</p>
+<h2 id="import到底做了什么？"><a href="#import到底做了什么？" class="headerlink" title="import到底做了什么？"></a><code>import</code>到底做了什么？</h2><p>不管你信不信，它什么都没做。</p>
+<p>噢，你看起来没那么好骗。那么你会相信标准几乎没有说import到底该怎么做吗？这是件好事吗？（作者貌似很爱开玩笑。）</p>
+<p>ES6将模块的加载细节<a href="http://www.ecma-international.org/ecma-262/6.0/index.html#sec-hostresolveimportedmodule">完全交给了实现</a>，其余的模块执行部分却<a href="http://www.ecma-international.org/ecma-262/6.0/index.html#sec-toplevelmoduleevaluationjob">规定得非常详细</a>。</p>
+<p>简单来说，当你告诉JS引擎运行一个模块的时候，它的行为可以归纳为以下四部：</p>
+<ol>
+<li>解析：读取模块的源代码，并检查语法错误。</li>
+<li>加载：加载所有的导入模块（递归进行），这是还未标准化的部分。</li>
+<li>链接：对于每个新加载的模块，在实现上都会创建一个作用域，并把模块中声明的所有变量都绑定在这个作用域上，包括从其他模块导入的变量。如果你想试试<code>import &#123;cake&#125; from &quot;paleo&quot;</code>，但是“paleo”模块没真正导出名为cake的变量，你会得到一个错误。这很糟糕，因为你离运行js并品尝蛋糕只有一步之遥。</li>
+<li>运行时间：最后，开始执行加载进来的新的模块中的代码。这时，整个import过程已经完成了，所以前面说代码执行到import这一行声明时，什么都没有发生。</li>
+</ol>
+<p>看到没？我说了什么都不会发生，在编程语言这件事上，我从来都不说慌。</p>
+<p>现在我们可以开始介绍这个系统中有趣的部分了。这有一个非常炫酷的技巧。由于系统没有指定如何加载的这方面的细节，并且你可以通过查看源代码中导入的声明，提前计算出所有的依赖项，所以ES6的实现可以通过预处理器完成所有的工作，然后把所有的模块打包到一个文件中，最后通过网络进行请求一次即可。像webpack这样的工具就是这么做的。</p>
+<p>这是一个优雅的解决方案，因为通过网络加载所有的脚本文件很耗时，假如你请求一个资源后，发现里面有import声明，然后你又得请求更多资源。一个加载器需要非常多的网络请求来回传输。通过webpack，你不仅能在今天就使用ES6的模块话，你还能获得很多好处，并且不需要担心会造成运行时的性能下降。</p>
+<p>原本是有计划制定一个ES6中模块加载的详细规范的，并且已经初步成型。它没有成为标准的原因之一是不知道如何与打包这一特性进行整合。我希望模块化的加载会更加标准化，也希望打包工具会越来越好。</p>
+<h2 id="静态-VS-动态，或者说：规则如何打破规则"><a href="#静态-VS-动态，或者说：规则如何打破规则" class="headerlink" title="静态 VS 动态，或者说：规则如何打破规则"></a>静态 VS 动态，或者说：规则如何打破规则</h2><p>作为一个动态编译语言，令人惊奇的是JavaScript拥有一个静态的模块系统。</p>
+<ul>
+<li>所有的<code>import</code>和<code>export</code>只能写在顶级作用域中。你不能在条件判断语句和函数作用域内使用import。</li>
+<li>所有导出的变量名必须是显式的，你不能通过遍历一个数组，动态生成一组导出名进行导出。</li>
+<li>模块对象都是被冻结的，不能通过polyfill为它添加新的特性。</li>
+<li>在所有模块运行之前， 其依赖的模块都必须经过加载、解析、链接的过程，目前没有import懒加载相关的语法。（现在import()方法已经在提案中了）</li>
+<li>对于import的错误，无法进行recovery。一个应用可能依赖许多的模块，一旦有一个模块加载失败，这个应用都不会运行。你不能在<code>try/catch</code>中使用<code>import</code>。正是因为es6的模块表现得如此静态，webpack才能在编译的时候检测出代码中的错误。</li>
+<li>你没法为一个模块在加载所有依赖项之前添加钩子，这意味着一个模块没有办法控制其依赖项的加载方式。</li>
+</ul>
+<p>如果你的需求是静态的，ES6的模块系统还是相当不错的。但是你有时候你还是向进行一些hack，对吧？</p>
+<p>这就是为什么你使用的模块加载系统会提供一些系统层次的API来配合ES6的静态的<code>import/export</code>语法。例如，webpack有一个API能进行代码的分割，按照你的需求对一些模块进行懒加载。这个API能够打破之前列出的规矩。</p>
+<p>ES6的模块语法非常静态，这很好-在使用一些编译工具时我们都能尝到一些甜头。静态语法的设计可以让它与动态加载器丰富的API进行工作。</p>
+<h2 id="我什么时候才能使用ES6模块？"><a href="#我什么时候才能使用ES6模块？" class="headerlink" title="我什么时候才能使用ES6模块？"></a>我什么时候才能使用ES6模块？</h2><p>如果你今天就想使用，你需要一个预编译器，如 <a href="https://github.com/google/traceur-compiler#what-is-traceur">Traceur</a> 和 <a href="http://babeljs.io/">Babel</a> 。这个系列之前也有相关文章，<a href="https://hacks.mozilla.org/2015/06/es6-in-depth-babel-and-broccoli/">Gastón I. Silva：如何使用 Babel 和 Broccoli</a> 编译 ES6 代码为 web 可用。Gastón也将案例<a href="https://github.com/givanse/broccoli-babel-examples/tree/master/es6-modules">放在了 GitHub 上</a>。另外<a href="http://2ality.com/2015/04/webpack-es6.html">这篇文章</a>也介绍了如何使用 Babel 和 webpack。</p>
+<p>ES6 模块系统由 Dave Herman 和 Sam Tobin-Hochstadt进行设计，他们不顾多人（包括我）的反对，多年来始终坚持模块系统是静态的。JonCoppeard正在Firefox上实现ES6的模块化功能。JavaScript Loader的相关标准的工作也正在进行中，预计在HTML中将会被添加类似<code>&lt;script type=module&gt;</code> 这样的东西。</p>
+<p>这便是 ES6 了。</p>
+<p>这太有趣了，我不希望现在就结束。也许我们还能再说一会。我们还能够讨论一些关于ES6规范中零零碎碎的东西，但这些又不足够写成文章。也行会有一些关于ES6未来特性的一些东西，尽请期待下周的<code>ES6 In Depth</code></p>
+<p>原文链接：<a href="https://hacks.mozilla.org/2015/08/es6-in-depth-modules/">ES6 In Depth: Modules</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Ray
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://leadscloud.github.io/316016/es6-in-depth-modules/" title="深入理解ES6的模块 -【翻译】">https://leadscloud.github.io/316016/es6-in-depth-modules/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/es6/" rel="tag"># es6</a>
+              <a href="/tags/javascript/" rel="tag"># javascript</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/316014/lnmp-fix-memcache-udp-reflection-ddos/" rel="prev" title="LNMP修复Memcache UDP反射放大攻击">
+                  <i class="fa fa-angle-left"></i> LNMP修复Memcache UDP反射放大攻击
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/316018/weixin-create-local-server-env/" rel="next" title="使用ngrok搭建微信开发本地测试环境">
+                  使用ngrok搭建微信开发本地测试环境 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="valine-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Ray</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/leadscloud" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/algoliasearch/4.24.0/algoliasearch-lite.umd.js" integrity="sha256-b2n6oSgG4C1stMT/yc/ChGszs9EY/Mhs6oltEjQbFCQ=" crossorigin="anonymous"></script><script src="/js/third-party/search/algolia-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"ePPAQV9hFzcbhOaQvvtyjTnw-gzGzoHsz","app_key":"GLniGVXsSMGBjTmaiI4wleaF","server_url":"https://leancloud.tinycms.xyz","security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+
+
+<script class="next-config" data-name="valine" type="application/json">{"enable":true,"appId":"ePPAQV9hFzcbhOaQvvtyjTnw-gzGzoHsz","appKey":"GLniGVXsSMGBjTmaiI4wleaF","serverURLs":"https://leancloud.tinycms.xyz","placeholder":"Just go go","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-cn","visitor":false,"comment_count":true,"recordIP":true,"enableQQ":true,"requiredFields":[],"el":"#valine-comments","path":"/316016/es6-in-depth-modules/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.valine.el)
+    .then(() => NexT.utils.getScript(
+      'https://fastly.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js',
+      { condition: window.Valine }
+    ))
+    .then(() => {
+      new Valine(CONFIG.valine);
+    });
+});
+</script>
+
+</body>
+</html>

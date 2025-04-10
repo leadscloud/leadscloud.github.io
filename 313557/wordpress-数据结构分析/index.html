@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/logo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="mask-icon" href="/logo.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"leadscloud.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"algolia":{"appID":"F1YESSIUKA","apiKey":"fba180e0d225a86fe382bf021a9f0ae3","indexName":"blog","hits":{"per_page":10}}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="WordPress仅仅用了10 个表:wp_comments, wp_links, wp_options, wp_postmeta, wp_posts, wp_term_relationships, wp_term_taxonomy, wp_terms, wp_usermeta, wp_users 按照功能大致分为五类用户信息: wp_users和wp_usermeta链接信息: wp_links">
+<meta property="og:type" content="article">
+<meta property="og:title" content="wordpress 数据结构分析">
+<meta property="og:url" content="https://leadscloud.github.io/313557/wordpress-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90/index.html">
+<meta property="og:site_name" content="leadscloud">
+<meta property="og:description" content="WordPress仅仅用了10 个表:wp_comments, wp_links, wp_options, wp_postmeta, wp_posts, wp_term_relationships, wp_term_taxonomy, wp_terms, wp_usermeta, wp_users 按照功能大致分为五类用户信息: wp_users和wp_usermeta链接信息: wp_links">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2013-01-20T04:39:16.000Z">
+<meta property="article:modified_time" content="2025-04-10T04:42:07.146Z">
+<meta property="article:author" content="Ray">
+<meta property="article:tag" content="wordpress">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://leadscloud.github.io/313557/wordpress-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://leadscloud.github.io/313557/wordpress-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90/","path":"313557/wordpress-数据结构分析/","title":"wordpress 数据结构分析"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>wordpress 数据结构分析 | leadscloud</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6GCT2E7T9Y"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-6GCT2E7T9Y","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="leadscloud" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">leadscloud</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Google SEO|外贸营销推广</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">266</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">11</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">459</span></a></li><li class="menu-item menu-item-免费chatgpt"><a href="https://freegpt.tech/?refer=blog-side" rel="section" target="_blank"><i class="fa fa-heart fa-fw"></i>免费ChatGPT</a></li><li class="menu-item menu-item-我的简历"><a href="https://leadscloud.github.io/resume/resume.pdf" rel="section"><i class="fa fa-vcard fa-fw"></i>我的简历</a></li><li class="menu-item menu-item-友情链接"><a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>友情链接</a></li><li class="menu-item menu-item-chrome扩展（域名所属人）"><a href="/serp-analyzer/" rel="section"><i class="fa fa-cloud fa-fw"></i>Chrome扩展（域名所属人）</a></li><li class="menu-item menu-item-询盘管理系统"><a href="https://github.com/leadscloud/infomaster" rel="section" target="_blank"><i class="fa fa-database fa-fw"></i>询盘管理系统</a></li><li class="menu-item menu-item-外贸留言板系统"><a href="/20180615/google-seo-inquiry-messageboard/" rel="section"><i class="fa fa-database fa-fw"></i>外贸留言板系统</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fab fa-algolia fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#WordPress%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E7%9A%84%E8%A1%A8%E3%80%81%E5%AD%97%E6%AE%B5%E3%80%81%E7%B1%BB%E5%9E%8B%E5%8F%8A%E8%AF%B4%E6%98%8E"><span class="nav-number">1.</span> <span class="nav-text">WordPress数据库中的表、字段、类型及说明</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Ray</p>
+  <div class="site-description" itemprop="description">熟悉 Google SEO，外贸营销推广，这是我的个人博客，主要分享工作中的技术。</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">459</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">266</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/leadscloud" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;leadscloud" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:love4026@gmail.com" title="E-Mail → mailto:love4026@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://cdn.livechatinc.xyz/" title="https:&#x2F;&#x2F;cdn.livechatinc.xyz&#x2F;" rel="noopener" target="_blank">RLiveChat</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://www.kamychina.com/" title="https:&#x2F;&#x2F;www.kamychina.com&#x2F;" rel="noopener" target="_blank">Roadheader</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://tinycms.xyz/" title="https:&#x2F;&#x2F;tinycms.xyz&#x2F;" rel="noopener" target="_blank">TinyCMS</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://leadscloud.github.io/313557/wordpress-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ray">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="leadscloud">
+      <meta itemprop="description" content="熟悉 Google SEO，外贸营销推广，这是我的个人博客，主要分享工作中的技术。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="wordpress 数据结构分析 | leadscloud">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          wordpress 数据结构分析
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2013-01-20 12:39:16" itemprop="dateCreated datePublished" datetime="2013-01-20T12:39:16+08:00">2013-01-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-04-10 12:42:07" itemprop="dateModified" datetime="2025-04-10T12:42:07+08:00">2025-04-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%BD%AC%E8%BD%BD/" itemprop="url" rel="index"><span itemprop="name">转载</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/313557/wordpress-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90/" class="post-meta-item leancloud_visitors" data-flag-title="wordpress 数据结构分析" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Valine：</span>
+  
+    <a title="valine" href="/313557/wordpress-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/313557/wordpress-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>WordPress仅仅用了10 个表:wp_comments, wp_links, wp_options, wp_postmeta, wp_posts, wp_term_relationships, wp_term_taxonomy, wp_terms, wp_usermeta, wp_users</p>
+<p>按照功能大致分为五类<br>用户信息: wp_users和wp_usermeta<br>链接信息: wp_links<br>文章及评论信息: wp_posts、wp_postmeta、wp_comments<br>对分类，链接分类，标签管理: wp_term，wp_term_relationships,wp_term_taxonomy<br>全局设置信息: wp_options</p>
+<p>wp_posts<br>博客发表”文章”存放的地方就是这个wp_posts表了。这个表里存放的除了普通的文章之外，还有附件和页面（page）的一些信息。post_type 字段是用来区分文章类型的。如果post_type是’post’，那么就是文章，如果是’page’,那么就是页面，如果是’attachment’, 那么就是附件了.</p>
+<p>wp_postmeta<br>这个表很简单，只有 meta_id, post_id, meta_key, meta_value 这四个字段。post_id 是相关 “文章” 的id。meta_value 是longtext类型的，这里仅是用来存储值。在撰写文章的时候，在编辑框下面有一个 Custom Fields 的选项，我们可以在这里添加post的meta信息。</p>
+<p>wp_comments<br>比较重要的两个字段是 comment_post_ID 和 comment_approved，前一个用来指示这条评论隶属于哪一篇文章，后一个用来记录审核状况。还有一个比较有意思的是这个 commnet_agent 字段，可以利用这个字段来统计一下用户浏览器类型。</p>
+<p>wp_users<br>用户帐号表。存储用户名、密码还有一些用户的基本信息。</p>
+<p>wp_usermeta<br>类似上面的 wp_postmeta，存储一些其他的用户信息。</p>
+<p>wp_options<br>用来记录Wordpress的一些设置和选项。里面有一个blog_id字段，这个应该是用在MU版里面来标示不同的 Blog 的。autoload这个字段用来控制是否选项总是被WordPress或者插件导入并缓存来使用，或者是否只是在要求的情况下才被导入。</p>
+<p>wp_links<br>用来存储 Blogroll 里面的链接。</p>
+<p>wp_terms<br>它保存（term）的基本信息。name 就是 term 的名字，slug 是用于使得 URL 友好化。term_group 是用于把相似的 terms 集合在一起。term_id 是term的唯一ID。</p>
+<p>wp_term_taxonomy<br>分类信息,是对wp_terms中的信息的关系信息补充，有所属类型(category,link_category,tag)，详细描述所拥有文章(链接)数量。</p>
+<p>wp_term_relationships<br>把 posts和links这些对象和term_taxonomy表中的term_taxonomy_id联系起来的关系表，object_id是与不同的对象关联，例如wp_posts中的ID（wp_links中的link_id）等，term_taxonomy_id就是关联 wp_term_taxonomy中的term_taxonomy_id。</p>
+<p>WordPress使用MySQL数据库。作为一个开发者，我们有必要掌握WordPress数据库的基本构造，并在自己的插件或主题中使用他们。</p>
+<p>截至WordPress3.0，WordPress一共有以下11个表。这里加上了默认的表前缀 wp_ 。</p>
+<p>wp_commentmeta：存储评论的元数据<br>wp_comments：存储评论<br>wp_links：存储友情链接（Blogroll）<br>wp_options：存储WordPress系统选项和插件、主题配置<br>wp_postmeta：存储文章（包括页面、上传文件、修订）的元数据<br>wp_posts：存储文章（包括页面、上传文件、修订）<br>wp_terms：存储每个目录、标签<br>wp_term_relationships：存储每个文章、链接和对应分类的关系<br>wp_term_taxonomy：存储每个目录、标签所对应的分类<br>wp_usermeta：存储用户的元数据<br>wp_users：存储用户</p>
+<p>在WordPress的数据库结构中，存储系统选项和插件配置的wp_options表是比较独立的结构，在后文中会提到，它采用了key-value模式存储，这样做的好处是易于拓展，各个插件都可以轻松地在这里存储自己的配置。</p>
+<p>post，comment，user 则是三个基本表加上拓展表的组合。以wp_users为例，wp_users已经存储了每个用户会用到的基本信息，比如 login_name、display_name、 password、email等常用信息，但如果我们还要存储一些不常用的数据，最好的做法不是去在表后加上一列，去破坏默认的表结构，而是将数据存在 wp_usermeta中。wp_usermeta这个拓展表和wp_options表有类似的结构，我们可以在这里存储每个用户的QQ号码、手机号码、登录WordPress后台的主题选项等等。</p>
+<p>比较难以理解的是term，即wp_terms、wp_term_relationships、wp_term_taxonomy。在WordPress的系统里，我们常见的分类有文章的分类、链接的分类，实际上还有TAG，它也是一种特殊的分类方式，我们甚至还可以创建自己的分类方法。WordPress 将所有的分类及分类方法、对应结构都记录在这三个表中。wp_terms记录了每个分类的名字以及基本信息，如本站分为“WordPress开发”、 “WPCEO插件”等，这里的分类指广义上的分类，所以每个TAG也是一个“分类”。wp_term_taxonomy记录了每个分类所归属的分类方法，如“WordPress开发”、“WPCEO插件”是文章分类（category），放置友情链接的“我的朋友”、“我的同事”分类属于友情链接分类（link_category）。wp_term_relationships记录了每个文章（或链接）所对应的分类方法。</p>
+<p>庆幸的是，关于term的使用，WordPress中相关函数的使用方法还是比较清晰明了，我们就没必要纠结于它的构造了。</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>在上文中我们已经介绍了WordPress数据库中各个表的作用，本文将继续介绍每个表中每个列的作用。WordPress官方文档已经有比较详细的表格，本文仅对常用数据进行介绍。</p>
+<p>wp_commentmeta<br>meta_id：自增唯一ID<br>comment_id：对应评论ID<br>meta_key：键名<br>meta_value：键值<br>wp_comments<br>comment_ID：自增唯一ID<br>comment_post_ID：对应文章ID<br>comment_author：评论者<br>comment_author_email：评论者邮箱<br>comment_author_url：评论者网址<br>comment_author_IP：评论者IP<br>comment_date：评论时间<br>comment_date_gmt：评论时间（GMT+0时间）<br>comment_content：评论正文<br>comment_karma：未知<br>comment_approved：评论是否被批准<br>comment_agent：评论者的USER AGENT<br>comment_type：评论类型(pingback&#x2F;普通)<br>comment_parent：父评论ID<br>user_id：评论者用户ID（不一定存在）</p>
+<p>wp_links<br>link_id：自增唯一ID<br>link_url：链接URL<br>link_name：链接标题<br>link_image：链接图片<br>link_target：链接打开方式<br>link_description：链接描述<br>link_visible：是否可见（Y&#x2F;N）<br>link_owner：添加者用户ID<br>link_rating：评分等级<br>link_updated：未知<br>link_rel：XFN关系<br>link_notes：XFN注释<br>link_rss：链接RSS地址</p>
+<p>&nbsp;</p>
+<p>wp_options<br>option_id：自增唯一ID<br>blog_id：博客ID，用于多用户博客，默认0<br>option_name：键名<br>option_value：键值<br>autoload：在WordPress载入时自动载入（yes&#x2F;no）</p>
+<p>&nbsp;</p>
+<p>wp_postmeta<br>meta_id：自增唯一ID<br>post_id：对应文章ID<br>meta_key：键名<br>meta_value：键值</p>
+<p>&nbsp;</p>
+<p>wp_posts<br>ID：自增唯一ID<br>post_author：对应作者ID<br>post_date：发布时间<br>post_date_gmt：发布时间（GMT+0时间）<br>post_content：正文<br>post_title：标题<br>post_excerpt：摘录<br>post_status：文章状态（publish&#x2F;auto-draft&#x2F;inherit等）<br>comment_status：评论状态（open&#x2F;closed）<br>ping_status：PING状态（open&#x2F;closed）<br>post_password：文章密码<br>post_name：文章缩略名<br>to_ping：未知<br>pinged：已经PING过的链接<br>post_modified：修改时间<br>post_modified_gmt：修改时间（GMT+0时间）<br>post_content_filtered：未知<br>post_parent：父文章，主要用于PAGE<br>guid：未知<br>menu_order：排序ID<br>post_type：文章类型（post&#x2F;page等）<br>post_mime_type：MIME类型<br>comment_count：评论总数</p>
+<p>&nbsp;</p>
+<p>wp_terms<br>term_id：分类ID<br>name：分类名<br>slug：缩略名<br>term_group：未知<br>wp_term_relationships<br>object_id：对应文章ID&#x2F;链接ID<br>term_taxonomy_id：对应分类方法ID<br>term_order：排序<br>wp_term_taxonomy<br>term_taxonomy_id：分类方法ID<br>term_id：taxonomy：分类方法(category&#x2F;post_tag)<br>description：未知<br>parent：所属父分类方法ID<br>count：文章数统计</p>
+<p>&nbsp;</p>
+<p>wp_usermeta<br>umeta_id：自增唯一ID<br>user_id：对应用户ID<br>meta_key：键名<br>meta_value：键值</p>
+<p>&nbsp;</p>
+<p>wp_users<br>ID：自增唯一ID<br>user_login：登录名<br>user_pass：密码<br>user_nicename：昵称<br>user_email：Email<br>user_url：网址<br>user_registered：注册时间<br>user_activation_key：激活码<br>user_status：用户状态<br>display_name：显示名称</p>
+<h3 id="WordPress数据库中的表、字段、类型及说明"><a href="#WordPress数据库中的表、字段、类型及说明" class="headerlink" title="WordPress数据库中的表、字段、类型及说明"></a>WordPress数据库中的表、字段、类型及说明</h3><p>wordpress中各个表的字段，折腾WordPress必备良品~</p>
+<p>**wp_categories: **用于保存分类相关信息的表。包括了5个字段，分别是:</p>
+<ul>
+<li><p>cat_ID – 每个分类唯一的ID号，为一个bigint(20)值，且带有附加属性auto_increment。</p>
+</li>
+<li><p>cat_name – 某个分类的名称，为一个varchar(55)值。</p>
+</li>
+<li><p>category_nicename – 指定给分类的一个便于记住的名字，也就是所谓的slug，这是一个varchar(200)值。</p>
+</li>
+<li><p>category_description – 某个分类的详细说明，longtext型值。</p>
+</li>
+<li><p>category_parent – 分类的上级分类，为一个int(4)值，对应是的当前表中的cat_ID，即wp_categories.cat_ID。无上级分类时，这个值为0。<br>**wp_comments: **用于保存评论信息的表。包括了15个字段，分别为:</p>
+</li>
+<li><p>comment_ID – 每个评论的唯一ID号，是一个bigint(20)值。带有附加属性auto_increment。</p>
+</li>
+<li><p>comment_post_ID – 每个评论对应的文章的ID号，int(11)值，等同于wp_posts.ID。</p>
+</li>
+<li><p>comment_author – 每个评论的评论者名称，tinytext值。</p>
+</li>
+<li><p>comment_author_email – 每个评论的评论者电邮地址，varchar(100)值。</p>
+</li>
+<li><p>comment_author_url – 每个评论的评论者网址，varchar(200)值。</p>
+</li>
+<li><p>comment_author_IP – 每个评论的评论者的IP地址，varchar(100)值。</p>
+</li>
+<li><p>comment_date – 每个评论发表的时间，datetime值(是加上时区偏移量后的值)。</p>
+</li>
+<li><p>comment_date_gmt – 每个评论发表的时间，datetime值(是标准的格林尼治时间)。</p>
+</li>
+<li><p>comment_content – 每个评论的具体内容，text值。</p>
+</li>
+<li><p>comment_karma – 不详，int(11)值，默认为0。</p>
+</li>
+<li><p>comment_approved – 每个评论的当前状态，为一个枚举值enum(’0′,’1′,’spam’)，0为等待审核，1为允许发布，spam为垃圾评论。默认值为1。</p>
+</li>
+<li><p>comment_agent – 每个评论的评论者的客户端信息，varchar(255)值，主要包括其浏览器和操作系统的类型、版本等资料。</p>
+</li>
+<li><p>comment_type – 不详，varchar(20)值。</p>
+</li>
+<li><p>comment_parent – 某一评论的上级评论，int(11)值，对应wp_comment.ID，默认为0，即无上级评论。</p>
+</li>
+<li><p>user_id – 某一评论对应的用户ID，只有当用户注册后才会生成，int(11)值，对应wp_users.ID。未注册的用户，即外部评论者，这个ID的值为0。<br>**wp_linkcategories: **用于保存在WP后台中添加的链接的相关信息的表。包括13个字段:</p>
+</li>
+<li><p>cat_id – 每个链接分类的唯一ID，bigint(20)值，为一个自增量auto_increment。</p>
+</li>
+<li><p>cat_name – 每个链接分类的名字，tinytext值。</p>
+</li>
+<li><p>auto_toggle -这个字段所包含的是一个比较特别的属性。如果为Y，则当该分类中加入了新链接时，其它的链接会变为不可见。它是一个枚举型的值enum(’Y’,’N’)，默认为N。</p>
+</li>
+<li><p>show_images – 该字段也是枚举值enum(’Y’,’N’)，默认为Y。用户指定是否允许在该链接分类显示图片链接。</p>
+</li>
+<li><p>show_description – 该字段指定相应的链接分类下的链接，是否再专门[换行]显示它们的说明，这是一个枚举型值enum(’Y’,’N’)，默认为N，即不显示说明(但会通过title属性中显示说明)。</p>
+</li>
+<li><p>show_rating – 显示该分类下链接的等级。它也是一个枚举值enum(’Y’,’N’)，默认为Y。此时，你可以用链接等级的方式来对该链接分类下的链接进行排序。</p>
+</li>
+<li><p>show_updated – 指定该链接分类有更新是，是否进行显示，枚举值enum(’Y’,’N’)，默认为Y。</p>
+</li>
+<li><p>sort_order – 指定该链接分类中链接的排序依据，varchar(64)值。一般用链接的名字(name，即wp_links.link_name)或ID(id，即wp_links.link_id)。</p>
+</li>
+<li><p>sort_desc – 指定链接分类的排序方式，枚举值enum(’Y’,’N’)，默认为N，即用降序。</p>
+</li>
+<li><p>text_before_link – 该链接分类下每个链接的前置html文本，varchar(128)值，默认是’列表开始标签’。</p>
+</li>
+<li><p>text_after_link – 该链接分类下每个链接的中，链接与说明文字(wp_links.link_description)之间的html文本，varchar(128)值，默认是’换行标签’。</p>
+</li>
+<li><p>text_after_all – 该链接分类下每个链接的后置html文本，varchar(128)值，默认是’列表结束标签’。</p>
+</li>
+<li><p>list_limit – 用于规定某一链接分类中显示的(可设定的?)链接的个数，int(11)值，默认为-1，即对链接分类下链接的个数无限制。<br>**wp_links :**用于保存用户输入到Wordpress中的链接(通过Link Manager)的表。共14个字段:</p>
+</li>
+<li><p>link_id – 每个链接的唯一ID号，bigint(20)值，附加属性为auto_increment。</p>
+</li>
+<li><p>link_url – 每个链接的URL地址，varchar(255)值，形式为http:&#x2F;&#x2F;开头的地址。</p>
+</li>
+<li><p>link_name – 单个链接的名字，varchar(255)值。</p>
+</li>
+<li><p>link_image – 链接可以被定义为使用图片链接，这个字段用于保存该图片的地址，为varchar(255)值。</p>
+</li>
+<li><p>link_target – 链接打开的方式，有三种，_blank为以新窗口打开，_top为就在本窗口中打开并在最上一级，none为不选择，会在本窗口中打开。这个字段是varchar(25)值。</p>
+</li>
+<li><p>link_category – 某个链接对应的链接分类，为int(11)值。相当于wp_linkcategories.cat_id。</p>
+</li>
+<li><p>link_description – 链接的说明文字。用户可以选择显示在链接下方还是显示在title属性中。varchar(255)值。</p>
+</li>
+<li><p>link_visible – 该链接是否可以，枚举enum(’Y’,’N’)值，默认为Y，即可见。</p>
+</li>
+<li><p>link_owner – 某个链接的创建人，为一int(11)值，默认是1。(应该对应的就是wp_users.ID)</p>
+</li>
+<li><p>link_rating – 链接的等级，int(11)值。默认为0。</p>
+</li>
+<li><p>link_updated – 链接被定义、修改的时间，datetime值。</p>
+</li>
+<li><p>link_rel – 链接与定义者的关系，由XFN Creator设置，varchar(255)值。</p>
+</li>
+<li><p>link_notes – 链接的详细说明，mediumtext值。</p>
+</li>
+<li><p>link_rss – 该链接的RSS地址，varchar(255)值。<br>**wp_options: **用于保存Wordpress相关设置、参数的表，共11个字段。最重要是的option_value字段，里面包括了大量的重要信息。</p>
+</li>
+<li><p>option_id – 选项的ID，bigint(20)值，附加auto_increment属性。</p>
+</li>
+<li><p>blog_id – 不详。或许用在单在用户的WP版本上并不重要吧，或许是针对不同用户的Blog来设置的一个值。int(11)值，默认为0，即当前blog。</p>
+</li>
+<li><p>option_name – 选项名称，varchar(64)值。</p>
+</li>
+<li><p>option_can_override – 该选项是否可被重写、更新，枚举enum(’Y’,’N’)值，默认为Y，即可被重写、更新。</p>
+</li>
+<li><p>option_type – 选项的类型，作用不详，int(11)值，默认为1。</p>
+</li>
+<li><p>option_value – 选项的值，longtext值，这个字段的内容比较重要。Wordpress初始化时就会设定好约70个默认的值，这里暂不介绍。</p>
+</li>
+<li><p>option_width – 选项的宽(?)，作用不详。int(11)值，默认为20。</p>
+</li>
+<li><p>option_height – 选项的高(?)，作用不详。int(11)值，默认为8。</p>
+</li>
+<li><p>option_description – 针对某个选项的说明，tinytext值。</p>
+</li>
+<li><p>option_admin_level – 设定某个选项可被操纵的用户等级(详情见我的相关文章)，int(11)值，默认为1。</p>
+</li>
+<li><p>autoload – 选项是否每次都被自动加载，枚举enum(’yes’,’no’)值，默认为yes。<br>**wp_post2cat: **用于保存文章(posts)与分类(categories)之间的关系的表，只有三个字段:</p>
+</li>
+<li><p>rel_id – 关联ID，bigint(20)值，是个有auto_increment属性的自增量。</p>
+</li>
+<li><p>post_id – 文章的ID，bigint(20)值，相当于wp_posts.ID。</p>
+</li>
+<li><p>category_id – 分类的ID，也是bigint(20)值，相当于wp_categories.ID。<br>文章与分类的关系的形成是这样的:rel_id是一个不断增加的自增量，它用于识别每不同的post。post_id可以重复(当它对应多个分类时)，因为它可被rel_id识别，所以不会出现混乱。每个post_id可对应多个category_id时，一个rel_id + post_id组合，可以识别某一个分类，因此每个文章的分类可以是不同的。通过这张表，可以非常快速、高效地找出某篇文章(post)对应了哪些分类 (category)，反之亦然。</p>
+</li>
+</ul>
+<p>**wp_postmeta: **用于保存文章的元信息(meta)的表，四个字段:</p>
+<ul>
+<li>meta_id – 元信息ID，bigint(20)值，附加属性为auto_increment。</li>
+<li>post_id – 文章ID，bigint(20)值，相当于wp_posts.ID。</li>
+<li>meta_key – 元信息的关键字，varchar(255)值。</li>
+<li>meta_value – 元信息的值，text值。<br>这些内容主要是在文章及页面编辑页(Write Post, Write Page)的”Add a new custom field to this post(page):”下进行设定的。meta_key就对应名为”key”的下拉列表中的项，而值由用户自己填上(某些时候，wp也会自动加入，如文章中有的音频媒体)。</li>
+</ul>
+<p>**wp_posts: **用于保存你所有的文章(posts)的相关信息的表，非常的重要。一般来讲，它存储的数据是最多的。一共包括了21个字段。<br>ID – 每篇文章的唯一ID，bigint(20)值，附加属性auto_increment。</p>
+<ul>
+<li><p>post_author – 每篇文章的作者的编号，int(4)值，应该对应的是wp_users.ID。</p>
+</li>
+<li><p>post_date – 每篇文章发表的时间，datetime值。它是GMT时间加上时区偏移量的结果。</p>
+</li>
+<li><p>post_date_gmt – 每篇文章发表时的GMT(格林威治)时间，datetime值。</p>
+</li>
+<li><p>post_content – 每篇文章的具体内容，longtext值。你在后台文章编辑页面中写入的所有内容都放在这里。</p>
+</li>
+<li><p>post_title – 文章的标题，text值。</p>
+</li>
+<li><p>post_category – 文章所属分类，int(4)值。</p>
+</li>
+<li><p>post_excerpt – 文章摘要，text值。</p>
+</li>
+<li><p>post_status – 文章当前的状态，枚举enum(’publish’,’draft’,’private’,’static’,’object’)值，publish为已发表，draft为草稿，private为私人内容(不会被公开) ，static(不详)，object(不详)。默认为publish。</p>
+</li>
+<li><p>comment_status – 评论设置的状态，也是枚举enum(’open’,’closed’,’registered_only’)值，open为允许评论，closed为不允许评论，registered_only为只有注册用户方可评论。默认为open，即人人都可以评论。</p>
+</li>
+<li><p>ping_status – ping状态，枚举enum(’open’,’closed’)值，open指打开pingback功能，closed为关闭。默认值是open。</p>
+</li>
+<li><p>post_password – 文章密码，varchar(20)值。文章编辑才可为文章设定一个密码，凭这个密码才能对文章进行重新强加或修改。</p>
+</li>
+<li><p>post_name – 文章名，varchar(200)值。这通常是用在生成permalink时，标识某篇文章的一段文本或数字，也即post slug。</p>
+</li>
+<li><p>to_ping – 强制该文章去ping某个URI。text值。</p>
+</li>
+<li><p>pinged – 该文章被pingback的历史记录，text值，为一个个的URI。</p>
+</li>
+<li><p>post_modified – 文章最后修改的时间，datetime值，它是GMT时间加上时区偏移量的结果。</p>
+</li>
+<li><p>post_modified_gmt – 文章最后修改的GMT时间，datetime值。</p>
+</li>
+<li><p>post_content_filtered – 不详，text值。</p>
+</li>
+<li><p>post_parent – 文章的上级文章的ID，int(11)值，对应的是wp_posts.ID。默认为0，即没有上级文章。</p>
+</li>
+<li><p>guid – 这是每篇文章的一个地址，varchar(255)值。默认是这样的形式: <a href="http://your.blog.site/?p=1%EF%BC%8C%E5%A6%82%E6%9E%9C%E4%BD%A0%E5%BD%A2%E6%88%90permalink%E5%8A%9F%E8%83%BD%EF%BC%8C%E5%88%99%E9%80%9A%E5%B8%B8%E4%BC%9A%E6%98%AF">http://your.blog.site/?p=1，如果你形成permalink功能，则通常会是</a>: 你的Wordpress站点地址+文章名。</p>
+</li>
+<li><p>menu_order – 不详，int(11)值，默认为0。</p>
+</li>
+<li><p>post_type – 文章类型，具体不详，varchar(100)值。默认为0。</p>
+</li>
+<li><p>post_mime_type – 不详。varchar(100)值。</p>
+</li>
+<li><p>comment_count – 评论计数，具体用途不详，bigint(20)值。<br>**wp_usermeta : **用于保存用户元信息(meta)的表，共4个字段:</p>
+</li>
+<li><p>umeta_id – 元信息ID，bigint(20)值，附加属性auto_increment。</p>
+</li>
+<li><p>user_id – 元信息对应的用户ID，bigint(20)值，相当于wp_users.ID。</p>
+</li>
+<li><p>meta_key – 元信息关键字，varchar(255)值。</p>
+</li>
+<li><p>meta_value – 元信息的详细值，longtext值。<br>**wp_users:**用于保存Wordpress使用者的相关信息的表。WP官方对2.0.2版本中该表的情况的说明有些矛盾(称有22个字段，但详细的列表中只有11个)，所以这里只能列出11个字段进行说明:</p>
+</li>
+<li><p>ID – 用户唯一ID,bigint(20)值，带附加属性auto_increment。</p>
+</li>
+<li><p>user_login – 用户的注册名称，varchar(60)值。</p>
+</li>
+<li><p>user_pass – 用户密码，varchar(64)值，这是经过加密的结果。好象用的是不可逆的MD5算法。</p>
+</li>
+<li><p>user_nicename – 用户昵称，varchar(50)值。</p>
+</li>
+<li><p>user_email – 用户电邮地址，varchar(100)值。</p>
+</li>
+<li><p>user_url – 用户网址，varchar(100)值。</p>
+</li>
+<li><p>user_registered – 用户注册时间，datetime值。</p>
+</li>
+<li><p>user_level – 用于等级，int(2)值，可以是0-10之间的数字，不同等级有不同的对WP的操作权限。</p>
+</li>
+<li><p>user_activation_key – 用户激活码，不详。varchar(60)值。</p>
+</li>
+<li><p>user_status – 用户状态，int(11)值，默认为0。</p>
+</li>
+<li><p>display_name – 来前台显示出来的用户名字，varchar(250)值。</p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Ray
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://leadscloud.github.io/313557/wordpress-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90/" title="wordpress 数据结构分析">https://leadscloud.github.io/313557/wordpress-数据结构分析/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/wordpress/" rel="tag"># wordpress</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/313552/%E7%BB%9F%E8%AE%A1%E6%97%A5%E5%BF%97%E9%87%8C%E9%9D%A2%E8%AE%BF%E9%97%AE%E6%AC%A1%E6%95%B0%E6%9C%80%E5%A4%9A%E7%9A%84ip/" rel="prev" title="统计日志里面访问次数最多的ip">
+                  <i class="fa fa-angle-left"></i> 统计日志里面访问次数最多的ip
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/313560/%E3%80%90php%E3%80%91json%E5%A4%84%E7%90%86%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E7%9A%84%E9%97%AE%E9%A2%98/" rel="next" title="【php】json处理中文乱码的问题">
+                  【php】json处理中文乱码的问题 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="valine-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Ray</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/leadscloud" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/algoliasearch/4.24.0/algoliasearch-lite.umd.js" integrity="sha256-b2n6oSgG4C1stMT/yc/ChGszs9EY/Mhs6oltEjQbFCQ=" crossorigin="anonymous"></script><script src="/js/third-party/search/algolia-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"ePPAQV9hFzcbhOaQvvtyjTnw-gzGzoHsz","app_key":"GLniGVXsSMGBjTmaiI4wleaF","server_url":"https://leancloud.tinycms.xyz","security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+
+
+<script class="next-config" data-name="valine" type="application/json">{"enable":true,"appId":"ePPAQV9hFzcbhOaQvvtyjTnw-gzGzoHsz","appKey":"GLniGVXsSMGBjTmaiI4wleaF","serverURLs":"https://leancloud.tinycms.xyz","placeholder":"Just go go","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-cn","visitor":false,"comment_count":true,"recordIP":true,"enableQQ":true,"requiredFields":[],"el":"#valine-comments","path":"/313557/wordpress-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.valine.el)
+    .then(() => NexT.utils.getScript(
+      'https://fastly.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js',
+      { condition: window.Valine }
+    ))
+    .then(() => {
+      new Valine(CONFIG.valine);
+    });
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/logo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="mask-icon" href="/logo.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"leadscloud.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"algolia":{"appID":"F1YESSIUKA","apiKey":"fba180e0d225a86fe382bf021a9f0ae3","indexName":"blog","hits":{"per_page":10}}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Dropbox和Live Mesh都是常用的网络存储服务，可以实现多台电脑上文件共享和同步文件，微软的Live Mesh提供的空间是5GB空间，而Dropbox提供的初始免费空间是2GB，可以通过邀请增大到5GB，两个网络同步软件各有千秋，但我感觉Dropbox更为好用一些，这里，我就介绍一下我在使用Dropbox的过程中总结的几个小技巧。 1、同步任意文件夹 Dropbox安装完成之后，通常会在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Live Mesh和Dropbox免费网盘高级使用技巧">
+<meta property="og:url" content="https://leadscloud.github.io/313251/live-mesh-and-dropbox-use-tips/index.html">
+<meta property="og:site_name" content="leadscloud">
+<meta property="og:description" content="Dropbox和Live Mesh都是常用的网络存储服务，可以实现多台电脑上文件共享和同步文件，微软的Live Mesh提供的空间是5GB空间，而Dropbox提供的初始免费空间是2GB，可以通过邀请增大到5GB，两个网络同步软件各有千秋，但我感觉Dropbox更为好用一些，这里，我就介绍一下我在使用Dropbox的过程中总结的几个小技巧。 1、同步任意文件夹 Dropbox安装完成之后，通常会在">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.williamlong.info/upload/2044_1.jpg">
+<meta property="article:published_time" content="2012-02-08T22:18:46.000Z">
+<meta property="article:modified_time" content="2025-04-10T04:42:07.140Z">
+<meta property="article:author" content="Ray">
+<meta property="article:tag" content="网盘">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.williamlong.info/upload/2044_1.jpg">
+
+
+<link rel="canonical" href="https://leadscloud.github.io/313251/live-mesh-and-dropbox-use-tips/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://leadscloud.github.io/313251/live-mesh-and-dropbox-use-tips/","path":"313251/live-mesh-and-dropbox-use-tips/","title":"Live Mesh和Dropbox免费网盘高级使用技巧"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Live Mesh和Dropbox免费网盘高级使用技巧 | leadscloud</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6GCT2E7T9Y"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-6GCT2E7T9Y","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="leadscloud" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">leadscloud</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Google SEO|外贸营销推广</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">266</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">11</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">459</span></a></li><li class="menu-item menu-item-免费chatgpt"><a href="https://freegpt.tech/?refer=blog-side" rel="section" target="_blank"><i class="fa fa-heart fa-fw"></i>免费ChatGPT</a></li><li class="menu-item menu-item-我的简历"><a href="https://leadscloud.github.io/resume/resume.pdf" rel="section"><i class="fa fa-vcard fa-fw"></i>我的简历</a></li><li class="menu-item menu-item-友情链接"><a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>友情链接</a></li><li class="menu-item menu-item-chrome扩展（域名所属人）"><a href="/serp-analyzer/" rel="section"><i class="fa fa-cloud fa-fw"></i>Chrome扩展（域名所属人）</a></li><li class="menu-item menu-item-询盘管理系统"><a href="https://github.com/leadscloud/infomaster" rel="section" target="_blank"><i class="fa fa-database fa-fw"></i>询盘管理系统</a></li><li class="menu-item menu-item-外贸留言板系统"><a href="/20180615/google-seo-inquiry-messageboard/" rel="section"><i class="fa fa-database fa-fw"></i>外贸留言板系统</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fab fa-algolia fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Ray</p>
+  <div class="site-description" itemprop="description">熟悉 Google SEO，外贸营销推广，这是我的个人博客，主要分享工作中的技术。</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">459</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">266</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/leadscloud" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;leadscloud" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:love4026@gmail.com" title="E-Mail → mailto:love4026@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://cdn.livechatinc.xyz/" title="https:&#x2F;&#x2F;cdn.livechatinc.xyz&#x2F;" rel="noopener" target="_blank">RLiveChat</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://www.kamychina.com/" title="https:&#x2F;&#x2F;www.kamychina.com&#x2F;" rel="noopener" target="_blank">Roadheader</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://tinycms.xyz/" title="https:&#x2F;&#x2F;tinycms.xyz&#x2F;" rel="noopener" target="_blank">TinyCMS</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://leadscloud.github.io/313251/live-mesh-and-dropbox-use-tips/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ray">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="leadscloud">
+      <meta itemprop="description" content="熟悉 Google SEO，外贸营销推广，这是我的个人博客，主要分享工作中的技术。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Live Mesh和Dropbox免费网盘高级使用技巧 | leadscloud">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Live Mesh和Dropbox免费网盘高级使用技巧
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2012-02-09 06:18:46" itemprop="dateCreated datePublished" datetime="2012-02-09T06:18:46+08:00">2012-02-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-04-10 12:42:07" itemprop="dateModified" datetime="2025-04-10T12:42:07+08:00">2025-04-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%BD%AC%E8%BD%BD/" itemprop="url" rel="index"><span itemprop="name">转载</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/313251/live-mesh-and-dropbox-use-tips/" class="post-meta-item leancloud_visitors" data-flag-title="Live Mesh和Dropbox免费网盘高级使用技巧" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Valine：</span>
+  
+    <a title="valine" href="/313251/live-mesh-and-dropbox-use-tips/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/313251/live-mesh-and-dropbox-use-tips/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p><a href="http://www.dropbox.com/">Dropbox</a>和<a href="http://www.mesh.com/">Live Mesh</a>都是常用的网络存储服务，可以实现多台电脑上<a href="http://www.williamlong.info/archives/1385.html">文件共享</a>和同步文件，微软的Live Mesh提供的空间是5GB空间，而Dropbox提供的初始免费空间是2GB，可以通过邀请增大到5GB，两个网络同步软件各有千秋，但我感觉Dropbox更为好用一些，这里，我就介绍一下我在使用Dropbox的过程中总结的几个小技巧。</p>
+<p><strong>1、同步任意文件夹</strong></p>
+<p>Dropbox安装完成之后，通常会在你电脑上建立一个My Dropbox文件夹，放到这个文件夹里的文件才进行同步。这点不如Live Mesh好用，至少Mesh可以同步例如“桌面”等指定的文件夹，而Dropbox只能同步固定文件夹，为了解决同步其他文件夹的问题，需要使用junction&#x2F;mklink工具来解决。</p>
+<p>对于Windows XP用户来说，微软就提供了一个小工具junction，可以在NTFS系统中创建和删除一个junction目录，该目录和原始目录的内容一模一样，如果你对其中任意一个文件夹里面的内容做修改，另一个也会相应的改变，junction目录是NTFS文件系统的一个特性，但Windows XP没有工具对其进行操作，需要<a href="http://download.sysinternals.com/Files/Junction.zip">点这里下载</a>一个exe文件才能使用。在Windows 7系统下已经内部支持，其命令为mklink，使用方法和junction相同。</p>
+<p>例如，我们可以执行junction “E:\My Documents” “E:\My Dropbox\My Documents” ，命令的意思是创建一个名为E:\My Documents的junction目录，指向E:\My Dropbox\My Documents，该命令瞬间执行完成，而两个目录则完全相同，这样我们就可以使用E:\My Dropbox\My Documents这个目录来替代“我的文档”中的目录。</p>
+<p>对于Dropbox来说，只能按照如上的命令建立junction目录，而不能在My Dropbox目录里创建junction目录，经过我的测试，My Dropbox目录里面的junction目录只能同步一次，之后修改加文件都不同步，无法实现同步更新。</p>
+<p><img src="http://www.williamlong.info/upload/2044_1.jpg" alt="Dropbox免费网盘"></p>
+<p><strong>2、同步MSN和QQ记录</strong></p>
+<p>如果我们同时在家里和公司上MSN和QQ，就会遇到一个麻烦问题，就是聊天记录不同步，公司一处，家里一处，使用Dropbox可以实现两地的聊天记录同步。</p>
+<p>首先按照上面的操作将My Documents我的文档目录设置为junction目录，实际文件放到My Dropbox目录中，接着，在QQ和MSN中设置默认保存文件和聊天记录的位置在“我的文档”中，这样，用户所有聊天记录都会自动被Dropbox同步，从而实现了家中和公司两处聊天记录的同步更新。</p>
+<p><strong>3、同步文档</strong></p>
+<p>“我的文档”里保存了用户很多重要文档，很多人都有同步“我的文档”的需要。同步的方法是，右点“我的文档”属性，修改“我的文档”的目标文件夹位置，将其修改到Dropbox目录下即可。</p>
+<p>4**、同步桌面**</p>
+<p>除了“我的文档”，很多人希望将多台电脑的桌面文件进行同步，有两种解决方案，一种是修改注册表中关于桌面的位置，将文件夹修改到Dropbox目录里，注册表修改的位置是： HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders 和 HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders 中关于Desktop的路径；另一种方法，可以通过在桌面创建一个junction目录的方式实现同步，这样桌面上就会多一个实际为junction类型的“文件夹”，将工作文档或者其他文档复制到这个文件夹中，即可实现同步。</p>
+<p>5**、同步IE收藏夹**</p>
+<p>默认情况下IE的收藏夹路径为： C:\Documents and Settings\Administrator\Favorites ，我们可以通过修改注册表的方式来修改收藏夹的路径，打开注册表： HKEY_USERs\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders ，而后把“Favorites”键值修改成My Dropbox目录下的一个文件夹路径即可。在多台电脑都进行这样的操作，就可以实现多台电脑自动同步IE收藏夹的功能。</p>
+<p>6**、网站自动备份**</p>
+<p>如果你也拥有一个类似“月光博客”的网站，你也会为数据的安全性而头疼，如何安全地自动备份网站数据呢？有了Dropbox，我们就有了一个网站自动备份的新方案。</p>
+<p>对于使用SQL Server的网站来说，可以在SQL Server中设置一个自动执行任务，每天自动将数据库文件备份到My Dropbox目录里即可。</p>
+<p>对于使用Access的网站来说，频繁读写的Access文件不宜直接放到Dropbox目录里，而采用定时复制的方法更好一些。具体操作是，建立一个BAT文件，内容是“xcopy “E:\website” “E:\My Dropbox\website” &#x2F;s&#x2F;e&#x2F;y”，在“系统工具 - 任务计划”中新建一个计划任务，选择这个批处理文件，设置每天临晨自动执行，就可以定时自动把website目录下的网站文件（包括ACCESS文件）一起复制到Dropbox目录中的website文件夹。</p>
+<p>这样，就实现了使用Dropbox可以自动将网站上的文件和数据库进行备份，无需手动操作。缺点是最多5G空间，不适合大网站的备份。</p>
+<p>好了，以上就是我在使用Dropbox过程中总结的一些小技巧，总的来说，Dropbox是一个非常不错的网络同步工具，Live Mesh相比Dropbox来说有几个缺点，比如只支持Windows，不支持Linux、Mac，兼容性较差（例如在我公司的电脑上安装Live Mesh就报错，无法安装），另外Live Mesh的界面有待进一步优化。</p>
+<p>Dropbox的默认空间是2G，如果你也想使用Dropbox，<a href="https://www.dropbox.com/referrals/NTMzMTcxNjY5">点这里</a>注册Dropbox帐号，如果你邀请其他用户使用的话，每邀请一个用户注册也可获得250M空间，最大到5G空间封顶。</p>
+<p>原文：<a href="http://www.williamlong.info/archives/2044.html">http://www.williamlong.info/archives/2044.html</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Ray
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://leadscloud.github.io/313251/live-mesh-and-dropbox-use-tips/" title="Live Mesh和Dropbox免费网盘高级使用技巧">https://leadscloud.github.io/313251/live-mesh-and-dropbox-use-tips/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E7%BD%91%E7%9B%98/" rel="tag"># 网盘</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/313250/mysql%E4%B8%AD%E4%BF%AE%E6%94%B9%E5%AF%86%E7%A0%81%E5%8F%8A%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90%E8%AE%BE%E7%BD%AE/" rel="prev" title="mysql中修改密码及访问权限设置">
+                  <i class="fa fa-angle-left"></i> mysql中修改密码及访问权限设置
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/313254/%E5%9C%A8google-chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E9%87%8C%E4%BD%BF%E7%94%A8page-speed/" rel="next" title="在Google Chrome浏览器里使用Page Speed">
+                  在Google Chrome浏览器里使用Page Speed <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="valine-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Ray</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/leadscloud" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/algoliasearch/4.24.0/algoliasearch-lite.umd.js" integrity="sha256-b2n6oSgG4C1stMT/yc/ChGszs9EY/Mhs6oltEjQbFCQ=" crossorigin="anonymous"></script><script src="/js/third-party/search/algolia-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"ePPAQV9hFzcbhOaQvvtyjTnw-gzGzoHsz","app_key":"GLniGVXsSMGBjTmaiI4wleaF","server_url":"https://leancloud.tinycms.xyz","security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+
+
+<script class="next-config" data-name="valine" type="application/json">{"enable":true,"appId":"ePPAQV9hFzcbhOaQvvtyjTnw-gzGzoHsz","appKey":"GLniGVXsSMGBjTmaiI4wleaF","serverURLs":"https://leancloud.tinycms.xyz","placeholder":"Just go go","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-cn","visitor":false,"comment_count":true,"recordIP":true,"enableQQ":true,"requiredFields":[],"el":"#valine-comments","path":"/313251/live-mesh-and-dropbox-use-tips/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.valine.el)
+    .then(() => NexT.utils.getScript(
+      'https://fastly.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js',
+      { condition: window.Valine }
+    ))
+    .then(() => {
+      new Valine(CONFIG.valine);
+    });
+});
+</script>
+
+</body>
+</html>

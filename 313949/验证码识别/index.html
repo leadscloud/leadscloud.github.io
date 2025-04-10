@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/logo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="mask-icon" href="/logo.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"leadscloud.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"algolia":{"appID":"F1YESSIUKA","apiKey":"fba180e0d225a86fe382bf021a9f0ae3","indexName":"blog","hits":{"per_page":10}}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="纯文本验证码、图形验证码、声音验证码、JS验证码，以下主要讲简单的图形验证码的识别。 在破解验证码中需要用到的知识一般是 像素，线，面等基本2维图形元素的处理和色差分析。常见工具为：     支持向量机(SVM)支持向量机SVM是一个机器学习领域里常用到的分类器，可以对图形进行边界区分，不过需要的背景知识太高深。    OpenCVOpenCV是一个很常用的计算机图像处理和机器视觉库，一般用于人脸">
+<meta property="og:type" content="article">
+<meta property="og:title" content="简单图形验证码识别">
+<meta property="og:url" content="https://leadscloud.github.io/313949/%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB/index.html">
+<meta property="og:site_name" content="leadscloud">
+<meta property="og:description" content="纯文本验证码、图形验证码、声音验证码、JS验证码，以下主要讲简单的图形验证码的识别。 在破解验证码中需要用到的知识一般是 像素，线，面等基本2维图形元素的处理和色差分析。常见工具为：     支持向量机(SVM)支持向量机SVM是一个机器学习领域里常用到的分类器，可以对图形进行边界区分，不过需要的背景知识太高深。    OpenCVOpenCV是一个很常用的计算机图像处理和机器视觉库，一般用于人脸">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://leadscloud.github.io/wp-content/uploads/2015/05/image002.gif">
+<meta property="og:image" content="https://leadscloud.github.io/wp-content/uploads/2015/05/image004.gif">
+<meta property="og:image" content="https://leadscloud.github.io/wp-content/uploads/2015/05/image006.gif">
+<meta property="og:image" content="https://leadscloud.github.io/wp-content/uploads/2015/05/image007.jpg">
+<meta property="og:image" content="https://leadscloud.github.io/wp-content/uploads/2015/05/image008.jpg">
+<meta property="og:image" content="https://leadscloud.github.io/wp-content/uploads/2015/05/image009.jpg">
+<meta property="og:image" content="https://leadscloud.github.io/wp-content/uploads/2015/05/image011.gif">
+<meta property="og:image" content="https://leadscloud.github.io/wp-content/uploads/2015/05/image012.png">
+<meta property="og:image" content="https://leadscloud.github.io/wp-content/uploads/2015/05/image014.png">
+<meta property="og:image" content="https://leadscloud.github.io/wp-content/uploads/2015/05/image016.png">
+<meta property="og:image" content="https://leadscloud.github.io/wp-content/uploads/2015/05/image018.png">
+<meta property="og:image" content="https://leadscloud.github.io/wp-content/uploads/2015/05/image021.gif">
+<meta property="og:image" content="https://leadscloud.github.io/wp-content/uploads/2015/05/image023.gif">
+<meta property="og:image" content="https://leadscloud.github.io/wp-content/uploads/2015/05/image025.gif">
+<meta property="og:image" content="https://leadscloud.github.io/wp-content/uploads/2015/05/image027.gif">
+<meta property="og:image" content="https://leadscloud.github.io/wp-content/uploads/2015/05/image029.gif">
+<meta property="og:image" content="https://leadscloud.github.io/wp-content/uploads/2015/05/image031.gif">
+<meta property="og:image" content="https://leadscloud.github.io/wp-content/uploads/2015/05/image033.gif">
+<meta property="og:image" content="https://leadscloud.github.io/wp-content/uploads/2015/05/image035.gif">
+<meta property="og:image" content="https://leadscloud.github.io/wp-content/uploads/2015/05/image037.gif">
+<meta property="og:image" content="https://leadscloud.github.io/wp-content/uploads/2015/05/image039.gif">
+<meta property="og:image" content="https://leadscloud.github.io/wp-content/uploads/2015/05/image041.gif">
+<meta property="og:image" content="https://leadscloud.github.io/wp-content/uploads/2015/05/image043.gif">
+<meta property="article:published_time" content="2015-05-13T12:47:38.000Z">
+<meta property="article:modified_time" content="2025-04-10T04:42:07.158Z">
+<meta property="article:author" content="Ray">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://leadscloud.github.io/wp-content/uploads/2015/05/image002.gif">
+
+
+<link rel="canonical" href="https://leadscloud.github.io/313949/%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://leadscloud.github.io/313949/%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB/","path":"313949/验证码识别/","title":"简单图形验证码识别"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>简单图形验证码识别 | leadscloud</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6GCT2E7T9Y"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-6GCT2E7T9Y","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="leadscloud" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">leadscloud</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Google SEO|外贸营销推广</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">266</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">11</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">459</span></a></li><li class="menu-item menu-item-免费chatgpt"><a href="https://freegpt.tech/?refer=blog-side" rel="section" target="_blank"><i class="fa fa-heart fa-fw"></i>免费ChatGPT</a></li><li class="menu-item menu-item-我的简历"><a href="https://leadscloud.github.io/resume/resume.pdf" rel="section"><i class="fa fa-vcard fa-fw"></i>我的简历</a></li><li class="menu-item menu-item-友情链接"><a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>友情链接</a></li><li class="menu-item menu-item-chrome扩展（域名所属人）"><a href="/serp-analyzer/" rel="section"><i class="fa fa-cloud fa-fw"></i>Chrome扩展（域名所属人）</a></li><li class="menu-item menu-item-询盘管理系统"><a href="https://github.com/leadscloud/infomaster" rel="section" target="_blank"><i class="fa fa-database fa-fw"></i>询盘管理系统</a></li><li class="menu-item menu-item-外贸留言板系统"><a href="/20180615/google-seo-inquiry-messageboard/" rel="section"><i class="fa fa-database fa-fw"></i>外贸留言板系统</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fab fa-algolia fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB%E7%9A%84%E5%8E%9F%E7%90%86%E5%92%8C%E8%BF%87%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">验证码识别的原理和过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%9A-%E4%BA%8C%E5%80%BC%E5%8C%96"><span class="nav-number">1.1.</span> <span class="nav-text">第一步：    二值化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%9A-%E6%96%87%E5%AD%97%E5%88%86%E5%89%B2"><span class="nav-number">1.2.</span> <span class="nav-text">第二步： 文字分割</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5%EF%BC%9A%E6%A0%87%E5%87%86%E5%8C%96"><span class="nav-number">1.3.</span> <span class="nav-text">第三步：标准化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E6%AD%A5%EF%BC%9A%E8%AF%86%E5%88%AB"><span class="nav-number">1.4.</span> <span class="nav-text">第四步：识别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E5%80%BC%E5%8C%96%E7%AE%97%E6%B3%95"><span class="nav-number">1.5.</span> <span class="nav-text">二值化算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E5%80%BC%E5%8C%96%E5%A4%84%E7%90%86%E7%9A%84%E5%8F%A6%E5%A4%96%E4%B8%80%E7%A7%8D%E7%AE%97%E6%B3%95"><span class="nav-number">1.6.</span> <span class="nav-text">二值化处理的另外一种算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%87%E5%89%B2%E5%AD%97%E7%AC%A6"><span class="nav-number">1.7.</span> <span class="nav-text">切割字符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BA%E5%AE%9A%E4%BD%8D%E7%BD%AE%E7%9A%84%E5%AD%97%E7%AC%A6%E5%88%87%E5%89%B2%E7%AE%97%E6%B3%95"><span class="nav-number">1.8.</span> <span class="nav-text">固定位置的字符切割算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%B9%E9%87%8F%E4%B8%8B%E8%BD%BD%E9%AA%8C%E8%AF%81%E7%A0%81"><span class="nav-number">1.9.</span> <span class="nav-text">批量下载验证码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%AF%86%E5%88%AB%E7%A8%8B%E5%BA%8F"><span class="nav-number">2.</span> <span class="nav-text">一个简单的识别程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E5%AE%8C%E6%95%B4%E7%9A%84%E4%BE%8B%E5%AD%90"><span class="nav-number">3.</span> <span class="nav-text">一个完整的例子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%B4%E8%AF%B412306%E7%9A%84%E9%AA%8C%E8%AF%81%E7%A0%81"><span class="nav-number">4.</span> <span class="nav-text">说说12306的验证码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reCAPTCHA"><span class="nav-number">5.</span> <span class="nav-text">reCAPTCHA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%B7%E6%AD%8C%E8%AE%A9%E9%AA%8C%E8%AF%81%E7%A0%81%E6%9B%B4%E7%AE%80%E5%8D%95"><span class="nav-number">6.</span> <span class="nav-text">谷歌让验证码更简单</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#No-CAPTCHA-reCAPTCHA"><span class="nav-number">6.1.</span> <span class="nav-text">No CAPTCHA reCAPTCHA</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="nav-number">7.</span> <span class="nav-text">参考文章</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Ray</p>
+  <div class="site-description" itemprop="description">熟悉 Google SEO，外贸营销推广，这是我的个人博客，主要分享工作中的技术。</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">459</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">266</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/leadscloud" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;leadscloud" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:love4026@gmail.com" title="E-Mail → mailto:love4026@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://cdn.livechatinc.xyz/" title="https:&#x2F;&#x2F;cdn.livechatinc.xyz&#x2F;" rel="noopener" target="_blank">RLiveChat</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://www.kamychina.com/" title="https:&#x2F;&#x2F;www.kamychina.com&#x2F;" rel="noopener" target="_blank">Roadheader</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://tinycms.xyz/" title="https:&#x2F;&#x2F;tinycms.xyz&#x2F;" rel="noopener" target="_blank">TinyCMS</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://leadscloud.github.io/313949/%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ray">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="leadscloud">
+      <meta itemprop="description" content="熟悉 Google SEO，外贸营销推广，这是我的个人博客，主要分享工作中的技术。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="简单图形验证码识别 | leadscloud">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          简单图形验证码识别
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2015-05-13 20:47:38" itemprop="dateCreated datePublished" datetime="2015-05-13T20:47:38+08:00">2015-05-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-04-10 12:42:07" itemprop="dateModified" datetime="2025-04-10T12:42:07+08:00">2025-04-10</time>
+    </span>
+
+  
+    <span id="/313949/%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB/" class="post-meta-item leancloud_visitors" data-flag-title="简单图形验证码识别" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Valine：</span>
+  
+    <a title="valine" href="/313949/%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/313949/%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>纯文本验证码、图形验证码、声音验证码、JS验证码，以下主要讲简单的图形验证码的识别。</p>
+<p>在破解验证码中需要用到的知识一般是 像素，线，面等基本2维图形元素的处理和色差分析。常见工具为：</p>
+<ul>
+<li>   支持向量机(SVM)<br>支持向量机SVM是一个机器学习领域里常用到的分类器，可以对图形进行边界区分，不过需要的背景知识太高深。</li>
+<li>   OpenCV<br>OpenCV是一个很常用的计算机图像处理和机器视觉库，一般用于人脸识别，跟踪移动物体等等。</li>
+<li>   图像处理软件(Photoshop,Gimp…)</li>
+<li>   Python Image Library<br>Python Image Library是pyhon里面带的一个图形处理库，功能比较强大，是我们的首选。</li>
+</ul>
+<p>识别验证码需要充分利用图片中的信息，才能把验证码的文字和背景部分分离，一张典型的jpeg图片，每个像素都可以放在一个5维的空间里，这5个维度分别是，X,Y,R,G,B，也就是像素的坐标和颜色，在计算机图形学中，有很多种色彩空间，最常用的比如RGB，印刷用的CYMK，还有比较少见的HSL或者HSV，每种色彩空间的维度都不一样，但是可以通过公式互相转换。</p>
+<p><img src="/wp-content/uploads/2015/05/image002.gif"></p>
+<p>RGB色彩空间构成的立方体，每个维度代表一种颜色</p>
+<p><img src="/wp-content/uploads/2015/05/image004.gif"></p>
+<p>HSL（色相饱和度）色彩空间构成的锥体，可以参考：<br><a href="https://zh.wikipedia.org/wiki/HSL%E5%92%8CHSV%E8%89%B2%E5%BD%A9%E7%A9%BA%E9%97%B4">https://zh.wikipedia.org/wiki/HSL%E5%92%8CHSV%E8%89%B2%E5%BD%A9%E7%A9%BA%E9%97%B4</a><br>HSL和HSV都是一种将RGB色彩模型中的点在圆柱坐标系中的表示法。这两种表示法试图做到比RGB基于笛卡尔坐标系的几何结构更加直观。<br>HSL即色相、饱和度、亮度（英语：Hue, Saturation, Lightness），又称HSL。HSV即色相、饱和度、明度（英语：Hue, Saturation, Value），又称HSB，其中B即英语：Brightness。</p>
+<ul>
+<li>   色相（H）是色彩的基本属性，就是平常所说的颜色名称，如红色、黄色等。</li>
+<li>   饱和度（S）是指色彩的纯度，越高色彩越纯，低则逐渐变灰，取0-100%的数值。</li>
+<li>   明度（V），亮度（L），取0-100%。</li>
+</ul>
+<p>了解到色彩空间的原理，就可以用在该空间适用的公式来进行像素的色差判断，比如RGB空间里判断两个点的色差可以用3维空间中两坐标求距离的公式：<br>distance&#x3D;sqrt[(r1-r2)^2+(g1-g2)^2+(b1-b2)^2]<br>更加直观的图片，大家感受一下：</p>
+<p><img src="/wp-content/uploads/2015/05/image006.gif"></p>
+<p>随便把一张图片的每个像素都映射到RGB色彩空间里就能获得一个这样的立方体。<br>通过对像素颜色进行统计和区分，可以获得图片的颜色分布，在验证码中，一般来说使用近似颜色最多的像素都是背景，最少的一般为干扰点，干扰线和需要识别文字本身。</p>
+<h2 id="验证码识别的原理和过程"><a href="#验证码识别的原理和过程" class="headerlink" title="验证码识别的原理和过程"></a>验证码识别的原理和过程</h2><h3 id="第一步：-二值化"><a href="#第一步：-二值化" class="headerlink" title="第一步：    二值化"></a>第一步：    二值化</h3><p>所谓二值化就是把不需要的信息通通去除，比如背景，干扰线，干扰像素等等，只剩下需要识别的文字，让图片变成2进制点阵。</p>
+<p><img src="/wp-content/uploads/2015/05/image007.jpg"></p>
+<h3 id="第二步：-文字分割"><a href="#第二步：-文字分割" class="headerlink" title="第二步： 文字分割"></a>第二步： 文字分割</h3><p>为了能识别出字符，需要对要识别的文字图图片进行分割，把每个字符作为单独的一个图片看待。</p>
+<p><img src="/wp-content/uploads/2015/05/image008.jpg"></p>
+<h3 id="第三步：标准化"><a href="#第三步：标准化" class="headerlink" title="第三步：标准化"></a>第三步：标准化</h3><p>对于部分特殊的验证码，需要对分割后的图片进行标准化处理，也就是说尽量把每个相同的字符都变成一样的格式，减少随机的程度<br>最简单的比如旋转还原，复杂点的比如扭曲还原等等</p>
+<h3 id="第四步：识别"><a href="#第四步：识别" class="headerlink" title="第四步：识别"></a>第四步：识别</h3><p>这一步可以用很多种方法，最简单的就是模板对比，对每个出现过的字符进行处理后把点阵变成字符串，标明是什么字符后，通过字符串对比来判断相似度。<br>在文章的后半部分会详细解释每步的各种算法</p>
+<p><img src="/wp-content/uploads/2015/05/image009.jpg"></p>
+<h3 id="二值化算法"><a href="#二值化算法" class="headerlink" title="二值化算法"></a>二值化算法</h3><p>直方图</p>
+<p><img src="/wp-content/uploads/2015/05/image011.gif"></p>
+<p>这是一张图像的亮度（Luminosity）＋RGB三通道的直方图。</p>
+<p>直方图的观看规则就是“左黑右白”，左边代表暗部，右边代表亮部，而中间则代表中间调。亮度从0–255，0表示黑，255表示白。如果某个地方的峰越高，表示在这个亮度下的像素越多。这个相片的直方图说明图片整体是偏亮的。</p>
+<p>纵向上的高度代表像素密集程度，越高，代表的就是分布在这个亮度上的像素很多。</p>
+<p><img src="/wp-content/uploads/2015/05/image012.png"></p>
+<p><img src="/wp-content/uploads/2015/05/image014.png"></p>
+<p>先建立一个图像中的颜色直方图，通过把所有像素按颜色分组实现</p>
+<p><img src="/wp-content/uploads/2015/05/image016.png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"></span><br><span class="line">im = Image.<span class="built_in">open</span>(<span class="string">&quot;captcha.gif&quot;</span>)</span><br><span class="line">im = im.convert(<span class="string">&quot;P&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> im.histogram()</span><br></pre></td></tr></table></figure>
+
+<p>输出</p>
+<pre><code>    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+    , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0,
+    1, 0, 0, 2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+    0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 2, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0
+    , 1, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 1, 2, 0, 1, 0, 0, 1,
+    0, 2, 0, 0, 1, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 3, 1, 3, 3, 0,
+    0, 0, 0, 0, 0, 1, 0, 3, 2, 132, 1, 1, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 15, 0
+    , 1, 0, 1, 0, 0, 8, 1, 0, 0, 0, 0, 1, 6, 0, 2, 0, 0, 0, 0, 18, 1, 1, 1, 1, 1, 2,
+    365, 115, 0, 1, 0, 0, 0, 135, 186, 0, 0, 1, 0, 0, 0, 116, 3, 0, 0, 0, 0, 0, 21,
+    1, 1, 0, 0, 0, 2, 10, 2, 0, 0, 0, 0, 2, 10, 0, 0, 0, 0, 1, 0, 625]
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"><span class="keyword">from</span> operator <span class="keyword">import</span> itemgetter</span><br><span class="line"></span><br><span class="line">im = Image.<span class="built_in">open</span>(<span class="string">&quot;captcha.gif&quot;</span>)</span><br><span class="line">im = im.convert(<span class="string">&quot;P&quot;</span>)</span><br><span class="line">his = im.histogram()</span><br><span class="line"></span><br><span class="line">values = &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">256</span>):</span><br><span class="line">  values[i] = his[i]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> j,k <span class="keyword">in</span> <span class="built_in">sorted</span>(values.items(), key=itemgetter(<span class="number">1</span>), reverse=<span class="literal">True</span>)[:<span class="number">10</span>]:</span><br><span class="line">  <span class="built_in">print</span> j,k</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">255 </span><span class="number">625</span></span><br><span class="line"><span class="symbol">212 </span><span class="number">365</span></span><br><span class="line"><span class="symbol">220 </span><span class="number">186</span></span><br><span class="line"><span class="symbol">219 </span><span class="number">135</span></span><br><span class="line"><span class="symbol">169 </span><span class="number">132</span></span><br><span class="line"><span class="symbol">227 </span><span class="number">116</span></span><br><span class="line"><span class="symbol">213 </span><span class="number">115</span></span><br><span class="line"><span class="symbol">234 </span><span class="number">21</span></span><br><span class="line"><span class="symbol">205 </span><span class="number">18</span></span><br><span class="line"><span class="symbol">184 </span><span class="number">15</span></span><br></pre></td></tr></table></figure>
+
+<p>第一列是颜色的ID，第二列是相对应的颜色的数量,图片中可见白色最多，其次是灰色和红色<br>上面显示一共有10个颜色在这个图片中，红色应该是第三个常见颜色220，但是上面中227与220非常接近，把它也包含进去。这张图中220 与227应该是红色部分，也就是我们想保留的验证码部分，其它颜色可以去掉, 创建一个新的二色图像，只有白黑。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"></span><br><span class="line">im = Image.<span class="built_in">open</span>(<span class="string">&quot;captcha.gif&quot;</span>)</span><br><span class="line">im = im.convert(<span class="string">&quot;P&quot;</span>)</span><br><span class="line">im2 = Image.new(<span class="string">&quot;P&quot;</span>,im.size,<span class="number">255</span>)</span><br><span class="line"></span><br><span class="line">im = im.convert(<span class="string">&quot;P&quot;</span>)</span><br><span class="line"></span><br><span class="line">temp = &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(im.size[<span class="number">1</span>]):</span><br><span class="line">  <span class="keyword">for</span> y <span class="keyword">in</span> <span class="built_in">range</span>(im.size[<span class="number">0</span>]):</span><br><span class="line">    pix = im.getpixel((y,x))</span><br><span class="line">    temp[pix] = pix</span><br><span class="line">    <span class="keyword">if</span> pix == <span class="number">220</span> <span class="keyword">or</span> pix == <span class="number">227</span>: <span class="comment"># these are the numbers to get</span></span><br><span class="line">      im2.putpixel((y,x),<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">im2.save(<span class="string">&quot;output.gif&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="/wp-content/uploads/2015/05/image018.png"></p>
+<p>上面这个黑白图片便是我们成功提取到的只有字母数字的图像，正是我们需要的，如果图片中的验证码是多个颜色，判断上面会相应复杂一些。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> each binary image:</span><br><span class="line">  <span class="keyword">for</span> each pixel <span class="keyword">in</span> the binary image:</span><br><span class="line">    <span class="keyword">if</span> the pixel <span class="keyword">is</span> on:</span><br><span class="line">      <span class="keyword">if</span> <span class="built_in">any</span> pixel we have seen before <span class="keyword">is</span> <span class="built_in">next</span> to it:</span><br><span class="line">        add to the same <span class="built_in">set</span></span><br><span class="line">      <span class="keyword">else</span>:</span><br><span class="line">        add to a new <span class="built_in">set</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="二值化处理的另外一种算法"><a href="#二值化处理的另外一种算法" class="headerlink" title="二值化处理的另外一种算法"></a>二值化处理的另外一种算法</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: UTF-8 -*-</span></span><br><span class="line"><span class="comment">#图像二值处理</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line">j=<span class="number">1</span></span><br><span class="line"><span class="built_in">dir</span>=<span class="string">&quot;./pic/&quot;</span></span><br><span class="line">path = <span class="string">&quot;./font/&quot;</span></span><br><span class="line"><span class="keyword">for</span> f <span class="keyword">in</span> os.listdir(<span class="built_in">dir</span>):</span><br><span class="line">   <span class="keyword">if</span> f.endswith(<span class="string">&quot;.gif&quot;</span>):</span><br><span class="line">       img = Image.<span class="built_in">open</span>(<span class="built_in">dir</span>+f) <span class="comment"># 读入图片</span></span><br><span class="line">       img = img.convert(<span class="string">&quot;RGBA&quot;</span>)</span><br><span class="line">       pixdata = img.load()</span><br><span class="line">       <span class="comment">#二值化</span></span><br><span class="line">       <span class="keyword">for</span> y <span class="keyword">in</span> xrange(img.size[<span class="number">1</span>]):</span><br><span class="line">           <span class="keyword">for</span> x <span class="keyword">in</span> xrange(img.size[<span class="number">0</span>]):</span><br><span class="line">               <span class="keyword">if</span> pixdata[x, y][<span class="number">0</span>] &lt; <span class="number">90</span>:</span><br><span class="line">                   pixdata[x, y] = (<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>)</span><br><span class="line">       <span class="keyword">for</span> y <span class="keyword">in</span> xrange(img.size[<span class="number">1</span>]):</span><br><span class="line">           <span class="keyword">for</span> x <span class="keyword">in</span> xrange(img.size[<span class="number">0</span>]):</span><br><span class="line">               <span class="keyword">if</span> pixdata[x, y][<span class="number">1</span>] &lt; <span class="number">136</span>:</span><br><span class="line">                   pixdata[x, y] = (<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>)</span><br><span class="line">       <span class="keyword">for</span> y <span class="keyword">in</span> xrange(img.size[<span class="number">1</span>]):</span><br><span class="line">           <span class="keyword">for</span> x <span class="keyword">in</span> xrange(img.size[<span class="number">0</span>]):</span><br><span class="line">               <span class="keyword">if</span> pixdata[x, y][<span class="number">2</span>] &gt; <span class="number">0</span>:</span><br><span class="line">                   pixdata[x, y] = (<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>)</span><br><span class="line">       img.save(path+f, <span class="string">&quot;GIF&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="切割字符"><a href="#切割字符" class="headerlink" title="切割字符"></a>切割字符</h3><p><img src="/wp-content/uploads/2015/05/image021.gif"></p>
+<p>主要代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"></span><br><span class="line">im = Image.<span class="built_in">open</span>(<span class="string">&quot;captcha.gif&quot;</span>)</span><br><span class="line">im = im.convert(<span class="string">&quot;P&quot;</span>)</span><br><span class="line">im2 = Image.new(<span class="string">&quot;P&quot;</span>,im.size,<span class="number">255</span>)</span><br><span class="line"></span><br><span class="line">im = im.convert(<span class="string">&quot;P&quot;</span>)</span><br><span class="line"></span><br><span class="line">temp = &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(im.size[<span class="number">1</span>]):</span><br><span class="line">  <span class="keyword">for</span> y <span class="keyword">in</span> <span class="built_in">range</span>(im.size[<span class="number">0</span>]):</span><br><span class="line">    pix = im.getpixel((y,x))</span><br><span class="line">    temp[pix] = pix</span><br><span class="line">    <span class="keyword">if</span> pix == <span class="number">220</span> <span class="keyword">or</span> pix == <span class="number">227</span>: <span class="comment"># these are the numbers to get</span></span><br><span class="line">      im2.putpixel((y,x),<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># new code starts here</span></span><br><span class="line"></span><br><span class="line">inletter = <span class="literal">False</span></span><br><span class="line">foundletter=<span class="literal">False</span></span><br><span class="line">start = <span class="number">0</span></span><br><span class="line">end = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">letters = []</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> y <span class="keyword">in</span> <span class="built_in">range</span>(im2.size[<span class="number">0</span>]): <span class="comment"># slice across</span></span><br><span class="line">  <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(im2.size[<span class="number">1</span>]): <span class="comment"># slice down</span></span><br><span class="line">    pix = im2.getpixel((y,x))</span><br><span class="line">    <span class="keyword">if</span> pix != <span class="number">255</span>:</span><br><span class="line">      inletter = <span class="literal">True</span></span><br><span class="line">  <span class="keyword">if</span> foundletter == <span class="literal">False</span> <span class="keyword">and</span> inletter == <span class="literal">True</span>:</span><br><span class="line">    foundletter = <span class="literal">True</span></span><br><span class="line">    start = y</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> foundletter == <span class="literal">True</span> <span class="keyword">and</span> inletter == <span class="literal">False</span>:</span><br><span class="line">    foundletter = <span class="literal">False</span></span><br><span class="line">    end = y</span><br><span class="line">    letters.append((start,end))</span><br><span class="line"></span><br><span class="line">  inletter=<span class="literal">False</span></span><br><span class="line"><span class="built_in">print</span> letters</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[(<span class="name">6</span>, <span class="number">14</span>), (<span class="name">15</span>, <span class="number">25</span>), (<span class="name">27</span>, <span class="number">35</span>), (<span class="name">37</span>, <span class="number">46</span>), (<span class="name">48</span>, <span class="number">56</span>), (<span class="name">57</span>, <span class="number">67</span>)]</span><br></pre></td></tr></table></figure>
+
+<p>这些是每个字符在图片水平方向的开始位置与结束位置，如果验证码的每个字符的位置是固定的就不需要上面这种方法，可以直接指定。</p>
+<h3 id="固定位置的字符切割算法"><a href="#固定位置的字符切割算法" class="headerlink" title="固定位置的字符切割算法"></a>固定位置的字符切割算法</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: UTF-8 -*-</span></span><br><span class="line"><span class="comment">#图像分割</span></span><br><span class="line"><span class="keyword">import</span> os ,Image</span><br><span class="line">j = <span class="number">1</span></span><br><span class="line"><span class="built_in">dir</span>=<span class="string">&quot;./font/&quot;</span></span><br><span class="line"><span class="keyword">for</span> f <span class="keyword">in</span> os.listdir(<span class="built_in">dir</span>):</span><br><span class="line">   <span class="keyword">if</span> f.endswith(<span class="string">&quot;.gif&quot;</span>):</span><br><span class="line">       img = Image.<span class="built_in">open</span>(<span class="built_in">dir</span>+f)</span><br><span class="line">       <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>):</span><br><span class="line">           x = <span class="number">16</span> + i*<span class="number">15</span>   <span class="comment">#这里的数字参数需要自己</span></span><br><span class="line">           y = <span class="number">2</span>           <span class="comment">#根据验证码图片的像素进行</span></span><br><span class="line">           img.crop((x, y, x+<span class="number">7</span>, y+<span class="number">10</span>)).save(<span class="string">&quot;fonts/%d.gif&quot;</span> % j)   <span class="comment">#适当的修改</span></span><br><span class="line">           <span class="built_in">print</span> <span class="string">&quot;j=&quot;</span>,j</span><br><span class="line">           j += <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>接下来需要比对每个字符与模板的相似度，我们使用一种最简单的方法。但前提是我们需要生成比对的模板匹配库，可以通过以下代码生成。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># New code is here. We just extract each image and save it to disk with</span></span><br><span class="line"><span class="comment"># what is hopefully a unique name</span></span><br><span class="line"></span><br><span class="line">count = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> letter <span class="keyword">in</span> letters:</span><br><span class="line">  m = hashlib.md5()</span><br><span class="line">  im3 = im2.crop(( letter[<span class="number">0</span>] , <span class="number">0</span>, letter[<span class="number">1</span>],im2.size[<span class="number">1</span>] ))</span><br><span class="line">  m.update(<span class="string">&quot;%s%s&quot;</span>%(time.time(),count))</span><br><span class="line">  im3.save(<span class="string">&quot;./%s.gif&quot;</span>%(m.hexdigest()))</span><br><span class="line">  count += <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+
+<p>上面的代码会在同一目录下生成一组图像组合，每个图像都是切割出来的单个字符，每个图像都有一个唯一的哈希值命名，你可以选择你需要的字符集。</p>
+<p><img src="/wp-content/uploads/2015/05/image023.gif"></p>
+<p>从这些字模之中，每个数字或字母，我们只需要一个看上去比较标准的就够了。 </p>
+<p><img src="/wp-content/uploads/2015/05/image025.gif"></p>
+<p>上面是我生成的模板。</p>
+<h3 id="批量下载验证码"><a href="#批量下载验证码" class="headerlink" title="批量下载验证码"></a>批量下载验证码</h3><p>为了实现匹配库，需要批量下载一些验证码。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys, base64</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_content</span>():</span><br><span class="line">    url = <span class="string">&quot;http://www.idc0310.com/userself/RndCode.asp?rndtype=LOGIN_RndCode&quot;</span></span><br><span class="line">    url2 = <span class="string">&#x27;http://www.todaynic.com/user/verpic.net?1192157892&amp;background=d9dadb&#x27;</span></span><br><span class="line">    r = requests.get(url2)</span><br><span class="line">    <span class="keyword">return</span> r.content</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">content_to_file</span>(<span class="params">content, num</span>):</span><br><span class="line">    f = <span class="built_in">open</span>(<span class="string">&#x27;%s%d.png&#x27;</span>%(file_path, num), <span class="string">&#x27;wb&#x27;</span>)</span><br><span class="line">    f.write(content)</span><br><span class="line">    f.close()</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    times = <span class="number">100</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;%d files needed.&#x27;</span>%times)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(times):</span><br><span class="line">        num_of_file = i</span><br><span class="line">        c = get_content()</span><br><span class="line">        content_to_file(c, i)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;%d files done.&#x27;</span>%i)</span><br><span class="line">        time.sleep(<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="一个简单的识别程序"><a href="#一个简单的识别程序" class="headerlink" title="一个简单的识别程序"></a>一个简单的识别程序</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os, Image</span><br><span class="line"></span><br><span class="line"><span class="comment"># load font modules  (char, image)</span></span><br><span class="line">fontMods = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">    fontMods.append((<span class="built_in">str</span>(i), Image.<span class="built_in">open</span>(<span class="string">&quot;./good/%02d.bmp&quot;</span> % i)))</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">26</span>):</span><br><span class="line">    c = <span class="built_in">chr</span>(<span class="built_in">ord</span>(<span class="string">&#x27;A&#x27;</span>) + i)</span><br><span class="line">    fontMods.append((c, Image.<span class="built_in">open</span>(<span class="string">&quot;./good/%s.bmp&quot;</span> % c)))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">recognize</span>(<span class="params">f</span>):</span><br><span class="line">    im = Image.<span class="built_in">open</span>(f)</span><br><span class="line">    im2 = im.convert(<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line">    <span class="comment"># check 5 fonts</span></span><br><span class="line">    result = <span class="string">&quot;./result/&quot;</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>):</span><br><span class="line">        x = <span class="number">10</span> + i*<span class="number">18</span></span><br><span class="line">        y = <span class="number">6</span></span><br><span class="line">        target = im.crop((x, y, x+<span class="number">8</span>, y+<span class="number">10</span>))</span><br><span class="line">        points = []</span><br><span class="line">        <span class="keyword">for</span> mod <span class="keyword">in</span> fontMods:</span><br><span class="line">            diffs = <span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> yi <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">                <span class="keyword">for</span> xi <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">8</span>):</span><br><span class="line">                    <span class="keyword">if</span> mod[<span class="number">1</span>].getpixel((xi, yi)) != target.getpixel((xi, yi)):</span><br><span class="line">                        diffs += <span class="number">1</span></span><br><span class="line">            points.append((diffs, mod[<span class="number">0</span>]))</span><br><span class="line">        points.sort()</span><br><span class="line">        result += points[<span class="number">0</span>][<span class="number">1</span>]</span><br><span class="line">    result += <span class="string">&quot;.png&quot;</span></span><br><span class="line">    <span class="built_in">print</span> <span class="string">&quot;save to&quot;</span>, result</span><br><span class="line">    im.save(result);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> imgfile <span class="keyword">in</span> os.listdir(<span class="string">&quot;.&quot;</span>):</span><br><span class="line">    <span class="keyword">if</span> imgfile.endswith(<span class="string">&quot;.png&quot;</span>):</span><br><span class="line">        recognize(imgfile)</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="一个完整的例子"><a href="#一个完整的例子" class="headerlink" title="一个完整的例子"></a>一个完整的例子</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># @Author: Administrator</span></span><br><span class="line"><span class="comment"># @Date:   2016-01-07 10:11:09</span></span><br><span class="line"><span class="comment"># @Last Modified by:   Administrator</span></span><br><span class="line"><span class="comment"># @Last Modified time: 2016-01-09 12:03:01</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#图像的二值化处理</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">binary</span>(<span class="params">f</span>):</span><br><span class="line">    <span class="built_in">print</span>(f)</span><br><span class="line">    img = Image.<span class="built_in">open</span>(f)</span><br><span class="line">    <span class="comment">#img = img.convert(&#x27;1&#x27;)</span></span><br><span class="line">    img = img.convert(<span class="string">&quot;RGB&quot;</span>)  <span class="comment"># 参考文章中无该行，无该行，我这里会报错</span></span><br><span class="line">    pixdata = img.load()</span><br><span class="line">    <span class="keyword">for</span> y <span class="keyword">in</span> <span class="built_in">range</span>(img.size[<span class="number">1</span>]):</span><br><span class="line">        <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(img.size[<span class="number">0</span>]):</span><br><span class="line">            <span class="keyword">if</span> pixdata[x, y][<span class="number">0</span>] &lt; <span class="number">90</span>:</span><br><span class="line">                pixdata[x, y] = (<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>)</span><br><span class="line">    <span class="keyword">for</span> y <span class="keyword">in</span> <span class="built_in">range</span>(img.size[<span class="number">1</span>]):</span><br><span class="line">        <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(img.size[<span class="number">0</span>]):</span><br><span class="line">            <span class="keyword">if</span> pixdata[x, y][<span class="number">1</span>] &lt; <span class="number">136</span>:</span><br><span class="line">                pixdata[x, y] = (<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>)</span><br><span class="line">    <span class="keyword">for</span> y <span class="keyword">in</span> <span class="built_in">range</span>(img.size[<span class="number">1</span>]):</span><br><span class="line">        <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(img.size[<span class="number">0</span>]):</span><br><span class="line">            <span class="keyword">if</span> pixdata[x, y][<span class="number">2</span>] &gt; <span class="number">0</span>:</span><br><span class="line">                pixdata[x, y] = (<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>)</span><br><span class="line">    <span class="keyword">return</span> img</span><br><span class="line">nume = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#图像的分割，就是验证码按字符分割出来</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">division</span>(<span class="params">img</span>):</span><br><span class="line">    <span class="keyword">global</span> nume</span><br><span class="line">    font = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>):</span><br><span class="line">        x = <span class="number">2</span> + i*<span class="number">10</span>  <span class="comment"># 该函数中的像素值都需要自己进行微调</span></span><br><span class="line">        y = <span class="number">0</span></span><br><span class="line">        temp = img.crop((x, y, x + <span class="number">6</span>, y + <span class="number">10</span>))</span><br><span class="line">        temp.save(<span class="string">&quot;./temp/%d.bmp&quot;</span> % nume)</span><br><span class="line">        nume = nume + <span class="number">1</span></span><br><span class="line">        font.append(temp)</span><br><span class="line">    <span class="keyword">return</span> font</span><br><span class="line"></span><br><span class="line"><span class="comment">#分隔出来的字符与预先定义的字体库中的结果逐个像素进行对比找出差别最小的项</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">recognize</span>(<span class="params">img</span>):</span><br><span class="line"></span><br><span class="line">    fontMods = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">        fontMods.append((<span class="built_in">str</span>(i), Image.<span class="built_in">open</span>(<span class="string">&quot;./num/%d.bmp&quot;</span> % i)))</span><br><span class="line">    result = <span class="string">&quot;&quot;</span></span><br><span class="line">    font = division(img)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> font:</span><br><span class="line">        target = i</span><br><span class="line">        points = []</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;正在比对数字:&#123;0&#125;&quot;</span>.<span class="built_in">format</span>(i))</span><br><span class="line">        <span class="keyword">for</span> mod <span class="keyword">in</span> fontMods:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;test fontmods &#123;0&#125;&quot;</span>.<span class="built_in">format</span>(mod))</span><br><span class="line">            diffs = <span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> yi <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">                <span class="keyword">for</span> xi <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">6</span>):</span><br><span class="line">                    <span class="comment"># print(xi, yi, &quot;mod[1].getpixel((xi, yi)):&quot;+str(mod[1].getpixel((xi, yi))))</span></span><br><span class="line">                    <span class="comment"># print(xi, yi, &quot;target.getpixel((xi, yi)):&quot;+str(target.getpixel((xi, yi))))</span></span><br><span class="line"></span><br><span class="line">                    <span class="keyword">if</span> <span class="number">0</span> <span class="keyword">in</span> target.getpixel((xi, yi)):</span><br><span class="line">                        compare = <span class="number">0</span></span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        compare = <span class="number">255</span></span><br><span class="line"></span><br><span class="line">                    <span class="keyword">if</span> <span class="built_in">isinstance</span>(mod[<span class="number">1</span>].getpixel((xi, yi)), <span class="built_in">int</span>):</span><br><span class="line">                        <span class="keyword">if</span> mod[<span class="number">1</span>].getpixel((xi, yi)) != compare:</span><br><span class="line">                            diffs += <span class="number">1</span></span><br><span class="line">                    <span class="keyword">elif</span> mod[<span class="number">1</span>].getpixel((xi, yi)) != target.getpixel((xi, yi)):</span><br><span class="line">                        diffs += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;diffs：&quot;</span> + <span class="built_in">str</span>(diffs))</span><br><span class="line">            points.append((diffs, mod[<span class="number">0</span>]))</span><br><span class="line">        points.sort()</span><br><span class="line">        result += points[<span class="number">0</span>][<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    codedir = <span class="string">&quot;./pic/&quot;</span></span><br><span class="line">    <span class="keyword">for</span> imgfile <span class="keyword">in</span> os.listdir(codedir):</span><br><span class="line">        <span class="keyword">if</span> imgfile.endswith(<span class="string">&quot;.bmp&quot;</span>):</span><br><span class="line">            <span class="built_in">dir</span> = <span class="string">&quot;./result/&quot;</span></span><br><span class="line">            img = binary(codedir+imgfile)</span><br><span class="line">            num = recognize(img)</span><br><span class="line">            <span class="built_in">dir</span> += (num + <span class="string">&quot;.gif&quot;</span>)</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;save to&quot;</span>, <span class="built_in">dir</span>)</span><br><span class="line">            img.save(<span class="built_in">dir</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="说说12306的验证码"><a href="#说说12306的验证码" class="headerlink" title="说说12306的验证码"></a>说说12306的验证码</h2><p><img src="/wp-content/uploads/2015/05/image027.gif"></p>
+<p>●	用户体验不高，故意对用户复杂但对机器不一定复杂<br>●	容易被枚举，题库太弱，毕竟是人采集的图片，总有上限，不如字符组合可能性多<br>●	破解门槛不一定高于字符型Captcha<br>●	任何的验证码都抵不过分布式人工打码方案</p>
+<p>先看下网上有人试图破解的</p>
+<p><img src="/wp-content/uploads/2015/05/image029.gif"><br><img src="/wp-content/uploads/2015/05/image031.gif"></p>
+<h2 id="reCAPTCHA"><a href="#reCAPTCHA" class="headerlink" title="reCAPTCHA"></a>reCAPTCHA</h2><p>验证码（CAPTCHA）或者叫做全自动区分计算机和人类的图灵测试（Completely Automated Public Turing test to tell Computers and Humans Apart），使我们上网的人每天都可以见到的，而它的作用除了防止垃圾注册或者评论以外还有别的吗？来自Google的reCAPTCHA（上图）告诉我们，你其实还可以为人类做贡献。</p>
+<p>如果我们想电子化一些从前的文档，比如 19 世纪的纽约时报，我们要不得依靠人力，手动地一个一个字地输入电脑，要不然就直接扫描，然后用软件识别。但是软件识别的准确率不能保证，尤其是扫描或者文档本身质量很差的时候，比如：</p>
+<p><img src="/wp-content/uploads/2015/05/image033.gif"></p>
+<p>reCAPTCHA 做的，简单来说就是把上图的单词切割抽取出来，然后与一组自动生成的字符混合，生成验证码，发送到各各网站上，像这样：</p>
+<p><img src="/wp-content/uploads/2015/05/image035.gif"></p>
+<p>reCAPTCHA 默认如果电脑产生的字符你输入正确，那么从文档中抽取的字符你的输入也将是正确的，然后通过交叉验证，重复验证，各种算法保证准确率。于是坐在电脑前上网的我们，每次输入验证码的时候，就可能顺便为某个图书馆的文档录入做出了贡献。详细点的介绍可看：关于 reCAPTCHA 验证码 。</p>
+<p>一个经常被提到的实例就是，借助广大网民之手，纽约时报从 1851 年到现在的所有报纸，总共超过 1 千 3 百万篇文章都已经成功录入计算机。如果依靠手工输入，人力，资金，时间都将是巨大的，然而借助 reCAPTCHA, 以及每天上网的我们，这项工作短时间内已经完成了。</p>
+<p>09 年 reCAPTCHA 被谷歌收购了，大家可能也都注意到了，谷歌更进一步利用验证码来帮助它们识别门牌号，路牌等等，用来修正谷歌地图的精度。这样谷歌地图的准确度，以及用户的体验都得到了提升。</p>
+<p><img src="/wp-content/uploads/2015/05/image037.gif"></p>
+<h2 id="谷歌让验证码更简单"><a href="#谷歌让验证码更简单" class="headerlink" title="谷歌让验证码更简单"></a>谷歌让验证码更简单</h2><p><img src="/wp-content/uploads/2015/05/image039.gif"></p>
+<p>尽管验证码在阻止垃圾邮件发送者和数字化传统文本方面非常有效，但是也有局限性。验证码没有音频选项，无法让视障人群进入被保护网站。没有视力问题的用户也抱怨，因为有些文字太难认。四年前，斯坦福大学的一群研究者收集了 30 多万个谷歌、雅虎和微软使用过的验证码，进行了一项研究。研究者在<br>caption-bypass.com 和亚马逊土耳其机器人系统让用户辨别验证码。研究人员向三个不同的人展示验证码，但是他们都同意正确答案的几率只有 71%。</p>
+<p>另一个问题是利用多种多样的算法验证码也能遭到破解。今年早些时候，谷歌街景和 reCAPTCHA 团队的成员发表了一篇论文，论文内容是他们用于破解自家的验证码的一种算法。谷歌在一篇博文中表示：「我们最近的研究说明，现在的人工智能技术能以 99.8% 的正确率识别最扭曲最有难度的验证码文字。因此扭曲文字不再是一种可靠的测试方法了。」验证码还有很大的改进空间。因此诞生了 No CAPTCHA reCAPTCHA。</p>
+<h3 id="No-CAPTCHA-reCAPTCHA"><a href="#No-CAPTCHA-reCAPTCHA" class="headerlink" title="No CAPTCHA reCAPTCHA"></a>No CAPTCHA reCAPTCHA</h3><p>谷歌最近发布了一种新的应用程序界面（API），叫做 No CAPTCHA reCAPTCHA，它大大简化了判断用户是人类与否的步骤。通过 No CAPTCHA reCAPTCHA，用户只需要简单的点击「我不是机器人」这句话边上的复选框就可以确定他们是人类了。No CAPTCHA reCAPTCHA 已经整合到了 WordPress，Snapchat 和 Humble Bundle 等服务中了。No CAPTCHA ReCAPTCHA 可能看起来更容易被垃圾邮件发送者破解，但是谷歌开发了一套复杂的高级风险分析后端在决定用户是人类的过程中分析用户参与识别的情况。</p>
+<p><img src="/wp-content/uploads/2015/05/image041.gif"></p>
+<p>大多数用户可能很容易就点击复选框然后继续了，但是可疑的人类或者机器人可能会强制回答电脑屏幕上的验证码或者移动设备上的动物配对测试：</p>
+<p><img src="/wp-content/uploads/2015/05/image043.gif"></p>
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p><a href="http://drops.wooyun.org/tips/141">http://drops.wooyun.org/tips/141</a><br><a href="http://blog.csdn.net/shuifa2008/article/details/45692823">http://blog.csdn.net/shuifa2008/article/details/45692823</a><br><a href="http://xiaoxia.org/2011/05/31/boring-entry-the-fabled-verification-code-recognition-technology-learning-notes/">http://xiaoxia.org/2011/05/31/boring-entry-the-fabled-verification-code-recognition-technology-learning-notes/</a><br><a href="http://www.codeproject.com/Articles/106583/Handwriting-Recognition-Revisited-Kernel-Support-V">http://www.codeproject.com/Articles/106583/Handwriting-Recognition-Revisited-Kernel-Support-V</a> </p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Ray
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://leadscloud.github.io/313949/%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB/" title="简单图形验证码识别">https://leadscloud.github.io/313949/验证码识别/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/313950/mysql%E5%BF%98%E8%AE%B0root%E5%AF%86%E7%A0%81%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" rel="prev" title="mysql忘记root密码的解决方案">
+                  <i class="fa fa-angle-left"></i> mysql忘记root密码的解决方案
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/313951/linux%E5%88%86%E6%9E%90apache%E6%97%A5%E5%BF%97%E8%8E%B7%E5%8F%96%E6%9C%80%E5%A4%9A%E8%AE%BF%E9%97%AE%E7%9A%84%E5%89%8D10%E4%B8%AAIP/" rel="next" title="linux分析apache日志获取最多访问的前10个IP">
+                  linux分析apache日志获取最多访问的前10个IP <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="valine-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Ray</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/leadscloud" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/algoliasearch/4.24.0/algoliasearch-lite.umd.js" integrity="sha256-b2n6oSgG4C1stMT/yc/ChGszs9EY/Mhs6oltEjQbFCQ=" crossorigin="anonymous"></script><script src="/js/third-party/search/algolia-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"ePPAQV9hFzcbhOaQvvtyjTnw-gzGzoHsz","app_key":"GLniGVXsSMGBjTmaiI4wleaF","server_url":"https://leancloud.tinycms.xyz","security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+
+
+<script class="next-config" data-name="valine" type="application/json">{"enable":true,"appId":"ePPAQV9hFzcbhOaQvvtyjTnw-gzGzoHsz","appKey":"GLniGVXsSMGBjTmaiI4wleaF","serverURLs":"https://leancloud.tinycms.xyz","placeholder":"Just go go","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-cn","visitor":false,"comment_count":true,"recordIP":true,"enableQQ":true,"requiredFields":[],"el":"#valine-comments","path":"/313949/%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.valine.el)
+    .then(() => NexT.utils.getScript(
+      'https://fastly.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js',
+      { condition: window.Valine }
+    ))
+    .then(() => {
+      new Valine(CONFIG.valine);
+    });
+});
+</script>
+
+</body>
+</html>

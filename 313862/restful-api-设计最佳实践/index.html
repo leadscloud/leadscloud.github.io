@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/logo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="mask-icon" href="/logo.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"leadscloud.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"algolia":{"appID":"F1YESSIUKA","apiKey":"fba180e0d225a86fe382bf021a9f0ae3","indexName":"blog","hits":{"per_page":10}}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="背景目前互联网上充斥着大量的关于RESTful API（为方便，下文中“RESTful API ”简写为“API”）如何设计的文章，然而却没有一个”万能“的设计标准：如何鉴权？API 格式如何？你的API是否应该加入版本信息？当你开始写一个app的时候，特别是后端模型部分已经写完的时候，你不得不殚精竭虑的设计和实现自己app的public API部分。因为一旦发布，对外发布的API将会很难改变。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="restful api 设计最佳实践">
+<meta property="og:url" content="https://leadscloud.github.io/313862/restful-api-%E8%AE%BE%E8%AE%A1%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/index.html">
+<meta property="og:site_name" content="leadscloud">
+<meta property="og:description" content="背景目前互联网上充斥着大量的关于RESTful API（为方便，下文中“RESTful API ”简写为“API”）如何设计的文章，然而却没有一个”万能“的设计标准：如何鉴权？API 格式如何？你的API是否应该加入版本信息？当你开始写一个app的时候，特别是后端模型部分已经写完的时候，你不得不殚精竭虑的设计和实现自己app的public API部分。因为一旦发布，对外发布的API将会很难改变。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.vinaysahni.com/images/201305-xml-vs-json-api.png">
+<meta property="article:published_time" content="2014-06-19T08:01:57.000Z">
+<meta property="article:modified_time" content="2025-04-10T04:42:07.143Z">
+<meta property="article:author" content="Ray">
+<meta property="article:tag" content="API">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.vinaysahni.com/images/201305-xml-vs-json-api.png">
+
+
+<link rel="canonical" href="https://leadscloud.github.io/313862/restful-api-%E8%AE%BE%E8%AE%A1%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://leadscloud.github.io/313862/restful-api-%E8%AE%BE%E8%AE%A1%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/","path":"313862/restful-api-设计最佳实践/","title":"restful api 设计最佳实践"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>restful api 设计最佳实践 | leadscloud</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6GCT2E7T9Y"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-6GCT2E7T9Y","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="leadscloud" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">leadscloud</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Google SEO|外贸营销推广</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">266</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">11</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">459</span></a></li><li class="menu-item menu-item-免费chatgpt"><a href="https://freegpt.tech/?refer=blog-side" rel="section" target="_blank"><i class="fa fa-heart fa-fw"></i>免费ChatGPT</a></li><li class="menu-item menu-item-我的简历"><a href="https://leadscloud.github.io/resume/resume.pdf" rel="section"><i class="fa fa-vcard fa-fw"></i>我的简历</a></li><li class="menu-item menu-item-友情链接"><a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>友情链接</a></li><li class="menu-item menu-item-chrome扩展（域名所属人）"><a href="/serp-analyzer/" rel="section"><i class="fa fa-cloud fa-fw"></i>Chrome扩展（域名所属人）</a></li><li class="menu-item menu-item-询盘管理系统"><a href="https://github.com/leadscloud/infomaster" rel="section" target="_blank"><i class="fa fa-database fa-fw"></i>询盘管理系统</a></li><li class="menu-item menu-item-外贸留言板系统"><a href="/20180615/google-seo-inquiry-messageboard/" rel="section"><i class="fa fa-database fa-fw"></i>外贸留言板系统</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fab fa-algolia fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#API%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%A6%81%E6%B1%82"><span class="nav-number">2.</span> <span class="nav-text">API设计的基本要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8RESTful-URLs-%E5%92%8Caction"><span class="nav-number">3.</span> <span class="nav-text">使用RESTful URLs 和action.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%82%A3%E4%B9%88%E6%88%91%E5%BA%94%E8%AF%A5%E5%A6%82%E4%BD%95%E6%8B%86%E5%88%86%E5%87%BA%E8%BF%99%E4%BA%9B%E8%B5%84%E6%BA%90%E5%91%A2%EF%BC%9F"><span class="nav-number">4.</span> <span class="nav-text">那么我应该如何拆分出这些资源呢？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%99%E4%B8%AAendpoint%E7%9A%84%E5%8D%95%E6%95%B0%E5%A4%8D%E6%95%B0"><span class="nav-number">5.</span> <span class="nav-text">这个endpoint的单数复数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8D%E7%AC%A6%E5%90%88CURD%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="nav-number">6.</span> <span class="nav-text">不符合CURD的操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B0%B8%E8%BF%9C%E4%BD%BF%E7%94%A8SSL"><span class="nav-number">7.</span> <span class="nav-text">永远使用SSL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E6%A1%A3"><span class="nav-number">8.</span> <span class="nav-text">文档</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%88%E6%9C%AC%E5%8C%96"><span class="nav-number">9.</span> <span class="nav-text">版本化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9E%9C%E8%BF%87%E6%BB%A4%EF%BC%8C%E6%8E%92%E5%BA%8F%EF%BC%8C%E6%90%9C%E7%B4%A2%EF%BC%9A"><span class="nav-number">10.</span> <span class="nav-text">结果过滤，排序，搜索：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%90%E5%88%B6API%E8%BF%94%E5%9B%9E%E5%80%BC%E7%9A%84%E5%9F%9F"><span class="nav-number">11.</span> <span class="nav-text">限制API返回值的域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E5%92%8C%E5%88%9B%E5%BB%BA%E6%93%8D%E4%BD%9C%E5%BA%94%E8%AF%A5%E8%BF%94%E5%9B%9E%E8%B5%84%E6%BA%90"><span class="nav-number">12.</span> <span class="nav-text">更新和创建操作应该返回资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%98%AF%E5%90%A6%E9%9C%80%E8%A6%81-%E2%80%9CHATEOAS%E2%80%9D"><span class="nav-number">13.</span> <span class="nav-text">是否需要 “HATEOAS”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AA%E6%8F%90%E4%BE%9Bjson%E4%BD%9C%E4%B8%BA%E8%BF%94%E5%9B%9E%E6%A0%BC%E5%BC%8F"><span class="nav-number">14.</span> <span class="nav-text">只提供json作为返回格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BD%E5%90%8D%E6%96%B9%E5%BC%8F%EF%BC%9F"><span class="nav-number">15.</span> <span class="nav-text">命名方式？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%BB%98%E8%AE%A4%E4%BD%BF%E7%94%A8pretty-print%E6%A0%BC%E5%BC%8F%EF%BC%8C%E4%BD%BF%E7%94%A8gzip"><span class="nav-number">16.</span> <span class="nav-text">默认使用pretty print格式，使用gzip</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AA%E5%9C%A8%E9%9C%80%E8%A6%81%E7%9A%84%E6%97%B6%E5%80%99%E4%BD%BF%E7%94%A8%E2%80%9Cenvelope%E2%80%9D"><span class="nav-number">17.</span> <span class="nav-text">只在需要的时候使用“envelope”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%95%E6%97%B6%E4%BD%BF%E7%94%A8envelope%EF%BC%9F"><span class="nav-number">18.</span> <span class="nav-text">何时使用envelope？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8post-put-patch%E4%B8%8A%E4%BD%BF%E7%94%A8json%E4%BD%9C%E4%B8%BA%E8%BE%93%E5%85%A5"><span class="nav-number">19.</span> <span class="nav-text">在post,put,patch上使用json作为输入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E9%A1%B5"><span class="nav-number">20.</span> <span class="nav-text">分页</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%E7%9B%B8%E5%85%B3%E7%9A%84%E8%B5%84%E6%BA%90"><span class="nav-number">21.</span> <span class="nav-text">自动加载相关的资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E5%86%99HTTP%E6%96%B9%E6%B3%95"><span class="nav-number">22.</span> <span class="nav-text">重写HTTP方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9F%E5%BA%A6%E9%99%90%E5%88%B6"><span class="nav-number">23.</span> <span class="nav-text">速度限制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%89%B4%E6%9D%83-Authentication"><span class="nav-number">24.</span> <span class="nav-text">鉴权 Authentication</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%93%E5%AD%98"><span class="nav-number">25.</span> <span class="nav-text">缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BA%E9%94%99%E5%A4%84%E7%90%86"><span class="nav-number">26.</span> <span class="nav-text">出错处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP-%E7%8A%B6%E6%80%81%E7%A0%81"><span class="nav-number">27.</span> <span class="nav-text">HTTP 状态码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">28.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Ray</p>
+  <div class="site-description" itemprop="description">熟悉 Google SEO，外贸营销推广，这是我的个人博客，主要分享工作中的技术。</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">459</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">266</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/leadscloud" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;leadscloud" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:love4026@gmail.com" title="E-Mail → mailto:love4026@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://cdn.livechatinc.xyz/" title="https:&#x2F;&#x2F;cdn.livechatinc.xyz&#x2F;" rel="noopener" target="_blank">RLiveChat</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://www.kamychina.com/" title="https:&#x2F;&#x2F;www.kamychina.com&#x2F;" rel="noopener" target="_blank">Roadheader</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://tinycms.xyz/" title="https:&#x2F;&#x2F;tinycms.xyz&#x2F;" rel="noopener" target="_blank">TinyCMS</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://leadscloud.github.io/313862/restful-api-%E8%AE%BE%E8%AE%A1%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ray">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="leadscloud">
+      <meta itemprop="description" content="熟悉 Google SEO，外贸营销推广，这是我的个人博客，主要分享工作中的技术。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="restful api 设计最佳实践 | leadscloud">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          restful api 设计最佳实践
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2014-06-19 16:01:57" itemprop="dateCreated datePublished" datetime="2014-06-19T16:01:57+08:00">2014-06-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-04-10 12:42:07" itemprop="dateModified" datetime="2025-04-10T12:42:07+08:00">2025-04-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%BD%AC%E8%BD%BD/" itemprop="url" rel="index"><span itemprop="name">转载</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/313862/restful-api-%E8%AE%BE%E8%AE%A1%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" class="post-meta-item leancloud_visitors" data-flag-title="restful api 设计最佳实践" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Valine：</span>
+  
+    <a title="valine" href="/313862/restful-api-%E8%AE%BE%E8%AE%A1%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/313862/restful-api-%E8%AE%BE%E8%AE%A1%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>目前互联网上充斥着大量的关于RESTful API（为方便，下文中“RESTful API ”简写为“API”）如何设计的文章，然而却没有一个”万能“的设计标准：如何鉴权？API 格式如何？你的API是否应该加入版本信息？当你开始写一个app的时候，特别是后端模型部分已经写完的时候，你不得不殚精竭虑的设计和实现自己app的public API部分。因为一旦发布，对外发布的API将会很难改变。</p>
+<p>在给SupportedFu设计API的时候，我试图以实用的角度来解决上面提到的问题。我希望可以设计出容易使用，容易部署，并且足够灵活的API，本文因此而生。</p>
+<h2 id="API设计的基本要求"><a href="#API设计的基本要求" class="headerlink" title="API设计的基本要求"></a>API设计的基本要求</h2><p>网上的很多关于API设计的观点都十分”学院派“，它们也许更有理论基础，但是有时却和现实世界脱轨（因此我是自由派）。所以我这篇文章的目标是从实践的角度出发，给出当前网络应用的API设计最佳实践（当然，是我认为的最佳了~），如果觉得不合适，我不会遵从标准。当然作为设计的基础，几个必须的原则还是要遵守的：</p>
+<ol>
+<li>当标准合理的时候遵守标准。</li>
+<li>API应该对程序员友好，并且在浏览器地址栏容易输入。</li>
+<li>API应该简单，直观，容易使用的同时优雅。</li>
+<li>API应该具有足够的灵活性来支持上层ui。</li>
+<li>API设计权衡上述几个原则。</li>
+</ol>
+<p>需要强调的是：API的就是程序员的UI，和其他UI一样，你必须仔细考虑它的用户体验！</p>
+<h2 id="使用RESTful-URLs-和action"><a href="#使用RESTful-URLs-和action" class="headerlink" title="使用RESTful URLs 和action."></a>使用RESTful URLs 和action.</h2><p>虽然前面我说没有一个万能的API设计标准。但确实有一个被普遍承认和遵守：RESTfu设计原则。它被Roy Felding提出（在他的”基于网络的软件架构“论文中<a href="http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm">第五章</a>）。而REST的核心原则是将你的API拆分为逻辑上的资源。这些资源通过http被操作（GET ,POST,PUT,DELETE）。</p>
+<h2 id="那么我应该如何拆分出这些资源呢？"><a href="#那么我应该如何拆分出这些资源呢？" class="headerlink" title="那么我应该如何拆分出这些资源呢？"></a>那么我应该如何拆分出这些资源呢？</h2><p>显然从API用户的角度来看，”资源“应该是个名词。即使你的内部数据模型和资源已经有了很好的对应，API设计的时候你仍然不需要把它们一对一的都暴露出来。这里的关键是隐藏内部资源，暴露必需的外部资源。</p>
+<p>在SupportFu里，资源是 ticket、user、group。</p>
+<p>一旦定义好了要暴露的资源，你可以定义资源上允许的操作，以及这些操作和你的API的对应关系：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">*   GET /tickets <span class="comment"># 获取ticket列表</span></span><br><span class="line">*   GET /tickets/12 <span class="comment"># 查看某个具体的ticket</span></span><br><span class="line">*   POST /tickets <span class="comment"># 新建一个ticket</span></span><br><span class="line">*   PUT /tickets/12 <span class="comment"># 更新ticket 12.</span></span><br><span class="line">*   DELETE /tickets/12 <span class="comment">#删除ticekt 12</span></span><br></pre></td></tr></table></figure>
+
+<p>可以看出使用REST的好处在于可以充分利用http的强大实现对资源的CURD功能。而这里你只需要一个endpoint：&#x2F;tickets,再没有其他什么命名规则和url规则了，cool！</p>
+<h2 id="这个endpoint的单数复数"><a href="#这个endpoint的单数复数" class="headerlink" title="这个endpoint的单数复数"></a>这个endpoint的单数复数</h2><p>一个可以遵从的规则是：虽然看起来使用复数来描述某一个资源实例看起来别扭，但是统一所有的endpoint，使用复数使得你的URL更加规整。这让API使用者更加容易理解，对开发者来说也更容易实现。</p>
+<p>如何处理关联？关于如何处理资源之间的管理REST原则也有相关的描述：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">*   GET /tickets/12/messages- Retrieves list of messages <span class="keyword">for</span> ticket <span class="comment">#12</span></span><br><span class="line">*   GET /tickets/12/messages/5- Retrieves message <span class="comment">#5 for ticket #12</span></span><br><span class="line">*   POST /tickets/12/messages- Creates a new message <span class="keyword">in</span> ticket <span class="comment">#12</span></span><br><span class="line">*   PUT /tickets/12/messages/5- Updates message <span class="comment">#5 for ticket #12</span></span><br><span class="line">*   PATCH /tickets/12/messages/5- Partially updates message <span class="comment">#5 for ticket #12</span></span><br><span class="line">*   DELETE /tickets/12/messages/5- Deletes message <span class="comment">#5 for ticket #12</span></span><br></pre></td></tr></table></figure>
+
+<p>其中，如果这种关联和资源独立，那么我们可以在资源的输出表示中保存相应资源的endpoint。然后API的使用者就可以通过点击链接找到相关的资源。如果关联和资源联系紧密。资源的输出表示就应该直接保存相应资源信息。（例如这里如果message资源是独立存在的，那么上面 GET &#x2F;tickets&#x2F;12&#x2F;messages就会返回相应message的链接；相反的如果message不独立存在，他和ticket依附存在，则上面的API调用返回直接返回message信息）</p>
+<h2 id="不符合CURD的操作"><a href="#不符合CURD的操作" class="headerlink" title="不符合CURD的操作"></a>不符合CURD的操作</h2><p>对这个令人困惑的问题，下面是一些解决方法：</p>
+<ol>
+<li>重构你的行为action。当你的行为不需要参数的时候，你可以把active对应到activated这个资源，（更新使用patch）.</li>
+<li>以子资源对待。例如:github上，对一个gists加星操作：PUT &#x2F;gists&#x2F;:id&#x2F;star 并且取消星操作：DELETE &#x2F;gists&#x2F;:id&#x2F;star.</li>
+<li>有时候action实在没有难以和某个资源对应上例如search。那就这么办吧。我认为API的使用者对于&#x2F;search这种url也不会有太大意见的（毕竟他很容易理解）。只要注意在文档中写清楚就可以了。</li>
+<li></li>
+</ol>
+<h2 id="永远使用SSL"><a href="#永远使用SSL" class="headerlink" title="永远使用SSL"></a>永远使用SSL</h2><p>毫无例外，永远都要使用SSL。你的应用不知道要被谁，以及什么情况访问。有些是安全的，有些不是。使用SSL可以减少鉴权的成本：你只需要一个简单的令牌（token）就可以鉴权了，而不是每次让用户对每次请求签名。</p>
+<p>值得注意的是：不要让非SSL的url访问重定向到SSL的url。</p>
+<h2 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h2><p>文档和API本身一样重要。文档应该容易找到，并且公开（把它们藏到pdf里面或者存到需要登录的地方都不太好）。文档应该有展示请求和输出的例子：或者以点击链接的方式或者通过curl的方式（请见openstack的文档）。如果有更新（特别是公开的API），应该及时更新文档。文档中应该有关于何时弃用某个API的时间表以及详情。使用邮件列表或者博客记录是好方法。</p>
+<h2 id="版本化"><a href="#版本化" class="headerlink" title="版本化"></a>版本化</h2><p>在API上加入版本信息可以有效的防止用户访问已经更新了的API，同时也能让不同主要版本之间平稳过渡。关于是否将版本信息放入url还是放入请求头有过争论：<a href="http://stackoverflow.com/questions/389169/best-practices-for-API-versioning">API version should be included in the URL or in a header</a>. 学术界说它应该放到header里面去，但是如果放到url里面我们就可以跨版本的访问资源了。。（参考openstack）。</p>
+<p>strip使用的方法就很好：它的url里面有主版本信息，同时请求头俩面有子版本信息。这样在子版本变化过程中url的稳定的。变化有时是不可避免的，关键是如何管理变化。完整的文档和合理的时间表都会使得API使用者使用的更加轻松。</p>
+<h2 id="结果过滤，排序，搜索："><a href="#结果过滤，排序，搜索：" class="headerlink" title="结果过滤，排序，搜索："></a>结果过滤，排序，搜索：</h2><p>url最好越简短越好，和结果过滤，排序，搜索相关的功能都应该通过参数实现(并且也很容易实现)。</p>
+<p>**过滤：**为所有提供过滤功能的接口提供统一的参数。例如：你想限制get &#x2F;tickets 的返回结果:只返回那些open状态的ticket–get &#x2F;tickektsstate&#x3D;open这里的state就是过滤参数。</p>
+<p>**排序：**和过滤一样，一个好的排序参数应该能够描述排序规则，而不业务相关。复杂的排序规则应该通过组合实现：</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">*   GET /ticketssort=-priority- Retrieves a list of tickets in descending order of priority</span></span><br><span class="line"><span class="comment">*   GET /ticketssort=-priority,created_at- Retrieves a list of tickets in descending order of priority. Within a specific priority, older tickets are ordered first</span></span><br></pre></td></tr></table></figure>
+
+<p>这里第二条查询中，排序规则有多个rule以逗号间隔组合而成。</p>
+<p>**搜索：**有些时候简单的排序是不够的。我们可以使用搜索技术（ElasticSearch和Lucene）来实现（依旧可以作为url的参数）。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*   GET /ticketsq=<span class="keyword">return</span>&amp;amp;state=<span class="keyword">open</span>&amp;amp;sort=-priority,created_at- Retrieve the highest priority <span class="keyword">open</span> tickets mentioning the word ‘<span class="keyword">return</span>’</span><br></pre></td></tr></table></figure>
+<p>对于经常使用的搜索查询，我们可以为他们设立别名,这样会让API更加优雅。例如：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">get</span> /<span class="attribute">ticketsq</span>=recently_closed -&gt; <span class="built_in">get</span> /tickets/recently_closed.</span><br></pre></td></tr></table></figure>
+
+<h2 id="限制API返回值的域"><a href="#限制API返回值的域" class="headerlink" title="限制API返回值的域"></a>限制API返回值的域</h2><p>有时候API使用者不需要所有的结果，在进行横向限制的时候（例如值返回API结果的前十项）还应该可以进行纵向限制。并且这个功能能有效的提高网络带宽使用率和速度。可以使用fields查询参数来限制返回的域例如：</p>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /ticketsfields=id,subject,customer_name,updated_at&amp;amp;<span class="keyword">state</span>=open&amp;amp;sort=-updated_at</span><br></pre></td></tr></table></figure>
+
+<h2 id="更新和创建操作应该返回资源"><a href="#更新和创建操作应该返回资源" class="headerlink" title="更新和创建操作应该返回资源"></a>更新和创建操作应该返回资源</h2><p>PUT、POST、PATCH 操作在对资源进行操作的时候常常有一些副作用：例如created_at,updated_at 时间戳。为了防止用户多次的API调用（为了进行此次的更新操作），我们应该会返回更新的资源（updated representation.）例如：在POST操作以后，返回201 created 状态码，并且包含一个指向新资源的url作为返回头</p>
+<h2 id="是否需要-“HATEOAS”"><a href="#是否需要-“HATEOAS”" class="headerlink" title="是否需要 “HATEOAS”"></a>是否需要 “HATEOAS”</h2><p>网上关于是否允许用户创建新的url有很大的异议（注意不是创建资源产生的url）。为此REST制定了HATEOAS来描述了和endpoint进行交互的时候，行为应该在资源的metadata返回值里面进行定义。</p>
+<p>（译注：作者这里认为HATEOAS还不算成熟，我也不怎么理解这段就算了，读者感兴趣可以自己去原文查看）</p>
+<h2 id="只提供json作为返回格式"><a href="#只提供json作为返回格式" class="headerlink" title="只提供json作为返回格式"></a>只提供json作为返回格式</h2><p>现在开始比较一下XML和json了。XML即冗长，难以阅读，又不适合各种编程语言解析。当然XML有扩展性的优势，但是如果你只是将它来对内部资源串行化，那么他的扩展优势也发挥不出来。很多应用（youtube,twitter,box）都已经开始抛弃XML了，我也不想多费口舌。给了google上的趋势图吧：</p>
+<p><img src="http://www.vinaysahni.com/images/201305-xml-vs-json-api.png"></p>
+<p>当然如果的你使用用户里面企业用户居多，那么可能需要支持XML。如果是这样的话你还有另外一个问题：你的http请求中的media类型是应该和accept 头同步还是和url？为了方便（browser explorability）,应该是在url中(用户只要自己拼url就好了)。如果这样的话最好的方法是使用.xml或者.json的后缀。</p>
+<h2 id="命名方式？"><a href="#命名方式？" class="headerlink" title="命名方式？"></a>命名方式？</h2><p>是蛇形命令（下划线和小写）还是驼峰命名？如果使用json那么最好的应该是遵守JAVASCRIPT的命名方法-也就是说骆驼命名法。如果你正在使用多种语言写一个库，那么最好按照那些语言所推荐的，java，c#使用骆驼，python，ruby使用snake。</p>
+<p>个人意见：我总觉得蛇形命令更好使一些，当然这没有什么理论的依据。有人说蛇形命名读起来更快，能达到20%，也不知道真假<a href="http://ieeexplore.ieee.org/xpl/articleDetails.jsptp=&amp;arnumber=5521745">http://ieeexplore.ieee.org/xpl/articleDetails.jsptp=&amp;arnumber=5521745</a></p>
+<h2 id="默认使用pretty-print格式，使用gzip"><a href="#默认使用pretty-print格式，使用gzip" class="headerlink" title="默认使用pretty print格式，使用gzip"></a>默认使用pretty print格式，使用gzip</h2><p>只是使用空格的返回结果从浏览器上看总是觉得很恶心(一大坨有没有？～)。当然你可以提供url上的参数来控制使用“pretty print”，但是默认开启这个选项还是更加友好。格外的传输上的损失不会太大。相反你如果忘了使用gzip那么传输效率将会大大减少，损失大大增加。想象一个用户正在debug那么默认的输出就是可读的-而不用将结果拷贝到其他什么软件中在格式化-是想起来就很爽的事，不是么？</p>
+<p>下面是一个例子:</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ curl <span class="keyword">https</span>://API.github.com/users/veesahni &gt; <span class="keyword">with</span>-whitespace.txt</span><br><span class="line">$ ruby -r json -e <span class="string">&#x27;puts JSON JSON.parse(STDIN.read)&#x27;</span> &lt; <span class="keyword">with</span>-whitespace.txt &gt; <span class="keyword">without</span>-whitespace.txt</span><br><span class="line">$ gzip -c <span class="keyword">with</span>-whitespace.txt &gt; <span class="keyword">with</span>-whitespace.txt.gz</span><br><span class="line">$ gzip -c <span class="keyword">without</span>-whitespace.txt &gt; <span class="keyword">without</span>-whitespace.txt.gz</span><br></pre></td></tr></table></figure>
+
+<p>输出如下：</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">*   <span class="keyword">without</span>-whitespace.txt- <span class="number">1252</span> <span class="keyword">bytes</span></span><br><span class="line">*   <span class="keyword">with</span>-whitespace.txt- <span class="number">1369</span> <span class="keyword">bytes</span></span><br><span class="line">*   <span class="keyword">without</span>-whitespace.txt.gz- <span class="number">496</span> <span class="keyword">bytes</span></span><br><span class="line">*   <span class="keyword">with</span>-whitespace.txt.gz- <span class="number">509</span> <span class="keyword">bytes</span></span><br></pre></td></tr></table></figure>
+
+<p>在上面的例子中，多余的空格使得结果大小多出了8.5%（没有使用gzip），相反只多出了2.6%。据说：twitter使用gzip之后它的streaming API传输减少了80%（link:<a href="https://dev.twitter.com/blog/announcing-gzip-compression-streaming-APIs%EF%BC%89">https://dev.twitter.com/blog/announcing-gzip-compression-streaming-APIs）</a>.</p>
+<h2 id="只在需要的时候使用“envelope”"><a href="#只在需要的时候使用“envelope”" class="headerlink" title="只在需要的时候使用“envelope”"></a>只在需要的时候使用“envelope”</h2><p>很多API象下面这样返回结果：</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;data&quot;</span> : &#123;</span><br><span class="line">    <span class="string">&quot;id&quot;</span> : 123,</span><br><span class="line">    <span class="string">&quot;name&quot;</span> : &quot;<span class="type">John</span><span class="string">&quot;</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>理由很简单：这样做可以很容易扩展返回结果，你可以加入一些分页信息，一些数据的元信息等－这对于那些不容易访问到返回头的API使用者来说确实有用，但是随着“标准”的发展（cors和<a href="http://tools.ietf.org/html/rfc5988#page-6%E9%83%BD%E5%BC%80%E5%A7%8B%E8%A2%AB%E5%8A%A0%E5%85%A5%E5%88%B0%E6%A0%87%E5%87%86%E4%B8%AD%E4%BA%86%EF%BC%89%EF%BC%8C%E6%88%91%E4%B8%AA%E4%BA%BA%E6%8E%A8%E8%8D%90%E4%B8%8D%E8%A6%81%E9%82%A3%E4%B9%88%E5%81%9A%E3%80%82">http://tools.ietf.org/html/rfc5988#page-6都开始被加入到标准中了），我个人推荐不要那么做。</a></p>
+<h2 id="何时使用envelope？"><a href="#何时使用envelope？" class="headerlink" title="何时使用envelope？"></a>何时使用envelope？</h2><p>有两种情况是应该使用envelope的。如果API使用者确实无法访问返回头，或者API需要支持交叉域请求（通过jsonp）。</p>
+<p>jsonp请求在请求的url中包含了一个callback函数参数。如果给出了这个参数，那么API应该返回200，并且把真正的状态码放到返回值里面（包装在信封里），例如：</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">callback_function(<span class="punctuation">&#123;</span></span><br><span class="line"><span class="symbol">  status_code:</span> <span class="number">200</span>,</span><br><span class="line"><span class="symbol">  next_page:</span> <span class="string">&quot;https://..&quot;</span>,</span><br><span class="line"><span class="symbol">  response:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    ... actual JSON response body ... </span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span>)</span><br></pre></td></tr></table></figure>
+<p>同样为了支持无法方法返回头的API使用者，可以允许envelope&#x3D;true这样的参数。</p>
+<h2 id="在post-put-patch上使用json作为输入"><a href="#在post-put-patch上使用json作为输入" class="headerlink" title="在post,put,patch上使用json作为输入"></a>在post,put,patch上使用json作为输入</h2><p>如果你认同我上面说的，那么你应该决定使用json作为所有的API输出格式，那么我们接下来考虑考虑API的输入数据格式。</p>
+<p>很多的API使用url编码格式：就像是url查询参数的格式一样：单纯的键值对。这种方法简单有效，但是也有自己的问题：它没有数据类型的概念。这使得程序不得不根据字符串解析出布尔和整数,而且还没有层次结构–虽然有一些关于层次结构信息的约定存在可是和本身就支持层次结构的json比较一下还是不很好用。</p>
+<p>当然如果API本身就很简单，那么使用url格式的输入没什么问题。但对于复杂的API你应该使用json。或者干脆统一使用json。</p>
+<p>注意使用json传输的时候，要求请求头里面加入：Content-Type：application&#x2F;json.，否则抛出415异常（unsupported media type）。</p>
+<h2 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h2><p>分页数据可以放到“信封”里面，但随着标准的改进，现在我推荐将分页信息放到link header里面：<a href="http://tools.ietf.org/html/rfc5988#page-6%E3%80%82">http://tools.ietf.org/html/rfc5988#page-6。</a></p>
+<p>使用link header的API应该返回一系列组合好了的url而不是让用户自己再去拼。这点在基于游标的分页中尤为重要。例如下面，来自github的文档</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Link</span>: &lt;https://api.github.com/user/repos?<span class="keyword">page</span>=3<span class="variable">&amp;amp</span>;per_page=100&gt;; rel=<span class="string">&quot;next&quot;</span>, </span><br><span class="line">&lt;https://api.github.com/user/repos?<span class="keyword">page</span>=50<span class="variable">&amp;amp</span>;per_page=100&gt;; rel=<span class="string">&quot;last&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="自动加载相关的资源"><a href="#自动加载相关的资源" class="headerlink" title="自动加载相关的资源"></a>自动加载相关的资源</h2><p>很多时候，自动加载相关资源非常有用，可以很大的提高效率。但是这却<a href="http://idbentley.com/blog/2013/03/14/should-restful-apis-include-relationships/">和RESTful的原则相背</a>。为了如此，我们可以在url中添加参数：embed（或者expend）。embed可以是一个逗号分隔的串，例如：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">GET</span> /ticket/<span class="attribute">12embed</span>=customer.name,assigned_user</span><br></pre></td></tr></table></figure>
+
+
+<p>对应的API返回值如下：</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;id&quot;</span> : 12,</span><br><span class="line">  <span class="string">&quot;subject&quot;</span> : &quot;<span class="type">I</span> have a question!<span class="string">&quot;,</span></span><br><span class="line"><span class="string">  &quot;</span>summary<span class="string">&quot; : &quot;</span>Hi, ....<span class="string">&quot;,</span></span><br><span class="line"><span class="string">  &quot;</span>customer<span class="string">&quot; : &#123;</span></span><br><span class="line"><span class="string">    &quot;</span>name<span class="string">&quot; : &quot;</span>Bob<span class="string">&quot;</span></span><br><span class="line"><span class="string">  &#125;,</span></span><br><span class="line"><span class="string">  assigned_user: &#123;</span></span><br><span class="line"><span class="string">   &quot;</span>id<span class="string">&quot; : 42,</span></span><br><span class="line"><span class="string">   &quot;</span>name<span class="string">&quot; : &quot;</span>Jim<span class="string">&quot;,</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>值得提醒的是，这个功能有时候会很复杂，并且可能导致<a href="http://stackoverflow.com/questions/97197/what-is-the-n1-selects-issue">N+1 SELECT 问题</a>。</p>
+<h2 id="重写HTTP方法"><a href="#重写HTTP方法" class="headerlink" title="重写HTTP方法"></a>重写HTTP方法</h2><p>有的客户端只能发出简单的GET 和POST请求。为了照顾他们，我们可以重写HTTP请求。这里没有什么标准，但是一个普遍的方式是接受X-HTTP-Method-Override请求头。</p>
+<h2 id="速度限制"><a href="#速度限制" class="headerlink" title="速度限制"></a>速度限制</h2><p>为了避免请求泛滥，给API设置速度限制很重要。为此 <a href="http://tools.ietf.org/html/rfc6585">RFC 6585</a> 引入了HTTP状态码<a href="http://tools.ietf.org/html/rfc6585#section-4">429（too many requests）</a>。加入速度设置之后，应该提示用户，至于如何提示标准上没有说明，不过流行的方法是使用HTTP的返回头。</p>
+<p>下面是几个必须的返回头（依照twitter的命名规则）：</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">*   X-Rate-<span class="keyword">Limit</span>-<span class="keyword">Limit</span> :当前时间段允许的并发请求数</span><br><span class="line">*   X-Rate-<span class="keyword">Limit</span>-Remaining:当前时间段保留的请求数。</span><br><span class="line">*   X-Rate-<span class="keyword">Limit</span>-<span class="keyword">Reset</span>:当前时间段剩余秒数</span><br></pre></td></tr></table></figure>
+
+<p><strong>为什么使用当前时间段剩余秒数而不是时间戳？</strong></p>
+<p>时间戳保存的信息很多，但是也包含了很多不必要的信息，用户只需要知道还剩几秒就可以再发请求了这样也避免了<a href="http://en.wikipedia.org/wiki/Clock_skew">clock skew问题</a>。</p>
+<p>有些API使用UNIX格式时间戳，我建议不要那么干。为什么？HTTP 已经规定了使用 <a href="http://www.ietf.org/rfc/rfc1123.txt">RFC 1123</a> 时间格式</p>
+<h2 id="鉴权-Authentication"><a href="#鉴权-Authentication" class="headerlink" title="鉴权 Authentication"></a>鉴权 Authentication</h2><p>restful API是无状态的也就是说用户请求的鉴权和cookie以及session无关，每一次请求都应该包含鉴权证明。</p>
+<p>通过使用ssl我们可以不用每次都提供用户名和密码：我们可以给用户返回一个随机产生的token。这样可以极大的方便使用浏览器访问API的用户。这种方法适用于用户可以首先通过一次用户名-密码的验证并得到token，并且可以拷贝返回的token到以后的请求中。如果不方便，可以使用OAuth 2来进行token的安全传输。</p>
+<p>支持jsonp的API需要额外的鉴权方法，因为jsonp请求无法发送普通的credential。这种情况下可以在查询url中添加参数：access_token。注意使用url参数的问题是：目前大部分的网络服务器都会讲query参数保存到服务器日志中，这可能会成为大的安全风险。</p>
+<p>注意上面说到的只是三种传输token的方法，实际传输的token可能是一样的。</p>
+<h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><p>HTTP提供了自带的缓存框架。你需要做的是在返回的时候加入一些返回头信息，在接受输入的时候加入输入验证。基本两种方法：</p>
+<p>**ETag：**当生成请求的时候，在HTTP头里面加入ETag，其中包含请求的校验和和哈希值，这个值和在输入变化的时候也应该变化。如果输入的HTTP请求包含IF-NONE-MATCH头以及一个ETag值，那么API应该返回304 not modified状态码，而不是常规的输出结果。</p>
+<p>**Last-Modified：**和etag一样，只是多了一个时间戳。返回头里的Last-Modified：包含了 <a href="http://www.ietf.org/rfc/rfc1123.txt">RFC 1123</a> 时间戳，它和IF-MODIFIED-SINCE一致。HTTP规范里面有三种date格式，服务器应该都能处理。</p>
+<h2 id="出错处理"><a href="#出错处理" class="headerlink" title="出错处理"></a>出错处理</h2><p>就像html错误页面能够显示错误信息一样，API 也应该能返回可读的错误信息–它应该和一般的资源格式一致。API应该始终返回相应的状态码，以反映服务器或者请求的状态。API的错误码可以分为两部分，400系列和500系列，400系列表明客户端错误：如错误的请求格式等。500系列表示服务器错误。API应该至少将所有的400系列的错误以json形式返回。如果可能500系列的错误也应该如此。json格式的错误应该包含以下信息：一个有用的错误信息，一个唯一的错误码，以及任何可能的详细错误描述。如下：</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;code&quot;</span> : 1234,</span><br><span class="line">  <span class="string">&quot;message&quot;</span> : &quot;<span class="type">Something</span> bad happened :-(<span class="string">&quot;,</span></span><br><span class="line"><span class="string">  &quot;</span>description<span class="string">&quot; : &quot;</span>More details about the error here<span class="string">&quot;</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>对PUT,POST,PATCH的输入的校验也应该返回相应的错误信息，例如：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;<span class="selector-tag">code</span>&quot; : <span class="number">1024</span>,</span><br><span class="line">  <span class="string">&quot;message&quot;</span> : <span class="string">&quot;Validation Failed&quot;</span>,</span><br><span class="line">  <span class="string">&quot;errors&quot;</span> : [</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;<span class="selector-tag">code</span>&quot; : <span class="number">5432</span>,</span><br><span class="line">      <span class="string">&quot;field&quot;</span> : <span class="string">&quot;first_name&quot;</span>,</span><br><span class="line">      <span class="string">&quot;message&quot;</span> : <span class="string">&quot;First name cannot have fancy characters&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">       &quot;<span class="selector-tag">code</span>&quot; : <span class="number">5622</span>,</span><br><span class="line">       <span class="string">&quot;field&quot;</span> : <span class="string">&quot;password&quot;</span>,</span><br><span class="line">       <span class="string">&quot;message&quot;</span> : <span class="string">&quot;Password cannot be blank&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="HTTP-状态码"><a href="#HTTP-状态码" class="headerlink" title="HTTP 状态码"></a>HTTP 状态码</h2><figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">200 </span>ok  - 成功返回状态，对应，<span class="keyword">GET</span>,<span class="keyword">PUT</span>,PATCH,<span class="keyword">DELETE</span>.</span><br><span class="line"><span class="symbol">201 </span>created  - 成功创建。</span><br><span class="line"><span class="symbol">304 </span><span class="keyword">not</span> modified   - HTTP缓存有效。</span><br><span class="line"><span class="symbol">400 </span>bad request   - 请求格式错误。</span><br><span class="line"><span class="symbol">401 </span>unauthorized   - 未授权。</span><br><span class="line"><span class="symbol">403 </span>forbidden   - 鉴权成功，但是该用户没有权限。</span><br><span class="line"><span class="symbol">404 </span><span class="keyword">not</span> found - 请求的资源不存在</span><br><span class="line"><span class="symbol">405 </span>method <span class="keyword">not</span> allowed - 该http方法不被允许。</span><br><span class="line"><span class="symbol">410 </span>gone - 这个url对应的资源现在不可用。</span><br><span class="line"><span class="symbol">415 </span>unsupported media type - 请求类型错误。</span><br><span class="line"><span class="symbol">422 </span>unprocessable entity - 校验错误时用。</span><br><span class="line"><span class="symbol">429 </span>too many request - 请求过多。</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>原文链接：<a href="http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api">Vinay Sahni</a>，编译：感谢<a href="http://www.jobbole.com/members/bruce-accumulate/">@bruce-accumulate</a> 的热心翻译</p>
+<p>译文链接：<a href="http://blog.jobbole.com/41233/">http://blog.jobbole.com/41233/</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Ray
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://leadscloud.github.io/313862/restful-api-%E8%AE%BE%E8%AE%A1%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="restful api 设计最佳实践">https://leadscloud.github.io/313862/restful-api-设计最佳实践/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/API/" rel="tag"># API</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/313851/github-page%E7%BB%91%E5%AE%9A%E4%BA%8C%E7%BA%A7%E5%9F%9F%E5%90%8D/" rel="prev" title="Github Page绑定二级域名">
+                  <i class="fa fa-angle-left"></i> Github Page绑定二级域名
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/313864/lnmp%E4%B8%8Bnginx%E9%85%8D%E7%BD%AEssl%E5%AE%89%E5%85%A8%E8%AF%81%E4%B9%A6%E9%81%BF%E5%85%8D%E5%90%AF%E5%8A%A8%E8%BE%93%E5%85%A5enter-pem-pass-phrase/" rel="next" title="lnmp下nginx配置ssl安全证书避免启动输入enter pem pass phrase">
+                  lnmp下nginx配置ssl安全证书避免启动输入enter pem pass phrase <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="valine-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Ray</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/leadscloud" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/algoliasearch/4.24.0/algoliasearch-lite.umd.js" integrity="sha256-b2n6oSgG4C1stMT/yc/ChGszs9EY/Mhs6oltEjQbFCQ=" crossorigin="anonymous"></script><script src="/js/third-party/search/algolia-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"ePPAQV9hFzcbhOaQvvtyjTnw-gzGzoHsz","app_key":"GLniGVXsSMGBjTmaiI4wleaF","server_url":"https://leancloud.tinycms.xyz","security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+
+
+<script class="next-config" data-name="valine" type="application/json">{"enable":true,"appId":"ePPAQV9hFzcbhOaQvvtyjTnw-gzGzoHsz","appKey":"GLniGVXsSMGBjTmaiI4wleaF","serverURLs":"https://leancloud.tinycms.xyz","placeholder":"Just go go","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-cn","visitor":false,"comment_count":true,"recordIP":true,"enableQQ":true,"requiredFields":[],"el":"#valine-comments","path":"/313862/restful-api-%E8%AE%BE%E8%AE%A1%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.valine.el)
+    .then(() => NexT.utils.getScript(
+      'https://fastly.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js',
+      { condition: window.Valine }
+    ))
+    .then(() => {
+      new Valine(CONFIG.valine);
+    });
+});
+</script>
+
+</body>
+</html>
