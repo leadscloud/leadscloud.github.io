@@ -117,6 +117,7 @@ leancloud_visitors:
   app_id: ePPAQV9hFzcbhOaQvvtyjTnw-gzGzoHsz #<app_id>
   app_key: GLniGVXsSMGBjTmaiI4wleaF #<app_key>
   server_url: https://leancloud.tinycms.xyz
+  security: false
 
 
 # Valine
