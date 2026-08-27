@@ -1,5 +1,5 @@
 ---
-title: GdmSession: no session desktop files installed" after rebooting
+title: GdmSession no session desktop files installed after rebooting
 tags:
   - Ubuntu
 id: 20250506
